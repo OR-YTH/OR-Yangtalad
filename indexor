@@ -1,0 +1,1123 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>กลุ่มงานห้องผ่าตัด โรงพยาบาลยางตลาด</title>
+<meta name="description" content="กลุ่มงานห้องผ่าตัด โรงพยาบาลยางตลาด จ.กาฬสินธุ์ ข้อมูลบริการผ่าตัด มาตรฐานความปลอดภัย สถิติการผ่าตัด และคำแนะนำการปฏิบัติตัวก่อน-หลังผ่าตัด">
+<meta property="og:type" content="website">
+<meta property="og:title" content="กลุ่มงานห้องผ่าตัด โรงพยาบาลยางตลาด">
+<meta property="og:description" content="บริการผ่าตัด มาตรฐานความปลอดภัย สถิติการผ่าตัด และคำแนะนำการปฏิบัติตัวสำหรับผู้ป่วยและญาติ">
+<meta property="og:image" content="https://or-yth.github.io/OR-Yangtalad/logo.png">
+<meta name="theme-color" content="#0A3D62">
+<link rel="icon" type="image/png" href="logo.png">
+<link rel="apple-touch-icon" href="logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Kanit:wght@400;500;600;700;800&family=Noto+Sans+Thai:wght@300;400;500;600;700&family=Sarabun:wght@500;600;700&display=swap" rel="stylesheet">
+<!--
+  เว็บไซต์กลุ่มงานห้องผ่าตัด โรงพยาบาลยางตลาด (v2)
+  เนื้อหาทั้งหมดดึงจาก Google Sheet "เนื้อหาเว็บห้องผ่าตัด รพ.ยางตลาด" — เพิ่ม/แก้/ซ่อนเนื้อหาที่ชีตได้เลย ไม่ต้องแก้ไฟล์นี้
+  สถิติการผ่าตัดดึงตัวเลขสรุปจากระบบทะเบียนห้องผ่าตัด (ไม่มีชื่อหรือ HN ผู้ป่วย)
+  ถ้าโหลดชีตไม่ได้ เว็บจะใช้เนื้อหาสำรองที่ฝังไว้ในไฟล์นี้แทน หน้าเว็บจึงไม่ว่าง
+-->
+<style>
+  :root{
+    --navy:#0A3D62;
+    --navy-deep:#062A45;
+    --blue:#3E92CC;
+    --blue-pale:#EAF4FB;
+    --blue-bright:#2E9CE2;
+    --sky:#F1F9FF;
+    --yellow:#FFC800;
+    --yellow-soft:#FFF3CC;
+    --white:#FFFFFF;
+    --ink:#152B3C;
+    --ink-soft:#4A6178;
+    --line:#DCE7EF;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth; scroll-padding-top:76px;}
+  body{
+    font-family:'Noto Sans Thai', sans-serif;
+    color:var(--ink);
+    background:var(--white);
+    line-height:1.7;
+    overflow-x:hidden;
+  }
+  h1,h2,h3,h4{font-family:'Kanit', sans-serif; line-height:1.25;}
+  .eyebrow{
+    font-family:'Sarabun', sans-serif;
+    font-weight:600;
+    font-size:.78rem;
+    letter-spacing:.12em;
+    color:var(--blue);
+    text-transform:uppercase;
+    display:flex;
+    align-items:center;
+    gap:.5rem;
+  }
+  .eyebrow::before{
+    content:"";
+    width:22px;height:2px;
+    background:var(--yellow);
+    display:inline-block;
+  }
+  a{color:inherit; text-decoration:none;}
+  img{max-width:100%; display:block;}
+  button{font:inherit; color:inherit;}
+  .container{max-width:1180px; margin:0 auto; padding:0 28px;}
+  section{position:relative;}
+  .is-hidden{display:none!important;}
+  :focus-visible{outline:3px solid var(--yellow); outline-offset:2px; border-radius:6px;}
+
+  /* ---------- NAV ---------- */
+  header{
+    position:fixed; top:0; left:0; right:0; z-index:100;
+    background:rgba(10,61,98,0.96);
+    backdrop-filter:blur(6px);
+    transition:.3s;
+  }
+  .nav-wrap{
+    display:flex; align-items:center; justify-content:space-between; gap:20px;
+    padding:14px 28px; max-width:1180px; margin:0 auto;
+  }
+  .brand{display:flex; align-items:center; gap:12px; color:var(--white); min-width:0;}
+  .brand-mark{
+    width:42px; height:42px; border-radius:50%;
+    background:#fff;
+    display:flex; align-items:center; justify-content:center;
+    overflow:hidden; flex-shrink:0;
+    box-shadow:0 0 0 2px rgba(255,255,255,.25);
+  }
+  .brand-mark img{width:100%; height:100%; object-fit:cover;}
+  .brand-text{line-height:1.2; min-width:0;}
+  .brand-text b{font-family:'Kanit'; font-size:1rem; display:block; letter-spacing:.02em; white-space:nowrap;}
+  .brand-text span{font-size:.72rem; color:#BFDCF2;}
+  nav ul{display:flex; gap:26px; list-style:none; align-items:center;}
+  nav a{
+    color:#DCEBF7; font-size:.9rem; font-weight:500;
+    position:relative; padding:6px 0; white-space:nowrap;
+  }
+  nav a:hover{color:var(--yellow);}
+  nav a.nav-staff{border:1px solid rgba(255,255,255,.35); border-radius:999px; padding:5px 14px; font-size:.82rem;}
+  nav a.nav-staff:hover{border-color:var(--yellow);}
+  .nav-cta{
+    background:var(--yellow); color:var(--navy-deep)!important;
+    padding:9px 20px; border-radius:999px; font-weight:600!important; font-size:.85rem!important; white-space:nowrap;
+  }
+  .nav-mobile{display:none;}
+  .burger{display:none; flex-direction:column; gap:5px; cursor:pointer; background:none; border:none; padding:8px;}
+  .burger span{width:24px; height:2px; background:#fff; transition:.25s;}
+  header.open .burger span:nth-child(1){transform:translateY(7px) rotate(45deg);}
+  header.open .burger span:nth-child(2){opacity:0;}
+  header.open .burger span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
+
+  /* ---------- HERO ---------- */
+  .hero{
+    background:
+      radial-gradient(1000px 480px at 88% -8%, rgba(255,200,0,.18), transparent 60%),
+      radial-gradient(900px 500px at -5% 10%, rgba(46,156,226,.18), transparent 55%),
+      linear-gradient(180deg, var(--sky) 0%, var(--white) 100%);
+    color:var(--navy-deep);
+    padding:168px 0 90px;
+    position:relative;
+    overflow:hidden;
+    border-bottom:1px solid var(--line);
+  }
+  .hero-grid{
+    display:grid; grid-template-columns:1.15fr .85fr; gap:50px; align-items:center;
+  }
+  .hero .eyebrow{color:var(--blue-bright);}
+  .hero .eyebrow::before{background:var(--yellow);}
+  .hero h1{
+    font-size:clamp(2.1rem, 4.4vw, 3.4rem);
+    font-weight:800; margin:18px 0 20px; letter-spacing:.01em;
+    color:var(--navy-deep);
+  }
+  .hero h1 em{color:var(--blue-bright); font-style:normal;}
+  .hero p.lead{
+    font-size:1.05rem; color:var(--ink-soft); max-width:520px; margin-bottom:34px;
+  }
+  .hero-actions{display:flex; gap:14px; flex-wrap:wrap;}
+  .btn{
+    display:inline-flex; align-items:center; gap:8px;
+    padding:13px 26px; border-radius:999px; font-weight:600; font-size:.92rem;
+    transition:.25s; cursor:pointer;
+  }
+  .btn-primary{background:var(--yellow); color:var(--navy-deep); box-shadow:0 8px 18px rgba(255,200,0,.35);}
+  .btn-primary:hover{transform:translateY(-2px); box-shadow:0 12px 24px rgba(255,200,0,.45);}
+  .btn-outline{border:1.5px solid var(--blue-bright); color:var(--navy); background:transparent;}
+  .btn-outline:hover{background:var(--blue-pale);}
+
+  .vitals-card{
+    background:rgba(255,255,255,.85);
+    border:1px solid var(--line);
+    border-radius:20px;
+    padding:26px 26px 14px;
+    backdrop-filter:blur(6px);
+    box-shadow:0 20px 45px rgba(10,61,98,.1);
+  }
+  .vitals-head{display:flex; justify-content:space-between; align-items:center; margin-bottom:6px; gap:12px;}
+  .vitals-head b{font-family:'Kanit'; font-size:.95rem; color:var(--navy-deep);}
+  .pulse-dot{width:9px;height:9px;border-radius:50%; flex-shrink:0; background:#22C55E; box-shadow:0 0 0 0 rgba(34,197,94,.6); animation:pulse 1.6s infinite;}
+  @keyframes pulse{
+    0%{box-shadow:0 0 0 0 rgba(34,197,94,.55);}
+    70%{box-shadow:0 0 0 10px rgba(34,197,94,0);}
+    100%{box-shadow:0 0 0 0 rgba(34,197,94,0);}
+  }
+  .ecg-box{width:100%; height:90px; overflow:hidden;}
+  .ecg-box svg{width:200%; height:100%; animation:scroll-ecg 4.5s linear infinite;}
+  @keyframes scroll-ecg{ from{transform:translateX(0);} to{transform:translateX(-50%);} }
+  .vitals-stats{display:grid; grid-template-columns:repeat(var(--n,3),1fr); gap:10px; margin-top:14px; padding-top:16px; border-top:1px solid var(--line);}
+  .vitals-stats div{text-align:center;}
+  .vitals-stats b{display:block; font-family:'Kanit'; font-size:1.15rem; color:var(--blue-bright);}
+  .vitals-stats span{font-size:.72rem; color:var(--ink-soft);}
+
+  /* ---------- divider ---------- */
+  .ecg-divider{width:100%; height:44px; overflow:hidden; background:var(--white);}
+  .ecg-divider svg{width:220%; height:100%; opacity:.6; animation:scroll-ecg 9s linear infinite;}
+  .ecg-divider.navy{background:var(--sky);}
+
+  /* ---------- SECTION generic ---------- */
+  .section{padding:86px 0;}
+  .section-head{max-width:640px; margin-bottom:48px;}
+  .section-head h2{font-size:clamp(1.6rem,3vw,2.3rem); font-weight:700; margin-top:12px; color:var(--navy-deep);}
+  .section-head p{color:var(--ink-soft); margin-top:14px; font-size:1rem;}
+  .bg-tint{background:var(--blue-pale);}
+
+  /* about */
+  .about-grid{display:grid; grid-template-columns:1fr 1fr; gap:50px; align-items:start;}
+  .about-title{font-size:clamp(1.6rem,3vw,2.3rem); font-weight:700; margin-top:12px; color:var(--navy-deep);}
+  .about-text{color:var(--ink-soft); margin-top:18px;}
+  .about-card{
+    background:var(--white); border:1px solid var(--line); border-radius:16px;
+    padding:26px; box-shadow:0 6px 20px rgba(10,61,98,.05);
+  }
+  .about-card h3{font-size:1.05rem; color:var(--navy); margin-bottom:8px; display:flex; align-items:center; gap:10px;}
+  .about-card .ic{width:34px; height:34px; border-radius:9px; background:var(--blue-pale); display:flex; align-items:center; justify-content:center; color:var(--blue); flex-shrink:0;}
+  .about-card p{color:var(--ink-soft); font-size:.92rem;}
+  .about-cards{display:grid; gap:16px;}
+
+  /* services */
+  .svc-grid{display:grid; grid-template-columns:repeat(4,1fr); gap:20px;}
+  .svc-card{
+    background:var(--white); border:1px solid var(--line); border-radius:18px; padding:26px 22px;
+    transition:.25s; position:relative; overflow:hidden;
+  }
+  .svc-card:hover{transform:translateY(-5px); box-shadow:0 16px 30px rgba(10,61,98,.1); border-color:var(--blue);}
+  .svc-card .ic{
+    width:46px; height:46px; border-radius:12px; margin-bottom:16px;
+    background:linear-gradient(135deg,var(--navy),var(--blue)); color:#fff;
+    display:flex; align-items:center; justify-content:center; font-size:1.2rem;
+  }
+  .svc-card h4{font-size:1rem; color:var(--navy-deep); margin-bottom:8px;}
+  .svc-card p{font-size:.85rem; color:var(--ink-soft);}
+
+  /* safety */
+  .safety{
+    background:linear-gradient(180deg, var(--sky), var(--white));
+    color:var(--navy-deep);
+  }
+  .safety .section-head p{color:var(--ink-soft);}
+  .safety .eyebrow{color:var(--blue-bright);}
+  .checklist{display:grid; grid-template-columns:repeat(3,1fr); gap:18px;}
+  .check-step{
+    background:var(--white); border:1px solid var(--line);
+    border-radius:16px; padding:22px;
+    box-shadow:0 10px 26px rgba(10,61,98,.06);
+    border-top:3px solid var(--blue-bright);
+  }
+  .check-step .tag{
+    font-family:'Sarabun'; font-weight:700; font-size:.72rem; letter-spacing:.08em;
+    color:#8A6500; background:var(--yellow-soft); padding:3px 10px; border-radius:999px;
+    text-transform:uppercase; margin-bottom:12px; display:inline-block;
+  }
+  .check-step h4{font-size:1rem; margin-bottom:8px; color:var(--navy-deep);}
+  .check-step p{font-size:.85rem; color:var(--ink-soft);}
+
+  /* team */
+  .team-grid{display:grid; grid-template-columns:repeat(4,1fr); gap:22px;}
+  .team-card{text-align:center;}
+  .team-photo{
+    position:relative;
+    width:100%; aspect-ratio:1/1; border-radius:18px;
+    background:linear-gradient(150deg,var(--blue-pale),#fff);
+    border:1px solid var(--line);
+    display:flex; align-items:center; justify-content:center;
+    color:var(--blue); margin-bottom:14px; overflow:hidden; font-size:3.4rem;
+  }
+  .team-photo img{position:absolute; inset:0; width:100%; height:100%; object-fit:cover;}
+  .team-card h4{font-size:.98rem; color:var(--navy-deep);}
+  .team-card .team-role{font-size:.8rem; color:var(--ink-soft);}
+
+  /* stats */
+  .stats{
+    background:linear-gradient(135deg, var(--navy) 0%, var(--blue-bright) 100%);
+    color:#fff;
+  }
+  .stats .section-head h2{color:#fff;}
+  .stats .section-head p{color:#EAF6FF;}
+  .stats .eyebrow{color:#BFE4FF;}
+  .stats-grid{display:grid; grid-template-columns:repeat(5,1fr); gap:16px; text-align:center; margin-bottom:44px;}
+  .stat{background:rgba(255,255,255,.08); border:1px solid rgba(255,255,255,.18); border-radius:16px; padding:22px 12px;}
+  .stat b{
+    font-family:'Kanit'; font-size:2rem; font-weight:700; color:var(--yellow); display:block; min-height:1.25em;
+    font-variant-numeric:tabular-nums;
+  }
+  .stat span{color:#EAF6FF; font-size:.82rem;}
+  .stat small{display:block; color:#BFE4FF; font-size:.7rem; margin-top:4px;}
+  .stats.wait .stat b{color:transparent; background:linear-gradient(90deg,rgba(255,255,255,.10),rgba(255,255,255,.22),rgba(255,255,255,.10)); background-size:200% 100%; border-radius:8px; width:60%; margin:0 auto; animation:shine 1.2s linear infinite;}
+  @keyframes shine{to{background-position:-200% 0;}}
+
+  .dept-panel{background:rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.16); border-radius:18px; padding:28px 30px;}
+  .dept-panel h3{font-size:1rem; color:#fff; margin-bottom:20px; font-family:'Kanit';}
+  .dept-row{display:grid; grid-template-columns:150px 1fr 50px; align-items:center; gap:14px; margin-bottom:14px; font-size:.86rem;}
+  .dept-row .dept-name{color:#EAF6FF; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;}
+  .dept-row .dept-count{text-align:right; color:var(--yellow); font-family:'Kanit'; font-weight:600;}
+  .dept-track{height:9px; background:rgba(255,255,255,.15); border-radius:999px; overflow:hidden;}
+  .dept-fill{display:block; height:100%; background:linear-gradient(90deg,var(--yellow),#FFE380); border-radius:999px; width:0%; transition:width 1s ease;}
+  .dept-empty{color:#BFE4FF; font-size:.86rem;}
+  .stats-note{margin-top:20px; font-size:.78rem; color:#BFE4FF;}
+
+  /* patient guide */
+  .patient-guide{background:var(--white);}
+  .ptab-bar{display:flex; gap:10px; justify-content:center; flex-wrap:wrap; margin-bottom:34px;}
+  .ptab-btn{
+    padding:10px 22px; border-radius:999px; border:1.5px solid var(--line);
+    background:var(--white); color:var(--ink-soft); font-weight:600; font-size:.88rem; cursor:pointer;
+    transition:.2s;
+  }
+  .ptab-btn:hover{border-color:var(--blue-bright); color:var(--navy);}
+  .ptab-btn.active{background:var(--navy); border-color:var(--navy); color:#fff;}
+  .ptab-panel{display:none;}
+  .ptab-panel.active{display:block;}
+
+  .dz-tools{display:flex; flex-direction:column; align-items:center; gap:14px; margin-bottom:24px;}
+  .dz-search{
+    width:100%; max-width:460px; padding:12px 18px 12px 44px; border-radius:999px;
+    border:1.5px solid var(--line); font:inherit; font-size:.95rem; color:var(--ink);
+    background:#fff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='18' height='18' fill='none' stroke='%234A6178' stroke-width='2' stroke-linecap='round'%3E%3Ccircle cx='8' cy='8' r='6'/%3E%3Cpath d='m13 13 4 4'/%3E%3C/svg%3E") no-repeat 17px center;
+  }
+  .dz-search:focus{outline:none; border-color:var(--blue-bright); box-shadow:0 0 0 4px rgba(46,156,226,.15);}
+  .dz-chips{display:flex; gap:8px; flex-wrap:wrap; justify-content:center;}
+  .dz-chip{padding:6px 14px; border-radius:999px; border:1px solid var(--line); background:var(--white); color:var(--ink-soft); font-size:.82rem; font-weight:500; cursor:pointer;}
+  .dz-chip.active{background:var(--blue-pale); border-color:var(--blue-bright); color:var(--navy);}
+  .dz-empty{text-align:center; color:var(--ink-soft); padding:20px 0;}
+
+  .disease-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:16px;}
+  .disease-card{
+    border:1px solid var(--line); border-radius:14px; padding:18px 20px; cursor:pointer;
+    transition:.2s; background:var(--white); text-align:left; width:100%;
+  }
+  .disease-card:hover{border-color:var(--blue-bright); box-shadow:0 8px 20px rgba(10,61,98,.08);}
+  .disease-card.active{border-color:var(--navy); box-shadow:0 0 0 2px var(--navy) inset;}
+  .disease-card .dept{display:inline-block; font-size:.7rem; font-weight:600; color:var(--blue); background:var(--blue-pale); padding:2px 9px; border-radius:999px; margin-bottom:8px;}
+  .disease-card .dz-title{display:block; font-family:'Kanit'; font-weight:600; font-size:.92rem; line-height:1.25; color:var(--navy-deep); margin-bottom:6px;}
+  .disease-card .dz-short{display:block; font-size:.8rem; color:var(--ink-soft);}
+  .disease-detail{
+    grid-column:1/-1;
+    border:1px solid var(--line); border-radius:16px; padding:24px 26px;
+    background:var(--sky);
+  }
+  .disease-detail h4{color:var(--navy-deep); font-size:1.05rem; margin-bottom:10px;}
+  .disease-detail ul{padding-left:20px; color:var(--ink-soft); font-size:.9rem; display:grid; gap:6px;}
+  .disease-detail .close{float:right; background:none; border:none; font-size:1.4rem; line-height:1; color:var(--ink-soft); cursor:pointer; padding:0 4px;}
+
+  /* faq */
+  .faq{max-width:820px; margin:0 auto;}
+  .faq-item{border-bottom:1px solid var(--line); padding:20px 0;}
+  .faq-q{
+    display:flex; justify-content:space-between; align-items:center; gap:16px; cursor:pointer; width:100%;
+    background:none; border:none; text-align:left;
+    font-family:'Kanit'; font-weight:500; color:var(--navy-deep); font-size:1.02rem;
+  }
+  .faq-q .plus{font-size:1.4rem; color:var(--blue); transition:.25s; flex-shrink:0;}
+  .faq-item.open .plus{transform:rotate(45deg);}
+  .faq-a{display:grid; grid-template-rows:0fr; transition:grid-template-rows .3s ease, margin .3s ease; color:var(--ink-soft); font-size:.92rem;}
+  .faq-a > div{overflow:hidden;}
+  .faq-item.open .faq-a{grid-template-rows:1fr; margin-top:12px;}
+
+  /* news */
+  .news-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:22px;}
+  .news-card{border:1px solid var(--line); border-radius:16px; overflow:hidden; background:#fff;}
+  .news-thumb{height:130px; background:linear-gradient(135deg,var(--navy),var(--blue)); position:relative;}
+  .news-thumb::after{content:""; position:absolute; inset:0; background:repeating-linear-gradient(45deg, rgba(255,255,255,.05) 0 10px, transparent 10px 20px);}
+  .news-thumb.has-img{height:180px;}
+  .news-thumb img{position:absolute; inset:0; width:100%; height:100%; object-fit:cover; z-index:1;}
+  .news-body{padding:20px;}
+  .news-body .date{font-size:.75rem; color:var(--blue); font-weight:600; margin-bottom:6px; display:block;}
+  .news-body h4{font-size:.98rem; color:var(--navy-deep); margin-bottom:8px;}
+  .news-body p{font-size:.85rem; color:var(--ink-soft);}
+  .news-more{text-align:center; margin-top:30px;}
+
+  /* contact */
+  .contact-wrap{display:grid; grid-template-columns:1fr 1fr; gap:50px;}
+  .contact-wrap.single{grid-template-columns:1fr;}
+  .contact-title{font-size:clamp(1.6rem,3vw,2.3rem); font-weight:700; color:var(--navy-deep); margin:12px 0 26px;}
+  .contact-list{display:grid; gap:18px;}
+  .contact-item{display:flex; gap:16px; align-items:flex-start;}
+  .contact-item .ic{
+    width:42px; height:42px; border-radius:11px; background:var(--white);
+    color:var(--navy); display:flex; align-items:center; justify-content:center; flex-shrink:0;
+  }
+  .contact-item h4{font-size:.95rem; color:var(--navy-deep); margin-bottom:2px;}
+  .contact-item p{font-size:.88rem; color:var(--ink-soft);}
+  .contact-item a{color:var(--navy); font-weight:600; border-bottom:1px dashed var(--blue);}
+  .map-frame{
+    border-radius:18px; overflow:hidden; border:1px solid var(--line); min-height:340px;
+    background:linear-gradient(160deg,var(--blue-pale),#fff); position:relative;
+  }
+  .map-frame iframe{position:absolute; inset:0; width:100%; height:100%; border:0;}
+  .map-open{position:absolute; right:12px; bottom:12px; z-index:1; background:#fff; color:var(--navy); font-size:.8rem; font-weight:600; padding:7px 14px; border-radius:999px; box-shadow:0 4px 14px rgba(10,61,98,.18);}
+
+  footer{background:var(--navy-deep); color:#B9D6EE; padding:50px 0 26px; font-size:.85rem;}
+  .footer-grid{display:grid; grid-template-columns:1.4fr 1fr 1fr; gap:40px; margin-bottom:34px;}
+  .footer-grid h4{color:#fff; font-family:'Kanit'; font-size:.95rem; margin-bottom:14px;}
+  .footer-grid ul{list-style:none; display:grid; gap:10px;}
+  .footer-grid a:hover{color:var(--yellow);}
+  .footer-bottom{border-top:1px solid rgba(255,255,255,.1); padding-top:20px; text-align:center; color:#7FA5C4; font-size:.8rem;}
+
+  /* reveal animation */
+  .reveal{opacity:0; transform:translateY(24px); transition:opacity .7s ease, transform .7s ease;}
+  .reveal.in{opacity:1; transform:translateY(0);}
+
+  @media (max-width:1240px){
+    nav ul{gap:18px;}
+    nav a{font-size:.86rem;}
+  }
+  @media (max-width:1099px){
+    nav ul, .nav-cta{display:none;}
+    .burger{display:flex;}
+    header.open nav ul{
+      display:flex; position:fixed; top:70px; left:0; right:0; background:#0A3D62;
+      flex-direction:column; align-items:flex-start; padding:16px 28px 22px; gap:14px;
+      box-shadow:0 12px 24px rgba(0,0,0,.2);
+    }
+    header.open nav a{font-size:1rem;}
+    .nav-mobile{display:list-item;}
+  }
+  @media (max-width:980px){
+    .hero{padding:130px 0 70px;}
+    .hero-grid{grid-template-columns:1fr;}
+    .about-grid, .contact-wrap{grid-template-columns:1fr;}
+    .svc-grid, .team-grid{grid-template-columns:repeat(2,1fr);}
+    .checklist, .news-grid{grid-template-columns:1fr;}
+    .stats-grid{grid-template-columns:repeat(2,1fr);}
+    .stats-grid .stat:first-child{grid-column:1/-1;}
+    .disease-grid{grid-template-columns:1fr;}
+    .dept-row{grid-template-columns:100px 1fr 40px; gap:8px; font-size:.78rem;}
+    .footer-grid{grid-template-columns:1fr; gap:28px;}
+  }
+  @media (max-width:520px){
+    .container, .nav-wrap{padding-left:18px; padding-right:18px;}
+    .section{padding:64px 0;}
+    .svc-grid{grid-template-columns:1fr;}
+    .team-grid{gap:14px;}
+    .brand-text b{font-size:.92rem;}
+  }
+  @media (prefers-reduced-motion: reduce){
+    html{scroll-behavior:auto;}
+    .ecg-box svg, .ecg-divider svg, .pulse-dot, .stats.wait .stat b{animation:none!important;}
+    .reveal{opacity:1; transform:none; transition:none;}
+    .dept-fill, .faq-a{transition:none;}
+  }
+</style>
+</head>
+<body>
+
+<header id="site-header">
+  <div class="nav-wrap">
+    <a class="brand" href="#top">
+      <div class="brand-mark"><img src="logo.png" alt="โลโก้โรงพยาบาลยางตลาด" width="42" height="42"></div>
+      <div class="brand-text">
+        <b data-s="ชื่อหน่วยงาน">กลุ่มงานห้องผ่าตัด</b>
+        <span data-s="ชื่อโรงพยาบาล">โรงพยาบาลยางตลาด</span>
+      </div>
+    </a>
+    <nav aria-label="เมนูหลัก">
+      <ul id="nav-list">
+        <li><a href="#about">เกี่ยวกับเรา</a></li>
+        <li data-for="services"><a href="#services">บริการ</a></li>
+        <li data-for="safety"><a href="#safety">มาตรฐานความปลอดภัย</a></li>
+        <li><a href="#stats">สถิติการผ่าตัด</a></li>
+        <li data-for="team"><a href="#team">บุคลากร</a></li>
+        <li data-for="patient-guide"><a href="#patient-guide">คำแนะนำผู้รับบริการ</a></li>
+        <li data-for="news"><a href="#news">ข่าวสาร</a></li>
+        <li class="nav-mobile"><a href="#contact">ติดต่อเรา</a></li>
+        <li class="is-hidden" id="nav-staff"><a class="nav-staff" href="#" target="_blank" rel="noopener">🔒 เจ้าหน้าที่</a></li>
+      </ul>
+    </nav>
+    <a href="#contact" class="nav-cta">ติดต่อเรา</a>
+    <button class="burger" id="burger" aria-label="เปิดเมนู" aria-expanded="false" aria-controls="nav-list"><span></span><span></span><span></span></button>
+  </div>
+</header>
+
+<main id="top">
+<section class="hero">
+  <div class="container hero-grid">
+    <div>
+      <span class="eyebrow" id="hero-eyebrow">กลุ่มงานห้องผ่าตัด · โรงพยาบาลยางตลาด</span>
+      <h1 id="hero-title">ดูแลทุกวินาที <em>ในห้องผ่าตัด</em><br>ด้วยมาตรฐานและหัวใจของทีม</h1>
+      <p class="lead" id="hero-lead"></p>
+      <div class="hero-actions">
+        <a href="#contact" class="btn btn-primary">นัดหมาย / สอบถามข้อมูล</a>
+        <a href="#patient-guide" class="btn btn-outline">คำแนะนำสำหรับผู้รับบริการ</a>
+      </div>
+    </div>
+    <div class="vitals-card">
+      <div class="vitals-head">
+        <b>ห้องผ่าตัด · สถานะพร้อมให้บริการ</b>
+        <span class="pulse-dot"></span>
+      </div>
+      <div class="ecg-box" aria-hidden="true">
+        <svg viewBox="0 0 600 100" preserveAspectRatio="none">
+          <polyline fill="none" stroke="#4ADE80" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"
+            points="0,50 40,50 55,50 65,20 75,80 85,50 100,50 140,50 155,50 165,20 175,80 185,50 200,50
+                    300,50 340,50 355,50 365,20 375,80 385,50 400,50 440,50 455,50 465,20 475,80 485,50 500,50 600,50" />
+        </svg>
+      </div>
+      <div class="vitals-stats" id="vitals"></div>
+    </div>
+  </div>
+</section>
+
+<div class="ecg-divider navy" aria-hidden="true">
+  <svg viewBox="0 0 600 40" preserveAspectRatio="none">
+    <polyline fill="none" stroke="#3E92CC" stroke-width="1.6"
+      points="0,20 60,20 75,20 85,6 95,34 105,20 120,20 300,20 360,20 375,20 385,6 395,34 405,20 420,20 600,20
+              660,20 675,20 685,6 695,34 705,20 720,20 900,20 960,20 975,20 985,6 995,34 1005,20 1020,20 1200,20"/>
+  </svg>
+</div>
+
+<section id="about" class="section">
+  <div class="container about-grid">
+    <div class="reveal">
+      <span class="eyebrow">เกี่ยวกับกลุ่มงาน</span>
+      <h2 class="about-title" data-s="เกี่ยวกับ หัวข้อ"></h2>
+      <p class="about-text" data-s="เกี่ยวกับ ข้อความ"></p>
+    </div>
+    <div class="about-cards reveal">
+      <div class="about-card" id="card-vision">
+        <h3><span class="ic">◎</span> วิสัยทัศน์</h3>
+        <p data-s="วิสัยทัศน์"></p>
+      </div>
+      <div class="about-card" id="card-mission">
+        <h3><span class="ic">✚</span> พันธกิจ</h3>
+        <p data-s="พันธกิจ"></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="services" class="section bg-tint">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow">ขอบเขตบริการ</span>
+      <h2>ศัลยกรรมที่ให้บริการ</h2>
+      <p>ครอบคลุมการผ่าตัดหลากหลายสาขา โดยแพทย์เฉพาะทางและทีมพยาบาลห้องผ่าตัดที่มีประสบการณ์</p>
+    </div>
+    <div class="svc-grid reveal" id="svc-grid"></div>
+  </div>
+</section>
+
+<section id="safety" class="section safety">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow">มาตรฐานความปลอดภัย</span>
+      <h2>ทุกการผ่าตัด ผ่าน <span id="safety-count">3</span> ขั้นตอนตรวจสอบเสมอ</h2>
+      <p>เรายึดหลัก WHO Surgical Safety Checklist ควบคู่กับระบบควบคุมการติดเชื้อของโรงพยาบาล เพื่อลดความเสี่ยงในทุกจุดของกระบวนการผ่าตัด</p>
+    </div>
+    <div class="checklist reveal" id="checklist"></div>
+  </div>
+</section>
+
+<section id="team" class="section">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow">บุคลากร</span>
+      <h2>ทีมสหวิชาชีพห้องผ่าตัด</h2>
+      <p>ทีมงานที่ผ่านการฝึกอบรมเฉพาะทางด้านการพยาบาลห้องผ่าตัดและวิสัญญี</p>
+    </div>
+    <div class="team-grid reveal" id="team-grid"></div>
+  </div>
+</section>
+
+<section id="stats" class="section stats wait" aria-busy="true">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow">ข้อมูลผ่าตัด</span>
+      <h2>สถิติการผ่าตัดประจำเดือน</h2>
+      <p id="stats-sub">สรุปจำนวนเคสผ่าตัด จำแนกตามประเภทและแผนก ดึงจากระบบทะเบียนห้องผ่าตัดโดยอัตโนมัติ เป็นตัวเลขรวมเท่านั้น ไม่มีข้อมูลระบุตัวผู้ป่วย</p>
+    </div>
+    <div class="stats-grid reveal" id="stat-cards">
+      <div class="stat"><b data-k="total">–</b><span>ผ่าตัดทั้งหมด</span><small>เคส/เดือน</small></div>
+      <div class="stat"><b data-k="emergency">–</b><span>ผ่าตัดฉุกเฉิน</span><small>เคส/เดือน</small></div>
+      <div class="stat"><b data-k="offHours">–</b><span>ผ่าตัดนอกเวลา</span><small>เคส/เดือน</small></div>
+      <div class="stat"><b data-k="ods">–</b><span>ผ่าตัดแบบ ODS</span><small>One Day Surgery</small></div>
+      <div class="stat"><b data-k="mis">–</b><span>ผ่าตัดแบบ MIS</span><small>Minimally Invasive</small></div>
+    </div>
+    <div class="dept-panel reveal">
+      <h3>จำนวนผ่าตัดแยกตามแผนก (เดือนนี้)</h3>
+      <div id="dept-list"><p class="dept-empty">กำลังโหลด…</p></div>
+    </div>
+    <p class="stats-note" id="stats-note">กำลังโหลดข้อมูลสดจากระบบทะเบียนห้องผ่าตัด…</p>
+  </div>
+</section>
+
+<section id="patient-guide" class="section patient-guide">
+  <div class="container">
+    <div class="section-head reveal" style="margin-left:auto; margin-right:auto; text-align:center;">
+      <span class="eyebrow" style="justify-content:center;">สำหรับผู้รับบริการ</span>
+      <h2>คำแนะนำการปฏิบัติตัว</h2>
+      <p>ข้อมูลสำหรับผู้ป่วยและญาติ ก่อนผ่าตัด หลังผ่าตัด และการปฏิบัติตัวเฉพาะโรค</p>
+    </div>
+    <div class="ptab-bar reveal" id="ptab-bar" role="tablist"></div>
+    <div id="ptab-panels"></div>
+  </div>
+</section>
+
+<section id="news" class="section">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow">ข่าวสารและกิจกรรม</span>
+      <h2>ความเคลื่อนไหวของกลุ่มงาน</h2>
+    </div>
+    <div class="news-grid reveal" id="news-grid"></div>
+    <div class="news-more is-hidden" id="news-more"><button class="btn btn-outline" type="button">ดูข่าวเพิ่มเติม</button></div>
+  </div>
+</section>
+
+<section id="contact" class="section bg-tint">
+  <div class="container contact-wrap" id="contact-wrap">
+    <div class="reveal">
+      <span class="eyebrow">ติดต่อเรา</span>
+      <h2 class="contact-title">ติดต่อ<span data-s="ชื่อหน่วยงาน">กลุ่มงานห้องผ่าตัด</span></h2>
+      <div class="contact-list">
+        <div class="contact-item" id="c-address">
+          <div class="ic">📍</div>
+          <div><h4>ที่อยู่</h4><p data-s="ที่อยู่"></p></div>
+        </div>
+        <div class="contact-item" id="c-phone">
+          <div class="ic">📞</div>
+          <div><h4>โทรศัพท์</h4><p id="c-phone-text"></p></div>
+        </div>
+        <div class="contact-item" id="c-hours">
+          <div class="ic">🕐</div>
+          <div><h4>เวลาทำการ</h4><p data-s="เวลาทำการ"></p></div>
+        </div>
+      </div>
+    </div>
+    <div class="map-frame reveal" id="map-frame"></div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <div style="display:flex; align-items:center; gap:12px; margin-bottom:14px;">
+          <img src="logo.png" alt="" width="44" height="44" style="width:44px; height:44px; border-radius:50%; background:#fff;">
+          <h4 style="margin:0;" id="foot-name">กลุ่มงานห้องผ่าตัด โรงพยาบาลยางตลาด</h4>
+        </div>
+        <p style="max-width:320px; color:#9FC1DD;" data-s="ข้อความส่วนท้าย"></p>
+      </div>
+      <div>
+        <h4>เมนู</h4>
+        <ul>
+          <li><a href="#about">เกี่ยวกับเรา</a></li>
+          <li data-for="services"><a href="#services">บริการ</a></li>
+          <li data-for="patient-guide"><a href="#patient-guide">คำแนะนำผู้รับบริการ</a></li>
+          <li class="is-hidden" id="foot-staff"><a href="#" target="_blank" rel="noopener">สำหรับเจ้าหน้าที่</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>ติดต่อ</h4>
+        <ul>
+          <li id="foot-phone" class="is-hidden"></li>
+          <li data-s="ที่อยู่"></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">© <span id="year">2569</span> <span id="foot-copy">กลุ่มงานห้องผ่าตัด โรงพยาบาลยางตลาด</span> · สงวนลิขสิทธิ์</div>
+  </div>
+</footer>
+
+<script>
+(function () {
+  'use strict';
+
+  /* ==================== ตั้งค่า (ปกติไม่ต้องแก้) ====================
+     CONTENT_SHEET_ID = รหัสของ Google Sheet เนื้อหาเว็บ (ส่วนที่อยู่ระหว่าง /d/ กับ /edit ในลิงก์ชีต)
+     STATS_URL        = ลิงก์ข้อมูลสรุปจากระบบทะเบียนห้องผ่าตัด (ถ้า Deploy ทะเบียนใหม่แล้วลิงก์เปลี่ยน ให้แก้ตรงนี้) */
+  var CONTENT_SHEET_ID = '1BOz9uPOJTnbdfs0JJFXx5noSZBoh3pV5bBQ75nmyhow';
+  var STATS_URL = 'https://script.google.com/macros/s/AKfycbxeAri5DipAT4djf5B-13iWhuk8JotXMQTlraj_hMqkQIDDAGTPNVXTAs8b8y5xWbKs_g/exec?action=publicStats';
+
+  // รหัสแผนกในระบบทะเบียน → ชื่อที่แสดง
+  var DEPT_LABELS = { gen: 'ศัลยกรรมทั่วไป', obgyn: 'สูติ-นรีเวชกรรม', ortho: 'ออร์โธปิดิกส์', ent: 'หู คอ จมูก', eye: 'จักษุ' };
+  var TH_MONTHS = ['มกราคม', 'กุมภาพันธ์', 'มีนาคม', 'เมษายน', 'พฤษภาคม', 'มิถุนายน', 'กรกฎาคม', 'สิงหาคม', 'กันยายน', 'ตุลาคม', 'พฤศจิกายน', 'ธันวาคม'];
+
+  // แท็บในชีต และหัวคอลัมน์ที่ต้องมี (ถ้าหัวคอลัมน์หาย เว็บจะใช้เนื้อหาสำรองของแท็บนั้นแทน)
+  var REQUIRED = {
+    'ตั้งค่า': ['รายการ', 'ข้อความ'],
+    'ตัวเลขเด่น': ['ตัวเลข', 'คำอธิบาย', 'แสดง'],
+    'บริการ': ['ชื่อบริการ', 'รายละเอียด', 'แสดง'],
+    'ความปลอดภัย': ['ขั้นตอน', 'รายละเอียด', 'แสดง'],
+    'ทีมงาน': ['ชื่อหรือตำแหน่ง', 'แสดง'],
+    'คำถาม': ['หมวด', 'คำถาม', 'คำตอบ', 'แสดง'],
+    'รายโรค': ['ชื่อเรื่อง', 'ข้อปฏิบัติ', 'แสดง'],
+    'ข่าวสาร': ['หัวข้อ', 'แสดง']
+  };
+  var TABS = Object.keys(REQUIRED);
+
+  // เนื้อหาสำรอง (สำเนาจากชีต ณ วันที่สร้างไฟล์) ใช้เมื่อโหลดชีตไม่ได้
+  var FALLBACK = {"ตั้งค่า":[{"รายการ":"ชื่อหน่วยงาน","ข้อความ":"กลุ่มงานห้องผ่าตัด","คำอธิบาย":"แสดงบนแถบเมนูและส่วนท้าย"},{"รายการ":"ชื่อโรงพยาบาล","ข้อความ":"โรงพยาบาลยางตลาด","คำอธิบาย":null},{"รายการ":"หัวข้อหลัก","ข้อความ":"ดูแลทุกวินาที [ในห้องผ่าตัด]\nด้วยมาตรฐานและหัวใจของทีม","คำอธิบาย":"ข้อความใน [ ] จะเป็นสีเน้น"},{"รายการ":"คำโปรย","ข้อความ":"ทีมสหวิชาชีพห้องผ่าตัดของเรา ให้บริการผ่าตัดอย่างปลอดภัย แม่นยำ และใส่ใจผู้ป่วยในทุกขั้นตอน ตั้งแต่ก่อน ระหว่าง จนถึงหลังการผ่าตัด","คำอธิบาย":null},{"รายการ":"เกี่ยวกับ หัวข้อ","ข้อความ":"พื้นที่ปลอดภัยที่สุดของโรงพยาบาล คือที่ที่เรายืนทำงานทุกวัน","คำอธิบาย":null},{"รายการ":"เกี่ยวกับ ข้อความ","ข้อความ":"กลุ่มงานห้องผ่าตัด โรงพยาบาลยางตลาด ให้บริการผ่าตัดครอบคลุมสาขาศัลยกรรมหลัก โดยทีมสหวิชาชีพที่ผ่านการฝึกอบรมเฉพาะทาง พร้อมเครื่องมือและระบบควบคุมคุณภาพตามมาตรฐานสากล เพื่อความปลอดภัยสูงสุดของผู้ป่วยทุกราย","คำอธิบาย":null},{"รายการ":"วิสัยทัศน์","ข้อความ":"เป็นกลุ่มงานห้องผ่าตัดที่ได้มาตรฐาน ปลอดภัย และเป็นที่ไว้วางใจของผู้รับบริการในเขตอำเภอยางตลาดและใกล้เคียง","คำอธิบาย":null},{"รายการ":"พันธกิจ","ข้อความ":"ให้บริการผ่าตัดด้วยมาตรฐานวิชาชีพ ควบคุมการติดเชื้อ ลดความเสี่ยง และพัฒนาศักยภาพบุคลากรอย่างต่อเนื่อง","คำอธิบาย":null},{"รายการ":"ที่อยู่","ข้อความ":"โรงพยาบาลยางตลาด อำเภอยางตลาด จังหวัดกาฬสินธุ์","คำอธิบาย":null},{"รายการ":"โทรศัพท์","ข้อความ":null,"คำอธิบาย":"ว่างไว้ = ไม่แสดง ใส่เบอร์จริงแล้วจะขึ้นเว็บเอง"},{"รายการ":"เวลาทำการ","ข้อความ":"ห้องผ่าตัดตามนัด: จันทร์–ศุกร์ 08.30–16.30 น.\nห้องผ่าตัดฉุกเฉิน: ตลอด 24 ชั่วโมง","คำอธิบาย":null},{"รายการ":"แผนที่","ข้อความ":"โรงพยาบาลยางตลาด","คำอธิบาย":"คำค้นหาสถานที่ใน Google Maps"},{"รายการ":"ลิงก์ระบบเจ้าหน้าที่","ข้อความ":null,"คำอธิบาย":"ว่างไว้ = ไม่แสดงปุ่ม \"สำหรับเจ้าหน้าที่\""},{"รายการ":"ข้อความส่วนท้าย","ข้อความ":"ดูแลด้วยมาตรฐาน ปลอดภัยด้วยหัวใจ ทีมสหวิชาชีพห้องผ่าตัดพร้อมให้บริการผู้ป่วยทุกราย","คำอธิบาย":null}],"ตัวเลขเด่น":[{"ตัวเลข":"6","คำอธิบาย":"ห้องผ่าตัด","แสดง":false},{"ตัวเลข":"24/7","คำอธิบาย":"ห้องผ่าตัดฉุกเฉิน","แสดง":true},{"ตัวเลข":"98%","คำอธิบาย":"ความพึงพอใจผู้ป่วย","แสดง":false}],"บริการ":[{"ไอคอน":"✚","ชื่อบริการ":"ศัลยกรรมทั่วไป","รายละเอียด":"ผ่าตัดไส้ติ่ง ถุงน้ำดี ไส้เลื่อน และหัตถการศัลยกรรมพื้นฐาน","แสดง":true},{"ไอคอน":"♀","ชื่อบริการ":"สูติ-นรีเวชกรรม","รายละเอียด":"ผ่าตัดคลอด และหัตถการทางนรีเวชสำหรับผู้ป่วยหญิง","แสดง":true},{"ไอคอน":"🦴","ชื่อบริการ":"ออร์โธปิดิกส์","รายละเอียด":"ผ่าตัดกระดูกและข้อ กรณีอุบัติเหตุและโรคทางกระดูก","แสดง":true},{"ไอคอน":"⏱","ชื่อบริการ":"ห้องผ่าตัดฉุกเฉิน","รายละเอียด":"พร้อมให้บริการตลอด 24 ชั่วโมง สำหรับผู้ป่วยวิกฤต","แสดง":true}],"ความปลอดภัย":[{"ช่วงเวลา":"ก่อนนำสลบ","ขั้นตอน":"Sign In","รายละเอียด":"ยืนยันตัวผู้ป่วย ตำแหน่งผ่าตัด และประวัติแพ้ยาก่อนเริ่มกระบวนการ","แสดง":true},{"ช่วงเวลา":"ก่อนลงมีด","ขั้นตอน":"Time Out","รายละเอียด":"ทีมผ่าตัดยืนยันร่วมกันครั้งสุดท้ายก่อนเริ่มการผ่าตัดทุกครั้ง","แสดง":true},{"ช่วงเวลา":"ก่อนออกห้องผ่าตัด","ขั้นตอน":"Sign Out","รายละเอียด":"ตรวจนับอุปกรณ์และผ้าก๊อซ พร้อมสรุปแผนดูแลหลังผ่าตัด","แสดง":true}],"ทีมงาน":[{"ไอคอน":"👨‍⚕️","ชื่อหรือตำแหน่ง":"ศัลยแพทย์ทั่วไป","หน้าที่":"ทีมแพทย์ผ่าตัด","ลิงก์รูป":null,"แสดง":true},{"ไอคอน":"👩‍⚕️","ชื่อหรือตำแหน่ง":"วิสัญญีพยาบาล","หน้าที่":"ทีมระงับความรู้สึก","ลิงก์รูป":null,"แสดง":true},{"ไอคอน":"👨‍⚕️","ชื่อหรือตำแหน่ง":"พยาบาลเครื่องมือ","หน้าที่":"Scrub Nurse","ลิงก์รูป":null,"แสดง":true},{"ไอคอน":"👩‍⚕️","ชื่อหรือตำแหน่ง":"พยาบาลเวียน","หน้าที่":"Circulating Nurse","ลิงก์รูป":null,"แสดง":true}],"คำถาม":[{"หมวด":"ก่อนผ่าตัด","คำถาม":"ต้องงดน้ำงดอาหารก่อนผ่าตัดกี่ชั่วโมง?","คำตอบ":"โดยทั่วไปควรงดอาหารและน้ำอย่างน้อย 6-8 ชั่วโมงก่อนผ่าตัด ทั้งนี้ขึ้นอยู่กับคำแนะนำของแพทย์และวิสัญญีแพทย์ในแต่ละราย","แสดง":true},{"หมวด":"ก่อนผ่าตัด","คำถาม":"ควรเตรียมเอกสารอะไรมาในวันผ่าตัด?","คำตอบ":"บัตรประชาชน บัตรนัด ผลตรวจทางห้องปฏิบัติการ (ถ้ามี) และเอกสารสิทธิการรักษาพยาบาล","แสดง":true},{"หมวด":"ก่อนผ่าตัด","คำถาม":"ควรงดยาชนิดใดก่อนผ่าตัดหรือไม่?","คำตอบ":"ยาบางชนิด เช่น ยาละลายลิ่มเลือด ควรแจ้งแพทย์ล่วงหน้า และปฏิบัติตามคำแนะนำของแพทย์อย่างเคร่งครัด","แสดง":true},{"หมวด":"ก่อนผ่าตัด","คำถาม":"ญาติสามารถรอที่ไหนระหว่างผ่าตัด?","คำตอบ":"มีพื้นที่พักคอยสำหรับญาติบริเวณหน้าห้องผ่าตัด พร้อมระบบแจ้งความคืบหน้าจากทีมพยาบาล","แสดง":true},{"หมวด":"หลังผ่าตัด","คำถาม":"หลังผ่าตัดต้องพักฟื้นที่ใด?","คำตอบ":"ผู้ป่วยจะถูกย้ายไปพักฟื้นที่ห้องพักฟื้น (Recovery Room) ภายใต้การดูแลอย่างใกล้ชิดก่อนย้ายกลับหอผู้ป่วย","แสดง":true},{"หมวด":"หลังผ่าตัด","คำถาม":"เมื่อกลับบ้านแล้ว ดูแลแผลผ่าตัดอย่างไร?","คำตอบ":"รักษาแผลให้แห้งและสะอาด สังเกตอาการบวมแดงหรือมีหนอง หากพบความผิดปกติให้รีบกลับมาพบแพทย์","แสดง":true},{"หมวด":"หลังผ่าตัด","คำถาม":"ควรงดกิจกรรมใดหลังผ่าตัด?","คำตอบ":"หลีกเลี่ยงการยกของหนักและออกแรงบริเวณแผลผ่าตัด จนกว่าแพทย์จะอนุญาตในวันนัดติดตามอาการ","แสดง":true},{"หมวด":"หลังผ่าตัด","คำถาม":"ควรกลับมาพบแพทย์เมื่อใด?","คำตอบ":"ตามวันนัดที่ระบุในใบนัด หรือทันทีหากมีไข้สูง ปวดแผลรุนแรง หรือแผลมีเลือดออกผิดปกติ","แสดง":true}],"รายโรค":[{"ชื่อเรื่อง":"ผ่าตัดไส้ติ่ง","แผนก":"ศัลยกรรมทั่วไป","คำอธิบายสั้น":"การปฏิบัติตัวก่อน-หลังผ่าตัดไส้ติ่งอักเสบ","ข้อปฏิบัติ":"งดน้ำงดอาหารตามเวลาที่แพทย์กำหนดก่อนผ่าตัด\nหลังผ่าตัดค่อย ๆ เริ่มรับประทานอาหารอ่อนตามคำแนะนำพยาบาล\nสังเกตแผลผ่าตัด หากบวมแดงหรือมีไข้ให้รีบพบแพทย์\nงดยกของหนักอย่างน้อย 2-4 สัปดาห์","แสดง":true},{"ชื่อเรื่อง":"ผ่าตัดคลอด (C-Section)","แผนก":"สูติ-นรีเวชกรรม","คำอธิบายสั้น":"การดูแลตนเองสำหรับคุณแม่หลังผ่าตัดคลอด","ข้อปฏิบัติ":"ลุกเดินเบา ๆ ภายใน 24 ชั่วโมงแรกเพื่อลดความเสี่ยงลิ่มเลือดอุดตัน\nดูแลความสะอาดแผลผ่าตัดตามคำแนะนำของพยาบาล\nงดยกของหนักเกินน้ำหนักลูกอย่างน้อย 6 สัปดาห์\nสังเกตอาการผิดปกติ เช่น เลือดออกมาก ไข้สูง ปวดแผลรุนแรง","แสดง":true},{"ชื่อเรื่อง":"ผ่าตัดกระดูกและข้อ","แผนก":"ออร์โธปิดิกส์","คำอธิบายสั้น":"การปฏิบัติตัวหลังผ่าตัดออร์โธปิดิกส์","ข้อปฏิบัติ":"ฝึกขยับข้อตามโปรแกรมกายภาพบำบัดที่ได้รับ\nใช้อุปกรณ์ช่วยเดินตามคำแนะนำจนกว่าแพทย์จะอนุญาตให้ลงน้ำหนักเต็มที่\nระวังการหกล้มบริเวณที่ผ่าตัด\nมาตามนัดเพื่อติดตามผลเอกซเรย์และแผล","แสดง":true}],"ข่าวสาร":[{"วันที่":"15 กรกฎาคม 2569","หัวข้อ":"อบรมฟื้นฟู Surgical Safety Checklist ประจำปี","รายละเอียด":"ทีมห้องผ่าตัดเข้าร่วมอบรมทบทวนมาตรฐานความปลอดภัยในการผ่าตัด","ลิงก์รูป":null,"แสดง":false},{"วันที่":"2 มิถุนายน 2569","หัวข้อ":"ปรับปรุงห้องผ่าตัดหมายเลข 3","รายละเอียด":"ติดตั้งอุปกรณ์ผ่าตัดรุ่นใหม่เพื่อเพิ่มประสิทธิภาพการให้บริการ","ลิงก์รูป":null,"แสดง":false},{"วันที่":"18 พฤษภาคม 2569","หัวข้อ":"รับรางวัลหน่วยงานควบคุมการติดเชื้อดีเด่น","รายละเอียด":"กลุ่มงานห้องผ่าตัดได้รับการยกย่องด้านมาตรฐานป้องกันการติดเชื้อ","ลิงก์รูป":null,"แสดง":false}]};
+
+  var CACHE_KEY = 'or-yth-content-v1';
+
+  /* ==================== เครื่องมือช่วย ==================== */
+  function $(id) { return document.getElementById(id); }
+  function esc(s) {
+    return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) {
+      return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
+    });
+  }
+  function txt(s) { return esc(s).replace(/\r?\n/g, '<br>'); }
+  function val(row, key) { var v = row && row[key]; return v == null ? '' : String(v).trim(); }
+  function isShown(v) { return v === true || /^(true|1|y|yes|ใช่|แสดง|✓|✔)$/i.test(String(v == null ? '' : v).trim()); }
+  function visible(rows, key) { return (rows || []).filter(function (r) { return isShown(r['แสดง']) && val(r, key); }); }
+  function safeUrl(u) { u = String(u || '').trim(); return /^https:\/\/[^\s"'<>`]+$/i.test(u) ? u : ''; }
+  function imgUrl(u) {
+    u = safeUrl(u);
+    if (!u) return '';
+    var m = u.match(/drive\.google\.com\/(?:file\/d\/|open\?id=|uc\?(?:export=\w+&)?id=|thumbnail\?id=)([\w-]{20,})/);
+    return m ? 'https://drive.google.com/thumbnail?id=' + m[1] + '&sz=w1000' : u;
+  }
+  function headKey(label) { return String(label || '').replace(/\s*\(.*$/, '').trim(); }
+  function setText(el, s) { if (el) el.textContent = s; }
+  function toggle(el, show) { if (el) el.classList.toggle('is-hidden', !show); }
+
+  /* ==================== แสดงผลเนื้อหา ==================== */
+  var state = { faqTab: null, dzQuery: '', dzDept: '', newsAll: false };
+  var lastRendered = '', current = null;
+
+  function settings(rows) {
+    var m = {};
+    (rows || []).forEach(function (r) { var k = val(r, 'รายการ'); if (k) m[k] = val(r, 'ข้อความ'); });
+    var fb = {};
+    (FALLBACK['ตั้งค่า'] || []).forEach(function (r) { fb[val(r, 'รายการ')] = val(r, 'ข้อความ'); });
+    // ช่องที่ต้องมีเสมอ ถ้าว่างใช้ค่าสำรอง
+    ['ชื่อหน่วยงาน', 'ชื่อโรงพยาบาล', 'หัวข้อหลัก'].forEach(function (k) { if (!m[k]) m[k] = fb[k] || ''; });
+    // ถ้าแถวไหนถูกลบออกจากชีต ใช้ค่าสำรอง
+    Object.keys(fb).forEach(function (k) { if (!(k in m)) m[k] = fb[k]; });
+    return m;
+  }
+
+  function renderAll(T) {
+    var S = settings(T['ตั้งค่า']);
+    var unit = S['ชื่อหน่วยงาน'], hosp = S['ชื่อโรงพยาบาล'], full = unit + ' ' + hosp;
+
+    document.title = full;
+    document.querySelectorAll('[data-s]').forEach(function (el) {
+      var k = el.getAttribute('data-s');
+      el.innerHTML = txt(S[k] || '');
+    });
+    setText($('hero-eyebrow'), unit + ' · ' + hosp);
+    $('hero-title').innerHTML = esc(S['หัวข้อหลัก']).replace(/\[([^\]]+)\]/g, '<em>$1</em>').replace(/\r?\n/g, '<br>');
+    setText($('foot-name'), full);
+    setText($('foot-copy'), full);
+    toggle($('card-vision'), !!S['วิสัยทัศน์']);
+    toggle($('card-mission'), !!S['พันธกิจ']);
+    toggle($('hero-lead'), !!S['คำโปรย']);
+    $('hero-lead').innerHTML = txt(S['คำโปรย']);
+
+    // ตัวเลขเด่น
+    var vit = visible(T['ตัวเลขเด่น'], 'ตัวเลข');
+    var vEl = $('vitals');
+    vEl.style.setProperty('--n', Math.max(1, Math.min(vit.length, 4)));
+    vEl.innerHTML = vit.map(function (r) { return '<div><b>' + esc(val(r, 'ตัวเลข')) + '</b><span>' + esc(val(r, 'คำอธิบาย')) + '</span></div>'; }).join('');
+    toggle(vEl, vit.length > 0);
+
+    // บริการ
+    var svc = visible(T['บริการ'], 'ชื่อบริการ');
+    $('svc-grid').innerHTML = svc.map(function (r) {
+      return '<div class="svc-card"><div class="ic">' + esc(val(r, 'ไอคอน') || '✚') + '</div><h4>' + esc(val(r, 'ชื่อบริการ')) + '</h4><p>' + txt(val(r, 'รายละเอียด')) + '</p></div>';
+    }).join('');
+    showSection('services', svc.length > 0);
+
+    // ความปลอดภัย
+    var saf = visible(T['ความปลอดภัย'], 'ขั้นตอน');
+    $('checklist').innerHTML = saf.map(function (r) {
+      var tag = val(r, 'ช่วงเวลา');
+      return '<div class="check-step">' + (tag ? '<span class="tag">' + esc(tag) + '</span>' : '') + '<h4>' + esc(val(r, 'ขั้นตอน')) + '</h4><p>' + txt(val(r, 'รายละเอียด')) + '</p></div>';
+    }).join('');
+    $('checklist').style.gridTemplateColumns = saf.length && saf.length < 3 ? 'repeat(' + saf.length + ',1fr)' : '';
+    setText($('safety-count'), String(saf.length));
+    showSection('safety', saf.length > 0);
+
+    // ทีมงาน
+    var team = visible(T['ทีมงาน'], 'ชื่อหรือตำแหน่ง');
+    $('team-grid').innerHTML = team.map(function (r) {
+      var src = imgUrl(val(r, 'ลิงก์รูป')), name = val(r, 'ชื่อหรือตำแหน่ง');
+      return '<div class="team-card"><div class="team-photo"><span aria-hidden="true">' + esc(val(r, 'ไอคอน') || '👩‍⚕️') + '</span>' +
+        (src ? '<img src="' + esc(src) + '" alt="' + esc(name) + '" loading="lazy" referrerpolicy="no-referrer" onerror="this.remove()">' : '') +
+        '</div><h4>' + esc(name) + '</h4><span class="team-role">' + esc(val(r, 'หน้าที่')) + '</span></div>';
+    }).join('');
+    showSection('team', team.length > 0);
+
+    renderGuide(T);
+    renderNews(T);
+
+    // ติดต่อ
+    var phone = S['โทรศัพท์'];
+    var tel = phone.replace(/[^\d+]/g, '');
+    $('c-phone-text').innerHTML = tel.length >= 9 ? '<a href="tel:' + esc(tel) + '">' + esc(phone) + '</a>' : txt(phone);
+    toggle($('c-phone'), !!phone);
+    toggle($('c-address'), !!S['ที่อยู่']);
+    toggle($('c-hours'), !!S['เวลาทำการ']);
+    var fp = $('foot-phone');
+    fp.textContent = phone; toggle(fp, !!phone);
+
+    var q = S['แผนที่'];
+    var mf = $('map-frame');
+    if (q) {
+      var mapSrc = 'https://www.google.com/maps?q=' + encodeURIComponent(q) + '&output=embed';
+      if (mf.getAttribute('data-q') !== q) {
+        mf.innerHTML = '<iframe src="' + esc(mapSrc) + '" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="แผนที่ ' + esc(q) + '"></iframe>' +
+          '<a class="map-open" href="https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(q) + '" target="_blank" rel="noopener">เปิดใน Google Maps ↗</a>';
+        mf.setAttribute('data-q', q);
+      }
+    } else { mf.innerHTML = ''; mf.removeAttribute('data-q'); }
+    toggle(mf, !!q);
+    $('contact-wrap').classList.toggle('single', !q);
+
+    // ลิงก์ระบบเจ้าหน้าที่
+    var staff = safeUrl(S['ลิงก์ระบบเจ้าหน้าที่']);
+    ['nav-staff', 'foot-staff'].forEach(function (id) {
+      var li = $(id); li.querySelector('a').href = staff || '#'; toggle(li, !!staff);
+    });
+  }
+
+  function showSection(id, show) {
+    toggle($(id), show);
+    document.querySelectorAll('[data-for="' + id + '"]').forEach(function (li) { toggle(li, show); });
+  }
+
+  /* ---- คำแนะนำผู้รับบริการ: แท็บตามหมวดคำถาม + แท็บรายโรค ---- */
+  var diseases = [];
+  function renderGuide(T) {
+    var faq = visible(T['คำถาม'], 'คำถาม');
+    diseases = visible(T['รายโรค'], 'ชื่อเรื่อง');
+    var groups = [], byCat = {};
+    faq.forEach(function (r) {
+      var c = val(r, 'หมวด') || 'คำถามทั่วไป';
+      if (!byCat[c]) { byCat[c] = []; groups.push(c); }
+      byCat[c].push(r);
+    });
+    var tabs = groups.map(function (c) { return { key: 'faq:' + c, label: c }; });
+    if (diseases.length) tabs.push({ key: 'disease', label: 'การปฏิบัติตัวรายโรค' });
+    showSection('patient-guide', tabs.length > 0);
+    if (!tabs.length) return;
+    if (!tabs.some(function (t) { return t.key === state.faqTab; })) state.faqTab = tabs[0].key;
+
+    $('ptab-bar').innerHTML = tabs.map(function (t) {
+      var on = t.key === state.faqTab;
+      return '<button class="ptab-btn' + (on ? ' active' : '') + '" type="button" role="tab" aria-selected="' + on + '" data-tab="' + esc(t.key) + '">' + esc(t.label) + '</button>';
+    }).join('');
+
+    var html = groups.map(function (c) {
+      return '<div class="ptab-panel' + ('faq:' + c === state.faqTab ? ' active' : '') + '" role="tabpanel" data-panel="' + esc('faq:' + c) + '"><div class="faq">' +
+        byCat[c].map(function (r, i) {
+          return '<div class="faq-item' + (i === 0 ? ' open' : '') + '"><button class="faq-q" type="button" aria-expanded="' + (i === 0) + '"><span>' + esc(val(r, 'คำถาม')) +
+            '</span><span class="plus" aria-hidden="true">+</span></button><div class="faq-a"><div><p>' + txt(val(r, 'คำตอบ')) + '</p></div></div></div>';
+        }).join('') + '</div></div>';
+    }).join('');
+
+    if (diseases.length) {
+      var depts = [];
+      diseases.forEach(function (d) { var x = val(d, 'แผนก'); if (x && depts.indexOf(x) < 0) depts.push(x); });
+      if (depts.indexOf(state.dzDept) < 0) state.dzDept = '';
+      if (diseases.length < 6) { state.dzQuery = ''; state.dzDept = ''; }
+      var tools = diseases.length >= 6
+        ? '<div class="dz-tools"><input class="dz-search" id="dz-search" type="search" placeholder="ค้นหาชื่อโรคหรือการผ่าตัด" aria-label="ค้นหาคำแนะนำรายโรค" value="' + esc(state.dzQuery) + '">' +
+          (depts.length > 1 ? '<div class="dz-chips">' + ['' ].concat(depts).map(function (d) {
+            return '<button class="dz-chip' + (d === state.dzDept ? ' active' : '') + '" type="button" data-dept="' + esc(d) + '">' + esc(d || 'ทั้งหมด') + '</button>';
+          }).join('') + '</div>' : '') + '</div>'
+        : '';
+      html += '<div class="ptab-panel' + (state.faqTab === 'disease' ? ' active' : '') + '" role="tabpanel" data-panel="disease">' + tools +
+        '<div class="disease-grid" id="disease-grid">' + diseases.map(function (d, i) {
+          var dept = val(d, 'แผนก');
+          return '<button class="disease-card" type="button" data-i="' + i + '" aria-expanded="false">' + (dept ? '<span class="dept">' + esc(dept) + '</span>' : '') +
+            '<span class="dz-title">' + esc(val(d, 'ชื่อเรื่อง')) + '</span><span class="dz-short">' + esc(val(d, 'คำอธิบายสั้น')) + '</span></button>';
+        }).join('') + '</div><p class="dz-empty is-hidden" id="dz-empty">ไม่พบคำแนะนำที่ค้นหา ลองพิมพ์คำอื่น หรือสอบถามเจ้าหน้าที่ห้องผ่าตัด</p></div>';
+    }
+    $('ptab-panels').innerHTML = html;
+    filterDiseases();
+  }
+
+  function filterDiseases() {
+    var grid = $('disease-grid');
+    if (!grid) return;
+    closeDetail();
+    var q = state.dzQuery.trim().toLowerCase(), n = 0;
+    grid.querySelectorAll('.disease-card').forEach(function (card) {
+      var d = diseases[+card.getAttribute('data-i')];
+      var hay = [val(d, 'ชื่อเรื่อง'), val(d, 'คำอธิบายสั้น'), val(d, 'แผนก'), val(d, 'ข้อปฏิบัติ')].join(' ').toLowerCase();
+      var ok = (!q || hay.indexOf(q) >= 0) && (!state.dzDept || val(d, 'แผนก') === state.dzDept);
+      card.classList.toggle('is-hidden', !ok);
+      if (ok) n++;
+    });
+    toggle($('dz-empty'), n === 0);
+  }
+
+  function closeDetail() {
+    var grid = $('disease-grid');
+    if (!grid) return;
+    var old = grid.querySelector('.disease-detail');
+    if (old) old.remove();
+    grid.querySelectorAll('.disease-card.active').forEach(function (c) { c.classList.remove('active'); c.setAttribute('aria-expanded', 'false'); });
+  }
+
+  function openDetail(card) {
+    var grid = $('disease-grid');
+    var wasActive = card.classList.contains('active');
+    closeDetail();
+    if (wasActive) return;
+    var d = diseases[+card.getAttribute('data-i')];
+    var points = val(d, 'ข้อปฏิบัติ').split(/\r?\n/).map(function (s) { return s.replace(/^\s*(?:[-•*]|\d+[.)])\s*/, '').trim(); }).filter(Boolean);
+    var box = document.createElement('div');
+    box.className = 'disease-detail';
+    box.innerHTML = '<button class="close" type="button" aria-label="ปิด">×</button><h4>' + esc(val(d, 'ชื่อเรื่อง')) + '</h4>' +
+      (points.length ? '<ul>' + points.map(function (p) { return '<li>' + esc(p) + '</li>'; }).join('') + '</ul>' : '<p>' + esc(val(d, 'คำอธิบายสั้น')) + '</p>');
+    // วางกล่องรายละเอียดต่อจากการ์ดใบสุดท้ายของแถวเดียวกัน
+    var cards = [].filter.call(grid.querySelectorAll('.disease-card'), function (c) { return !c.classList.contains('is-hidden'); });
+    var top = card.offsetTop, after = card;
+    cards.forEach(function (c) { if (c.offsetTop === top) after = c; });
+    after.insertAdjacentElement('afterend', box);
+    card.classList.add('active');
+    card.setAttribute('aria-expanded', 'true');
+    box.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  }
+
+  /* ---- ข่าวสาร ---- */
+  function renderNews(T) {
+    var news = visible(T['ข่าวสาร'], 'หัวข้อ');
+    var LIMIT = 6, list = state.newsAll ? news : news.slice(0, LIMIT);
+    $('news-grid').innerHTML = list.map(function (r) {
+      var src = imgUrl(val(r, 'ลิงก์รูป')), date = val(r, 'วันที่');
+      return '<article class="news-card"><div class="news-thumb' + (src ? ' has-img' : '') + '">' +
+        (src ? '<img src="' + esc(src) + '" alt="" loading="lazy" referrerpolicy="no-referrer" onerror="this.parentNode.classList.remove(\'has-img\');this.remove()">' : '') +
+        '</div><div class="news-body">' + (date ? '<span class="date">' + esc(date) + '</span>' : '') +
+        '<h4>' + esc(val(r, 'หัวข้อ')) + '</h4><p>' + txt(val(r, 'รายละเอียด')) + '</p></div></article>';
+    }).join('');
+    toggle($('news-more'), news.length > list.length);
+    showSection('news', news.length > 0);
+  }
+
+  /* ==================== โหลดเนื้อหาจาก Google Sheet ==================== */
+  function gvizUrl(tab, tqx) {
+    return 'https://docs.google.com/spreadsheets/d/' + CONTENT_SHEET_ID + '/gviz/tq?tqx=' + (tqx || 'out:json') +
+      '&headers=1&sheet=' + encodeURIComponent(tab);
+  }
+
+  function parseTable(tab, j) {
+    if (!j || j.status === 'error' || !j.table) throw new Error('gviz error');
+    var cols = j.table.cols.map(function (c, i) { return headKey(c.label) || ('_' + i); });
+    var miss = REQUIRED[tab].filter(function (h) { return cols.indexOf(h) < 0; });
+    if (miss.length) throw new Error('แท็บ ' + tab + ' ไม่มีหัวคอลัมน์: ' + miss.join(', '));
+    return (j.table.rows || []).map(function (r) {
+      var o = {}, any = false;
+      cols.forEach(function (h, i) {
+        var c = r.c && r.c[i], v = null;
+        if (c) v = typeof c.v === 'boolean' ? c.v : (c.f != null ? c.f : c.v);
+        if (v !== null && v !== '' && typeof v !== 'boolean') any = true;
+        o[h] = v;
+      });
+      return any ? o : null;
+    }).filter(Boolean);
+  }
+
+  function viaFetch(tab) {
+    var ctl = window.AbortController ? new AbortController() : null;
+    var timer = setTimeout(function () { if (ctl) ctl.abort(); }, 8000);
+    return fetch(gvizUrl(tab), { cache: 'no-store', signal: ctl ? ctl.signal : undefined })
+      .then(function (r) { if (!r.ok) throw new Error('HTTP ' + r.status); return r.text(); })
+      .then(function (t) {
+        clearTimeout(timer);
+        var a = t.indexOf('{'), b = t.lastIndexOf('}');
+        return parseTable(tab, JSON.parse(t.slice(a, b + 1)));
+      }, function (e) { clearTimeout(timer); throw e; });
+  }
+
+  var cbSeq = 0, cbByReq = {};
+  if (!window.google) { // ถ้า Google ไม่ใช้ชื่อฟังก์ชันที่ขอ จะเรียกชื่อมาตรฐานนี้แทน
+    window.google = { visualization: { Query: { setResponse: function (j) { var f = j && cbByReq[j.reqId]; if (f) f(j); } } } };
+  }
+  function viaScript(tab) { // สำรอง: โหลดผ่านแท็ก script ถ้า fetch ถูกบล็อก
+    return new Promise(function (resolve, reject) {
+      var id = ++cbSeq, name = '__orsSheetCb' + id, s = document.createElement('script'), done = false;
+      var timer = setTimeout(function () { finish(new Error('timeout')); }, 8000);
+      function finish(err, data) {
+        if (done) return;
+        done = true; clearTimeout(timer);
+        try { delete window[name]; } catch (e) { window[name] = undefined; }
+        delete cbByReq[id];
+        if (s.parentNode) s.parentNode.removeChild(s);
+        if (err) { reject(err); return; }
+        try { resolve(parseTable(tab, data)); } catch (e2) { reject(e2); }
+      }
+      window[name] = cbByReq[id] = function (data) { finish(null, data); };
+      s.onerror = function () { finish(new Error('load')); };
+      s.onload = function () { setTimeout(function () { finish(new Error('no data')); }, 50); };
+      s.src = gvizUrl(tab, 'out:json;reqId:' + id + ';responseHandler:' + name);
+      document.head.appendChild(s);
+    });
+  }
+
+  function loadTab(tab) {
+    return viaFetch(tab).catch(function () { return viaScript(tab); });
+  }
+
+  function readCache() {
+    try { var c = JSON.parse(localStorage.getItem(CACHE_KEY) || 'null'); return c && typeof c === 'object' ? c : null; } catch (e) { return null; }
+  }
+  function writeCache(d) { try { localStorage.setItem(CACHE_KEY, JSON.stringify(d)); } catch (e) { /* ไม่เป็นไร */ } }
+
+  function render(d) {
+    var key = JSON.stringify(d);
+    if (key === lastRendered) return;
+    lastRendered = key;
+    current = d;
+    renderAll(d);
+  }
+
+  function merged() {
+    var out = {};
+    for (var i = 0; i < arguments.length; i++) {
+      var src = arguments[i];
+      if (!src) continue;
+      TABS.forEach(function (t) { if (Array.isArray(src[t])) out[t] = src[t]; });
+    }
+    return out;
+  }
+
+  var cached = readCache();
+  render(merged(FALLBACK, cached));
+
+  Promise.all(TABS.map(function (t) {
+    return loadTab(t).then(function (rows) { return [t, rows]; }, function (e) {
+      if (window.console) console.warn('[เนื้อหาเว็บ] โหลดแท็บ "' + t + '" ไม่ได้ ใช้เนื้อหาสำรองแทน', e && e.message ? e.message : e);
+      return [t, null];
+    });
+  })).then(function (list) {
+    var fresh = {}, ok = 0;
+    list.forEach(function (p) { if (p[1]) { fresh[p[0]] = p[1]; ok++; } });
+    if (!ok) return;
+    var data = merged(FALLBACK, cached, fresh);
+    writeCache(data);
+    render(data);
+  });
+
+  /* ==================== สถิติการผ่าตัด (ข้อมูลสด) ==================== */
+  (function loadStats() {
+    var sec = $('stats'), note = $('stats-note');
+    function num(v) { var n = Number(v); return v !== '' && v != null && isFinite(n) ? n.toLocaleString('th-TH') : '–'; }
+    function done() { sec.classList.remove('wait'); sec.removeAttribute('aria-busy'); }
+    function fail() {
+      done();
+      sec.querySelectorAll('.stat b').forEach(function (b) { b.textContent = '–'; });
+      $('dept-list').innerHTML = '<p class="dept-empty">ยังโหลดข้อมูลไม่ได้ในขณะนี้</p>';
+      note.textContent = 'ยังโหลดข้อมูลสถิติไม่ได้ในขณะนี้ กรุณาลองเปิดหน้านี้ใหม่อีกครั้ง';
+    }
+    var timer = setTimeout(fail, 25000);
+    fetch(STATS_URL)
+      .then(function (r) { return r.json(); })
+      .then(function (d) {
+        clearTimeout(timer);
+        if (!d || !d.ok) { fail(); return; }
+        done();
+        sec.querySelectorAll('.stat b').forEach(function (b) { b.textContent = num(d[b.getAttribute('data-k')]); });
+        var depts = (d.departments || []).filter(function (x) { return x && Number(x.count) > 0; })
+          .sort(function (a, b) { return b.count - a.count; });
+        var max = depts.reduce(function (m, x) { return Math.max(m, Number(x.count) || 0); }, 1);
+        var list = $('dept-list');
+        list.innerHTML = depts.length ? depts.map(function (x) {
+          var name = DEPT_LABELS[String(x.name).toLowerCase()] || x.name;
+          return '<div class="dept-row"><span class="dept-name" title="' + esc(name) + '">' + esc(name) + '</span>' +
+            '<span class="dept-track"><span class="dept-fill" data-w="' + Math.round(x.count / max * 100) + '"></span></span>' +
+            '<span class="dept-count">' + num(x.count) + '</span></div>';
+        }).join('') : '<p class="dept-empty">ยังไม่มีข้อมูลของเดือนนี้</p>';
+        requestAnimationFrame(function () {
+          list.querySelectorAll('.dept-fill').forEach(function (f) { f.style.width = f.getAttribute('data-w') + '%'; });
+        });
+        var mm = String(d.month || '').match(/^(\d{4})-(\d{1,2})$/);
+        var month = mm ? TH_MONTHS[+mm[2] - 1] + ' ' + (+mm[1] + 543) : (d.month || '');
+        note.textContent = '*ข้อมูลสดจากระบบทะเบียนห้องผ่าตัด' + (month ? ' ประจำเดือน ' + month : '') + ' — อัปเดตอัตโนมัติทุกครั้งที่เปิดหน้านี้';
+      })
+      .catch(function () { clearTimeout(timer); fail(); });
+  })();
+
+  /* ==================== การโต้ตอบ ==================== */
+  $('ptab-bar').addEventListener('click', function (e) {
+    var btn = e.target.closest('.ptab-btn');
+    if (!btn) return;
+    state.faqTab = btn.getAttribute('data-tab');
+    this.querySelectorAll('.ptab-btn').forEach(function (b) { var on = b === btn; b.classList.toggle('active', on); b.setAttribute('aria-selected', on); });
+    $('ptab-panels').querySelectorAll('.ptab-panel').forEach(function (p) { p.classList.toggle('active', p.getAttribute('data-panel') === state.faqTab); });
+  });
+
+  $('ptab-panels').addEventListener('click', function (e) {
+    var q = e.target.closest('.faq-q');
+    if (q) {
+      var item = q.parentNode, open = !item.classList.contains('open');
+      item.classList.toggle('open', open); q.setAttribute('aria-expanded', open);
+      return;
+    }
+    if (e.target.closest('.disease-detail .close')) { closeDetail(); return; }
+    var card = e.target.closest('.disease-card');
+    if (card) { openDetail(card); return; }
+    var chip = e.target.closest('.dz-chip');
+    if (chip) {
+      state.dzDept = chip.getAttribute('data-dept');
+      this.querySelectorAll('.dz-chip').forEach(function (c) { c.classList.toggle('active', c === chip); });
+      filterDiseases();
+    }
+  });
+  $('ptab-panels').addEventListener('input', function (e) {
+    if (e.target.id === 'dz-search') { state.dzQuery = e.target.value; filterDiseases(); }
+  });
+
+  $('news-more').addEventListener('click', function () {
+    state.newsAll = true;
+    if (current) renderNews(current);
+  });
+
+  // เมนูมือถือ
+  var header = $('site-header'), burger = $('burger');
+  burger.addEventListener('click', function () {
+    var open = !header.classList.contains('open');
+    header.classList.toggle('open', open);
+    burger.setAttribute('aria-expanded', open);
+    burger.setAttribute('aria-label', open ? 'ปิดเมนู' : 'เปิดเมนู');
+  });
+  $('nav-list').addEventListener('click', function (e) {
+    if (e.target.closest('a')) { header.classList.remove('open'); burger.setAttribute('aria-expanded', 'false'); }
+  });
+
+  setText($('year'), String(new Date().getFullYear() + 543));
+
+  // เอฟเฟกต์ค่อย ๆ ปรากฏเมื่อเลื่อนถึง
+  var revealEls = document.querySelectorAll('.reveal');
+  if ('IntersectionObserver' in window) {
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) { if (en.isIntersecting) { en.target.classList.add('in'); io.unobserve(en.target); } });
+    }, { threshold: 0.12 });
+    revealEls.forEach(function (el) { io.observe(el); });
+  } else {
+    revealEls.forEach(function (el) { el.classList.add('in'); });
+  }
+})();
+</script>
+</body>
+</html>
