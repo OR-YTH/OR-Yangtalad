@@ -1,0 +1,1706 @@
+<!doctype html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>แผนผัง 5ส. ห้องผ่าตัด ชั้น 5 · โรงพยาบาลยางตลาด</title>
+<meta name="description" content="โมเดล 3 มิติแผนผังห้องผ่าตัด ชั้น 5 โรงพยาบาลยางตลาด พร้อมรหัสห้อง ขนาด โซน 5ส. และอุปกรณ์รายห้อง">
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500;600&family=IBM+Plex+Sans+Thai:wght@500;600;700&family=Sarabun:wght@400;500;600&display=swap">
+<style>
+/* Layout: phones get one column (3D viewport + editor, zone chips, selected room, repair codes, room list);
+   from 980px the viewport holds the left column and the selected room + repair codes sit in a right rail.
+   One bright white look on purpose, whatever the device theme. */
+:root{
+  --bg:#F7FAF9;
+  --surface:#FFFFFF;
+  --sunk:#F2F7F5;
+  --ink:#1A2925;
+  --muted:#5E716B;
+  --line:#DFE8E5;
+  --accent:#0B8578;
+  --accent-ink:#FFFFFF;
+  --accent-soft:#E2F5F1;
+  --marker:#C8325F;
+  --zs:55%;
+  --zl:86%;
+  color-scheme:light;
+  --f-display:"IBM Plex Sans Thai","Sarabun",system-ui,sans-serif;
+  --f-body:"Sarabun","IBM Plex Sans Thai",system-ui,sans-serif;
+  --f-mono:"IBM Plex Mono",ui-monospace,"SFMono-Regular",Menlo,Consolas,monospace;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:16px;line-height:1.55}
+button{font:inherit;color:inherit}
+button:focus-visible,input:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+
+.wrap{max-width:1180px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:18px 48px;display:flex;flex-direction:column;gap:18px}
+
+header{display:flex;flex-direction:column;gap:4px}
+.eyebrow{font-family:var(--f-display);font-size:12px;font-weight:600;letter-spacing:.04em;color:var(--muted);margin:0}
+h1{font-family:var(--f-display);font-weight:700;font-size:clamp(24px,5.6vw,34px);line-height:1.15;margin:0;text-wrap:balance}
+h1 .ss{color:var(--marker)}
+.lede{margin:2px 0 0;color:var(--muted);font-size:15px;max-width:62ch}
+.stats{display:flex;flex-wrap:wrap;gap:6px 14px;margin-top:6px;font-size:14px;color:var(--muted)}
+.stats b{font-family:var(--f-mono);font-weight:600;color:var(--ink);font-variant-numeric:tabular-nums}
+
+.layout{display:grid;gap:18px;grid-template-columns:minmax(0,1fr)}
+.col{display:flex;flex-direction:column;gap:12px;min-width:0}
+@media (min-width:980px){
+  .layout{grid-template-columns:minmax(0,1fr) 340px;align-items:start}
+  .rail{position:sticky;top:calc(env(safe-area-inset-top,0px) + 16px)}
+}
+
+.stage{background:var(--surface);border:1px solid var(--line);border-radius:14px;overflow:hidden}
+.viewer{position:relative;height:min(64svh,620px);min-height:340px;background:var(--sunk)}
+.viewer canvas{display:block;width:100%;height:100%;touch-action:none;cursor:grab}
+.viewer canvas:active{cursor:grabbing}
+.viewer.editing canvas{cursor:crosshair}
+.labels{position:absolute;inset:0;pointer-events:none;overflow:hidden}
+.lbl{position:absolute;left:0;top:0;white-space:nowrap;font:600 11px/1.25 var(--f-mono);color:var(--ink);background:var(--surface);background:color-mix(in srgb,var(--surface) 90%,transparent);border:1px solid var(--line);border-radius:5px;padding:2px 5px;will-change:transform;visibility:hidden}
+.lbl.on{visibility:visible}
+.lbl .b{font-family:var(--f-display);font-weight:600;font-size:10.5px;background:var(--accent);color:var(--accent-ink);border-radius:3px;padding:0 4px;margin-right:4px}
+.lbl .b.alt{background:var(--ink);color:var(--surface)}
+.lbl.appr{border-color:var(--marker);box-shadow:inset 0 0 0 1px var(--marker)}
+.lbl.ppl{font:600 12px/1.25 var(--f-body)}
+.lbl.ppl .ck{color:var(--accent)}
+.lbl.north{font:500 12px/1.25 var(--f-body);color:var(--muted);border-style:dashed;background:var(--sunk)}
+.lbl.sel{border-color:var(--accent);box-shadow:0 0 0 2px var(--accent);font-size:12.5px;z-index:2}
+.lbl.item{font:500 11.5px/1.25 var(--f-body);border-radius:999px;padding:1px 7px}
+.lbl.item.area{font:600 12.5px/1.25 var(--f-display);color:var(--accent);border-color:var(--accent);border-radius:5px}
+.lbl.item.isel{border-color:var(--accent);box-shadow:0 0 0 2px var(--accent);z-index:3}
+[hidden]{display:none!important}
+.fallback{position:absolute;inset:0;display:grid;place-items:center;text-align:center;padding:24px;color:var(--muted);font-size:15px}
+
+.editor{border-top:1px solid var(--line);padding:10px 10px 6px;display:flex;flex-direction:column;gap:10px;background:var(--surface)}
+.ed-top{display:flex;justify-content:space-between;align-items:center;gap:10px}
+.ed-status{margin:0;font-size:13px;color:var(--muted);display:flex;align-items:center;gap:7px;min-width:0}
+.ed-status .dot{flex:none;width:8px;height:8px;border-radius:50%;background:var(--muted)}
+.ed-status.live .dot{background:var(--accent)}
+.ed-status.warn .dot{background:var(--marker)}
+.palette{display:flex;gap:6px;overflow-x:auto;padding-bottom:6px;scrollbar-width:thin}
+.pal{flex:none;display:inline-flex;align-items:center;gap:7px;border:1px solid var(--line);background:var(--sunk);border-radius:9px;padding:7px 11px;font-size:14px;cursor:pointer;white-space:nowrap}
+.pal:hover{border-color:var(--accent)}
+.pal i{flex:none;width:12px;height:12px;border-radius:3px;background:var(--c);border:1px solid color-mix(in srgb,var(--ink) 22%,transparent)}
+.pal.preset{background:var(--accent-soft);border-color:var(--accent);color:var(--accent);font-weight:500}
+.ed-sel{display:flex;flex-wrap:wrap;align-items:center;gap:6px;min-height:38px}
+.ed-sel .nm{flex:1 1 200px;min-width:0;border:1px solid var(--line);border-radius:9px;padding:7px 10px;font:inherit;font-size:15px;color:var(--ink);background:var(--surface)}
+.ed-sel .del{color:var(--marker);border-color:color-mix(in srgb,var(--marker) 45%,var(--line))}
+.ed-sel .len{font-family:var(--f-mono);font-size:13px;color:var(--muted);font-variant-numeric:tabular-nums;padding:0 2px}
+.ed-sel .what{font-family:var(--f-display);font-size:12px;font-weight:600;letter-spacing:.04em;color:var(--muted);width:100%}
+.ed-hint{margin:0;font-size:13.5px;color:var(--muted)}
+.ed-hint b{color:var(--ink);font-family:var(--f-mono);font-weight:600}
+
+.toolbar{display:flex;flex-wrap:wrap;gap:8px;justify-content:space-between;align-items:center;padding:10px 10px 4px;border-top:1px solid var(--line)}
+.seg{display:inline-flex;background:var(--sunk);border:1px solid var(--line);border-radius:9px;padding:2px}
+.seg button{border:0;background:transparent;padding:6px 10px;border-radius:7px;font-size:14px;font-weight:500;cursor:pointer;color:var(--muted)}
+.seg button[aria-pressed="true"]{background:var(--surface);color:var(--ink);box-shadow:0 1px 2px rgba(0,0,0,.12)}
+.tools{display:flex;gap:6px;flex-wrap:wrap}
+.tbtn{border:1px solid var(--line);background:var(--surface);border-radius:9px;padding:6px 11px;font-size:14px;font-weight:500;cursor:pointer;display:inline-flex;align-items:center;gap:6px;white-space:nowrap;flex:none}
+.tbtn:hover{border-color:var(--muted)}
+.tbtn:disabled{opacity:.45;cursor:not-allowed}
+.tbtn .dash{display:inline-block;width:18px;height:0;border-top:3px dotted var(--marker)}
+.tbtn[aria-pressed="false"] .dash{opacity:.3}
+.tbtn.edit{border-color:var(--accent);color:var(--accent)}
+.tbtn.edit[aria-pressed="true"]{background:var(--accent);color:var(--accent-ink)}
+.hint{margin:0;padding:2px 12px 10px;font-size:13px;color:var(--muted)}
+.hint .fine{display:none}
+@media (hover:hover) and (pointer:fine){.hint .coarse{display:none}.hint .fine{display:inline}}
+
+.zones{display:flex;gap:8px;overflow-x:auto;padding:2px 2px 6px;scrollbar-width:thin}
+.chip{flex:none;display:inline-flex;align-items:center;gap:7px;border:1px solid var(--line);background:var(--surface);border-radius:999px;padding:6px 12px 6px 9px;font-size:14px;cursor:pointer;white-space:nowrap}
+.chip[aria-pressed="true"]{border-color:var(--ink);box-shadow:inset 0 0 0 1px var(--ink)}
+.sw{flex:none;display:inline-block;width:14px;height:14px;border-radius:4px;background:hsl(var(--h) var(--zs) var(--zl));border:1px solid color-mix(in srgb,var(--ink) 18%,transparent)}
+.sw.all{background:conic-gradient(hsl(200 var(--zs) var(--zl)) 0 25%,hsl(30 var(--zs) var(--zl)) 0 50%,hsl(140 var(--zs) var(--zl)) 0 75%,hsl(330 var(--zs) var(--zl)) 0)}
+
+.card{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:16px}
+.card h2,.rooms h2{font-family:var(--f-display);font-size:15px;font-weight:600;margin:0 0 10px;letter-spacing:.01em}
+
+.info .top{display:flex;justify-content:space-between;align-items:flex-start;gap:12px}
+.info .zn{display:flex;align-items:center;gap:7px;font-size:13px;color:var(--muted);margin:0 0 4px}
+.info .code{font-family:var(--f-mono);font-weight:600;font-size:30px;line-height:1.1;letter-spacing:.01em;user-select:all}
+.info .code.txt{font-family:var(--f-display);font-size:22px;user-select:auto}
+.info .kind{font-family:var(--f-display);font-weight:500;font-size:16px;margin-top:2px}
+.badge{display:inline-flex;align-items:center;gap:6px;margin-top:10px;font-size:13px;font-weight:500;color:var(--marker);border:1px solid var(--marker);border-radius:7px;padding:3px 8px}
+.sub{font-family:var(--f-display);font-size:12px;font-weight:600;letter-spacing:.04em;color:var(--muted);margin:16px 0 8px}
+.people{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:6px}
+.people li{border:1px solid var(--line);border-radius:8px;padding:4px 10px;font-size:15px;background:var(--surface)}
+.people li.main{border-color:var(--accent);background:var(--accent-soft)}
+.people li.main::before{content:"✓ ";color:var(--accent);font-weight:600}
+.people li.unsure{border-style:dashed}
+.people li.unsure::after{content:" ?";color:var(--muted)}
+.people li.unread{color:var(--muted);border-style:dashed}
+.eq{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:6px}
+.eq li{border:1px solid var(--line);border-radius:8px;padding:3px 9px;font-size:14px;background:var(--sunk)}
+.eq b{font-family:var(--f-mono);font-weight:600;font-size:12.5px;margin-left:5px;color:var(--muted)}
+.note{font-size:13px;color:var(--muted);margin:10px 0 0}
+.copy{flex:none;border:1px solid var(--line);background:var(--surface);border-radius:9px;padding:7px 12px;font-size:14px;font-weight:500;cursor:pointer}
+.copy:hover{border-color:var(--accent);color:var(--accent)}
+.acts{flex:none;display:flex;flex-direction:column;gap:6px;align-items:stretch}
+.copy.enter{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.copy.enter:hover{color:var(--accent-ink);filter:brightness(1.08)}
+.empty p{margin:0 0 12px;max-width:44ch}
+.legend{display:grid;gap:8px;margin:0;font-size:14px}
+.legend div{display:flex;gap:10px;align-items:center}
+.legend dt{flex:none;width:32px;display:flex;justify-content:center;color:var(--accent);font-weight:600}
+.legend dd{margin:0;color:var(--muted)}
+.legend .mk{width:28px;border-top:4px dotted var(--marker)}
+
+.appr{list-style:none;margin:0;padding:0;display:flex;flex-direction:column}
+.appr li{display:grid;grid-template-columns:1fr auto auto;align-items:center;gap:8px;padding:9px 0;border-top:1px solid var(--line)}
+.appr li:first-child{border-top:0;padding-top:0}
+.appr .lab{font-size:15px}
+.appr .cbtn{font-family:var(--f-mono);font-weight:600;font-size:15px;border:1px solid var(--marker);color:var(--marker);background:transparent;border-radius:7px;padding:3px 9px;cursor:pointer;font-variant-numeric:tabular-nums}
+.appr .mini{border:0;background:transparent;color:var(--muted);font-size:13px;cursor:pointer;padding:4px 2px;text-decoration:underline;text-underline-offset:3px}
+
+.rooms{display:flex;flex-direction:column;gap:12px}
+.rooms-head{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:10px}
+.rooms-head h2{margin:0}
+.search{flex:1 1 220px;max-width:340px;border:1px solid var(--line);background:var(--surface);border-radius:10px;padding:9px 12px;font:inherit;font-size:15px;color:var(--ink)}
+.groups{display:grid;gap:12px;grid-template-columns:minmax(0,1fr)}
+@media (min-width:720px){.groups{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (min-width:1100px){.groups{grid-template-columns:repeat(3,minmax(0,1fr))}}
+.grp{background:var(--surface);border:1px solid var(--line);border-radius:12px;overflow:hidden;min-width:0}
+.grp-h{display:flex;align-items:center;gap:8px;padding:10px 12px;border-bottom:1px solid var(--line);background:var(--sunk)}
+.grp-h b{font-family:var(--f-display);font-weight:600;font-size:14.5px}
+.row{display:grid;grid-template-columns:5.6em minmax(0,1fr);gap:2px 10px;width:100%;text-align:left;border:0;border-top:1px solid var(--line);background:transparent;padding:9px 12px;cursor:pointer}
+.row:first-of-type{border-top:0}
+.row:hover{background:var(--sunk)}
+.row[aria-current="true"]{background:var(--accent-soft)}
+.row .rc{font-family:var(--f-mono);font-weight:600;font-size:14px;font-variant-numeric:tabular-nums;padding-top:1px}
+.row .rc.t{font-family:var(--f-display);font-size:13px}
+.row .rk{font-size:14px;font-weight:500}
+.row .rp{grid-column:2;font-size:13.5px;color:var(--muted)}
+.row .rp .ck{color:var(--accent);font-weight:600}
+.nores{color:var(--muted);font-size:15px;margin:0}
+
+.foot{font-size:13px;color:var(--muted);max-width:70ch;margin:0}
+.toast{position:fixed;left:50%;bottom:calc(16px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--ink);color:var(--surface);padding:8px 14px;border-radius:10px;font-size:14px;opacity:0;pointer-events:none;transition:opacity .2s;z-index:20;max-width:calc(100vw - 32px)}
+.toast.show{opacity:1}
+@media (prefers-reduced-motion: reduce){.toast{transition:none}}
+.pcats{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none}
+.pcat{flex:none;border:1px solid var(--line);background:var(--surface);border-radius:999px;padding:4px 12px;font-size:13.5px;font-weight:500;cursor:pointer;color:var(--muted);white-space:nowrap}
+.pcat[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:var(--surface)}
+.info .dims{font-family:var(--f-mono);font-size:13.5px;color:var(--muted);margin-top:4px;font-variant-numeric:tabular-nums}
+.rm-bar{position:absolute;left:10px;right:10px;top:10px;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:8px;pointer-events:none}
+.rm-t{pointer-events:auto;display:flex;align-items:baseline;gap:8px;background:color-mix(in srgb,var(--surface) 93%,transparent);border:1px solid var(--line);border-radius:10px;padding:5px 11px;min-width:0;max-width:100%}
+.rm-t b{font-family:var(--f-mono);font-weight:600;font-size:15px;white-space:nowrap}
+.rm-t span{font-size:13px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0}
+.rm-acts{pointer-events:auto;display:flex;gap:6px}
+.rm-acts .tbtn{background:color-mix(in srgb,var(--surface) 94%,transparent)}
+.rm-acts .tbtn.exit{background:var(--ink);border-color:var(--ink);color:var(--surface)}
+.enter-fab{position:absolute;right:10px;bottom:10px;border:0;background:var(--accent);color:var(--accent-ink);border-radius:999px;padding:9px 16px;font-size:14.5px;font-weight:600;cursor:pointer;box-shadow:0 2px 10px rgba(11,60,52,.28);display:inline-flex;align-items:center;gap:6px;white-space:nowrap;max-width:calc(100% - 20px)}
+.enter-fab .c{font-family:var(--f-mono);font-weight:600}
+.viewer.inroom .lbl.item{font-size:13px;padding:2px 9px;background:var(--surface)}
+.viewer.inroom canvas{cursor:grab}
+.snapnote{margin:0;padding:0 12px 10px;font-size:13px;color:var(--marker)}
+.row .rd{font-family:var(--f-mono);font-size:12px;font-weight:500;color:var(--muted);margin-left:4px;font-variant-numeric:tabular-nums}
+/* web edition: view-only, room plan only */
+#btn-edit,#editor{display:none!important}
+.snapnote{color:var(--muted)}
+.backlink{display:inline-flex;align-items:center;gap:6px;margin:0 0 10px;font-size:14px;font-weight:600;color:var(--accent);text-decoration:none}
+.backlink:hover{text-decoration:underline}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <header>
+    <a class="backlink" href="./">← กลับหน้าหลัก กลุ่มงานห้องผ่าตัด</a>
+    <p class="eyebrow">รพ.ยางตลาด · อาคารผู้ป่วยนอก 5 ชั้น · ชั้นที่ 5</p>
+    <h1>แผนผัง <span class="ss">5ส.</span> ห้องผ่าตัด</h1>
+    <p class="lede">โมเดล 3 มิติตามขนาดที่วัด แตะห้องเพื่อดูรหัสห้อง ขนาด โซน และผู้รับผิดชอบ แตะสองครั้งเพื่อเข้าไปดูอุปกรณ์ในห้องแบบ 360°</p>
+    <div class="stats" id="stats"></div>
+  </header>
+
+  <div class="layout">
+    <div class="col">
+      <section class="stage" aria-label="โมเดล 3 มิติ">
+        <div class="viewer" id="viewer">
+          <canvas id="c" aria-label="โมเดล 3 มิติของห้องผ่าตัดชั้น 5"></canvas>
+          <div class="labels" id="labels"></div>
+          <div class="rm-bar" id="rmBar" hidden>
+            <div class="rm-t"><b id="rmCode"></b><span id="rmName"></span></div>
+            <div class="rm-acts"><button type="button" class="tbtn" id="rmAuto" aria-pressed="true">หยุดหมุน</button><button type="button" class="tbtn exit" id="rmExit">ออกจากห้อง</button></div>
+          </div>
+          <button type="button" class="enter-fab" id="enterFab" hidden></button>
+          <div class="fallback" id="fallback" hidden>แสดงโมเดล 3 มิติบนอุปกรณ์นี้ไม่ได้<br>ดูรหัสห้องและผู้รับผิดชอบได้จากรายการด้านล่าง</div>
+        </div>
+        <div class="editor" id="editor" hidden>
+          <div class="ed-top">
+            <p class="ed-status" id="edStatus"><span class="dot"></span>กำลังเชื่อมต่อที่บันทึกข้อมูล…</p>
+            <button type="button" class="tbtn" id="btn-undo" disabled>เลิกทำ</button>
+          </div>
+          <div class="pcats" id="pcats" role="group" aria-label="หมวดอุปกรณ์"></div>
+          <div class="palette" id="palette" role="group" aria-label="เพิ่มอุปกรณ์"></div>
+          <div class="ed-sel" id="edSel"></div>
+        </div>
+        <div class="toolbar">
+          <div class="seg" role="group" aria-label="ป้ายบนโมเดล">
+            <button type="button" id="lb-code" aria-pressed="true">รหัสห้อง</button>
+            <button type="button" id="lb-people" aria-pressed="false" hidden>ผู้รับผิดชอบ</button>
+            <button type="button" id="lb-off" aria-pressed="false">ซ่อนป้าย</button>
+          </div>
+          <div class="tools">
+            <button type="button" class="tbtn edit" id="btn-edit" aria-pressed="false" hidden disabled>แก้ไขผัง</button>
+            <button type="button" class="tbtn" id="btn-dash" aria-pressed="true"><span class="dash"></span>เส้นโซน</button>
+            <button type="button" class="tbtn" id="btn-view">มุมบน</button>
+            <button type="button" class="tbtn" id="btn-reset">รีเซ็ต</button>
+          </div>
+        </div>
+        <p class="hint" id="hint"><span class="coarse">ลากนิ้วเพื่อหมุน · ใช้สองนิ้วเพื่อซูมและเลื่อน · แตะห้องเพื่อดูรายละเอียด · แตะสองครั้งเพื่อเข้าไปดูในห้องแบบ 360°</span><span class="fine">ลากเพื่อหมุน · ล้อเมาส์เพื่อซูม · คลิกขวาลากเพื่อเลื่อน · คลิกห้องเพื่อดูรายละเอียด · ดับเบิลคลิกเพื่อเข้าไปดูในห้องแบบ 360°</span></p>
+        <p class="snapnote" id="snapnote" hidden></p>
+      </section>
+      <div class="zones" id="zones" role="group" aria-label="เลือกโซน"></div>
+    </div>
+
+    <div class="col rail">
+      <section class="card info" id="info" aria-live="polite"></section>
+    </div>
+  </div>
+
+  <section class="rooms" aria-label="รายการห้อง">
+    <div class="rooms-head">
+      <h2>รายการห้องตามโซน</h2>
+      <input class="search" id="q" type="search" placeholder="ค้นหารหัสห้อง ชื่อห้อง หรือผู้รับผิดชอบ" autocomplete="off">
+    </div>
+    <div class="groups" id="groups"></div>
+    <p class="nores" id="nores" hidden>ไม่พบห้องหรือชื่อที่ค้นหา</p>
+  </section>
+
+  <p class="foot">ขนาดห้องมาจากการวัดคร่าว ๆ แล้วปรับให้ทุกแถวลงตัว อาคารกว้างประมาณ 51.0 ม. ลึก 27.0 ม. ขนาดที่มีคำว่า "ประมาณ" คำนวณให้ ไม่ได้วัดจริง ตำแหน่งประตูอิงจากคู่มือห้องผ่าตัด ข้อมูลห้องและอุปกรณ์ ณ 3 พ.ย. 2569 ชื่อผู้รับผิดชอบแต่ละห้องจะเพิ่มภายหลัง</p>
+</div>
+<div class="toast" id="toast" role="status"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/three@0.147.0/build/three.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.147.0/examples/js/controls/OrbitControls.js"></script>
+<script>
+(function(){
+"use strict";
+
+/* ---------- Floor data in metres (x right from the left outer wall, y down from the top wall) ---------- */
+const DATA = {"W":51.0,"D":26.96,"rooms":[{"id":"7HX517","code":"7HX517","name":"ห้องครัว","t":"room","z":"z1","r":[[0,0,3.72,2.13]],"lp":[1.86,1.06],"dim":["m",3.72,2.13]},{"id":"7HX516","code":"7HX516","name":"","t":"room","z":"z1","r":[[0,2.13,3.72,5.61]],"lp":[1.86,3.87],"dim":["m",3.72,3.48]},{"id":"2CX530","code":"2CX530","name":"ห้องน้ำ","t":"room","z":"z1","r":[[3.72,0,7.83,2.7]],"lp":[5.78,1.35],"dim":["m",4.11,4.11]},{"id":"S-530","code":null,"name":"ห้องเล็ก 2CX530","t":"room","z":"z1","r":[[3.72,2.7,7.83,4.11]],"lp":[5.78,3.41]},{"id":"2CX531","code":"2CX531","name":"ห้องน้ำ","t":"room","z":"z1","r":[[7.83,0,11.22,2.7]],"lp":[9.53,1.35],"dim":["m",3.39,4.11]},{"id":"S-531","code":null,"name":"ห้องเล็ก 2CX531","t":"room","z":"z1","r":[[7.83,2.7,11.22,4.11]],"lp":[9.53,3.41]},{"id":"2KX534","code":"2KX534","name":"ทางหนีไฟ","t":"room","z":"z1","r":[[11.22,0,12.0,4.11]],"lp":[11.61,2.06],"dim":["m",0.78,4.11]},{"id":"2KX535","code":"2KX535","name":"","t":"room","z":"z1","r":[[12.0,0,21.12,4.11]],"lp":[16.56,2.06],"dim":["m",9.12,4.11]},{"id":"7HX518","code":"7HX518","name":"ทางเดิน","t":"corridor","z":"z1","r":[[3.72,4.11,21.12,5.61]],"lp":[12.4,4.86],"dim":["m",21.12,null]},{"id":"7HX515","code":"7HX515","name":"ห้องเก็บอุปกรณ์","t":"room","z":"z2","r":[[0,5.61,7.07,9.28]],"lp":[3.54,7.45],"dim":["e",7.07,3.67]},{"id":"7HX514","code":"7HX514","name":"OR5","t":"or","z":"z2","r":[[0,9.28,7.07,14.81]],"lp":[3.54,12.04],"or":5,"dim":["m",7.07,5.36]},{"id":"7HX513","code":"7HX513","name":"ห้องชะล้าง","t":"room","z":"z2","r":[[0,14.81,3.63,18.42]],"lp":[1.81,16.62],"dim":["m",3.63,3.52]},{"id":"C-V","code":null,"name":"ทางเดิน","t":"corridor","z":"z2","r":[[7.07,5.61,9.67,14.81]],"lp":[8.37,10.21],"dim":["e",2.6,null]},{"id":"7HX506","code":"7HX506","name":"ห้องเปลี่ยนเสื้อผ้า","t":"room","z":"z3","r":[[9.67,5.61,12.49,9.28]],"lp":[11.08,7.45],"dim":["m",2.82,3.67]},{"id":"7HX505","code":"7HX505","name":"ห้องเปลี่ยนเสื้อผ้า","t":"room","z":"z3","r":[[12.49,5.61,14.51,9.28]],"lp":[13.5,7.45],"dim":["m",2.02,3.67]},{"id":"7HX504","code":"7HX504","name":"","t":"room","z":"z3","r":[[18.46,5.61,22.9,9.28]],"lp":[20.7,6.6],"dim":["m",8.39,3.67]},{"id":"S-504R","code":null,"name":"ห้องย่อย 7HX504 (ขวา)","t":"room","z":"z3","r":[[14.51,5.61,18.46,7.51]],"lp":[16.48,6.56]},{"id":"S-504L","code":null,"name":"ห้องย่อย 7HX504 (ซ้าย)","t":"room","z":"z3","r":[[14.51,7.51,18.46,9.28]],"lp":[16.48,8.39]},{"id":"7HX503","code":"7HX503","name":"ห้องพักฟื้น","t":"recovery","z":"z3","r":[[9.67,9.28,22.9,14.81]],"lp":[16.29,12.04],"dim":["e",13.229999999999999,5.57]},{"id":"7HX502","code":"7HX502","name":"จุดส่งผู้ป่วย","t":"room","z":"z3","r":[[22.9,5.61,26.37,14.81]],"lp":[24.63,10.21],"dim":["m",3.47,9.34]},{"id":"7HX507","code":"7HX507","name":"ทางเดิน","t":"corridor","z":"z3","r":[[3.63,14.81,26.37,18.42]],"lp":[14.0,16.6],"dim":["m",null,3.52]},{"id":"7HX501","code":"7HX501","name":"บริเวณโถงหน้าลิฟต์","t":"hall","z":"z4","r":[[21.12,0,35.88,5.61],[26.37,5.61,35.88,9.22],[26.37,9.22,30.96,14.81]],"lp":[28.5,2.6],"dim":["e",14.760000000000002,null]},{"id":"2KX536","code":"2KX536","name":"ลิฟต์","t":"lift","z":"z4","r":[[30.96,9.22,33.42,11.92]],"lp":[32.19,10.57]},{"id":"7KX538","code":"7KX538","name":"","t":"room","z":"z4","r":[[33.42,9.22,35.88,10.6]],"lp":[34.65,9.91]},{"id":"2KX537","code":"2KX537","name":"ลิฟต์","t":"lift","z":"z4","r":[[30.96,11.92,34.35,14.81]],"lp":[32.66,13.37]},{"id":"2KX539","code":"2KX539","name":"บันได","t":"stair","z":"z4","r":[[34.35,10.6,35.88,13.13]],"lp":[35.12,11.87]},{"id":"C-MID","code":null,"name":"ทางเดินหน้าลิฟต์","t":"corridor","z":"z4","r":[[26.37,14.81,35.88,18.42]],"lp":[31.1,16.6],"dim":["e",9.510000000000002,null]},{"id":"7HX519","code":"7HX519","name":"","t":"room","z":"z6","r":[[35.88,0,40.22,2.47]],"lp":[38.05,1.24],"dim":["m",4.34,2.38]},{"id":"7HX520","code":"7HX520","name":"","t":"room","z":"z6","r":[[40.22,0,43.97,2.47]],"lp":[42.09,1.24],"dim":["m",3.75,2.38]},{"id":"C-R","code":null,"name":"ทางเดิน","t":"corridor","z":"z6","r":[[35.88,2.47,43.97,3.96]],"lp":[39.9,3.22],"dim":["m",8.19,1.44]},{"id":"2CX532","code":"2CX532","name":"ห้องน้ำ","t":"room","z":"z6","r":[[43.97,0,46.76,3.96]],"lp":[45.36,1.98],"dim":["e",2.789999999999999,4.11]},{"id":"2CX533","code":"2CX533","name":"ห้องน้ำ","t":"room","z":"z6","r":[[46.76,0,51.0,3.96]],"lp":[48.88,1.98],"dim":["e",4.240000000000002,4.11]},{"id":"7HX521","code":"7HX521","name":"","t":"corridor","z":"z6","r":[[41.89,3.96,51.0,5.36]],"lp":[46.4,4.66],"dim":["m",9.07,null]},{"id":"7HX522","code":"7HX522","name":"จุดรับผู้ป่วย","t":"room","z":"z5","r":[[35.88,3.96,41.89,7.82]],"lp":[38.89,5.89],"dim":["m",6.01,3.86]},{"id":"7HX523","code":"7HX523","name":"ห้องเตรียมผ่าตัด","t":"room","z":"z5","r":[[35.88,7.82,41.89,18.42]],"lp":[38.89,13.12],"dim":["m",6.01,10.69]},{"id":"7HX524","code":"7HX524","name":"ODS","t":"ods","z":"z7","r":[[41.89,5.36,51.0,14.81]],"lp":[46.45,10.09],"dim":["m",9.14,9.41]},{"id":"7HX525","code":"7HX525","name":"ห้องประชุม","t":"room","z":"z8","r":[[45.51,14.81,51.0,21.54]],"lp":[48.25,18.18],"dim":["m",5.49,6.73]},{"id":"C-P","code":null,"name":"ทางเดิน","t":"corridor","z":"z8","r":[[41.89,14.81,45.51,18.42],[42.46,18.42,45.51,23.48],[45.51,21.54,48.13,23.48]],"lp":[43.98,19.6]},{"id":"N-A","code":null,"name":"พื้นที่ใหม่","t":"new","z":"z8","r":[[39.14,18.42,42.46,23.48]],"lp":[40.8,21.0],"dim":["m",3.32,5.06]},{"id":"7HX526","code":"7HX526","name":"","t":"room","z":"z8","r":[[39.14,23.48,41.36,26.96]],"lp":[40.25,25.22],"dim":["m",2.22,3.48]},{"id":"N-X","code":null,"name":"ห้องที่กั้นใหม่","t":"new","z":"z8","r":[[41.36,23.48,48.13,26.96]],"lp":[44.75,25.22],"dim":["e",6.77,3.48]},{"id":"7HX527","code":"7HX527","name":"","t":"room","z":"z8","r":[[48.13,21.54,51.0,26.96]],"lp":[49.56,24.25],"dim":["m",2.87,5.46]},{"id":"7HX512","code":"7HX512","name":"ห้อง Sterile","t":"room","z":"z9","r":[[0,18.42,5.43,25.17]],"lp":[2.71,21.8],"dim":["m",5.43,null]},{"id":"7HX511","code":"7HX511","name":"OR4","t":"or","z":"z9","r":[[5.43,18.42,10.4,25.17]],"lp":[7.92,21.8],"or":4,"dim":["m",4.97,null]},{"id":"7HX529","code":"7HX529","name":"ห้องชะล้าง","t":"room","z":"z9","r":[[10.4,18.42,13.81,23.07]],"lp":[12.11,20.75],"dim":["e",3.41,null]},{"id":"S-529","code":null,"name":"ห้องชะล้าง 7HX529 (ด้านหลัง)","t":"room","z":"z9","r":[[10.4,23.07,13.81,25.17]],"lp":[12.11,24.12]},{"id":"7HX510","code":"7HX510","name":"OR3","t":"or","z":"z9","r":[[13.81,18.42,19.68,25.17]],"lp":[16.75,21.8],"or":3,"dim":["m",5.87,null]},{"id":"C-S1","code":null,"name":"ทางเดินด้านล่าง ฝั่งซ้าย","t":"corridor","z":"z9","r":[[0,25.17,19.68,26.96]],"lp":[9.8,26.07]},{"id":"7HX509","code":"7HX509","name":"OR2","t":"or","z":"z10","r":[[19.68,18.42,27.13,25.17]],"lp":[23.41,21.8],"or":2,"dim":["m",7.45,6.75]},{"id":"7HX528","code":"7HX528","name":"ห้องชะล้าง","t":"room","z":"z10","r":[[27.13,18.42,33.08,22.87]],"lp":[30.1,20.65],"dim":["m",5.95,7.02]},{"id":"S-528","code":null,"name":"ห้องชะล้าง 7HX528 (ด้านหลัง)","t":"room","z":"z10","r":[[27.13,22.87,33.08,25.17]],"lp":[30.1,24.02]},{"id":"7HX508","code":"7HX508","name":"OR1","t":"or","z":"z10","r":[[33.08,18.42,39.14,26.96]],"lp":[36.11,22.69],"or":1,"dim":["m",6.06,8.54]},{"id":"C-S2","code":null,"name":"ทางเดินด้านล่าง ฝั่งขวา","t":"corridor","z":"z10","r":[[19.68,25.17,33.08,26.96]],"lp":[26.4,26.07]}],"walls":[["v",3.72,0,4.11],["h",2.13,0,2.65],["v",7.83,0,4.11],["v",11.22,0,4.11],["v",12.0,0,4.11],["v",21.12,0,4.11],["h",2.7,3.72,5.12],["h",2.7,6.02,7.83],["h",2.7,7.83,9.651],["h",2.7,10.551,11.22],["v",3.72,4.11,4.21],["v",3.72,5.11,5.61],["h",4.11,3.72,5.12],["h",4.11,6.02,9.651],["h",4.11,10.551,11.26],["h",4.11,11.96,12.842],["h",4.11,14.442,18.77],["h",4.11,20.37,21.12],["h",5.61,0,7.07],["h",5.61,9.67,18.56],["h",5.61,19.46,26.37],["v",7.07,5.61,7.973],["v",7.07,8.973,11.853],["v",7.07,13.453,14.81],["h",9.28,0,7.07],["v",9.67,5.61,5.76],["v",9.67,6.66,11.19],["v",9.67,12.79,14.81],["v",12.49,5.61,5.76],["v",12.49,6.66,9.28],["v",14.51,5.61,9.28],["h",9.28,9.67,20.645],["h",9.28,22.245,22.9],["h",7.51,14.51,18.46],["v",18.46,7.51,7.995],["v",18.46,8.795,9.28],["v",18.46,5.61,6.16],["v",18.46,6.96,7.51],["v",22.9,5.61,11.19],["v",22.9,12.79,14.81],["v",26.37,5.61,7.202],["v",26.37,8.802,14.81],["h",14.81,0,0.4],["h",14.81,1.4,7.07],["h",14.81,9.67,22.9],["h",14.81,22.9,23.735],["h",14.81,25.535,26.37],["h",14.81,26.37,26.8],["h",14.81,29.2,30.96],["v",3.63,14.81,18.42],["v",30.96,9.22,10.02],["v",30.96,11.12,12.715],["v",30.96,14.015,14.81],["h",9.22,30.96,35.88],["h",14.81,30.96,34.6],["h",14.81,35.8,35.88],["v",33.42,9.22,11.92],["h",11.92,30.96,34.35],["v",34.35,10.6,14.81],["h",10.6,33.42,35.88],["h",13.13,34.35,35.88],["v",35.88,0,2.47],["v",35.88,3.96,5.222],["v",35.88,7.022,16.354],["v",35.88,18.154,18.42],["h",2.47,35.88,39.032],["h",2.47,39.932,43.97],["v",40.22,0,1.42],["v",40.22,2.32,2.47],["v",43.97,0,3.96],["v",46.76,0,3.96],["h",3.96,35.88,45.529],["h",3.96,46.429,48.472],["h",3.96,49.372,51.0],["v",41.89,3.96,5.86],["v",41.89,7.46,16.176],["v",41.89,17.776,18.42],["h",7.82,35.88,38.165],["h",7.82,39.965,41.89],["h",5.36,41.89,42.54],["h",5.36,43.44,51.0],["h",14.81,41.89,43.076],["h",14.81,45.076,49.4],["h",14.81,50.6,51.0],["v",45.51,14.81,17.575],["v",45.51,18.775,21.54],["h",21.54,45.51,51.0],["v",48.13,22.44,26.96],["h",23.48,42.46,44.795],["h",23.48,45.795,48.13],["h",18.42,0,3.7],["h",18.42,5.5,6.865],["h",18.42,8.865,10.4],["h",18.42,13.81,15.962],["h",18.42,17.762,22.803],["h",18.42,24.603,27.13],["h",18.42,33.08,42.46],["v",5.43,18.42,25.17],["v",10.4,18.42,23.72],["v",10.4,24.62,25.17],["v",13.81,18.42,23.72],["v",13.81,24.62,25.17],["v",19.68,18.42,25.17],["v",27.13,18.42,23.62],["v",27.13,24.52,25.17],["v",33.08,18.42,19.313],["v",33.08,21.113,23.02],["v",33.08,23.92,26.96],["v",39.14,18.42,26.96],["v",42.46,18.42,19.02],["v",42.46,20.02,23.48],["h",23.07,10.4,13.81],["h",22.87,27.13,33.08],["h",23.48,41.36,42.46],["h",25.17,0,11.305],["h",25.17,12.905,29.305],["h",25.17,30.905,33.08],["v",41.36,23.48,26.96],["h",23.48,39.14,39.29],["h",23.48,40.09,41.36]],"counters":[],"sinks":[],"dash":[[21.1,0.0,21.1,5.6],[35.9,0.0,35.9,13.1],[35.9,14.8,35.9,18.4],[41.9,4.0,41.9,18.4],[9.7,5.6,9.7,14.8],[26.4,5.6,26.4,18.4],[3.6,14.8,3.6,18.4],[19.7,18.4,19.7,27.0],[39.1,18.4,39.1,27.0],[35.9,4.0,41.9,4.0],[41.9,5.4,51.0,5.4],[0.0,5.6,26.4,5.6],[3.6,14.8,9.7,14.8],[41.9,14.8,51.0,14.8],[0.0,18.4,41.9,18.4]]};
+/* Snapshot of the equipment store, shown only until (or unless) the live store answers. */
+const SEED_DATE = "3 พ.ย. 2569";
+const SEED = [["ods-gas-panel-1",{"type":"gas_panel","name":"แผงควบคุมก๊าซ","x":18.34,"z":-7.995,"rot":0.0}],["ods-tv-1",{"type":"tv","name":"ทีวี","x":19.39,"z":-7.52,"rot":0.0}],["ods-bed-1",{"type":"bed","name":"เตียงผู้ป่วย 1","x":24.345,"z":-6.82,"rot":-1.5708}],["ods-bedside-1",{"type":"bedside","name":"ตู้ข้างเตียง","x":25.17,"z":-5.97,"rot":-1.5708}],["ods-iv-1",{"type":"iv","name":"เสาน้ำเกลือ","x":24.6,"z":-6.17,"rot":-1.5708}],["ods-bed-2",{"type":"bed","name":"เตียงผู้ป่วย 2","x":24.345,"z":-5.12,"rot":-1.5708}],["ods-bedside-2",{"type":"bedside","name":"ตู้ข้างเตียง","x":25.17,"z":-4.27,"rot":-1.5708}],["ods-iv-2",{"type":"iv","name":"เสาน้ำเกลือ","x":24.6,"z":-4.47,"rot":-1.5708}],["ods-bed-3",{"type":"bed","name":"เตียงผู้ป่วย 3","x":24.345,"z":-3.42,"rot":-1.5708}],["ods-bedside-3",{"type":"bedside","name":"ตู้ข้างเตียง","x":25.17,"z":-2.57,"rot":-1.5708}],["ods-iv-3",{"type":"iv","name":"เสาน้ำเกลือ","x":24.6,"z":-2.77,"rot":-1.5708}],["ods-ac-1",{"type":"ac","name":"แอร์","x":25.315,"z":-5.92,"rot":-1.5708}],["ods-ac-2",{"type":"ac","name":"แอร์","x":25.315,"z":-1.62,"rot":-1.5708}],["ods-window-1",{"type":"window","name":"หน้าต่าง (ม่าน)","x":25.395,"z":-6.32,"rot":-1.5708}],["ods-window-2",{"type":"window","name":"หน้าต่าง (ม่าน)","x":25.395,"z":-3.52,"rot":-1.5708}],["ods-window-3",{"type":"window","name":"หน้าต่าง (ม่าน)","x":25.395,"z":-0.72,"rot":-1.5708}],["ods-doc-cab-1",{"type":"doc_cab","name":"ตู้เก็บเอกสาร","x":25.2,"z":1.0,"rot":3.1416}],["ods-desk-1",{"type":"desk","name":"โต๊ะวางของ","x":24.25,"z":0.925,"rot":3.1416}],["ods-station-1",{"type":"station","name":"เคาน์เตอร์สเตชั่น","x":20.7,"z":-0.13,"rot":3.1416,"len":4.8}],["ods-pc-1",{"type":"pc","name":"คอมพิวเตอร์","x":19.4,"z":-0.18,"rot":0.0}],["ods-pc-2",{"type":"pc","name":"คอมพิวเตอร์","x":20.7,"z":-0.18,"rot":0.0}],["ods-pc-3",{"type":"pc","name":"คอมพิวเตอร์","x":22.0,"z":-0.18,"rot":0.0}],["ods-printer-1",{"type":"printer","name":"เครื่องพิมพ์","x":18.55,"z":-0.23,"rot":0.0}],["ods-printer-2",{"type":"printer","name":"เครื่องพิมพ์","x":22.8,"z":-0.23,"rot":0.0}],["ods-label-printer-1",{"type":"label_printer","name":"เครื่องพิมพ์สติกเกอร์","x":21.35,"z":-0.23,"rot":0.0}],["ods-tv-2",{"type":"tv","name":"ทีวี","x":17.9,"z":-1.03,"rot":3.1416}],["ods-recliner-1",{"type":"recliner","name":"โซฟาปรับนอน","x":16.945,"z":-1.27,"rot":1.5708}],["ods-recliner-2",{"type":"recliner","name":"โซฟาปรับนอน","x":16.945,"z":-2.27,"rot":1.5708}],["ods-wall-fan-1",{"type":"wall_fan","name":"พัดลมติดผนัง","x":16.54,"z":-0.67,"rot":1.5708}],["ods-wall-fan-2",{"type":"wall_fan","name":"พัดลมติดผนัง","x":16.54,"z":-4.17,"rot":1.5708}],["ods-chairs-1",{"type":"chairs","name":"เก้าอี้พักคอยผู้ป่วย","x":19.1,"z":-3.08,"rot":0.0}],["ods-emer-light-1",{"type":"emer_light","name":"ไฟสำรอง","x":16.525,"z":-5.57,"rot":1.5708}],["ods-speaker-1",{"type":"speaker","name":"ลำโพงติดผนัง","x":16.535,"z":-5.17,"rot":1.5708}],["r519-window-1",{"type":"window","name":"หน้าต่าง","x":11.13,"z":-13.375,"rot":0.0}],["r519-window-2",{"type":"window","name":"หน้าต่าง","x":13.98,"z":-13.375,"rot":0.0}],["r519-ac-1",{"type":"ac","name":"แอร์","x":12.55,"z":-13.295,"rot":0.0}],["r519-purifier-1",{"type":"purifier","name":"เครื่องฟอกอากาศ","x":11.88,"z":-13.235,"rot":0.0}],["r519-wall-fan-1",{"type":"wall_fan","name":"พัดลมติดผนัง","x":12.52,"z":-11.16,"rot":3.1416}],["r519-desk-1",{"type":"desk","name":"โต๊ะคอมพิวเตอร์","x":10.785,"z":-11.81,"rot":1.5708}],["r519-pc-1",{"type":"pc","name":"คอมพิวเตอร์","x":10.74,"z":-11.81,"rot":1.5708}],["r519-printer-1",{"type":"printer","name":"เครื่องพิมพ์","x":10.72,"z":-11.38,"rot":1.5708}],["r519-spk-pair-1",{"type":"spk_pair","name":"ลำโพงตั้งโต๊ะ","x":10.58,"z":-11.81,"rot":1.5708}],["r520-window-1",{"type":"window","name":"หน้าต่าง","x":15.67,"z":-13.375,"rot":0.0}],["r520-window-2",{"type":"window","name":"หน้าต่าง","x":17.47,"z":-13.375,"rot":0.0}],["r520-ac-1",{"type":"ac","name":"แอร์","x":16.57,"z":-13.295,"rot":0.0}],["r520-lowcab-1",{"type":"lowcab","name":"ตู้เก็บอุปกรณ์การแพทย์","x":15.42,"z":-13.125,"rot":0.0}],["r520-lowcab-2",{"type":"lowcab","name":"ตู้เก็บอุปกรณ์การแพทย์","x":17.57,"z":-13.125,"rot":0.0}],["r520-lowcab-3",{"type":"lowcab","name":"ตู้เก็บอุปกรณ์การแพทย์","x":18.115,"z":-12.38,"rot":-1.5708}],["r520-tallcab-1",{"type":"tallcab","name":"ตู้เก็บอุปกรณ์การแพทย์ (สูง)","x":18.14,"z":-11.5,"rot":-1.5708}],["r520-wall-fan-1",{"type":"wall_fan","name":"พัดลมติดผนัง","x":16.62,"z":-11.16,"rot":3.1416}],["t533-window-hi-1",{"type":"window_hi","name":"หน้าต่างระบายอากาศ","x":23.16,"z":-13.375,"rot":0.0}],["t533-window-hi-2",{"type":"window_hi","name":"หน้าต่างระบายอากาศ","x":24.46,"z":-13.375,"rot":0.0}],["t533-stall-1",{"type":"stall","name":"ห้องย่อย: ห้องเก็บอุปกรณ์ทำความสะอาด","x":24.675,"z":-12.73,"rot":-1.5708}],["t533-stall-2",{"type":"stall","name":"ห้องย่อย: ห้องส้วม","x":24.675,"z":-11.33,"rot":-1.5708}],["t533-bucket-1",{"type":"bucket","name":"ถังน้ำสีดำ","x":25.05,"z":-12.83,"rot":0.0}],["t533-toilet-1",{"type":"toilet","name":"ชักโครก","x":25.08,"z":-11.33,"rot":-1.5708}],["t533-bin-1",{"type":"bin","name":"ถังขยะ","x":25.15,"z":-10.86,"rot":0.0}],["t533-wall-fan-1",{"type":"wall_fan","name":"พัดลมติดผนัง","x":21.41,"z":-10.07,"rot":1.5708}],["t533-vanity2-1",{"type":"vanity2","name":"อ่างล้างมือ 2 อ่าง","x":21.64,"z":-11.52,"rot":1.5708}],["t533-mirror-1",{"type":"mirror","name":"กระจกแต่งตัว","x":21.35,"z":-11.52,"rot":1.5708}],["t533-wall-1",{"type":"wall","name":"ผนังกั้นโถปัสสาวะ","x":21.635,"z":-12.53,"rot":0.0,"len":0.6}],["t533-urinal-1",{"type":"urinal","name":"โถปัสสาวะชาย","x":21.495,"z":-12.97,"rot":1.5708}],["ods-sign-1",{"type":"sign","name":"ป้าย: ห้องพักแพทย์/ห้องประชุม","x":24.75,"z":1.235,"rot":3.1416}],["t532-window-hi-1",{"type":"window_hi","name":"หน้าต่างระบายอากาศ","x":18.87,"z":-13.375,"rot":0.0}],["t532-window-hi-2",{"type":"window_hi","name":"หน้าต่างระบายอากาศ","x":19.52,"z":-13.375,"rot":0.0}],["t532-window-hi-3",{"type":"window_hi","name":"หน้าต่างระบายอากาศ","x":20.17,"z":-13.375,"rot":0.0}],["t532-window-hi-4",{"type":"window_hi","name":"หน้าต่างระบายอากาศ","x":20.82,"z":-13.375,"rot":0.0}],["t532-wall-1",{"type":"wall","name":"ผนังกั้นกลางผนัง 2","x":20.735,"z":-11.48,"rot":0.0,"len":0.9}],["t532-wall-fan-1",{"type":"wall_fan","name":"พัดลมติดผนัง","x":21.11,"z":-12.53,"rot":-1.5708}],["t532-mirror-1",{"type":"mirror","name":"กระจกบานใหญ่","x":21.17,"z":-12.48,"rot":-1.5708}],["t532-vanity2-1",{"type":"vanity2","name":"เคาน์เตอร์อ่างล้างมือ 2 อ่าง","x":20.88,"z":-12.48,"rot":-1.5708}],["t532-window-hi-5",{"type":"window_hi","name":"หน้าต่างระบายอากาศ (โซนซ้าย)","x":21.155,"z":-12.98,"rot":-1.5708}],["t532-window-hi-6",{"type":"window_hi","name":"หน้าต่างระบายอากาศ (โซนซ้าย)","x":21.155,"z":-12.08,"rot":-1.5708}],["t532-window-hi-7",{"type":"window_hi","name":"หน้าต่างระบายอากาศ (โซนขวา)","x":21.155,"z":-10.98,"rot":-1.5708}],["t532-window-hi-8",{"type":"window_hi","name":"หน้าต่างระบายอากาศ (โซนขวา)","x":21.155,"z":-10.08,"rot":-1.5708}],["t532-stall-1",{"type":"stall","name":"ช่องเก็บอุปกรณ์ 1","x":19.295,"z":-9.97,"rot":1.5708}],["t532-stall-2",{"type":"stall","name":"ช่องเก็บอุปกรณ์ 2","x":19.295,"z":-10.67,"rot":1.5708}],["t532-stall-3",{"type":"stall","name":"ห้องส้วม (ที่กั้นสูงถึงหน้าต่าง)","x":19.295,"z":-11.57,"rot":1.5708}],["t532-stall-4",{"type":"stall","name":"ที่เก็บถังน้ำและอุปกรณ์ทำความสะอาด","x":19.295,"z":-12.77,"rot":1.5708}],["t532-toilet-1",{"type":"toilet","name":"ชักโครก","x":18.89,"z":-11.57,"rot":1.5708}],["t532-bucket-1",{"type":"bucket","name":"ถังเก็บน้ำ","x":18.87,"z":-12.77,"rot":0.0}],["r526-bed-1",{"type":"bed","name":"เตียงนอน","x":15.285,"z":12.325,"rot":3.1416}],["r526-ac-1",{"type":"ac","name":"แอร์","x":14.76,"z":13.295,"rot":3.1416}],["r522-wall-fan-1",{"type":"wall_fan","name":"พัดลมติดผนัง","x":12.78,"z":-9.37,"rot":0.0}],["r522-wall-fan-2",{"type":"wall_fan","name":"พัดลมติดผนัง","x":15.28,"z":-9.37,"rot":0.0}],["r522-chairs-1",{"type":"chairs","name":"เก้าอี้ยาวผู้ป่วย 4 ที่นั่ง","x":11.58,"z":-9.115,"rot":0.0}],["r522-desk-1",{"type":"desk","name":"โต๊ะเขียนเอกสารยาว (กลางห้อง)","x":13.58,"z":-8.62,"rot":1.5708}],["r522-desk-2",{"type":"desk","name":"โต๊ะเขียนเอกสารยาว (ด้านขวา)","x":15.28,"z":-9.115,"rot":0.0}],["r522-office-chair-1",{"type":"office_chair","name":"เก้าอี้สำนักงาน","x":15.28,"z":-8.37,"rot":3.1416}],["r522-fire-ext-1",{"type":"fire_ext","name":"ถังดับเพลิง","x":16.225,"z":-9.17,"rot":-1.5708}],["r522-switch-1",{"type":"switch","name":"สวิตช์ไฟ (10 ปุ่ม)","x":16.29,"z":-8.67,"rot":-1.5708}],["r522-sign-1",{"type":"sign","name":"ป้าย: สนง.ผ่าตัดวันเดียวกลับ (ODS)","x":16.295,"z":-6.82,"rot":-1.5708}],["r522-window-1",{"type":"window","name":"หน้าต่างบานเลื่อนกระจกใส","x":15.44,"z":-5.765,"rot":3.1416}],["r522-window-2",{"type":"window","name":"หน้าต่างบานเลื่อนกระจกใส","x":11.94,"z":-5.765,"rot":3.1416}],["r522-basket-1",{"type":"basket","name":"ตะกร้าคืนชุด","x":12.44,"z":-5.99,"rot":3.1416}],["r522-shoe-rack-1",{"type":"shoe_rack","name":"ชั้นวางรองเท้า 3 ชั้น","x":11.79,"z":-5.915,"rot":3.1416}],["r522-locker-1",{"type":"locker","name":"ตู้ล็อกเกอร์เสื้อผ้าผู้ป่วย 4 ชั้น (เทาเข้ม)","x":10.89,"z":-6.015,"rot":3.1416}],["r522-ac-1",{"type":"ac","name":"แอร์","x":10.565,"z":-7.81,"rot":1.5708}],["r522-speaker-1",{"type":"speaker","name":"ลำโพง (ดำ)","x":10.525,"z":-8.51,"rot":1.5708}],["r522-gas-panel-1",{"type":"gas_panel","name":"เครื่องปรับแรงดันและออกซิเจน (เงิน)","x":10.505,"z":-6.26,"rot":1.5708}],["r522-transfer-board-1",{"type":"transfer_board","name":"แผ่นเคลื่อนย้ายผู้ป่วย (ขาว)","x":10.48,"z":-9.06,"rot":1.5708}],["r523-window-1",{"type":"window","name":"ผนังกระจก","x":11.38,"z":-5.555,"rot":0.0}],["r523-window-2",{"type":"window","name":"ผนังกระจก","x":15.38,"z":-5.555,"rot":0.0}],["r523-pillar-1",{"type":"pillar","name":"เสา (เหนือ)","x":16.015,"z":-4.71,"rot":0.0}],["r523-wall-fan-1",{"type":"wall_fan","name":"พัดลมที่เสา (หันไปผนัง 4)","x":15.715,"z":-4.71,"rot":-1.5708}],["r523-desk-1",{"type":"desk","name":"โต๊ะเขียนเอกสาร","x":15.265,"z":-5.255,"rot":0.0}],["r523-office-chair-1",{"type":"office_chair","name":"เก้าอี้สำนักงาน (ดำ)","x":15.34,"z":-4.61,"rot":3.1416}],["r523-desk-2",{"type":"desk","name":"โต๊ะทำงาน 1","x":15.985,"z":-3.76,"rot":-1.5708}],["r523-desk-3",{"type":"desk","name":"โต๊ะทำงาน 2","x":15.985,"z":-2.56,"rot":-1.5708}],["r523-desk-4",{"type":"desk","name":"โต๊ะทำงาน 3","x":15.985,"z":-1.36,"rot":-1.5708}],["r523-printer-1",{"type":"printer","name":"เครื่องพิมพ์ (ขาว)","x":16.015,"z":-4.11,"rot":-1.5708}],["r523-label-printer-1",{"type":"label_printer","name":"เครื่องพิมพ์สติกเกอร์ (ดำ)","x":16.015,"z":-3.71,"rot":-1.5708}],["r523-pc-1",{"type":"pc","name":"คอมพิวเตอร์","x":16.015,"z":-3.26,"rot":-1.5708}],["r523-printer-2",{"type":"printer","name":"เครื่องพิมพ์เอกสาร (ดำ)","x":16.015,"z":-2.81,"rot":-1.5708}],["r523-board-1",{"type":"board","name":"บอร์ดแผนงานและตารางเวรห้องผ่าตัด","x":16.295,"z":-2.56,"rot":-1.5708}],["r523-doc-cab-1",{"type":"doc_cab","name":"ตู้เก็บเอกสาร (เทา ยาว)","x":16.06,"z":-0.61,"rot":-1.5708}],["r523-doc-cab-2",{"type":"doc_cab","name":"ตู้เก็บเอกสาร (เทา สั้น)","x":16.06,"z":-0.11,"rot":-1.5708}],["r523-desk-5",{"type":"desk","name":"โต๊ะเขียนเอกสาร (หันเข้าผนัง)","x":15.985,"z":0.79,"rot":-1.5708}],["r523-desk-6",{"type":"desk","name":"โต๊ะคอมพิวเตอร์ (หันไปผนัง 1)","x":15.215,"z":1.64,"rot":3.1416}],["r523-pc-2",{"type":"pc","name":"คอมพิวเตอร์","x":15.215,"z":1.69,"rot":3.1416}],["r523-printer-3",{"type":"printer","name":"เครื่องพิมพ์ (ขาว)","x":14.765,"z":1.69,"rot":3.1416}],["r523-pillar-2",{"type":"pillar","name":"เสา (ใต้)","x":16.015,"z":2.29,"rot":0.0}],["r523-wall-fan-2",{"type":"wall_fan","name":"พัดลมที่เสา","x":15.715,"z":2.29,"rot":-1.5708}],["r523-desk-7",{"type":"desk","name":"โต๊ะเขียนเอกสาร (ไม่ติดผนัง)","x":14.115,"z":2.94,"rot":1.5708}],["r523-shelf-1",{"type":"shelf","name":"ชั้นวางเวชภัณฑ์ 5 ชั้น (ขาว)","x":15.64,"z":4.61,"rot":3.1416}],["r523-sofa-1",{"type":"sofa","name":"โซฟา (ขาว)","x":13.99,"z":4.41,"rot":3.1416}],["r523-sofa-2",{"type":"sofa","name":"โซฟา (ดำ)","x":11.99,"z":4.41,"rot":3.1416}],["r523-ac-1",{"type":"ac","name":"แอร์","x":10.565,"z":1.64,"rot":1.5708}],["r523-ac-2",{"type":"ac","name":"แอร์","x":10.565,"z":-2.36,"rot":1.5708}],["r523-stretcher-1",{"type":"stretcher","name":"เตียงผู้ป่วย 1","x":11.485,"z":1.94,"rot":1.5708}],["r523-gas-panel-1",{"type":"gas_panel","name":"ช่องต่อออกซิเจน เตียง 1","x":10.505,"z":1.94,"rot":1.5708}],["r523-stretcher-2",{"type":"stretcher","name":"เตียงผู้ป่วย 2","x":11.485,"z":0.19,"rot":1.5708}],["r523-gas-panel-2",{"type":"gas_panel","name":"ช่องต่อออกซิเจน เตียง 2","x":10.505,"z":0.19,"rot":1.5708}],["r523-stretcher-3",{"type":"stretcher","name":"เตียงผู้ป่วย 3","x":11.485,"z":-1.56,"rot":1.5708}],["r523-gas-panel-3",{"type":"gas_panel","name":"ช่องต่อออกซิเจน เตียง 3","x":10.505,"z":-1.56,"rot":1.5708}],["r523-stretcher-4",{"type":"stretcher","name":"เตียงผู้ป่วย 4","x":11.485,"z":-3.31,"rot":1.5708}],["r523-gas-panel-4",{"type":"gas_panel","name":"ช่องต่อออกซิเจน เตียง 4","x":10.505,"z":-3.31,"rot":1.5708}],["r523-monitor-1",{"type":"monitor","name":"จอมอนิเตอร์","x":10.955,"z":-0.66,"rot":1.5708}],["r523-iv-1",{"type":"iv","name":"เสาน้ำเกลือ","x":10.805,"z":1.19,"rot":1.5708}],["r523-iv-2",{"type":"iv","name":"เสาน้ำเกลือ","x":10.805,"z":-2.31,"rot":1.5708}],["r525-window-1",{"type":"window","name":"ผนังกั้นห้องกระจกใส","x":20.56,"z":1.435,"rot":0.0}],["r525-window-2",{"type":"window","name":"ผนังกั้นห้องกระจกใส","x":21.56,"z":1.435,"rot":0.0}],["r525-window-3",{"type":"window","name":"ผนังกั้นห้องกระจกใส","x":22.56,"z":1.435,"rot":0.0}],["r525-window-4",{"type":"window","name":"ผนังกั้นห้องกระจกใส","x":23.56,"z":1.435,"rot":0.0}],["r525-meeting-table-1",{"type":"meeting_table","name":"โต๊ะประชุมใหญ่ (สีอ่อน)","x":22.755,"z":3.53,"rot":1.5708}],["r525-ac-1",{"type":"ac","name":"แอร์","x":25.315,"z":3.13,"rot":-1.5708}],["r525-ac-2",{"type":"ac","name":"แอร์","x":25.315,"z":6.13,"rot":-1.5708}],["r525-table-1",{"type":"table","name":"โต๊ะอเนกประสงค์ (ขาว)","x":25.095,"z":2.33,"rot":-1.5708}],["r525-tv-1",{"type":"tv","name":"ทีวี","x":24.35,"z":2.33,"rot":-1.5708}],["r525-desk-1",{"type":"desk","name":"โต๊ะตั้งคอม","x":25.095,"z":4.53,"rot":-1.5708}],["r525-pc-1",{"type":"pc","name":"คอมพิวเตอร์","x":25.125,"z":4.53,"rot":-1.5708}],["r525-fridge-1",{"type":"fridge","name":"ตู้เย็น","x":24.9,"z":7.655,"rot":3.1416}],["r525-small-table-1",{"type":"small_table","name":"โต๊ะกระจกเล็ก (ดำ)","x":24.1,"z":7.73,"rot":3.1416}],["r525-sofa-1",{"type":"sofa","name":"โซฟา (ขาว)","x":22.6,"z":7.53,"rot":3.1416}],["r525-chairs-1",{"type":"chairs","name":"เก้าอี้รับผู้ป่วย 4 ที่นั่ง","x":20.415,"z":6.46,"rot":1.5708}],["r525-office-chair-1",{"type":"office_chair","name":"เก้าอี้สำนักงาน","x":20.415,"z":3.66,"rot":1.5708}],["r525-office-chair-2",{"type":"office_chair","name":"เก้าอี้สำนักงาน","x":20.415,"z":3.06,"rot":1.5708}],["r525-office-chair-3",{"type":"office_chair","name":"เก้าอี้สำนักงาน","x":20.415,"z":2.46,"rot":1.5708}],["nx-area-1",{"type":"area","name":"พื้นที่เก็บอุปกรณ์การแพทย์","x":21.53,"z":11.2,"rot":-1.5708}],["nx-trolley-1",{"type":"trolley","name":"รถเข็นอุปกรณ์","x":22.055,"z":10.8,"rot":-1.5708}],["nx-cabinet-1",{"type":"cabinet","name":"กล่อง/อุปกรณ์การแพทย์ที่เก็บไว้","x":22.275,"z":11.8,"rot":-1.5708}],["nx-ac-1",{"type":"ac","name":"แอร์","x":19.23,"z":13.295,"rot":3.1416}],["nx-gas-panel-1",{"type":"gas_panel","name":"ช่องต่อออกซิเจน","x":19.23,"z":13.355,"rot":3.1416}],["nx-cot-1",{"type":"cot","name":"เตียงนอนเล็ก (ดำ)","x":17.03,"z":13.025,"rot":4.7124}],["r527-shoe-rack-1",{"type":"shoe_rack","name":"ชั้นวางรองเท้า 3 ชั้น","x":23.63,"z":8.315,"rot":0.0}],["r527-clothes-rail-1",{"type":"clothes_rail","name":"ราวแขวนผ้า","x":25.17,"z":8.86,"rot":-1.5708}],["r527-wall-fan-1",{"type":"wall_fan","name":"พัดลมระบายอากาศ (ขาว)","x":25.35,"z":9.96,"rot":-1.5708}],["r527-bed-1",{"type":"bed","name":"เตียงนอน (น้ำตาล)","x":24.345,"z":12.905,"rot":-1.5708}],["r527-ac-1",{"type":"ac","name":"แอร์","x":24.1,"z":13.295,"rot":3.1416}],["r527-purifier-1",{"type":"purifier","name":"เครื่องกรองอากาศ","x":22.875,"z":13.08,"rot":1.5708}],["r527-desk-1",{"type":"desk","name":"โต๊ะคอมพิวเตอร์ 1","x":23.035,"z":12.08,"rot":1.5708}],["r527-desk-2",{"type":"desk","name":"โต๊ะคอมพิวเตอร์ 2","x":23.035,"z":10.88,"rot":1.5708}],["r527-pc-1",{"type":"pc","name":"คอมพิวเตอร์","x":23.005,"z":12.08,"rot":1.5708}],["r527-pc-2",{"type":"pc","name":"คอมพิวเตอร์","x":23.005,"z":10.88,"rot":1.5708}],["na-wall-fan-1",{"type":"wall_fan","name":"พัดลมติดผนัง","x":15.24,"z":5.09,"rot":0.0}],["na-water-disp-1",{"type":"water_disp","name":"เครื่องกดน้ำ","x":14.09,"z":5.22,"rot":0.0}],["na-fridge-1",{"type":"fridge","name":"ตู้เย็น","x":14.69,"z":5.345,"rot":0.0}],["na-bin-1",{"type":"bin","name":"ถังขยะ","x":15.29,"z":5.27,"rot":0.0}],["na-cot-1",{"type":"cot","name":"เตียงพับ (ดำ)","x":16.505,"z":8.14,"rot":0.0}],["na-locker-1",{"type":"locker","name":"ตู้ล็อกเกอร์เก็บของ","x":15.36,"z":9.645,"rot":3.1416}],["na-ac-floor-1",{"type":"ac_floor","name":"แอร์ตั้งพื้น (ขาว)","x":13.895,"z":9.6,"rot":1.5708}],["na-table-1",{"type":"table","name":"โต๊ะอเนกประสงค์ (วางของ)","x":14.315,"z":7.9,"rot":1.5708}],["na-office-chair-1",{"type":"office_chair","name":"เก้าอี้สำนักงาน","x":15.065,"z":8.2,"rot":4.7124}],["na-office-chair-2",{"type":"office_chair","name":"เก้าอี้สำนักงาน","x":15.065,"z":7.4,"rot":4.7124}],["or1-switch-1",{"type":"switch","name":"สวิตช์ไฟ","x":12.98,"z":5.04,"rot":0.0}],["or1-ac-1",{"type":"ac","name":"แอร์","x":13.455,"z":7.94,"rot":-1.5708}],["or1-gas-panel-1",{"type":"gas_panel","name":"แผงควบคุม","x":13.515,"z":10.54,"rot":-1.5708}],["or1-ac-2",{"type":"ac","name":"แอร์","x":10.64,"z":13.295,"rot":3.1416}],["or1-gas-panel-2",{"type":"gas_panel","name":"สายต่อออกซิเจนและสายแก๊ส","x":12.44,"z":13.355,"rot":3.1416}],["or1-lamp-1",{"type":"lamp","name":"โคมไฟผ่าตัด","x":10.61,"z":9.21,"rot":0.0}],["or1-stool-1",{"type":"stool","name":"บันไดขั้นเหยียบ","x":7.91,"z":8.28,"rot":1.5708}],["or1-stool-2",{"type":"stool","name":"บันไดขั้นเหยียบ","x":13.31,"z":9.34,"rot":-1.5708}],["s528-bucket-1",{"type":"bucket","name":"ถังน้ำ (ฟ้าเข้ม)","x":1.98,"z":9.745,"rot":0.0}],["s528-slop-sink-1",{"type":"slop_sink","name":"โถล้างขนาดใหญ่","x":2.73,"z":9.77,"rot":0.0}],["s528-sink-1",{"type":"sink","name":"ซิงก์ล้างมือ","x":3.63,"z":9.77,"rot":0.0}],["s528-table-1",{"type":"table","name":"โต๊ะอเนกประสงค์","x":4.93,"z":9.795,"rot":0.0}],["s528-slop-sink-2",{"type":"slop_sink","name":"โถล้าง","x":6.13,"z":9.77,"rot":0.0}],["s528-bucket-2",{"type":"bucket","name":"ถังน้ำ (เขียวเข้ม)","x":7.03,"z":9.745,"rot":0.0}],["s528-wall-fan-1",{"type":"wall_fan","name":"พัดลม (เหนือประตู)","x":7.43,"z":9.99,"rot":-1.5708}],["s528-bucket-3",{"type":"bucket","name":"ถังน้ำ (ดำ)","x":6.48,"z":11.335,"rot":3.1416}],["s528-bucket-4",{"type":"bucket","name":"ถังน้ำ (ฟ้าเข้ม)","x":5.88,"z":11.335,"rot":3.1416}],["s528-wall-fan-2",{"type":"wall_fan","name":"พัดลม","x":1.78,"z":11.19,"rot":1.5708}],["s529-bucket-1",{"type":"bucket","name":"ถังน้ำ (ฟ้าเข้ม)","x":-14.8,"z":9.945,"rot":0.0}],["s529-slop-sink-1",{"type":"slop_sink","name":"โถล้างขนาดใหญ่","x":-14.15,"z":9.97,"rot":0.0}],["s529-sink-1",{"type":"sink","name":"ซิงก์ล้างมือ","x":-13.35,"z":9.97,"rot":0.0}],["s529-slop-sink-2",{"type":"slop_sink","name":"โถล้าง","x":-12.35,"z":9.97,"rot":0.0}],["s529-wall-fan-1",{"type":"wall_fan","name":"พัดลม","x":-12.29,"z":11.54,"rot":3.1416}],["s529-bucket-2",{"type":"bucket","name":"ถังน้ำ (ดำ)","x":-14.54,"z":11.335,"rot":3.1416}],["s529-bucket-3",{"type":"bucket","name":"ถังน้ำ (เขียวเข้ม)","x":-12.04,"z":11.335,"rot":3.1416}],["r513-bucket-1",{"type":"bucket","name":"ถังน้ำ (ฟ้าเข้ม)","x":-22.17,"z":4.585,"rot":3.1416}],["r513-slop-sink-1",{"type":"slop_sink","name":"โถล้างขนาดใหญ่","x":-22.82,"z":4.56,"rot":3.1416}],["r513-sink-1",{"type":"sink","name":"ซิงก์ล้างมือ","x":-23.72,"z":4.56,"rot":3.1416}],["r513-slop-sink-2",{"type":"slop_sink","name":"โถล้าง","x":-24.62,"z":4.56,"rot":3.1416}],["r513-bucket-2",{"type":"bucket","name":"ถังน้ำ (เขียวเข้ม)","x":-25.17,"z":4.585,"rot":3.1416}],["r513-wall-fan-1",{"type":"wall_fan","name":"พัดลม","x":-25.35,"z":3.14,"rot":1.5708}],["r513-bucket-3",{"type":"bucket","name":"ถังน้ำ (ดำ)","x":-22.225,"z":1.93,"rot":-1.5708}],["r513-table-1",{"type":"table","name":"โต๊ะอเนกประสงค์","x":-22.275,"z":3.33,"rot":-1.5708}],["lf-rad-shield-1",{"type":"rad_shield","name":"ฉากกันรังสี","x":4.25,"z":1.61,"rot":0.0}],["lf-sign-1",{"type":"sign","name":"ป้าย: ฉากกันรังสี","x":4.25,"z":1.425,"rot":0.0}],["lf-trolley-1",{"type":"trolley","name":"รถเครื่องมือ","x":4.95,"z":1.885,"rot":0.0}],["lf-sign-2",{"type":"sign","name":"ป้าย: รถเครื่องมือ","x":4.95,"z":1.425,"rot":0.0}],["lf-neo-puff-1",{"type":"neo_puff","name":"NEO Puff","x":5.45,"z":1.66,"rot":0.0}],["lf-sign-3",{"type":"sign","name":"ป้าย: NEO Puff","x":5.45,"z":1.425,"rot":0.0}],["lf-scale-1",{"type":"scale","name":"เครื่องชั่งน้ำหนัก","x":6.0,"z":1.66,"rot":0.0}],["lf-sign-4",{"type":"sign","name":"ป้าย: เครื่องชั่งน้ำหนัก","x":6.0,"z":1.425,"rot":0.0}],["lf-warmer-1",{"type":"warmer","name":"Radiant Warmer","x":6.8,"z":1.785,"rot":0.0}],["lf-sign-5",{"type":"sign","name":"ป้าย: Radiant Warmer","x":6.8,"z":1.425,"rot":0.0}],["lf-tower-1",{"type":"tower","name":"Station Lap","x":7.6,"z":1.735,"rot":0.0}],["lf-sign-6",{"type":"sign","name":"ป้าย: Station Lap","x":7.6,"z":1.425,"rot":0.0}],["lf-pillar-1",{"type":"pillar","name":"เสา (มีพัดลมด้านบน)","x":6.0,"z":1.625,"rot":0.0}],["lf-wall-fan-1",{"type":"wall_fan","name":"พัดลมที่เสา","x":6.0,"z":1.85,"rot":0.0}],["lf-shelf-1",{"type":"shelf","name":"ชั้นวางผ้า 5 ชั้น (ขาว)","x":8.5,"z":1.66,"rot":0.0}],["lf-sign-7",{"type":"sign","name":"ป้าย: ทางหนีไฟ FIRE EXIT","x":9.7,"z":1.425,"rot":0.0}],["lf-apron-rack-1",{"type":"apron_rack","name":"ราวแขวนเสื้อกันรังสี (มีเสื้อ)","x":10.18,"z":2.23,"rot":-1.5708}],["lf-sign-8",{"type":"sign","name":"ป้าย: เสื้อกันรังสี","x":10.285,"z":2.23,"rot":-1.5708}],["lf-device-1",{"type":"device","name":"Ortho","x":9.9,"z":4.585,"rot":3.1416}],["lf-sign-9",{"type":"sign","name":"ป้าย: Ortho","x":9.9,"z":4.845,"rot":3.1416}],["lf-device-2",{"type":"device","name":"Tourniquet","x":9.25,"z":4.585,"rot":3.1416}],["lf-sign-10",{"type":"sign","name":"ป้าย: Tourniquet","x":9.25,"z":4.845,"rot":3.1416}],["lf-device-3",{"type":"device","name":"Tourniquet","x":8.6,"z":4.585,"rot":3.1416}],["lf-sign-11",{"type":"sign","name":"ป้าย: Tourniquet","x":8.6,"z":4.845,"rot":3.1416}],["lf-device-4",{"type":"device","name":"Stirrup","x":7.95,"z":4.585,"rot":3.1416}],["lf-sign-12",{"type":"sign","name":"ป้าย: Stirrup","x":7.95,"z":4.845,"rot":3.1416}],["lf-wall-fan-2",{"type":"wall_fan","name":"พัดลมติดผนัง","x":8.95,"z":4.785,"rot":3.1416}],["r528-scrub-sink-1",{"type":"scrub_sink","name":"อ่างล้างมือก่อนเข้าห้องผ่าตัด","x":1.955,"z":8.29,"rot":1.5708}],["r528-scrub-sink-2",{"type":"scrub_sink","name":"อ่างล้างมือก่อนเข้าห้องผ่าตัด","x":1.955,"z":7.39,"rot":1.5708}],["r528-scrub-sink-3",{"type":"scrub_sink","name":"อ่างล้างมือก่อนเข้าห้องผ่าตัด","x":1.955,"z":6.49,"rot":1.5708}],["r528-warm-cab-1",{"type":"warm_cab","name":"ตู้อุ่นน้ำเกลือ (Warmer solution cabinet)","x":2.01,"z":5.64,"rot":1.5708}],["r529-transfer-board-1",{"type":"transfer_board","name":"แผ่น Slide","x":-14.65,"z":1.445,"rot":0.0}],["r529-sign-1",{"type":"sign","name":"ป้าย: แผ่น Slide","x":-14.65,"z":1.425,"rot":0.0}],["r529-warmer-1",{"type":"warmer","name":"Radiant Warmer","x":-13.75,"z":1.785,"rot":0.0}],["r529-sign-2",{"type":"sign","name":"ป้าย: Radiant Warmer","x":-13.75,"z":1.425,"rot":0.0}],["r529-scrub-sink-1",{"type":"scrub_sink","name":"อ่างล้างมือ","x":-12.015,"z":6.54,"rot":-1.5708}],["r529-scrub-sink-2",{"type":"scrub_sink","name":"อ่างล้างมือ","x":-12.015,"z":7.54,"rot":-1.5708}],["r529-or-table-1",{"type":"or_table","name":"เตียงผ่าตัด (สำรอง)","x":-12.59,"z":9.185,"rot":4.7124}],["r529-sign-3",{"type":"sign","name":"ป้าย: เตียงผ่าตัด (สำรอง)","x":-12.59,"z":9.495,"rot":3.1416}],["r529-device-1",{"type":"device","name":"เครื่อง LEEP","x":-14.09,"z":9.235,"rot":3.1416}],["r529-sign-4",{"type":"sign","name":"ป้าย: เครื่อง LEEP","x":-14.09,"z":9.495,"rot":3.1416}],["r529-scrub-sink-3",{"type":"scrub_sink","name":"อ่างล้างมือ","x":-14.775,"z":7.99,"rot":1.5708}],["r529-scrub-sink-4",{"type":"scrub_sink","name":"อ่างล้างมือ","x":-14.775,"z":6.99,"rot":1.5708}],["r529-shelf-1",{"type":"shelf","name":"ชั้นวางผ้า 5 ชั้น (ขาว)","x":-14.77,"z":5.84,"rot":1.5708}],["sf-scrub-sink-1",{"type":"scrub_sink","name":"อ่างล้างมือ","x":-20.62,"z":1.655,"rot":0.0}],["sf-scrub-sink-2",{"type":"scrub_sink","name":"อ่างล้างมือ","x":-19.97,"z":1.655,"rot":0.0}],["sf-tower-1",{"type":"tower","name":"Station PENTAX","x":-19.07,"z":1.735,"rot":0.0}],["sf-sign-1",{"type":"sign","name":"ป้าย: Station PENTAX","x":-19.07,"z":1.425,"rot":0.0}],["sf-wall-fan-1",{"type":"wall_fan","name":"พัดลมติดผนัง","x":-19.13,"z":4.79,"rot":3.1416}],["sf-sign-2",{"type":"sign","name":"ป้าย: ห้องเก็บเครื่องมือ UTILITY ROOM","x":-20.9,"z":4.845,"rot":3.1416}],["sf-o2-1",{"type":"o2","name":"ถังออกซิเจน","x":-21.615,"z":4.49,"rot":1.5708}],["sf-o2-2",{"type":"o2","name":"ถังออกซิเจน","x":-21.615,"z":4.14,"rot":1.5708}],["sf-o2-3",{"type":"o2","name":"ถังออกซิเจน","x":-21.615,"z":3.79,"rot":1.5708}],["sf-gas-cyl-1",{"type":"gas_cyl","name":"ถัง CO2","x":-21.64,"z":3.34,"rot":1.5708}],["sf-gas-cyl-2",{"type":"gas_cyl","name":"ถัง CO2","x":-21.64,"z":3.04,"rot":1.5708}],["sf-gas-cyl-3",{"type":"gas_cyl","name":"ถัง Argon","x":-21.64,"z":2.59,"rot":1.5708}],["sf-gas-cyl-4",{"type":"gas_cyl","name":"ถัง Argon","x":-21.64,"z":2.29,"rot":1.5708}],["sf-sign-3",{"type":"sign","name":"ป้าย: ถังออกซิเจน","x":-21.775,"z":4.14,"rot":1.5708}],["sf-sign-4",{"type":"sign","name":"ป้าย: ถัง CO2","x":-21.775,"z":3.19,"rot":1.5708}],["sf-sign-5",{"type":"sign","name":"ป้าย: ถัง Argon","x":-21.775,"z":2.44,"rot":1.5708}],["r512-table-1",{"type":"table","name":"โต๊ะอเนกประสงค์ (วางเครื่องมือผ่าตัด)","x":-24.5,"z":5.345,"rot":0.0}],["r512-ac-1",{"type":"ac","name":"แอร์","x":-22.8,"z":5.125,"rot":0.0}],["r512-wall-fan-1",{"type":"wall_fan","name":"พัดลมติดผนัง","x":-20.22,"z":6.34,"rot":-1.5708}],["r512-wall-fan-2",{"type":"wall_fan","name":"พัดลมติดผนัง","x":-20.22,"z":7.54,"rot":-1.5708}],["r512-tallcab-1",{"type":"tallcab","name":"ตู้ยาว 4 ชั้น (อุปกรณ์การแพทย์)","x":-20.4,"z":9.84,"rot":-1.5708}],["r512-tallcab-2",{"type":"tallcab","name":"ตู้ยาว 4 ชั้น (อุปกรณ์การแพทย์)","x":-20.4,"z":10.79,"rot":-1.5708}],["r512-ac-2",{"type":"ac","name":"แอร์","x":-22.77,"z":11.505,"rot":3.1416}],["r512-tallcab-3",{"type":"tallcab","name":"ตู้ยาว 4 ชั้น","x":-21.12,"z":11.36,"rot":3.1416}],["r512-tallcab-4",{"type":"tallcab","name":"ตู้ยาว 4 ชั้น","x":-22.07,"z":11.36,"rot":3.1416}],["r512-lowcab-1",{"type":"lowcab","name":"ตู้เตี้ย 2 ชั้น","x":-23.17,"z":11.335,"rot":3.1416}],["r512-table-2",{"type":"table","name":"โต๊ะอเนกประสงค์ (วางห่อผ้าและอุปกรณ์)","x":-24.37,"z":11.285,"rot":3.1416}],["r512-tallcab-5",{"type":"tallcab","name":"ตู้ยาว 4 ชั้น (อุปกรณ์ผ่าตัด)","x":-25.17,"z":11.09,"rot":1.5708}],["r512-tallcab-6",{"type":"tallcab","name":"ตู้ยาว 4 ชั้น (อุปกรณ์ผ่าตัด)","x":-25.17,"z":10.14,"rot":1.5708}],["r512-tallcab-7",{"type":"tallcab","name":"ตู้ยาว 4 ชั้น (อุปกรณ์ผ่าตัด)","x":-25.17,"z":9.19,"rot":1.5708}],["r512-tallcab-8",{"type":"tallcab","name":"ตู้ยาว 4 ชั้น (อุปกรณ์ผ่าตัด)","x":-25.17,"z":8.24,"rot":1.5708}],["r512-tallcab-9",{"type":"tallcab","name":"ตู้ยาว 4 ชั้น (อุปกรณ์ผ่าตัด)","x":-25.17,"z":7.29,"rot":1.5708}],["r512-tallcab-10",{"type":"tallcab","name":"ตู้ยาว 4 ชั้น (อุปกรณ์ผ่าตัด)","x":-25.17,"z":6.34,"rot":1.5708}],["r512-tallcab-11",{"type":"tallcab","name":"ตู้ยาว 4 ชั้น กลางห้อง (หันผนัง 2)","x":-22.345,"z":6.94,"rot":-1.5708}],["r512-tallcab-12",{"type":"tallcab","name":"ตู้ยาว 4 ชั้น กลางห้อง (หันผนัง 4)","x":-22.825,"z":6.94,"rot":1.5708}],["r512-tallcab-13",{"type":"tallcab","name":"ตู้ยาว 4 ชั้น กลางห้อง (หันผนัง 2)","x":-22.345,"z":7.89,"rot":-1.5708}],["r512-tallcab-14",{"type":"tallcab","name":"ตู้ยาว 4 ชั้น กลางห้อง (หันผนัง 4)","x":-22.825,"z":7.89,"rot":1.5708}],["r512-tallcab-15",{"type":"tallcab","name":"ตู้ยาว 4 ชั้น กลางห้อง (หันผนัง 2)","x":-22.345,"z":8.84,"rot":-1.5708}],["r512-tallcab-16",{"type":"tallcab","name":"ตู้ยาว 4 ชั้น กลางห้อง (หันผนัง 4)","x":-22.825,"z":8.84,"rot":1.5708}],["r503-sofa-1",{"type":"sofa","name":"โซฟา (หันไปผนัง 2)","x":-15.305,"z":-3.125,"rot":1.5708}],["r503-desk-1",{"type":"desk","name":"โต๊ะ (น้ำตาลอ่อน)","x":-14.08,"z":-3.795,"rot":0.0}],["r503-desk-2",{"type":"desk","name":"โต๊ะ (น้ำตาลอ่อน)","x":-12.78,"z":-3.795,"rot":0.0}],["r503-office-chair-1",{"type":"office_chair","name":"เก้าอี้","x":-14.08,"z":-3.05,"rot":3.1416}],["r503-office-chair-2",{"type":"office_chair","name":"เก้าอี้","x":-12.78,"z":-3.05,"rot":3.1416}],["r503-sofa-2",{"type":"sofa","name":"โซฟา (ครีม)","x":-11.23,"z":-3.67,"rot":0.0}],["r503-locker-1",{"type":"locker","name":"ตู้ล็อกเกอร์เก็บเอกสาร","x":-9.88,"z":-3.845,"rot":0.0}],["r503-desk-3",{"type":"desk","name":"โต๊ะเขียนเอกสาร (น้ำตาล)","x":-8.78,"z":-3.795,"rot":0.0}],["r503-station-1",{"type":"station","name":"สเตชั่นทำงานเจ้าหน้าที่","x":-6.43,"z":-2.925,"rot":0.0,"len":3.0}],["r503-pc-1",{"type":"pc","name":"คอมพิวเตอร์","x":-7.43,"z":-3.025,"rot":3.1416}],["r503-pc-2",{"type":"pc","name":"คอมพิวเตอร์","x":-5.93,"z":-3.025,"rot":3.1416}],["r503-printer-1",{"type":"printer","name":"เครื่องพิมพ์ (ดำ)","x":-6.93,"z":-3.025,"rot":3.1416}],["r503-printer-2",{"type":"printer","name":"เครื่องพิมพ์ (ขาว)","x":-5.43,"z":-3.025,"rot":3.1416}],["r503-label-printer-1",{"type":"label_printer","name":"เครื่องพิมพ์สติกเกอร์","x":-5.08,"z":-3.025,"rot":3.1416}],["r503-wall-fan-1",{"type":"wall_fan","name":"พัดลมติดผนัง","x":-13.43,"z":-4.05,"rot":0.0}],["r503-wall-fan-2",{"type":"wall_fan","name":"พัดลมติดผนัง","x":-10.43,"z":-4.05,"rot":0.0}],["r503-wall-fan-3",{"type":"wall_fan","name":"พัดลมติดผนัง","x":-7.43,"z":-4.05,"rot":0.0}],["r503-bin-1",{"type":"bin","name":"ถังขยะเล็ก","x":-2.93,"z":0.2,"rot":-1.5708}],["r503-monitor-1",{"type":"monitor","name":"Monitor ประจำ pipeline","x":-5.2,"z":0.955,"rot":3.1416}],["r503-iv-1",{"type":"iv","name":"เสาน้ำเกลือ","x":-5.6,"z":0.955,"rot":3.1416}],["r503-gas-panel-1",{"type":"gas_panel","name":"Pipeline 1","x":-5.4,"z":1.205,"rot":3.1416}],["r503-monitor-2",{"type":"monitor","name":"Monitor ประจำ pipeline","x":-6.5,"z":0.955,"rot":3.1416}],["r503-iv-2",{"type":"iv","name":"เสาน้ำเกลือ","x":-6.9,"z":0.955,"rot":3.1416}],["r503-gas-panel-2",{"type":"gas_panel","name":"Pipeline 2","x":-6.7,"z":1.205,"rot":3.1416}],["r503-monitor-3",{"type":"monitor","name":"Monitor ประจำ pipeline","x":-7.8,"z":0.955,"rot":3.1416}],["r503-iv-3",{"type":"iv","name":"เสาน้ำเกลือ","x":-8.2,"z":0.955,"rot":3.1416}],["r503-gas-panel-3",{"type":"gas_panel","name":"Pipeline 3","x":-8.0,"z":1.205,"rot":3.1416}],["r503-monitor-4",{"type":"monitor","name":"Monitor ประจำ pipeline","x":-9.1,"z":0.955,"rot":3.1416}],["r503-iv-4",{"type":"iv","name":"เสาน้ำเกลือ","x":-9.5,"z":0.955,"rot":3.1416}],["r503-gas-panel-4",{"type":"gas_panel","name":"Pipeline 4","x":-9.3,"z":1.205,"rot":3.1416}],["r503-monitor-5",{"type":"monitor","name":"Monitor ประจำ pipeline","x":-10.4,"z":0.955,"rot":3.1416}],["r503-iv-5",{"type":"iv","name":"เสาน้ำเกลือ","x":-10.8,"z":0.955,"rot":3.1416}],["r503-gas-panel-5",{"type":"gas_panel","name":"Pipeline 5","x":-10.6,"z":1.205,"rot":3.1416}],["r503-monitor-6",{"type":"monitor","name":"Monitor ประจำ pipeline","x":-11.7,"z":0.955,"rot":3.1416}],["r503-iv-6",{"type":"iv","name":"เสาน้ำเกลือ","x":-12.1,"z":0.955,"rot":3.1416}],["r503-gas-panel-6",{"type":"gas_panel","name":"Pipeline 6","x":-11.9,"z":1.205,"rot":3.1416}],["r503-crash-cart-1",{"type":"crash_cart","name":"รถฟื้นคืนชีพ (Emergency)","x":-3.8,"z":0.975,"rot":3.1416}],["r503-anes-1",{"type":"anes","name":"เครื่องดมยาสลบ","x":-3.05,"z":0.155,"rot":3.1416}],["r503-ac-1",{"type":"ac","name":"แอร์","x":-15.645,"z":-1.42,"rot":1.5708}],["r503-device-1",{"type":"device","name":"เครื่อง Defibrillator","x":-15.475,"z":0.78,"rot":1.5708}],["r503-sign-1",{"type":"sign","name":"ป้าย: Defibrillator","x":-15.735,"z":0.78,"rot":1.5708}],["r503-device-2",{"type":"device","name":"เครื่อง U/S","x":-15.475,"z":-0.02,"rot":1.5708}],["r503-sign-2",{"type":"sign","name":"ป้าย: U/S","x":-15.735,"z":-0.02,"rot":1.5708}],["r502-ac-1",{"type":"ac","name":"แอร์","x":-0.85,"z":-7.685,"rot":0.0}],["r502-desk-1",{"type":"desk","name":"โต๊ะวางเอกสาร (หันไปผนัง 2)","x":-2.195,"z":-6.895,"rot":1.5708}],["r502-basket-1",{"type":"basket","name":"ตะกร้าผ้า","x":-0.85,"z":-7.54,"rot":0.0}],["r502-bin-1",{"type":"bin","name":"ถังขยะ (เขียว)","x":-0.35,"z":-7.54,"rot":0.0}],["r502-doc-cab-1",{"type":"doc_cab","name":"ตู้ล็อกเกอร์เก็บเสื้อผ้า","x":0.25,"z":-7.54,"rot":0.0}],["r502-small-table-1",{"type":"small_table","name":"ตู้ไม้เล็ก (น้ำตาลอ่อน)","x":0.54,"z":-7.52,"rot":-1.5708}],["r502-chairs-1",{"type":"chairs","name":"เก้าอี้พักผู้ป่วย 4 ที่นั่ง","x":0.465,"z":-3.37,"rot":-1.5708}],["r502-window-1",{"type":"window","name":"หน้าต่างบานเลื่อน","x":0.765,"z":-1.67,"rot":-1.5708}],["r502-monitor-1",{"type":"monitor","name":"จอมอนิเตอร์","x":0.32,"z":0.955,"rot":3.1416}],["r502-trolley-1",{"type":"trolley","name":"รถเข็น","x":-2.03,"z":0.775,"rot":3.1416}],["r502-device-1",{"type":"device","name":"เครื่องปั่น HCT","x":-2.245,"z":0.73,"rot":1.5708}],["r502-sign-1",{"type":"sign","name":"ป้าย: เครื่องปั่น HCT","x":-2.505,"z":0.73,"rot":1.5708}],["r502-transfer-board-1",{"type":"transfer_board","name":"แผ่นเคลื่อนย้ายผู้ป่วย","x":-2.5,"z":-4.27,"rot":1.5708}],["r502-sign-2",{"type":"sign","name":"ป้าย: แผ่นเคลื่อนย้ายผู้ป่วย","x":-2.505,"z":-4.87,"rot":1.5708}],["r502-wall-fan-1",{"type":"wall_fan","name":"พัดลมติดผนัง","x":-2.45,"z":-0.27,"rot":1.5708}],["r502-wall-fan-2",{"type":"wall_fan","name":"พัดลมติดผนัง","x":-2.45,"z":-5.57,"rot":1.5708}],["r502-wall-fan-3",{"type":"wall_fan","name":"พัดลมติดผนัง","x":-2.45,"z":-6.87,"rot":1.5708}],["r504-sofa-1",{"type":"sofa","name":"โซฟา (ดำ)","x":-5.19,"z":-7.34,"rot":0.0}],["r504-cabinet-1",{"type":"cabinet","name":"ตู้เก็บยา 5 ชั้น","x":-3.74,"z":-7.515,"rot":0.0}],["r504-fridge-1",{"type":"fridge","name":"ตู้แช่ยา","x":-2.94,"z":-7.465,"rot":0.0}],["r504-cabinet-2",{"type":"cabinet","name":"ตู้เก็บยา 5 ชั้น","x":-2.955,"z":-7.27,"rot":-1.5708}],["r504-cabinet-3",{"type":"cabinet","name":"ตู้เก็บยา 5 ชั้น","x":-2.955,"z":-6.27,"rot":-1.5708}],["r504-ac-1",{"type":"ac","name":"แอร์","x":-2.785,"z":-5.27,"rot":-1.5708}],["r504-cabinet-4",{"type":"cabinet","name":"ตู้เก็บยา 5 ชั้น (ข้างประตู)","x":-5.4,"z":-4.555,"rot":3.1416}],["r504-tallcab-1",{"type":"tallcab","name":"ตู้เก็บผ้าและเครื่องมือ (เทา)","x":-6.4,"z":-4.53,"rot":3.1416}],["r504-cabinet-5",{"type":"cabinet","name":"ตู้เก็บยา 5 ชั้น","x":-6.685,"z":-6.0,"rot":1.5708}],["s504l-cabinet-1",{"type":"cabinet","name":"ตู้เก็บยา","x":-7.54,"z":-4.555,"rot":3.1416}],["s504l-cabinet-2",{"type":"cabinet","name":"ตู้เก็บยา","x":-8.52,"z":-4.555,"rot":3.1416}],["s504l-cabinet-3",{"type":"cabinet","name":"ตู้เก็บยา","x":-9.5,"z":-4.555,"rot":3.1416}],["s504l-cabinet-4",{"type":"cabinet","name":"ตู้เก็บยา","x":-10.48,"z":-4.555,"rot":3.1416}],["s504l-tallcab-1",{"type":"tallcab","name":"ตู้ใหญ่","x":-8.79,"z":-5.64,"rot":0.0}],["s504l-trolley-1",{"type":"trolley","name":"รถเลื่อน","x":-7.79,"z":-5.595,"rot":1.5708}],["s504r-cot-1",{"type":"cot","name":"เตียงนอน","x":-9.24,"z":-6.425,"rot":4.7124}],["s504r-desk-1",{"type":"desk","name":"โต๊ะ (น้ำตาล) มุมห้อง","x":-10.29,"z":-7.465,"rot":0.0}],["r516-fridge-1",{"type":"fridge","name":"ตู้เย็น","x":-25.1,"z":-10.945,"rot":0.0}],["r516-ac-1",{"type":"ac","name":"แอร์","x":-23.9,"z":-11.165,"rot":0.0}],["r516-table-1",{"type":"table","name":"โต๊ะอเนกประสงค์ (กินข้าว)","x":-23.65,"z":-10.0,"rot":0.0}],["r516-table-2",{"type":"table","name":"โต๊ะอเนกประสงค์ (กินข้าว)","x":-23.65,"z":-9.4,"rot":0.0}],["r516-shelf-1",{"type":"shelf","name":"ชั้นวางของ (เขียว)","x":-22.43,"z":-8.2,"rot":3.1416}],["r516-table-3",{"type":"table","name":"โต๊ะอเนกประสงค์ (ขาว)","x":-24.63,"z":-8.275,"rot":3.1416}],["r516-wall-fan-1",{"type":"wall_fan","name":"พัดลมติดผนัง","x":-23.38,"z":-8.02,"rot":3.1416}],["r516-window-1",{"type":"window","name":"หน้าต่างสูงถึงเพดาน (มีม่าน)","x":-25.395,"z":-9.57,"rot":1.5708}],["r517-steel-table-1",{"type":"steel_table","name":"โต๊ะสแตนเลส","x":-24.9,"z":-13.075,"rot":0.0}],["r517-oven-1",{"type":"oven","name":"เตาอบ","x":-24.9,"z":-13.2,"rot":0.0}],["r517-water-disp-1",{"type":"water_disp","name":"เครื่องกดน้ำ","x":-24.0,"z":-13.2,"rot":0.0}],["r517-wall-fan-1",{"type":"wall_fan","name":"พัดลม","x":-23.2,"z":-13.33,"rot":0.0}],["r517-sink-1",{"type":"sink","name":"ซิงก์ล้าง 2 อ่าง","x":-22.16,"z":-12.73,"rot":-1.5708}],["r517-ac-1",{"type":"ac","name":"แอร์","x":-23.28,"z":-11.535,"rot":3.1416}],["r517-steel-table-2",{"type":"steel_table","name":"โต๊ะสแตนเลสเล็ก (ข้างประตู)","x":-23.38,"z":-11.755,"rot":3.1416}],["r517-shelf-1",{"type":"shelf","name":"ชั้นวางของ 5 ชั้น (ขาว)","x":-24.48,"z":-11.68,"rot":3.1416}],["r517-fridge-1",{"type":"fridge","name":"ตู้เย็น","x":-25.095,"z":-11.7,"rot":1.5708}],["r517-window-1",{"type":"window","name":"หน้าต่างบานใหญ่","x":-25.395,"z":-12.65,"rot":1.5708}],["r515-shelf-1",{"type":"shelf","name":"ชั้นวางของ 5 ชั้น","x":-24.8,"z":-7.54,"rot":0.0}],["r515-shelf-2",{"type":"shelf","name":"ชั้นวางของ 5 ชั้น","x":-23.55,"z":-7.54,"rot":0.0}],["r515-shelf-3",{"type":"shelf","name":"ชั้นวางของ 5 ชั้น","x":-22.3,"z":-7.54,"rot":0.0}],["r515-shelf-4",{"type":"shelf","name":"ชั้นวางของ 5 ชั้น","x":-21.05,"z":-7.54,"rot":0.0}],["r515-cabinet-1",{"type":"cabinet","name":"ตู้วางของ (เขียวอ่อน)","x":-19.95,"z":-7.515,"rot":0.0}],["r515-shelf-5",{"type":"shelf","name":"ชั้นวางของ (ขาว)","x":-18.76,"z":-7.12,"rot":-1.5708}],["r515-shelf-6",{"type":"shelf","name":"ชั้นวางของ 5 ชั้น (ขาว)","x":-19.83,"z":-4.53,"rot":3.1416}],["r515-cabinet-2",{"type":"cabinet","name":"ตู้เก็บวัสดุการแพทย์ (เทา)","x":-21.03,"z":-4.555,"rot":3.1416}],["r515-cabinet-3",{"type":"cabinet","name":"ตู้เก็บวัสดุการแพทย์ (เทา)","x":-22.08,"z":-4.555,"rot":3.1416}],["r515-cabinet-4",{"type":"cabinet","name":"ตู้เก็บวัสดุการแพทย์ (เทา)","x":-23.13,"z":-4.555,"rot":3.1416}],["r515-wall-fan-1",{"type":"wall_fan","name":"พัดลมติดผนัง","x":-21.03,"z":-4.35,"rot":3.1416}],["r515-wall-fan-2",{"type":"wall_fan","name":"พัดลมติดผนัง","x":-23.13,"z":-4.35,"rot":3.1416}],["r515-ac-1",{"type":"ac","name":"แอร์","x":-25.315,"z":-6.0,"rot":1.5708}],["r515-area-1",{"type":"area","name":"อุปกรณ์การแพทย์ที่เก็บไว้","x":-24.6,"z":-6.0,"rot":1.5708}],["r506-ac-1",{"type":"ac","name":"แอร์","x":-14.43,"z":-7.685,"rot":0.0}],["r506-locker-1",{"type":"locker","name":"ตู้ล็อกเกอร์พนักงาน 6 ชั้น (เทา)","x":-13.365,"z":-6.17,"rot":-1.5708}],["r506-wardrobe-1",{"type":"wardrobe","name":"ตู้เสื้อสครับ/ชุดผ่าตัด","x":-13.76,"z":-4.58,"rot":3.1416}],["r506-wardrobe-2",{"type":"wardrobe","name":"ตู้เสื้อสครับ/ชุดผ่าตัด","x":-14.86,"z":-4.58,"rot":3.1416}],["r506-basket-1",{"type":"basket","name":"ตะกร้าผ้า","x":-15.5,"z":-5.9,"rot":1.5708}],["r506-basket-2",{"type":"basket","name":"ตะกร้าผ้า","x":-15.5,"z":-6.45,"rot":1.5708}],["r505-mirror-1",{"type":"mirror","name":"กระจก","x":-11.81,"z":-7.78,"rot":0.0}],["r505-ac-1",{"type":"ac","name":"แอร์","x":-12.01,"z":-7.685,"rot":0.0}],["r505-purifier-1",{"type":"purifier","name":"เครื่องฟอกอากาศ (ขาว)","x":-11.235,"z":-7.57,"rot":-1.5708}],["r505-clothes-rail-1",{"type":"clothes_rail","name":"ตะขอแขวนผ้า","x":-11.32,"z":-6.57,"rot":-1.5708}],["r505-bed-1",{"type":"bed","name":"เตียง (หัวชิดผนัง 3)","x":-11.565,"z":-5.355,"rot":3.1416}],["r531-window-hi-1",{"type":"window_hi","name":"หน้าต่างกระจก","x":-17.22,"z":-13.375,"rot":0.0}],["r531-window-hi-2",{"type":"window_hi","name":"หน้าต่างกระจก","x":-16.42,"z":-13.375,"rot":0.0}],["r531-window-hi-3",{"type":"window_hi","name":"หน้าต่างกระจก","x":-15.62,"z":-13.375,"rot":0.0}],["r531-window-hi-4",{"type":"window_hi","name":"หน้าต่างกระจก","x":-14.82,"z":-13.375,"rot":0.0}],["r531-mirror-1",{"type":"mirror","name":"กระจกบานใหญ่","x":-14.37,"z":-12.23,"rot":-1.5708}],["r531-vanity2-1",{"type":"vanity2","name":"อ่างล้างมือ 2 อ่าง","x":-14.66,"z":-12.23,"rot":-1.5708}],["r531-stall-1",{"type":"stall","name":"ห้องส้วม","x":-16.845,"z":-11.5,"rot":1.5708}],["r531-stall-2",{"type":"stall","name":"ห้องอาบน้ำ","x":-16.845,"z":-12.76,"rot":1.5708}],["r531-toilet-1",{"type":"toilet","name":"ชักโครก","x":-17.25,"z":-11.5,"rot":1.5708}],["r531-shower-1",{"type":"shower","name":"ฝักบัว","x":-17.515,"z":-12.76,"rot":1.5708}],["s531-wardrobe-1",{"type":"wardrobe","name":"ตู้เสื้อผ้า (ขาว)","x":-17.29,"z":-10.07,"rot":1.5708}],["s531-wardrobe-2",{"type":"wardrobe","name":"ตู้เสื้อผ้า (ขาว)","x":-14.66,"z":-10.08,"rot":-1.5708}],["r530-window-hi-1",{"type":"window_hi","name":"หน้าต่างกระจกด้านบน","x":-19.03,"z":-13.375,"rot":0.0}],["r530-window-hi-2",{"type":"window_hi","name":"หน้าต่างกระจกด้านบน","x":-18.13,"z":-13.375,"rot":0.0}],["r530-stall-1",{"type":"stall","name":"ห้องอาบน้ำ","x":-18.495,"z":-12.76,"rot":-1.5708}],["r530-stall-2",{"type":"stall","name":"ห้องส้วม","x":-18.495,"z":-11.5,"rot":-1.5708}],["r530-shower-1",{"type":"shower","name":"ฝักบัว","x":-17.825,"z":-12.76,"rot":-1.5708}],["r530-toilet-1",{"type":"toilet","name":"ชักโครก","x":-18.09,"z":-11.5,"rot":-1.5708}],["r530-mirror-1",{"type":"mirror","name":"กระจกบานใหญ่","x":-21.69,"z":-12.13,"rot":1.5708}],["r530-vanity2-1",{"type":"vanity2","name":"อ่างล้างมือ 2 อ่าง","x":-21.4,"z":-12.13,"rot":1.5708}],["s530-mirror-1",{"type":"mirror","name":"กระจก","x":-21.69,"z":-10.07,"rot":1.5708}],["s530-stall-1",{"type":"stall","name":"ห้องส้วม (ห้องเล็ก)","x":-18.395,"z":-10.075,"rot":-1.5708}],["s530-toilet-1",{"type":"toilet","name":"ชักโครก","x":-18.09,"z":-10.075,"rot":-1.5708}],["or5-desk-1",{"type":"desk","name":"โต๊ะคอมพิวเตอร์","x":-24.7,"z":-3.795,"rot":0.0}],["or5-pc-1",{"type":"pc","name":"คอมพิวเตอร์ตั้งโต๊ะ","x":-24.7,"z":-3.825,"rot":0.0}],["or5-shelf-1",{"type":"shelf","name":"ชั้นวางของ 5 ชั้น","x":-20.2,"z":-3.87,"rot":0.0}],["or5-tower-1",{"type":"tower","name":"สเตชั่นส่องกล้อง","x":-19.1,"z":-3.795,"rot":0.0}],["or5-clock-1",{"type":"clock","name":"นาฬิกาดิจิตอล (เหนือประตู)","x":-18.535,"z":-0.83,"rot":-1.5708}],["or5-desk-2",{"type":"desk","name":"โต๊ะคอมพิวเตอร์","x":-19.23,"z":0.925,"rot":3.1416}],["or5-pc-2",{"type":"pc","name":"คอมพิวเตอร์ตั้งโต๊ะ","x":-19.23,"z":0.955,"rot":3.1416}],["or5-monitor-1",{"type":"monitor","name":"จอมอนิเตอร์","x":-20.03,"z":0.955,"rot":3.1416}],["or5-anes-1",{"type":"anes","name":"เครื่องดมยาสลบ","x":-21.43,"z":0.755,"rot":3.1416}],["or5-crash-cart-1",{"type":"crash_cart","name":"รถฟื้นคืนชีพ","x":-22.53,"z":0.975,"rot":3.1416}],["or5-ac-1",{"type":"ac","name":"แอร์","x":-25.315,"z":-1.42,"rot":1.5708}],["or5-lamp-1",{"type":"lamp","name":"โคมไฟผ่าตัด","x":-21.965,"z":-1.435,"rot":0.0}]];
+/* ===== ผู้รับผิดชอบรายห้อง (ยังว่าง ใส่ชื่อภายหลัง) =====
+   ใส่ชื่อในวงเล็บเหลี่ยมของห้องนั้น เช่น "7HX503": ["✓ชื่อ นามสกุล", "ชื่อ นามสกุล"],
+   ใส่ ✓ หน้าชื่อผู้รับผิดชอบหลัก · ห้องที่ไม่มีชื่อจะขึ้นว่า "ยังไม่ระบุผู้รับผิดชอบ"
+   เมื่อมีชื่ออย่างน้อย 1 ห้อง ปุ่มป้าย "ผู้รับผิดชอบ" บนโมเดลจะแสดงเอง */
+const CARETAKERS = {
+  "7HX517":  [],   // ห้องครัว
+  "7HX516":  [],   // ห้อง
+  "2CX530":  [],   // ห้องน้ำ
+  "S-530":   [],   // ห้องเล็ก 2CX530
+  "2CX531":  [],   // ห้องน้ำ
+  "S-531":   [],   // ห้องเล็ก 2CX531
+  "2KX534":  [],   // ทางหนีไฟ
+  "2KX535":  [],   // ห้อง
+  "7HX518":  [],   // ทางเดิน
+  "7HX515":  [],   // ห้องเก็บอุปกรณ์
+  "7HX514":  [],   // OR5
+  "7HX513":  [],   // ห้องชะล้าง
+  "C-V":     [],   // ทางเดิน
+  "7HX506":  [],   // ห้องเปลี่ยนเสื้อผ้า
+  "7HX505":  [],   // ห้องเปลี่ยนเสื้อผ้า
+  "7HX504":  [],   // ห้อง
+  "S-504R":  [],   // ห้องย่อย 7HX504 (ขวา)
+  "S-504L":  [],   // ห้องย่อย 7HX504 (ซ้าย)
+  "7HX503":  [],   // ห้องพักฟื้น
+  "7HX502":  [],   // จุดส่งผู้ป่วย
+  "7HX507":  [],   // ทางเดิน
+  "7HX501":  [],   // บริเวณโถงหน้าลิฟต์
+  "7KX538":  [],   // ห้อง
+  "C-MID":   [],   // ทางเดินหน้าลิฟต์
+  "7HX519":  [],   // ห้อง
+  "7HX520":  [],   // ห้อง
+  "C-R":     [],   // ทางเดิน
+  "2CX532":  [],   // ห้องน้ำ
+  "2CX533":  [],   // ห้องน้ำ
+  "7HX521":  [],   // ทางเดิน
+  "7HX522":  [],   // จุดรับผู้ป่วย
+  "7HX523":  [],   // ห้องเตรียมผ่าตัด
+  "7HX524":  [],   // ODS
+  "7HX525":  [],   // ห้องประชุม
+  "C-P":     [],   // ทางเดิน
+  "N-A":     [],   // พื้นที่ใหม่
+  "7HX526":  [],   // ห้อง
+  "N-X":     [],   // ห้องที่กั้นใหม่
+  "7HX527":  [],   // ห้อง
+  "7HX512":  [],   // ห้อง Sterile
+  "7HX511":  [],   // OR4
+  "7HX529":  [],   // ห้องชะล้าง
+  "S-529":   [],   // ห้องชะล้าง 7HX529 (ด้านหลัง)
+  "7HX510":  [],   // OR3
+  "C-S1":    [],   // ทางเดินด้านล่าง ฝั่งซ้าย
+  "7HX509":  [],   // OR2
+  "7HX528":  [],   // ห้องชะล้าง
+  "S-528":   [],   // ห้องชะล้าง 7HX528 (ด้านหลัง)
+  "7HX508":  [],   // OR1
+  "C-S2":    [],   // ทางเดินด้านล่าง ฝั่งขวา
+};
+const HAS_PEOPLE = Object.values(CARETAKERS).some(a => a && a.length);
+const ZONES = [
+  {id:"z1",  name:"แนวห้องด้านบนซ้าย",       hue:200},
+  {id:"z2",  name:"โซนห้องผ่าตัด 5",         hue:30},
+  {id:"z3",  name:"โซนห้องพักฟื้น",           hue:140},
+  {id:"z4",  name:"โซนโถงกลาง · ลิฟต์",       hue:52},
+  {id:"z5",  name:"โซนจุดรับ · ห้องเตรียม",    hue:290},
+  {id:"z6",  name:"แนวห้องด้านบนขวา",        hue:95},
+  {id:"z7",  name:"ห้อง ODS",               hue:330},
+  {id:"z8",  name:"โซนห้องประชุม",           hue:175},
+  {id:"z9",  name:"โซนห้องผ่าตัด 3–4",        hue:245},
+  {id:"z10", name:"โซนห้องผ่าตัด 1–2",        hue:8}
+];
+// equipment people can place; h = label height (m)
+const CATALOG = [
+  {t:"or_table",  n:"เตียงผ่าตัด",             c:"#7F98AE", h:1.0,  k:"or"},
+  {t:"anes",      n:"เครื่องดมยาสลบ",          c:"#6F8FBA", h:1.55, k:"or"},
+  {t:"o2",        n:"ถังออกซิเจน",             c:"#2E9E63", h:1.5,  k:"or"},
+  {t:"lamp",      n:"โคมไฟผ่าตัด",             c:"#F4F7F6", h:2.0,  k:"or"},
+  {t:"trolley",   n:"รถเข็นเครื่องมือ",         c:"#C5D1CE", h:1.0,  k:"or"},
+  {t:"esu",       n:"เครื่องจี้ไฟฟ้า",           c:"#4E86C4", h:1.1,  k:"or"},
+  {t:"monitor",   n:"จอมอนิเตอร์",             c:"#2F3E48", h:1.55, k:"or"},
+  {t:"suction",   n:"เครื่อง Suction",         c:"#8FCBB8", h:0.95, k:"or"},
+  {t:"iv",        n:"เสาน้ำเกลือ",              c:"#B4C0BD", h:2.05, k:"or"},
+  {t:"stretcher", n:"เตียงรอผ่าตัด",           c:"#8FC4E8", h:1.0,  k:"p"},
+  {t:"bed",       n:"เตียงผู้ป่วย",             c:"#CFE3F2", h:1.0,  k:"p"},
+  {t:"bedside",   n:"ตู้ข้างเตียง",             c:"#3B6FB6", h:1.0,  k:"p"},
+  {t:"recliner",  n:"โซฟาปรับนอน",             c:"#B98559", h:1.2,  k:"p"},
+  {t:"chairs",    n:"เก้าอี้พักคอย (ชุด)",       c:"#59656B", h:1.1,  k:"p"},
+  {t:"stool",     n:"เก้าอี้ / สตูล",            c:"#9FB6CC", h:0.75, k:"p"},
+  {t:"station",   n:"เคาน์เตอร์สเตชั่น",         c:"#E3E8E6", h:1.3,  k:"o"},
+  {t:"desk",      n:"โต๊ะ",                    c:"#C49A6C", h:1.0,  k:"o"},
+  {t:"pc",        n:"คอมพิวเตอร์",             c:"#2F3E48", h:1.4,  k:"o"},
+  {t:"printer",   n:"เครื่องพิมพ์",             c:"#F4F6F6", h:1.2,  k:"o"},
+  {t:"label_printer", n:"เครื่องพิมพ์สติกเกอร์",   c:"#2A3033", h:1.15, k:"o"},
+  {t:"spk_pair",  n:"ลำโพงตั้งโต๊ะ",            c:"#2A3033", h:1.1,  k:"o"},
+  {t:"tv",        n:"ทีวี",                     c:"#2A3033", h:1.9,  k:"o"},
+  {t:"doc_cab",   n:"ตู้เก็บเอกสาร",            c:"#D9D6C8", h:1.55, k:"o"},
+  {t:"lowcab",    n:"ตู้เก็บอุปกรณ์ (เตี้ย)",      c:"#8C918F", h:1.2,  k:"o"},
+  {t:"tallcab",   n:"ตู้เหล็กสูง",               c:"#3A3F41", h:2.05, k:"o"},
+  {t:"cabinet",   n:"ตู้เก็บของ",               c:"#EAF0F2", h:1.95, k:"o"},
+  {t:"shelf",     n:"ชั้นวางของ",               c:"#D9E3E6", h:1.95, k:"o"},
+  {t:"purifier",  n:"เครื่องฟอกอากาศ",         c:"#F2F4F5", h:0.9,  k:"o"},
+  {t:"toilet",    n:"ชักโครก",                 c:"#FFFFFF", h:0.95, k:"t"},
+  {t:"urinal",    n:"โถปัสสาวะชาย",            c:"#FFFFFF", h:1.35, k:"t"},
+  {t:"vanity2",   n:"อ่างล้างมือ 2 อ่าง",        c:"#CFC6B8", h:1.05, k:"t"},
+  {t:"sink",      n:"อ่างล้างมือ",              c:"#DCE8EC", h:1.05, k:"t"},
+  {t:"mirror",    n:"กระจก",                   c:"#BFE2F2", h:1.85, k:"t"},
+  {t:"stall",     n:"ห้องย่อย (ส้วม)",          c:"#E7E2D6", h:1.95, k:"t"},
+  {t:"bucket",    n:"ถังน้ำ",                   c:"#22292C", h:0.8,  k:"t"},
+  {t:"bin",       n:"ถังขยะ",                  c:"#E8B84A", h:0.8,  k:"t"},
+  {t:"wall",      n:"ผนังกั้น",                 c:"#FFFFFF", h:1.8,  k:"b"},
+  {t:"area",      n:"ป้ายชื่อพื้นที่",            c:"#12A393", h:0.45, k:"b"},
+  {t:"window",    n:"หน้าต่าง",                c:"#9FD3EA", h:1.9,  k:"b"},
+  {t:"window_hi", n:"หน้าต่างระบายอากาศ",       c:"#9FD3EA", h:1.9,  k:"b"},
+  {t:"ac",        n:"แอร์",                    c:"#E9EEF0", h:1.95, k:"b"},
+  {t:"wall_fan",  n:"พัดลมติดผนัง",             c:"#F2F4F4", h:1.85, k:"b"},
+  {t:"gas_panel", n:"แผงควบคุมก๊าซ",           c:"#AEB8BB", h:1.8,  k:"b"},
+  {t:"emer_light",n:"ไฟสำรอง",                 c:"#F2F2EE", h:1.9,  k:"b"},
+  {t:"speaker",   n:"ลำโพงติดผนัง",             c:"#EDEDE8", h:1.9,  k:"b"},
+  {t:"rad_shield", n:"ฉากกันรังสี",             c:"#E9EDEE", h:1.9,  k:"or"},
+  {t:"apron_rack", n:"ราวแขวนเสื้อกันรังสี",       c:"#4E86C4", h:1.6,  k:"or"},
+  {t:"crash_cart", n:"รถฟื้นคืนชีพ",            c:"#D9443F", h:1.2,  k:"or"},
+  {t:"device",    n:"เครื่องมือบนรถเข็น",         c:"#DCE3E6", h:1.2,  k:"or"},
+  {t:"tower",     n:"สเตชั่นส่องกล้อง",          c:"#3A4246", h:1.75, k:"or"},
+  {t:"warmer",    n:"Radiant Warmer",          c:"#F0EFE6", h:2.0,  k:"or"},
+  {t:"neo_puff",  n:"NEO Puff",                c:"#2E9E63", h:1.3,  k:"or"},
+  {t:"scale",     n:"เครื่องชั่งน้ำหนัก",          c:"#F2F4F5", h:1.0,  k:"or"},
+  {t:"warm_cab",  n:"ตู้อุ่นน้ำเกลือ",            c:"#C9D1D4", h:1.4,  k:"or"},
+  {t:"gas_cyl",   n:"ถังแก๊ส (CO2/Argon)",      c:"#8E9AA0", h:1.4,  k:"or"},
+  {t:"sofa",      n:"โซฟา",                    c:"#E8E0D0", h:1.0,  k:"p"},
+  {t:"cot",       n:"เตียงพับ / เตียงเล็ก",        c:"#2A3033", h:0.7,  k:"p"},
+  {t:"basket",    n:"ตะกร้าผ้า",                c:"#3D6FD9", h:0.8,  k:"p"},
+  {t:"shoe_rack", n:"ชั้นวางรองเท้า",            c:"#B9C2C0", h:0.8,  k:"p"},
+  {t:"transfer_board", n:"แผ่นเคลื่อนย้ายผู้ป่วย",  c:"#F4F6F6", h:1.8,  k:"p"},
+  {t:"clothes_rail", n:"ราวแขวนผ้า",            c:"#C9D1D4", h:1.7,  k:"p"},
+  {t:"office_chair", n:"เก้าอี้สำนักงาน",          c:"#2A3033", h:1.2,  k:"o"},
+  {t:"table",     n:"โต๊ะอเนกประสงค์",          c:"#F2F2F0", h:1.0,  k:"o"},
+  {t:"meeting_table", n:"โต๊ะประชุม",           c:"#E9DEC9", h:1.0,  k:"o"},
+  {t:"small_table", n:"โต๊ะเล็ก",               c:"#22292C", h:0.7,  k:"o"},
+  {t:"steel_table", n:"โต๊ะสแตนเลส",            c:"#C9D1D4", h:1.0,  k:"o"},
+  {t:"oven",      n:"เตาอบ",                   c:"#8E979A", h:1.3,  k:"o"},
+  {t:"fridge",    n:"ตู้เย็น",                   c:"#B9C0C2", h:1.7,  k:"o"},
+  {t:"water_disp", n:"เครื่องกดน้ำ",             c:"#9CC9E8", h:1.6,  k:"o"},
+  {t:"locker",    n:"ตู้ล็อกเกอร์",               c:"#5C6466", h:2.0,  k:"o"},
+  {t:"wardrobe",  n:"ตู้เสื้อผ้า",                c:"#ECEAE2", h:2.0,  k:"o"},
+  {t:"board",     n:"บอร์ด / ตารางเวร",          c:"#F4F1E4", h:1.9,  k:"o"},
+  {t:"slop_sink", n:"โถล้าง",                   c:"#F7F8F8", h:0.9,  k:"t"},
+  {t:"scrub_sink", n:"อ่างล้างมือ (ติดผนัง)",      c:"#F7F8F8", h:1.3,  k:"t"},
+  {t:"shower",    n:"ฝักบัว",                    c:"#BFE2F2", h:1.8,  k:"t"},
+  {t:"sign",      n:"ป้าย",                     c:"#1E6FD9", h:1.75, k:"b"},
+  {t:"pillar",    n:"เสา",                      c:"#E6ECEA", h:1.9,  k:"b"},
+  {t:"fire_ext",  n:"ถังดับเพลิง",               c:"#D93A3A", h:1.1,  k:"b"},
+  {t:"switch",    n:"สวิตช์ไฟ",                 c:"#F2F2EE", h:1.5,  k:"b"},
+  {t:"ac_floor",  n:"แอร์ตั้งพื้น",               c:"#F4F6F6", h:1.95, k:"b"},
+  {t:"clock",     n:"นาฬิกาดิจิตอล",             c:"#2A3033", h:1.85, k:"b"},
+  {t:"other",     n:"อุปกรณ์อื่น ๆ",              c:"#F2C46D", h:1.0,  k:"b"}
+];
+const PCATS = [["or","ห้องผ่าตัด"],["p","ผู้ป่วย"],["o","สำนักงาน · ตู้"],["t","ห้องน้ำ"],["b","ผนัง · อาคาร"]];
+const LEN = {wall: 3, station: 4.8};   // types whose length can be changed
+const CAT = Object.fromEntries(CATALOG.map(c => [c.t, c]));
+// one-tap starter set for an operating room (offsets from the room centre, metres)
+const OR_SET = [["or_table",0,0.3],["lamp",0,0.3],["anes",-0.9,-1.5],["o2",-1.7,-1.5],["monitor",0.9,-1.4],["trolley",1.4,0.8],["esu",-1.4,0.9]];
+
+/* ---------- helpers ---------- */
+const $ = s => document.querySelector(s);
+const esc = s => String(s).replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const zoneById = Object.fromEntries(ZONES.map(z => [z.id, z]));
+const BW = DATA.W, BD = DATA.D;
+const wx = X => X - BW / 2, wz = Y => Y - BD / 2;
+const ROOMS = DATA.rooms;
+ROOMS.forEach(r => {
+  r.zone = zoneById[r.z];
+  r.people = (CARETAKERS[r.id] || []).map(parseP);
+  let X1 = Infinity, Z1 = Infinity, X2 = -Infinity, Z2 = -Infinity;
+  r.r.forEach(([a,b,c,d]) => { X1 = Math.min(X1, wx(a)); Z1 = Math.min(Z1, wz(b)); X2 = Math.max(X2, wx(c)); Z2 = Math.max(Z2, wz(d)); });
+  r.geo = {X1, Z1, X2, Z2, w: X2 - X1, d: Z2 - Z1, cx: wx(r.lp[0]), cz: wz(r.lp[1])};
+});
+const roomById = Object.fromEntries(ROOMS.map(r => [r.id, r]));
+
+function parseP(s){
+  const main = s.startsWith("✓");
+  let n = main ? s.slice(1) : s;
+  const unsure = n.endsWith("?");
+  if (unsure) n = n.slice(0, -1);
+  return {n: n || "อ่านไม่ชัด", main, unsure: unsure && !!n, unread: !n};
+}
+function kindName(r){
+  switch (r.t){
+    case "or": return "ห้องผ่าตัด " + r.or;
+    case "recovery": return "ห้องพักฟื้น";
+    case "ods": return "ห้อง ODS";
+    case "lift": return "ลิฟต์";
+    case "stair": return "บันได";
+    case "hall": return "โถง";
+    case "corridor": return "ทางเดิน";
+    case "new": return "พื้นที่ที่กั้นใหม่";
+    default: return "ห้อง";
+  }
+}
+const titleOf = r => r.code || r.name || kindName(r);
+function subOf(r){
+  if (!r.code) return r.t === "new" ? "ยังไม่มีรหัสห้อง" : kindName(r);
+  if (r.t === "or") return (r.name ? r.name + " · " : "") + kindName(r);
+  return r.name || kindName(r);
+}
+function dimText(r){
+  if (!r.dim) return "";
+  const [k, w, h] = r.dim, f = v => Number(v).toFixed(2);
+  const s = w && h ? `${f(w)} × ${f(h)} ม.` : `${f(w || h)} ม.`;
+  return k === "e" ? s + " (ประมาณ)" : s;
+}
+function peopleText(r, html){
+  return r.people.map(p => {
+    const name = p.unread ? "?" : p.n + (p.unsure ? "?" : "");
+    return html ? (p.main ? '<span class="ck">✓</span>' : "") + esc(name) : (p.main ? "✓" : "") + name;
+  }).join(" / ");
+}
+function zonePeople(z){
+  const seen = new Map();
+  ROOMS.filter(r => r.zone === z).forEach(r => r.people.forEach(p => {
+    if (p.unread) return;
+    if (!seen.has(p.n) || p.main) seen.set(p.n, p.main || (seen.get(p.n) || false));
+  }));
+  return [...seen.entries()].sort((a,b) => b[1] - a[1]);
+}
+let toastT;
+function toast(msg){
+  const t = $("#toast"); t.textContent = msg; t.classList.add("show");
+  clearTimeout(toastT); toastT = setTimeout(() => t.classList.remove("show"), 2200);
+}
+function copyCode(code, el){
+  try {
+    navigator.clipboard.writeText(code).then(() => toast("คัดลอก " + code + " แล้ว"), () => fallbackSelect(el));
+  } catch (e) { fallbackSelect(el); }
+}
+function fallbackSelect(el){
+  if (el){ const rg = document.createRange(); rg.selectNodeContents(el); const s = getSelection(); s.removeAllRanges(); s.addRange(rg); }
+  toast("เลือกรหัสไว้แล้ว กดค้างเพื่อคัดลอก");
+}
+
+/* ---------- stats ---------- */
+$("#stats").innerHTML =
+  `<span><b>${ROOMS.filter(r => r.code).length}</b> รหัสห้อง</span><span><b>${ROOMS.filter(r => r.t === "or").length}</b> ห้องผ่าตัด</span><span><b>${ZONES.length}</b> โซน 5ส.</span><span><b>${BW.toFixed(1)} × ${BD.toFixed(1)}</b> ม.</span>`;
+
+/* ---------- state ---------- */
+let selected = null, zoneFilter = null, labelMode = "code";
+const items = new Map();          // placed equipment / partitions, id -> item
+const three = {ok:false};
+
+function roomAt(x, z){
+  let best = null, ba = Infinity;
+  for (const r of ROOMS){
+    for (const [a,b,c,d] of r.r){
+      if (x >= wx(a) && x <= wx(c) && z >= wz(b) && z <= wz(d)){
+        const ar = (c - a) * (d - b);
+        if (ar < ba){ ba = ar; best = r; }
+      }
+    }
+  }
+  return best;
+}
+
+const canEnter = r => !!r && r.t !== "lift" && r.t !== "stair";
+
+/* ---------- info panel ---------- */
+function renderInfo(){
+  const box = $("#info");
+  if (!selected){
+    box.innerHTML = `<div class="empty">
+      <p class="eyebrow" style="margin-bottom:6px">ห้องที่เลือก</p>
+      <p>แตะห้องในโมเดล หรือเลือกจากรายการด้านล่าง เพื่อดูรหัสห้อง ขนาด โซน ผู้รับผิดชอบ และอุปกรณ์ในห้อง</p>
+      <dl class="legend">
+        ${HAS_PEOPLE ? `<div><dt>✓</dt><dd>ผู้รับผิดชอบหลักในแต่ละห้อง</dd></div>` : ""}
+        <div><dt><span class="mk"></span></dt><dd>แบ่งโซน ขอบเขตห้องในการดูแล</dd></div>
+      </dl></div>`;
+    return;
+  }
+  const r = selected, z = r.zone;
+  let ppl;
+  if (r.people.length){
+    ppl = `<ul class="people">${r.people.map(p => `<li class="${p.main ? "main" : ""} ${p.unsure ? "unsure" : ""} ${p.unread ? "unread" : ""}">${esc(p.n)}</li>`).join("")}</ul>`;
+  } else {
+    const zp = zonePeople(z);
+    ppl = `<p class="note" style="margin-top:0">ยังไม่ระบุผู้รับผิดชอบ</p>` +
+      (zp.length ? `<p class="note">ผู้รับผิดชอบในโซนเดียวกัน: ${zp.map(([n,m]) => (m ? "✓" : "") + esc(n)).join(", ")}</p>` : "");
+  }
+  const inRoom = [...items.values()].filter(it => roomAt(it.x, it.z) === r);
+  const counts = new Map();
+  inRoom.filter(it => it.type !== "wall" && it.type !== "area").forEach(it => counts.set(it.name, (counts.get(it.name) || 0) + 1));
+  const areas = inRoom.filter(it => it.type === "area").map(it => it.name);
+  const walls = inRoom.filter(it => it.type === "wall").length;
+  const eq = counts.size
+    ? `<ul class="eq">${[...counts].map(([n, c]) => `<li>${esc(n)}${c > 1 ? `<b>×${c}</b>` : ""}</li>`).join("")}</ul>`
+    : `<p class="note" style="margin-top:0">ยังไม่ได้วางอุปกรณ์ในห้องนี้</p>`;
+  const extra = (areas.length ? `<p class="note">พื้นที่ย่อย: ${areas.map(esc).join(", ")}</p>` : "") +
+                (walls ? `<p class="note">ผนังกั้นที่เพิ่ม ${walls} แนว</p>` : "");
+  const dt = dimText(r);
+  box.innerHTML = `
+    <div class="top">
+      <div style="min-width:0">
+        <p class="zn"><span class="sw" style="--h:${z.hue}"></span>${esc(z.name)}</p>
+        <div class="code ${r.code ? "" : "txt"}" id="info-code">${esc(titleOf(r))}</div>
+        <div class="kind">${esc(subOf(r))}</div>
+        ${dt ? `<div class="dims">${esc(dt)}</div>` : ""}
+      </div>
+      <div class="acts">
+        ${canEnter(r) ? `<button type="button" class="copy enter" id="info-enter">เข้าห้อง 360°</button>` : ""}
+        <button type="button" class="copy" id="info-zoom">ซูมเข้าห้อง</button>
+        ${r.code ? `<button type="button" class="copy" id="info-copy">คัดลอกรหัส</button>` : ""}
+      </div>
+    </div>
+    ${r.appr ? `<div class="badge">รหัสอนุมัติแจ้งซ่อม${esc(r.appr)}</div>` : ""}
+    <h3 class="sub">ผู้รับผิดชอบ</h3>
+    ${ppl}
+    <h3 class="sub">อุปกรณ์ในห้อง</h3>
+    ${eq}${extra}`;
+  const zb = $("#info-zoom");
+  if (zb) zb.addEventListener("click", () => { if (three.ok){ three.exitRoom(true); three.zoomInto(r); scrollToViewer(); } });
+  const eb = $("#info-enter");
+  if (eb) eb.addEventListener("click", () => { if (three.ok){ three.enterRoom(r); scrollToViewer(); } });
+  const cb = $("#info-copy");
+  if (cb) cb.addEventListener("click", () => copyCode(r.code, $("#info-code")));
+}
+
+/* ---------- zone chips ---------- */
+function renderZones(){
+  $("#zones").innerHTML = `<button type="button" class="chip" data-z="" aria-pressed="${!zoneFilter}"><span class="sw all"></span>ทุกโซน</button>` +
+    ZONES.map(z => `<button type="button" class="chip" data-z="${z.id}" aria-pressed="${zoneFilter === z}"><span class="sw" style="--h:${z.hue}"></span>${esc(z.name)}</button>`).join("");
+}
+$("#zones").addEventListener("click", e => {
+  const b = e.target.closest(".chip"); if (!b) return;
+  const z = b.dataset.z ? zoneById[b.dataset.z] : null;
+  setZone(zoneFilter === z ? null : z, true);
+});
+function setZone(z, fly){
+  zoneFilter = z;
+  if (z && selected && selected.zone !== z) selected = null;
+  renderZones(); renderInfo(); markList();
+  if (three.ok){ if (fly) three.exitRoom(true); three.applyColors(); three.renderEditSel(); if (fly) z ? three.focusZone(z) : three.resetView(); }
+}
+
+/* ---------- room list ---------- */
+function renderList(){
+  $("#groups").innerHTML = ZONES.map(z => {
+    const rows = ROOMS.filter(r => r.zone === z).map(r => {
+      const kind = r.code ? (r.name || kindName(r)) : (r.name || kindName(r));
+      const pp = r.people.length ? `<span class="rp">${peopleText(r, true)}</span>` : "";
+      const hay = [r.code || "", r.name || "", kindName(r), r.people.map(p => p.n).join(" "), z.name].join(" ").toLowerCase();
+      const dt = r.dim ? ` <span class="rd">${esc(dimText(r).replace(" ม.", "").replace(" (ประมาณ)", "≈"))}</span>` : "";
+      return `<button type="button" class="row" data-id="${esc(r.id)}" data-hay="${esc(hay)}"><span class="rc ${r.code ? "" : "t"}">${esc(r.code || "—")}</span><span class="rk">${esc(kind)}${r.appr ? ` · <span style="color:var(--marker)">อนุมัติแจ้งซ่อม</span>` : ""}${dt}</span>${pp}</button>`;
+    }).join("");
+    return `<div class="grp" data-z="${z.id}"><div class="grp-h"><span class="sw" style="--h:${z.hue}"></span><b>${esc(z.name)}</b></div>${rows}</div>`;
+  }).join("");
+}
+function markList(){
+  document.querySelectorAll(".row").forEach(b => b.setAttribute("aria-current", selected && b.dataset.id === selected.id ? "true" : "false"));
+}
+$("#groups").addEventListener("click", e => {
+  const b = e.target.closest(".row"); if (!b) return;
+  selectRoom(roomById[b.dataset.id], {fly:true, scroll:true});
+});
+$("#q").addEventListener("input", e => {
+  const q = e.target.value.trim().toLowerCase();
+  let any = false;
+  document.querySelectorAll(".grp").forEach(g => {
+    let vis = 0;
+    g.querySelectorAll(".row").forEach(r => { const on = !q || r.dataset.hay.includes(q); r.hidden = !on; if (on) vis++; });
+    g.hidden = vis === 0; if (vis) any = true;
+  });
+  $("#nores").hidden = any;
+});
+
+function selectRoom(r, opt){
+  opt = opt || {};
+  selected = r;
+  if (r && zoneFilter && zoneFilter !== r.zone){ zoneFilter = null; renderZones(); }
+  renderInfo(); markList();
+  if (three.ok){
+    three.applyColors(); three.refreshLabels(); three.renderEditSel();
+    if (r && opt.fly){ if (three.inRoom() && canEnter(r)) three.enterRoom(r); else { three.exitRoom(true); three.focusRoom(r); } }
+  }
+  if (opt.scroll) scrollToViewer();
+}
+function scrollToViewer(){
+  const v = $("#viewer"); const rect = v.getBoundingClientRect();
+  if (rect.top < 0 || rect.bottom > innerHeight) v.scrollIntoView({behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth", block:"start"});
+}
+
+renderZones(); renderInfo(); renderList();
+
+/* ---------- label mode buttons ---------- */
+const lbBtns = {code:$("#lb-code"), people:$("#lb-people"), off:$("#lb-off")};
+if (HAS_PEOPLE) $("#lb-people").hidden = false;
+Object.entries(lbBtns).forEach(([k, b]) => b.addEventListener("click", () => {
+  labelMode = k;
+  Object.entries(lbBtns).forEach(([kk, bb]) => bb.setAttribute("aria-pressed", kk === k ? "true" : "false"));
+  if (three.ok) three.refreshLabels();
+}));
+
+/* ---------- 3D ---------- */
+function fail(){ $("#fallback").hidden = false; $("#c").hidden = true; document.querySelector(".toolbar").hidden = true; document.querySelector(".hint").hidden = true; }
+if (!window.THREE || !THREE.OrbitControls){ fail(); return; }
+let renderer;
+try { renderer = new THREE.WebGLRenderer({canvas: $("#c"), antialias: true}); }
+catch (e){ fail(); return; }
+
+const reduceMotion = matchMedia("(prefers-reduced-motion: reduce)");
+const FLOOR_Y = 0.06, WALL_H = 1.8, WALL_T = 0.15;
+
+renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+renderer.shadowMap.enabled = true;
+renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+
+const scene = new THREE.Scene();
+const camera = new THREE.PerspectiveCamera(36, 1, 0.3, 600);
+const controls = new THREE.OrbitControls(camera, renderer.domElement);
+controls.enableDamping = true;
+controls.dampingFactor = 0.09;
+controls.screenSpacePanning = false;
+controls.maxPolarAngle = 1.32;
+controls.minDistance = 3;
+controls.maxDistance = 150;
+
+scene.add(new THREE.HemisphereLight(0xffffff, 0xe4ece9, 0.86));
+const sun = new THREE.DirectionalLight(0xffffff, 0.36);
+sun.position.set(-20, 40, 26);
+sun.castShadow = true;
+sun.shadow.mapSize.set(2048, 2048);
+Object.assign(sun.shadow.camera, {left:-34, right:34, top:24, bottom:-24, near:5, far:110});
+sun.shadow.bias = -0.0008;
+scene.add(sun);
+
+const P = {bg:"#F2F7F5", slab:"#E4ECE9", floorS:.60, floorL:.955, corrS:.30, corrL:.94, side:"#FFFFFF", cap:"#A9BCB6",
+           lift:"#E3ECE9", dash:"#D2386A", sel:"#AEDBD2", dimS:.04, dimFloorL:.975, newL:.93, accent:"#12A393",
+           counter:"#D9E2DF", sink:"#F4F8F9", roomFloor:"#DCE5E1"};
+let roomMode = null, autoOn = true;   // set while looking around inside a room
+
+const UNIT = new THREE.BoxGeometry(1, 1, 1);
+const CYL = new THREE.CylinderGeometry(1, 1, 1, 22);
+const lam = () => new THREE.MeshLambertMaterial();
+const shared = {slab:lam(), dash:lam(), wallSide:lam(), wallCap:lam(), lift:lam(), counter:lam(), sink:lam()};
+const wallMats = [shared.wallSide, shared.wallSide, shared.wallCap, shared.wallSide, shared.wallSide, shared.wallSide];
+const liftMats = [shared.lift, shared.lift, shared.wallCap, shared.lift, shared.lift, shared.lift];
+const selMat = new THREE.MeshBasicMaterial({color:P.accent, transparent:true, opacity:.32, depthWrite:false});
+const matCache = new Map();
+function matFor(c){ if (!matCache.has(c)){ const m = lam(); m.color.set(c); matCache.set(c, m); } return matCache.get(c); }
+const pickables = [];
+
+function box(mat, w, h, d, x, y, z, cast){
+  const m = new THREE.Mesh(UNIT, mat);
+  m.scale.set(w, h, d); m.position.set(x, y, z);
+  m.castShadow = !!cast; m.receiveShadow = true;
+  scene.add(m); return m;
+}
+const reg = (m, r) => { m.userData.room = r; pickables.push(m); return m; };
+
+box(shared.slab, BW + 1.2, 0.3, BD + 1.2, 0, -0.15, 0);
+
+// floors (one per rectangle; also what a tap hits)
+ROOMS.forEach(r => {
+  r.floorMat = lam();
+  r.r.forEach(([a,b,c,d]) => reg(box(r.floorMat, c - a - 0.02, 0.06, d - b - 0.02, wx((a + c) / 2), 0.03, wz((b + d) / 2)), r));
+  const top = r.t === "lift" ? 2.6 : WALL_H;
+  r.anchor = new THREE.Vector3(r.geo.cx, top + 0.35, r.geo.cz);
+  if (r.t === "lift"){
+    const [a,b,c,d] = r.r[0];
+    reg(box(liftMats, c - a - 0.3, 2.6, d - b - 0.3, wx((a + c) / 2), FLOOR_Y + 1.3, wz((b + d) / 2), true), r);
+  }
+  if (r.t === "stair"){
+    const [a,b,c,d] = r.r[0], n = 9;
+    for (let i = 0; i < n; i++){
+      const y0 = b + (d - b) * i / n, h = 0.12 * (i + 1);
+      reg(box(shared.counter, c - a - 0.1, h, (d - b) / n, wx((a + c) / 2), FLOOR_Y + h / 2, wz(y0 + (d - b) / n / 2), true), r);
+    }
+  }
+});
+// walls (door openings already left out)
+const wallMeshes = [];
+DATA.walls.forEach(([k, f, s0, s1]) => {
+  const L = s1 - s0 + WALL_T, mid = (s0 + s1) / 2;
+  if (k === "h") wallMeshes.push(box(wallMats, L, WALL_H, WALL_T, wx(mid), FLOOR_Y + WALL_H / 2, wz(f), true));
+  else wallMeshes.push(box(wallMats, WALL_T, WALL_H, L, wx(f), FLOOR_Y + WALL_H / 2, wz(mid), true));
+});
+// outer walls
+[[BW / 2, 0, BW + 0.3, 0.3], [BW / 2, BD, BW + 0.3, 0.3], [0, BD / 2, 0.3, BD], [BW, BD / 2, 0.3, BD]].forEach(([X, Y, w, d]) =>
+  wallMeshes.push(box(wallMats, w, WALL_H, d, wx(X), FLOOR_Y + WALL_H / 2, wz(Y), true)));
+// counters and scrub sinks
+DATA.counters.forEach(([a,b,c,d]) => box(shared.counter, c - a, 0.9, d - b, wx((a + c) / 2), FLOOR_Y + 0.45, wz((b + d) / 2), true));
+DATA.sinks.forEach(([a,b,c,d]) => box(shared.sink, c - a, 0.85, d - b, wx((a + c) / 2), FLOOR_Y + 0.425, wz((b + d) / 2), true));
+
+/* 5ส. zone lines: little marker dashes floating just above the walls */
+const dashPts = [];
+DATA.dash.forEach(([a,b,c,d]) => {
+  const ax = wx(a), az = wz(b), bx = wx(c), bz = wz(d);
+  const L = Math.hypot(bx - ax, bz - az), n = Math.max(1, Math.floor(L / 0.7));
+  for (let k = 0; k <= n; k++){
+    const f = k / n;
+    dashPts.push({x: ax + (bx - ax) * f, z: az + (bz - az) * f, rot: Math.atan2(bz - az, bx - ax)});
+  }
+});
+const dashMesh = new THREE.InstancedMesh(UNIT, shared.dash, Math.max(1, dashPts.length));
+{
+  const m4 = new THREE.Matrix4(), q = new THREE.Quaternion(), s = new THREE.Vector3(0.36, 0.06, 0.2), up = new THREE.Vector3(0, 1, 0);
+  dashPts.forEach((p, i) => { q.setFromAxisAngle(up, -p.rot); m4.compose(new THREE.Vector3(p.x, WALL_H + 0.28, p.z), q, s); dashMesh.setMatrixAt(i, m4); });
+}
+scene.add(dashMesh);
+
+/* ---------- colors ---------- */
+function applyColors(){
+  scene.background = new THREE.Color(P.bg);
+  shared.slab.color.set(P.slab); shared.dash.color.set(P.dash);
+  shared.wallSide.color.set(P.side); shared.wallCap.color.set(P.cap); shared.lift.color.set(P.lift);
+  shared.counter.color.set(P.counter); shared.sink.color.set(P.sink);
+  ROOMS.forEach(r => {
+    const h = r.zone.hue / 360, dim = zoneFilter && zoneFilter !== r.zone, sel = r === selected;
+    const open = r.t === "corridor" || r.t === "hall";
+    if (sel) r.floorMat.color.set(roomMode && roomMode.room === r ? P.roomFloor : P.sel);
+    else if (dim) r.floorMat.color.setHSL(h, P.dimS, P.dimFloorL);
+    else if (r.t === "new") r.floorMat.color.setHSL(36 / 360, .75, P.newL);
+    else r.floorMat.color.setHSL(h, open ? P.corrS : P.floorS, open ? P.corrL : P.floorL);
+  });
+  dirty = true;
+}
+
+/* ---------- equipment models (simple shapes, metres; y is the centre above the floor) ---------- */
+// colour words in an item's name ("(ดำ)", "สีเขียว") tint the furniture that comes in several colours
+const TINTS = [["ดำ", "#2E3436"], ["ขาว", "#F2F2F0"], ["เทา", "#6E7779"], ["เขียว", "#4F9A6B"], ["ฟ้า", "#3B6FB6"], ["น้ำตาล", "#A0754B"], ["ครีม", "#E8E0D0"], ["แดง", "#D9443F"]];
+const TINTABLE = new Set(["sofa", "bucket", "bin", "shelf", "cabinet", "table", "locker", "doc_cab", "wardrobe", "basket", "small_table", "desk"]);
+function tint(t, name, c){
+  if (!TINTABLE.has(t) || !name) return c;
+  for (const [w, col] of TINTS) if (name.includes(w)) return col;
+  return c;
+}
+function partsFor(t, len, name){
+  const S = "#C5D1CE", G = "#9AA8A4", D = "#2F3E48";
+  const T = c => tint(t, name, c);
+  const b = (c, s, p) => ({g:"box", c, s, p}), cy = (c, r, h, p) => ({g:"cyl", c, s:[r, h, r], p});
+  switch (t){
+    case "wall": return {fp:[len, 0.14], parts:[{g:"wall", s:[len, WALL_H, 0.12], p:[0, WALL_H / 2, 0]}]};
+    case "area": return {fp:[0.6, 0.6], parts:[b("#12A393", [0.6, 0.03, 0.6], [0, 0.015, 0]), cy("#12A393", 0.03, 0.3, [0, 0.18, 0])]};
+    case "or_table": return {fp:[0.6, 2.0], parts:[b(G, [0.5, 0.08, 0.7], [0, 0.04, 0]), b(G, [0.22, 0.68, 0.3], [0, 0.42, 0]), b("#7F98AE", [0.55, 0.1, 2.0], [0, 0.8, 0])]};
+    case "anes": return {fp:[0.8, 0.7], parts:[b("#6F8FBA", [0.75, 0.95, 0.6], [0, 0.5, 0]), b("#E9EEF2", [0.8, 0.05, 0.66], [0, 1.0, 0]), b(D, [0.5, 0.36, 0.06], [0, 1.25, -0.22]), cy(S, 0.03, 0.4, [0.3, 1.2, 0.15])]};
+    case "o2": return {fp:[0.3, 0.3], parts:[cy("#2E9E63", 0.11, 1.15, [0, 0.6, 0]), cy("#DDE5E2", 0.11, 0.12, [0, 1.24, 0]), cy(G, 0.04, 0.12, [0, 1.36, 0])]};
+    case "stretcher": return {fp:[0.75, 2.0], parts:[b(G, [0.55, 0.1, 1.6], [0, 0.2, 0]), cy(G, 0.03, 0.45, [0, 0.45, -0.6]), cy(G, 0.03, 0.45, [0, 0.45, 0.6]), b("#8FC4E8", [0.68, 0.12, 1.95], [0, 0.74, 0]), b(S, [0.03, 0.15, 1.2], [0.36, 0.87, 0]), b(S, [0.03, 0.15, 1.2], [-0.36, 0.87, 0])]};
+    case "bed": return {fp:[0.95, 2.1], parts:[b("#DCE5EA", [0.95, 0.35, 2.05], [0, 0.3, 0]), b("#CFE3F2", [0.9, 0.15, 1.95], [0, 0.55, 0]), b("#9FB2C0", [0.95, 0.6, 0.06], [0, 0.6, -1.03]), b("#9FB2C0", [0.95, 0.4, 0.06], [0, 0.5, 1.03])]};
+    case "lamp": return {fp:[0.9, 0.9], parts:[cy(G, 0.05, 0.45, [0, 1.78, 0]), cy("#F4F7F6", 0.45, 0.09, [0, 1.52, 0]), cy("#FFF3C4", 0.34, 0.02, [0, 1.465, 0])]};
+    case "trolley": return {fp:[0.5, 0.9], parts:[b(S, [0.5, 0.04, 0.9], [0, 0.86, 0]), b(S, [0.5, 0.03, 0.9], [0, 0.3, 0]),
+        cy(G, 0.02, 0.84, [0.22, 0.43, 0.42]), cy(G, 0.02, 0.84, [-0.22, 0.43, 0.42]), cy(G, 0.02, 0.84, [0.22, 0.43, -0.42]), cy(G, 0.02, 0.84, [-0.22, 0.43, -0.42])]};
+    case "esu": return {fp:[0.5, 0.5], parts:[b("#BFCBD3", [0.5, 0.7, 0.5], [0, 0.38, 0]), b("#4E86C4", [0.45, 0.2, 0.42], [0, 0.84, 0])]};
+    case "monitor": return {fp:[0.5, 0.5], parts:[cy(G, 0.25, 0.04, [0, 0.02, 0]), cy(G, 0.025, 1.1, [0, 0.57, 0]), b(D, [0.42, 0.32, 0.08], [0, 1.3, 0]), b("#5FD0B8", [0.36, 0.24, 0.01], [0, 1.3, 0.045])]};
+    case "iv": return {fp:[0.5, 0.5], parts:[cy(G, 0.25, 0.04, [0, 0.02, 0]), cy(G, 0.015, 1.9, [0, 0.97, 0]), b(G, [0.3, 0.02, 0.02], [0, 1.9, 0]), b("#DDEFF8", [0.12, 0.22, 0.05], [0.1, 1.75, 0])]};
+    case "suction": return {fp:[0.45, 0.4], parts:[b("#8FCBB8", [0.4, 0.55, 0.35], [0, 0.3, 0]), cy("#EAF6FB", 0.08, 0.22, [0.08, 0.69, 0])]};
+    case "cabinet": return {fp:[1.0, 0.5], parts:[b(T("#EAF0F2"), [1.0, 1.85, 0.5], [0, 0.925, 0]), b("#9FB0B6", [0.012, 1.7, 0.012], [0, 0.93, 0.255])]};
+    case "shelf": {
+      const c = T("#D9E3E6"), parts = [b("#B9C8CD", [0.04, 1.85, 0.45], [0.58, 0.925, 0]), b("#B9C8CD", [0.04, 1.85, 0.45], [-0.58, 0.925, 0])];
+      [0.12, 0.55, 1.0, 1.45, 1.85].forEach(y => parts.push(b(c, [1.2, 0.03, 0.45], [0, y, 0])));
+      return {fp:[1.2, 0.45], parts};
+    }
+    case "sink": return {fp:[1.2, 0.55], parts:[b("#DCE8EC", [1.2, 0.85, 0.55], [0, 0.425, 0]), b("#A9C3CC", [1.0, 0.04, 0.4], [0, 0.87, 0.03]), cy(S, 0.02, 0.25, [0, 1.0, -0.2])]};
+    case "bin": return {fp:[0.45, 0.45], parts:[cy(T("#E8B84A"), 0.22, 0.6, [0, 0.3, 0]), cy("#D9A535", 0.23, 0.04, [0, 0.62, 0])]};
+    case "stool": return {fp:[0.45, 0.45], parts:[cy(G, 0.22, 0.04, [0, 0.02, 0]), cy(G, 0.03, 0.5, [0, 0.27, 0]), cy("#9FB6CC", 0.2, 0.07, [0, 0.55, 0])]};
+    case "station": { const L = len || 4.8; return {fp:[L, 0.75], parts:[b("#EDEFEA", [L, 0.04, 0.72], [0, 0.75, -0.02]), b("#DDE3E1", [L, 1.05, 0.06], [0, 0.525, 0.35]),
+        b("#2E8B57", [L, 0.04, 0.012], [0, 0.32, 0.385]), b("#C8B08E", [L, 0.03, 0.2], [0, 1.06, 0.3]), b("#CBD3D0", [0.04, 0.75, 0.72], [-L / 2 + 0.02, 0.375, -0.02]), b("#CBD3D0", [0.04, 0.75, 0.72], [L / 2 - 0.02, 0.375, -0.02])]}; }
+    case "desk": return {fp:[1.2, 0.6], parts:[b(T("#C49A6C"), [1.2, 0.04, 0.6], [0, 0.74, 0]), b("#2F3536", [0.04, 0.72, 0.56], [-0.57, 0.36, 0]), b("#2F3536", [0.04, 0.72, 0.56], [0.57, 0.36, 0])]};
+    case "pc": return {fp:[0.52, 0.4], parts:[b(G, [0.08, 0.14, 0.08], [0, 0.83, -0.05]), b("#1E2629", [0.52, 0.32, 0.03], [0, 1.06, -0.05]), b(D, [0.42, 0.02, 0.14], [0, 0.77, 0.15])]};
+    case "printer": return {fp:[0.42, 0.38], parts:[b("#EEF1F2", [0.42, 0.24, 0.38], [0, 0.88, 0]), b("#C9D1D4", [0.3, 0.02, 0.2], [0, 1.0, 0])]};
+    case "label_printer": return {fp:[0.24, 0.28], parts:[b("#2A3033", [0.24, 0.18, 0.28], [0, 0.85, 0])]};
+    case "spk_pair": return {fp:[0.6, 0.1], parts:[b("#22292C", [0.09, 0.16, 0.1], [-0.25, 0.84, 0]), b("#22292C", [0.09, 0.16, 0.1], [0.25, 0.84, 0])]};
+    case "tv": return {fp:[0.9, 0.6], parts:[b(G, [0.7, 0.05, 0.5], [0, 0.05, 0]), cy(G, 0.035, 1.15, [0, 0.62, 0]), b("#1E2629", [1.1, 0.64, 0.06], [0, 1.4, 0])]};
+    case "doc_cab": return {fp:[0.45, 0.45], parts:[b(T("#D9D6C8"), [0.45, 1.35, 0.45], [0, 0.675, 0]), b("#B9B6A8", [0.46, 0.02, 0.46], [0, 0.9, 0])]};
+    case "lowcab": return {fp:[1.1, 0.5], parts:[b("#8C918F", [1.1, 0.95, 0.5], [0, 0.5, 0]), b("#CFE4EA", [1.0, 0.6, 0.02], [0, 0.55, 0.255]), b("#7C807E", [1.12, 0.03, 0.52], [0, 0.985, 0])]};
+    case "tallcab": return {fp:[0.9, 0.45], parts:[b("#3A3F41", [0.9, 1.85, 0.45], [0, 0.925, 0]), b("#C9B26A", [0.02, 0.12, 0.02], [0.05, 1.0, 0.235])]};
+    case "purifier": return {fp:[0.35, 0.28], parts:[b("#F2F4F5", [0.35, 0.62, 0.28], [0, 0.31, 0]), b("#C9D1D4", [0.3, 0.02, 0.2], [0, 0.63, 0])]};
+    case "bedside": return {fp:[0.45, 0.45], parts:[b("#3B6FB6", [0.45, 0.8, 0.45], [0, 0.4, 0]), b("#E9EEF2", [0.47, 0.03, 0.47], [0, 0.815, 0])]};
+    case "recliner": return {fp:[0.8, 0.9], parts:[b("#B98559", [0.8, 0.45, 0.85], [0, 0.25, 0.02]), b("#A9774E", [0.8, 0.65, 0.2], [0, 0.72, -0.33]), b("#A9774E", [0.12, 0.3, 0.85], [-0.36, 0.5, 0.02]), b("#A9774E", [0.12, 0.3, 0.85], [0.36, 0.5, 0.02])]};
+    case "chairs": {
+      const parts = [b(G, [2.2, 0.05, 0.08], [0, 0.38, 0]), b(G, [0.05, 0.38, 0.5], [-1.05, 0.19, 0]), b(G, [0.05, 0.38, 0.5], [1.05, 0.19, 0])];
+      for (let i = 0; i < 4; i++){ const x = -0.825 + i * 0.55; parts.push(b("#2A3033", [0.48, 0.06, 0.48], [x, 0.45, 0.02]), b("#2A3033", [0.48, 0.42, 0.05], [x, 0.7, -0.24])); }
+      return {fp:[2.2, 0.6], parts};
+    }
+    case "gas_panel": return {fp:[0.5, 0.1], parts:[b("#D8DEE0", [0.5, 0.7, 0.1], [0, 1.25, 0]), b("#5B6A70", [0.3, 0.12, 0.02], [0, 1.4, 0.055])]};
+    case "ac": return {fp:[0.9, 0.22], parts:[b("#F4F6F6", [0.9, 0.28, 0.22], [0, 1.6, 0]), b("#C9D1D4", [0.8, 0.03, 0.02], [0, 1.5, 0.11])]};
+    case "wall_fan": return {fp:[0.42, 0.15], parts:[b("#F2F4F4", [0.42, 0.42, 0.06], [0, 1.45, 0.03]), b("#DADFE0", [0.14, 0.14, 0.12], [0, 1.45, -0.03])]};
+    case "emer_light": return {fp:[0.35, 0.12], parts:[b("#F2F2EE", [0.35, 0.12, 0.12], [0, 1.62, 0])]};
+    case "speaker": return {fp:[0.2, 0.14], parts:[b("#EDEDE8", [0.2, 0.3, 0.14], [0, 1.55, 0])]};
+    case "window": return {fp:[1.0, 0.06], parts:[b("#E8EEF0", [1.0, 1.35, 0.05], [0, 1.12, 0]), b("#9FD3EA", [0.86, 1.2, 0.06], [0, 1.12, 0])]};
+    case "window_hi": return {fp:[0.9, 0.06], parts:[b("#E8EEF0", [0.9, 0.4, 0.05], [0, 1.55, 0]), b("#9FD3EA", [0.8, 0.3, 0.06], [0, 1.55, 0])]};
+    case "toilet": return {fp:[0.4, 0.7], parts:[b("#F7F8F8", [0.38, 0.4, 0.5], [0, 0.2, 0.08]), b("#F7F8F8", [0.4, 0.38, 0.18], [0, 0.6, -0.24])]};
+    case "urinal": return {fp:[0.38, 0.32], parts:[b("#F7F8F8", [0.38, 0.6, 0.32], [0, 0.85, 0])]};
+    case "vanity2": return {fp:[1.8, 0.55], parts:[b("#CFC6B8", [1.8, 0.08, 0.55], [0, 0.82, 0]), b("#B8AFA2", [1.8, 0.18, 0.04], [0, 0.69, 0.26]), b("#FFFFFF", [0.45, 0.06, 0.36], [-0.45, 0.87, 0.02]), b("#FFFFFF", [0.45, 0.06, 0.36], [0.45, 0.87, 0.02])]};
+    case "mirror": return {fp:[1.4, 0.03], parts:[b("#D9EEF5", [1.4, 0.7, 0.03], [0, 1.35, 0])]};
+    case "bucket": return {fp:[0.5, 0.5], parts:[cy(T("#22292C"), 0.25, 0.55, [0, 0.275, 0])]};
+    case "stall": return {fp:[1.3, 1.5], parts:[b("#D8D4C9", [0.04, 1.8, 1.5], [-0.65, 0.9, 0]), b("#D8D4C9", [0.04, 1.8, 1.5], [0.65, 0.9, 0]),
+        b("#D8D4C9", [0.35, 1.8, 0.04], [-0.475, 0.9, 0.75]), b("#E7E2D6", [0.04, 1.7, 0.62], [-0.28, 0.88, 1.06]), b(G, [1.3, 0.04, 0.04], [0, 1.8, 0.75])]};
+    case "sign": return {fp:[0.6, 0.04], parts:[b("#1E6FD9", [0.6, 0.18, 0.03], [0, 1.5, 0]), b("#FFFFFF", [0.5, 0.07, 0.034], [0, 1.5, 0])]};
+    case "pillar": return {fp:[0.45, 0.45], parts:[b("#E6ECEA", [0.45, WALL_H, 0.45], [0, WALL_H / 2, 0])]};
+    case "office_chair": return {fp:[0.6, 0.6], parts:[cy(G, 0.26, 0.04, [0, 0.03, 0]), cy(G, 0.03, 0.4, [0, 0.24, 0]),
+        b("#2A3033", [0.5, 0.08, 0.5], [0, 0.48, 0]), b("#2A3033", [0.5, 0.55, 0.07], [0, 0.8, -0.22])]};
+    case "fire_ext": return {fp:[0.22, 0.18], parts:[cy("#D93A3A", 0.09, 0.5, [0, 0.55, 0]), cy("#2A3033", 0.03, 0.1, [0, 0.85, 0])]};
+    case "switch": return {fp:[0.3, 0.05], parts:[b("#F2F2EE", [0.3, 0.12, 0.03], [0, 1.25, 0])]};
+    case "basket": return {fp:[0.45, 0.45], parts:[cy(T("#3D6FD9"), 0.22, 0.55, [0, 0.275, 0])]};
+    case "shoe_rack": {
+      const parts = [b(G, [0.03, 0.6, 0.3], [-0.38, 0.3, 0]), b(G, [0.03, 0.6, 0.3], [0.38, 0.3, 0])];
+      [0.1, 0.3, 0.5].forEach(y => parts.push(b("#B9C2C0", [0.8, 0.03, 0.3], [0, y, 0])));
+      return {fp:[0.8, 0.3], parts};
+    }
+    case "locker": return {fp:[0.9, 0.5], parts:[b(T("#5C6466"), [0.9, 1.8, 0.5], [0, 0.9, 0]), b("#454C4E", [0.012, 1.7, 0.012], [0, 0.9, 0.256])]};
+    case "transfer_board": return {fp:[0.5, 0.05], parts:[b("#F4F6F6", [0.5, 1.4, 0.04], [0, 0.95, 0])]};
+    case "sofa": { const c = T("#E8E0D0"), c2 = c === "#2E3436" ? "#22292C" : "#D9CFBB";
+      return {fp:[1.8, 0.85], parts:[b(c, [1.8, 0.42, 0.85], [0, 0.21, 0]), b(c2, [1.8, 0.45, 0.2], [0, 0.62, -0.32]),
+        b(c2, [0.15, 0.25, 0.85], [-0.83, 0.5, 0]), b(c2, [0.15, 0.25, 0.85], [0.83, 0.5, 0])]}; }
+    case "fridge": return {fp:[0.6, 0.6], parts:[b("#B9C0C2", [0.6, 1.45, 0.6], [0, 0.725, 0]), b("#8E979A", [0.03, 0.4, 0.03], [0.22, 1.0, 0.31])]};
+    case "table": return {fp:[1.2, 0.6], parts:[b(T("#F2F2F0"), [1.2, 0.04, 0.6], [0, 0.74, 0]), b(G, [0.04, 0.72, 0.56], [-0.57, 0.36, 0]), b(G, [0.04, 0.72, 0.56], [0.57, 0.36, 0])]};
+    case "meeting_table": return {fp:[3.0, 1.2], parts:[b("#E9DEC9", [3.0, 0.05, 1.2], [0, 0.74, 0]), b("#D9CDB5", [0.3, 0.72, 0.6], [-0.9, 0.36, 0]), b("#D9CDB5", [0.3, 0.72, 0.6], [0.9, 0.36, 0])]};
+    case "small_table": return {fp:[0.6, 0.45], parts:[b(T("#22292C"), [0.6, 0.04, 0.45], [0, 0.42, 0]), b(T("#22292C"), [0.56, 0.02, 0.41], [0, 0.12, 0]), b(G, [0.04, 0.4, 0.4], [0, 0.2, 0])]};
+    case "water_disp": return {fp:[0.35, 0.35], parts:[b("#F2F4F5", [0.35, 1.0, 0.35], [0, 0.5, 0]), cy("#7FB8E6", 0.14, 0.35, [0, 1.18, 0])]};
+    case "ac_floor": return {fp:[0.5, 0.3], parts:[b("#F4F6F6", [0.5, 1.75, 0.3], [0, 0.875, 0]), b("#C9D1D4", [0.42, 0.25, 0.01], [0, 1.5, 0.155])]};
+    case "cot": return {fp:[0.7, 1.9], parts:[b("#2A3033", [0.7, 0.08, 1.9], [0, 0.4, 0]), b(G, [0.66, 0.36, 0.04], [0, 0.18, -0.85]), b(G, [0.66, 0.36, 0.04], [0, 0.18, 0.85])]};
+    case "steel_table": return {fp:[1.0, 0.6], parts:[b("#C9D1D4", [1.0, 0.04, 0.6], [0, 0.85, 0]), b("#C9D1D4", [0.96, 0.03, 0.56], [0, 0.25, 0]),
+        b(G, [0.04, 0.85, 0.04], [-0.47, 0.425, -0.27]), b(G, [0.04, 0.85, 0.04], [0.47, 0.425, -0.27]), b(G, [0.04, 0.85, 0.04], [-0.47, 0.425, 0.27]), b(G, [0.04, 0.85, 0.04], [0.47, 0.425, 0.27])]};
+    case "oven": return {fp:[0.45, 0.35], parts:[b("#8E979A", [0.45, 0.3, 0.35], [0, 1.02, 0]), b("#2A3033", [0.3, 0.2, 0.01], [0, 1.02, 0.18])]};
+    case "slop_sink": return {fp:[0.6, 0.55], parts:[b("#F7F8F8", [0.6, 0.55, 0.55], [0, 0.3, 0]), b("#DCE3E6", [0.5, 0.04, 0.45], [0, 0.58, 0])]};
+    case "scrub_sink": return {fp:[0.6, 0.5], parts:[b("#F7F8F8", [0.6, 0.25, 0.5], [0, 0.82, 0]), cy(G, 0.03, 0.6, [0, 0.42, -0.15]), cy(S, 0.015, 0.2, [0, 1.05, -0.2])]};
+    case "shower": return {fp:[0.25, 0.15], parts:[cy(G, 0.015, 1.0, [0, 1.1, 0]), cy("#C9D1D4", 0.07, 0.04, [0, 1.6, 0.06])]};
+    case "rad_shield": return {fp:[0.9, 0.35], parts:[b(G, [0.9, 0.08, 0.35], [0, 0.04, 0]), b("#E9EDEE", [0.9, 1.6, 0.05], [0, 0.9, 0]), b("#9FD3EA", [0.3, 0.25, 0.06], [0, 1.4, 0])]};
+    case "neo_puff": return {fp:[0.45, 0.45], parts:[cy(G, 0.22, 0.04, [0, 0.02, 0]), cy(G, 0.02, 1.0, [0, 0.52, 0]), b("#2E9E63", [0.3, 0.2, 0.2], [0, 1.05, 0])]};
+    case "scale": return {fp:[0.6, 0.45], parts:[b("#F2F4F5", [0.6, 0.7, 0.45], [0, 0.35, 0]), b("#DCE3E6", [0.55, 0.08, 0.4], [0, 0.76, 0])]};
+    case "warmer": return {fp:[0.9, 0.7], parts:[b("#F0EFE6", [0.9, 0.8, 0.7], [0, 0.4, 0]), b("#D9E6EC", [0.8, 0.15, 0.6], [0, 0.88, 0]),
+        cy(G, 0.04, 1.0, [0, 1.4, -0.3]), b("#F0EFE6", [0.7, 0.15, 0.3], [0, 1.85, -0.15])]};
+    case "tower": return {fp:[0.6, 0.6], parts:[b("#3A4246", [0.6, 1.2, 0.55], [0, 0.6, 0]), b("#1E2629", [0.55, 0.35, 0.05], [0, 1.45, 0])]};
+    case "apron_rack": return {fp:[1.0, 0.25], parts:[b(G, [1.0, 0.04, 0.06], [0, 1.45, 0]),
+        b("#4E86C4", [0.28, 0.7, 0.05], [-0.33, 1.05, 0.06]), b("#4E86C4", [0.28, 0.7, 0.05], [0, 1.05, 0.06]), b("#4E86C4", [0.28, 0.7, 0.05], [0.33, 1.05, 0.06])]};
+    case "device": return {fp:[0.55, 0.5], parts:[b("#DCE3E6", [0.55, 0.7, 0.5], [0, 0.35, 0]), b("#F4F6F6", [0.45, 0.25, 0.4], [0, 0.85, 0]), b(D, [0.3, 0.16, 0.02], [0, 0.88, 0.21])]};
+    case "warm_cab": return {fp:[0.6, 0.55], parts:[b("#C9D1D4", [0.6, 1.2, 0.55], [0, 0.6, 0]), b("#9FB6C2", [0.5, 0.8, 0.01], [0, 0.7, 0.28])]};
+    case "gas_cyl": return {fp:[0.25, 0.25], parts:[cy("#8E9AA0", 0.1, 1.1, [0, 0.55, 0]), cy(G, 0.04, 0.12, [0, 1.16, 0])]};
+    case "crash_cart": return {fp:[0.7, 0.5], parts:[b("#D9443F", [0.7, 0.95, 0.5], [0, 0.5, 0]), b("#F2F4F5", [0.72, 0.04, 0.52], [0, 0.99, 0]),
+        b("#B8332F", [0.66, 0.02, 0.01], [0, 0.3, 0.255]), b("#B8332F", [0.66, 0.02, 0.01], [0, 0.55, 0.255]), b("#B8332F", [0.66, 0.02, 0.01], [0, 0.8, 0.255])]};
+    case "board": return {fp:[1.5, 0.04], parts:[b("#F4F1E4", [1.5, 0.9, 0.03], [0, 1.25, 0]), b("#F7E37A", [0.3, 0.4, 0.035], [-0.5, 1.3, 0]), b("#FFFFFF", [0.4, 0.3, 0.035], [0.2, 1.4, 0])]};
+    case "clothes_rail": return {fp:[1.2, 0.45], parts:[cy(G, 0.02, 1.5, [-0.55, 0.75, 0]), cy(G, 0.02, 1.5, [0.55, 0.75, 0]), b(G, [1.2, 0.03, 0.03], [0, 1.5, 0]), b("#4F9A6B", [0.8, 0.7, 0.12], [0, 1.1, 0])]};
+    case "wardrobe": return {fp:[0.9, 0.55], parts:[b(T("#ECEAE2"), [0.9, 1.85, 0.55], [0, 0.925, 0]), b("#B9B6A8", [0.01, 1.7, 0.01], [0, 0.93, 0.28])]};
+    case "clock": return {fp:[0.4, 0.06], parts:[b("#2A3033", [0.4, 0.15, 0.06], [0, 1.6, 0]), b("#E5484D", [0.32, 0.07, 0.065], [0, 1.6, 0])]};
+    default: return {fp:[0.6, 0.6], parts:[b("#F2C46D", [0.6, 0.8, 0.6], [0, 0.4, 0])]};
+  }
+}
+
+let itemMeshes = [];
+let selItem = null;
+const labelsEl = $("#labels");
+
+function buildItem(it){
+  if (it.group){ scene.remove(it.group); itemMeshes = itemMeshes.filter(m => m.userData.item !== it); }
+  const spec = partsFor(it.type, it.len || LEN[it.type] || 3, it.name);
+  const g = new THREE.Group();
+  spec.parts.forEach(p => {
+    const m = new THREE.Mesh(p.g === "cyl" ? CYL : UNIT, p.g === "wall" ? wallMats : matFor(p.c));
+    m.scale.set(p.s[0], p.s[1], p.s[2]); m.position.set(p.p[0], p.p[1], p.p[2]);
+    m.castShadow = p.p[1] - p.s[1] / 2 < 0.3 && p.s[1] > 0.35; m.receiveShadow = true; m.userData.item = it;
+    g.add(m); itemMeshes.push(m);
+  });
+  const sm = new THREE.Mesh(UNIT, selMat);
+  sm.scale.set(spec.fp[0] + 0.3, 0.02, spec.fp[1] + 0.3); sm.position.y = 0.012; sm.visible = it === selItem;
+  g.add(sm); it.selMesh = sm;
+  g.position.set(it.x, FLOOR_Y, it.z); g.rotation.y = it.rot;
+  scene.add(g); it.group = g;
+  it.anchor = it.anchor || new THREE.Vector3();
+  it.anchorH = (CAT[it.type] || CAT.other).h + 0.2;
+  it.fp = spec.fp;
+  if (!it.lbl){ it.lbl = document.createElement("div"); labelsEl.appendChild(it.lbl); }
+  it.isItem = true;
+  dirty = true;
+}
+function placeGroup(it){ it.group.position.set(it.x, FLOOR_Y, it.z); it.group.rotation.y = it.rot; dirty = true; }
+function dropItem(it){
+  if (it.group) scene.remove(it.group);
+  itemMeshes = itemMeshes.filter(m => m.userData.item !== it);
+  if (it.lbl) it.lbl.remove();
+  items.delete(it.id);
+  if (selItem === it) selItem = null;
+  dirty = true;
+}
+
+const num = (v, d) => (typeof v === "number" && isFinite(v)) ? v : d;
+const clampX = x => Math.max(-BW / 2 + 0.2, Math.min(BW / 2 - 0.2, x));
+const clampZ = z => Math.max(-BD / 2 + 0.2, Math.min(BD / 2 - 0.2, z));
+const snap = v => Math.round(v / 0.05) * 0.05;
+function sanitize(b){
+  const type = CAT[b && b.type] ? b.type : "other";
+  const name = (typeof b.name === "string" && b.name.trim()) ? b.name.trim().slice(0, 60) : CAT[type].n;
+  const o = {type, name, x: clampX(num(b.x, 0)), z: clampZ(num(b.z, 0)), rot: num(b.rot, 0)};
+  if (LEN[type]) o.len = Math.max(0.5, Math.min(40, num(b.len, LEN[type])));
+  return o;
+}
+function bodyOf(it){
+  const b = {type: it.type, name: it.name, x: +it.x.toFixed(3), z: +it.z.toFixed(3), rot: +it.rot.toFixed(4)};
+  if (LEN[it.type]) b.len = +it.len.toFixed(2);
+  return b;
+}
+function applyBody(id, body){
+  if (!body){ const it = items.get(id); if (it) dropItem(it); return; }
+  const s = sanitize(body);
+  let it = items.get(id);
+  if (!it){ it = Object.assign({id}, s); items.set(id, it); buildItem(it); return; }
+  const rebuild = it.type !== s.type || (LEN[s.type] && it.len !== s.len) || (TINTABLE.has(s.type) && it.name !== s.name);
+  Object.assign(it, s);
+  if (rebuild) buildItem(it); else placeGroup(it);
+}
+
+/* ---------- shared storage (db capability) ---------- */
+let itemsCol = null, canWrite = true, dbState = "connecting";
+const writeQ = new Map();
+function newId(){
+  if (itemsCol){ try { return itemsCol.doc().id; } catch (e){} }
+  return "i" + Date.now().toString(36) + Math.random().toString(36).slice(2, 8);
+}
+function persist(id, body){
+  const it = items.get(id);
+  if (!itemsCol){ if (it) it.local = true; return; }
+  if (!canWrite) return;
+  const run = () => body ? itemsCol.doc(id).set(body) : itemsCol.doc(id).delete();
+  const p = (writeQ.get(id) || Promise.resolve()).then(run).catch(err => onWriteErr(err, run));
+  writeQ.set(id, p);
+}
+function onWriteErr(err, run){
+  const code = err && err.code;
+  if (code === "unavailable"){
+    return new Promise(r => setTimeout(r, 500 + Math.random() * 700)).then(run).catch(() => toast("บันทึกไม่สำเร็จ ตรวจสอบอินเทอร์เน็ตแล้วลองใหม่"));
+  }
+  if (code === "invalid_argument" || code === "not_granted" || code === "revoked"){
+    canWrite = false; setEdit(false); updStatus(); toast("บัญชีนี้ดูผังได้อย่างเดียว แก้ไขไม่ได้"); return;
+  }
+  if (code === "quota_exceeded"){ toast("ที่เก็บข้อมูลเต็ม ลบอุปกรณ์ที่ไม่ใช้แล้วลองใหม่"); return; }
+  toast("บันทึกไม่สำเร็จ");
+}
+function onItemsSnap(snap){
+  const seen = new Set();
+  snap.docs.forEach(d => {
+    const body = d.data(); if (!body) return;
+    seen.add(d.id);
+    if (drag && drag.item.id === d.id) return;
+    applyBody(d.id, body);
+  });
+  [...items.values()].forEach(it => { if (!seen.has(it.id) && !it.local && !(drag && drag.item === it)) dropItem(it); });
+  afterItemsChange();
+}
+async function initDb(){
+  const cl = window.claude;
+  if (!cl || typeof cl.use !== "function"){ dbState = "none"; updStatus(); return; }
+  let db = null;
+  try { db = await cl.use("db"); } catch (e){ db = null; }
+  if (!db){ dbState = "none"; updStatus(); return; }
+  try {
+    const u = await cl.use("user");
+    if (u && typeof u.can === "function"){ const c = await u.can("data.write"); if (c === false) canWrite = false; }
+  } catch (e){}
+  itemsCol = db.collection("items");
+  dbState = "live";
+  if (!canWrite && editMode) setEdit(false);
+  updStatus();
+  items.forEach(it => { if (it.local){ it.local = false; persist(it.id, bodyOf(it)); } });
+  itemsCol.onSnapshot(onItemsSnap, () => { dbState = "error"; updStatus(); });
+}
+function updStatus(){
+  const el = $("#edStatus"); let cls = "", txt;
+  if (dbState === "live") { if (canWrite){ cls = "live"; txt = "บันทึกอัตโนมัติ · ทุกคนที่เปิดผังนี้เห็นการแก้ไขเดียวกัน"; } else { cls = "warn"; txt = "บัญชีนี้ดูผังได้อย่างเดียว แก้ไขไม่ได้"; } }
+  else if (dbState === "connecting") txt = "กำลังเชื่อมต่อที่บันทึกข้อมูล…";
+  else if (dbState === "error"){ cls = "warn"; txt = "การเชื่อมต่อขาด การแก้ไขล่าสุดอาจยังไม่ถูกบันทึก"; }
+  else { cls = "warn"; txt = "ตอนนี้บันทึกไม่ได้ การแก้ไขจะหายเมื่อปิดหน้านี้"; }
+  el.className = "ed-status " + cls; el.innerHTML = `<span class="dot"></span>${esc(txt)}`;
+  const noStore = dbState === "none";
+  const be = $("#btn-edit"); be.disabled = !canWrite || noStore;
+  be.title = noStore ? "เข้าสู่ระบบ claude.ai เพื่อแก้ไขผัง" : canWrite ? "" : "บัญชีนี้ดูได้อย่างเดียว";
+  if (noStore && editMode) setEdit(false);
+  const sn = $("#snapnote");
+  sn.hidden = !(noStore || dbState === "error");
+  sn.textContent = noStore ? `ข้อมูลห้องและอุปกรณ์ ณ ${SEED_DATE} · ฉบับดูอย่างเดียว`
+                           : "การเชื่อมต่อขาด อุปกรณ์ที่แสดงอาจไม่ใช่ข้อมูลล่าสุด";
+}
+
+/* ---------- undo ---------- */
+const undoStack = [];
+function pushUndo(ops){ undoStack.push(ops); if (undoStack.length > 60) undoStack.shift(); $("#btn-undo").disabled = false; }
+function undo(){
+  const ops = undoStack.pop(); if (!ops) return;
+  ops.slice().reverse().forEach(o => { applyBody(o.id, o.before); persist(o.id, o.before); });
+  if (selItem && !items.has(selItem.id)) selItem = null;
+  $("#btn-undo").disabled = !undoStack.length;
+  afterItemsChange();
+}
+$("#btn-undo").addEventListener("click", undo);
+
+/* ---------- editing actions ---------- */
+let editMode = false;
+function setEdit(on){
+  editMode = !!on && canWrite;
+  const b = $("#btn-edit");
+  b.setAttribute("aria-pressed", editMode ? "true" : "false");
+  b.textContent = editMode ? "เสร็จสิ้นการแก้ไข" : "แก้ไขผัง";
+  $("#editor").hidden = !editMode;
+  viewer.classList.toggle("editing", editMode);
+  if (!editMode) selectItem(null);
+  renderEditSel();
+}
+$("#btn-edit").addEventListener("click", () => setEdit(!editMode));
+
+function freeSpot(x, z){
+  for (let k = 0; k < 10; k++){
+    const nx = clampX(x + (k % 4) * 0.7), nz = clampZ(z + Math.floor(k / 4) * 0.7);
+    if (![...items.values()].some(it => Math.hypot(it.x - nx, it.z - nz) < 0.35)) return {x:nx, z:nz};
+  }
+  return {x, z};
+}
+function placeBase(){
+  if (roomMode){ const d = lookDir(); return {x:camera.position.x + d.x * 1.6, z:camera.position.z + d.z * 1.6}; }
+  if (selected && selected.geo) return {x:selected.geo.cx, z:selected.geo.cz};
+  return {x:controls.target.x, z:controls.target.z};
+}
+function addItem(type, at, extra, ops){
+  const def = CAT[type];
+  const id = newId();
+  const it = Object.assign({id, type, name:def.n, x:snap(clampX(at.x)), z:snap(clampZ(at.z)), rot:0}, LEN[type] ? {len: LEN[type]} : {}, extra || {});
+  items.set(id, it); buildItem(it);
+  const body = bodyOf(it);
+  persist(id, body);
+  if (ops) ops.push({id, before:null, after:body}); else pushUndo([{id, before:null, after:body}]);
+  return it;
+}
+function commit(it, before){
+  const after = bodyOf(it);
+  persist(it.id, after);
+  pushUndo([{id:it.id, before, after}]);
+}
+function selectItem(it){
+  if (selItem && selItem.selMesh) selItem.selMesh.visible = false;
+  selItem = it || null;
+  if (selItem && selItem.selMesh) selItem.selMesh.visible = true;
+  renderEditSel(); refreshLabels(); dirty = true;
+}
+function afterItemsChange(){
+  if (selItem && !items.has(selItem.id)) selItem = null;
+  markRoomItems();
+  refreshLabels();
+  if (selected) renderInfo();
+  const nm = $("#edName");
+  if (!(nm && document.activeElement === nm)) renderEditSel();
+  dirty = true;
+}
+
+let palCat = "or";
+function renderPalette(){
+  $("#pcats").innerHTML = PCATS.map(([k, n]) => `<button type="button" class="pcat" data-cat="${k}" aria-pressed="${k === palCat}">${esc(n)}</button>`).join("");
+  $("#palette").innerHTML = CATALOG.filter(c => c.k === palCat).map(c => `<button type="button" class="pal" data-add="${c.t}"><i style="--c:${c.c}"></i>${esc(c.n)}</button>`).join("");
+}
+$("#pcats").addEventListener("click", e => {
+  const b = e.target.closest("[data-cat]"); if (!b) return;
+  palCat = b.dataset.cat; renderPalette();
+});
+$("#palette").addEventListener("click", e => {
+  const b = e.target.closest("[data-add]"); if (!b) return;
+  const base = placeBase(), spot = freeSpot(base.x, base.z);
+  const it = addItem(b.dataset.add, spot);
+  selectItem(it); afterItemsChange();
+  toast(`วาง${CAT[it.type].n}แล้ว ลากในโมเดลเพื่อย้าย`);
+});
+
+function renderEditSel(){
+  const box = $("#edSel");
+  if (!editMode){ box.innerHTML = ""; return; }
+  if (!selItem){
+    const r = selected;
+    const where = r ? `วางใน <b>${esc(titleOf(r))}</b>` : "แตะห้องก่อน แล้ววางอุปกรณ์ลงในห้องนั้น";
+    const preset = r && r.t !== "corridor" && r.t !== "hall" && r.t !== "lift" && r.t !== "stair"
+      ? `<button type="button" class="pal preset" data-act="orset">วางชุดห้องผ่าตัด (เตียง โคม เครื่องดมยา ถัง O₂ ฯลฯ)</button>` : "";
+    box.innerHTML = `<p class="ed-hint">${where} · แตะอุปกรณ์ในโมเดลเพื่อเลือก แล้วลากเพื่อย้าย</p>${preset}`;
+    return;
+  }
+  const it = selItem, isWall = !!LEN[it.type];
+  const room = roomAt(it.x, it.z);
+  box.innerHTML = `<span class="what">${esc(CAT[it.type].n)}${room ? " · " + esc(titleOf(room)) : ""}</span>
+    <input class="nm" id="edName" maxlength="60" value="${esc(it.name)}" aria-label="ชื่อที่แสดง">
+    <button type="button" class="tbtn" data-act="r90">หมุน 90°</button>
+    <button type="button" class="tbtn" data-act="r15">หมุน 15°</button>
+    ${isWall ? `<button type="button" class="tbtn" data-act="shorter">สั้นลง</button><span class="len">${it.len.toFixed(1)} ม.</span><button type="button" class="tbtn" data-act="longer">ยาวขึ้น</button>` : ""}
+    <button type="button" class="tbtn" data-act="dup">ทำสำเนา</button>
+    <button type="button" class="tbtn del" data-act="del">ลบ</button>
+    <button type="button" class="tbtn" data-act="done">เสร็จ</button>`;
+  const nm = $("#edName");
+  let before = null;
+  nm.addEventListener("focus", () => { before = bodyOf(it); });
+  nm.addEventListener("input", () => { it.name = nm.value.trim().slice(0, 60) || CAT[it.type].n; refreshLabels(); });
+  nm.addEventListener("change", () => { if (before && before.name !== it.name) commit(it, before); before = bodyOf(it); if (selected) renderInfo(); });
+  nm.addEventListener("keydown", e => { if (e.key === "Enter") nm.blur(); });
+}
+$("#edSel").addEventListener("click", e => {
+  const b = e.target.closest("[data-act]"); if (!b) return;
+  const act = b.dataset.act;
+  if (act === "orset"){
+    const r = selected; if (!r) return;
+    const ops = [];
+    OR_SET.forEach(([t, dx, dz]) => addItem(t, {x:r.geo.cx + dx, z:r.geo.cz + dz}, null, ops));
+    pushUndo(ops); afterItemsChange();
+    toast(`วางชุดห้องผ่าตัดใน ${titleOf(r)} แล้ว`);
+    return;
+  }
+  const it = selItem; if (!it) return;
+  const before = bodyOf(it);
+  if (act === "r90" || act === "r15"){
+    it.rot = ((it.rot + (act === "r90" ? Math.PI / 2 : Math.PI / 12)) % (Math.PI * 2));
+    placeGroup(it); commit(it, before);
+  } else if (act === "shorter" || act === "longer"){
+    it.len = Math.max(0.5, Math.min(40, it.len + (act === "longer" ? 0.5 : -0.5)));
+    buildItem(it); it.selMesh.visible = true; commit(it, before); renderEditSel();
+  } else if (act === "dup"){
+    const copy = addItem(it.type, {x:it.x + 0.8, z:it.z + 0.8}, {rot:it.rot, name:it.name, len:it.len});
+    selectItem(copy); afterItemsChange(); toast("ทำสำเนาแล้ว");
+    return;
+  } else if (act === "del"){
+    dropItem(it); persist(it.id, null); pushUndo([{id:it.id, before, after:null}]);
+    selectItem(null); afterItemsChange(); toast("ลบแล้ว กด เลิกทำ เพื่อนำกลับ");
+    return;
+  } else if (act === "done"){
+    selectItem(null); return;
+  }
+  afterItemsChange();
+});
+document.addEventListener("keydown", e => {
+  if (!editMode || !selItem) return;
+  const tag = (document.activeElement && document.activeElement.tagName) || "";
+  if (tag === "INPUT" || tag === "TEXTAREA") return;
+  if (e.key === "Escape"){ selectItem(null); e.stopImmediatePropagation(); }
+  if (e.key === "Delete" || e.key === "Backspace"){ e.preventDefault(); const b = $('#edSel [data-act="del"]'); if (b) b.click(); }
+});
+
+/* ---------- labels ---------- */
+ROOMS.forEach(r => {
+  const el = document.createElement("div");
+  el.className = "lbl";
+  labelsEl.appendChild(el);
+  r.lbl = el;
+});
+const NORTH = {id:"north", north:true, anchor:new THREE.Vector3(0, 0.3, -BD / 2 - 0.6), lbl:document.createElement("div")};
+labelsEl.appendChild(NORTH.lbl);
+function labelHTML(r){
+  if (labelMode === "people"){
+    if (!r.people.length) return "";
+    return peopleText(r, true);
+  }
+  if (r.t === "or") return `<span class="b">OR${r.or}</span>${r.code}`;
+  if (r.t === "recovery") return `<span class="b alt">พักฟื้น</span>${r.code}`;
+  if (r.t === "ods") return `<span class="b alt">ODS</span>${r.code}`;
+  if (r.t === "lift") return `<span class="b alt">ลิฟต์</span>${r.code}`;
+  if (!r.code) return `<span style="font-family:var(--f-body);font-weight:500">${esc(r.name || kindName(r))}</span>`;
+  return r.code;
+}
+function priority(r){
+  if (r === selItem) return 1100;
+  if (r === selected) return 1000;
+  if (r.north) return 900;
+  if (r.isItem) return r.type === "area" ? 70 : 20;
+  let p = r.t === "or" ? 60 : r.appr ? 50 : (r.t === "recovery" || r.t === "ods" || r.t === "lift") ? 40 : r.t === "corridor" ? 6 : r.t === "new" ? 30 : 12;
+  return p + r.geo.w * r.geo.d / 40;
+}
+let ordered = [];
+function refreshLabels(){
+  ROOMS.forEach(r => {
+    const html = labelMode === "off" && r !== selected ? "" : labelHTML(r);
+    r.lblOn = !!html;
+    r.lbl.innerHTML = html;
+    r.lbl.className = "lbl" + (labelMode === "people" ? " ppl" : "") + (r.appr && labelMode === "code" ? " appr" : "") + (r === selected ? " sel" : "");
+    if (r.lblOn){ r.lw = r.lbl.offsetWidth; r.lh = r.lbl.offsetHeight; }
+  });
+  items.forEach(it => {
+    if (it.type === "wall" && it !== selItem){ it.lblOn = false; it.lbl.className = "lbl"; return; }
+    it.lblOn = labelMode !== "off" || it === selItem;
+    it.lbl.textContent = it.name;
+    it.lbl.className = "lbl item" + (it.type === "area" ? " area" : "") + (it === selItem ? " isel" : "");
+    if (it.lblOn){ it.lw = it.lbl.offsetWidth; it.lh = it.lbl.offsetHeight; }
+  });
+  NORTH.lbl.className = "lbl north";
+  NORTH.lbl.textContent = "ขอบบนแผนผัง";
+  NORTH.lblOn = labelMode !== "off"; NORTH.lw = NORTH.lbl.offsetWidth; NORTH.lh = NORTH.lbl.offsetHeight;
+  ordered = ROOMS.concat([NORTH], [...items.values()]).sort((a, b) => priority(b) - priority(a));
+  updRoomUI();
+  dirty = true;
+}
+const v3 = new THREE.Vector3();
+function updateLabels(){
+  const W = viewer.clientWidth, Hh = viewer.clientHeight, placed = [];
+  if (roomMode) return updateRoomLabels(W, Hh);
+  const camDist = camera.position.distanceTo(controls.target);
+  for (const r of ordered){
+    const el = r.lbl;
+    if (!r.lblOn){ el.classList.remove("on"); continue; }
+    if (r.isItem){
+      if (r.type !== "area" && r !== selItem && camDist > 30){ el.classList.remove("on"); continue; }
+      r.anchor.set(r.x, FLOOR_Y + r.anchorH, r.z);
+    }
+    v3.copy(r.anchor).project(camera);
+    if (v3.z > 1 || v3.z < -1){ el.classList.remove("on"); continue; }
+    const sx = (v3.x + 1) / 2 * W, sy = (1 - v3.y) / 2 * Hh;
+    let x1 = sx - r.lw / 2;
+    if (r.north) x1 = Math.max(4, Math.min(W - r.lw - 4, x1));
+    const y1 = sy - r.lh, x2 = x1 + r.lw, y2 = sy;
+    if (x2 < 2 || x1 > W - 2 || y2 < 2 || y1 > Hh - 2){ el.classList.remove("on"); continue; }
+    const forced = r === selected || r === selItem;
+    if (!forced && placed.some(q => x1 < q[2] + 3 && x2 > q[0] - 3 && y1 < q[3] + 2 && y2 > q[1] - 2)){ el.classList.remove("on"); continue; }
+    placed.push([x1, y1, x2, y2]);
+    el.style.transform = `translate(${x1.toFixed(1)}px,${y1.toFixed(1)}px)`;
+    el.classList.add("on");
+  }
+}
+
+// inside a room: only that room's equipment, nearest first, never through the camera's back
+const v3c = new THREE.Vector3();
+function updateRoomLabels(W, Hh){
+  ROOMS.forEach(r => r.lbl.classList.remove("on")); NORTH.lbl.classList.remove("on");
+  const list = [];
+  items.forEach(it => {
+    if (!it.inRm || !it.lblOn){ it.lbl.classList.remove("on"); return; }
+    it.anchor.set(it.x, FLOOR_Y + Math.min(it.anchorH, 2.0), it.z);
+    it._d = camera.position.distanceToSquared(it.anchor);
+    list.push(it);
+  });
+  list.sort((a, b) => ((b === selItem || b === hiItem) - (a === selItem || a === hiItem)) || a._d - b._d);
+  const placed = [];
+  for (const it of list){
+    const el = it.lbl;
+    v3c.copy(it.anchor).applyMatrix4(camera.matrixWorldInverse);
+    if (v3c.z > -0.15){ el.classList.remove("on"); continue; }
+    v3.copy(it.anchor).project(camera);
+    const sx = (v3.x + 1) / 2 * W, sy = (1 - v3.y) / 2 * Hh;
+    if (sx < 0 || sx > W || sy < 0 || sy > Hh + it.lh){ el.classList.remove("on"); continue; }
+    const x1 = Math.max(4, Math.min(W - it.lw - 4, sx - it.lw / 2)), y1 = Math.max(rmTop, sy - it.lh), x2 = x1 + it.lw, y2 = y1 + it.lh;
+    const forced = it === selItem || it === hiItem;
+    if (!forced && placed.some(q => x1 < q[2] + 3 && x2 > q[0] - 3 && y1 < q[3] + 2 && y2 > q[1] - 2)){ el.classList.remove("on"); continue; }
+    placed.push([x1, y1, x2, y2]);
+    el.style.transform = `translate(${x1.toFixed(1)}px,${y1.toFixed(1)}px)`;
+    el.classList.add("on");
+  }
+}
+
+/* ---------- camera ---------- */
+const viewer = $("#viewer");
+let dirty = true, tween = null, viewMode = "tilt";
+const TILT = 0.9;
+// distance at which a w×d box (floor to wall top) centred on (tx, tz) just fits the view
+const fitCam = new THREE.PerspectiveCamera(), fitV = new THREE.Vector3(), fitT = new THREE.Vector3();
+function fitDist(w, d, polar, az, tx, tz){
+  tx = tx || 0; tz = tz || 0;
+  fitCam.copy(camera); fitT.set(tx, 0, tz);
+  const pts = [];
+  for (const sx of [-1, 1]) for (const sz of [-1, 1]) for (const y of [0, WALL_H]) pts.push(new THREE.Vector3(tx + sx * w / 2, y, tz + sz * d / 2));
+  let lo = 0.5, hi = 500;
+  for (let i = 0; i < 24; i++){
+    const mid = (lo + hi) / 2;
+    fitCam.position.copy(posFor(fitT, mid, polar, az)); fitCam.lookAt(fitT); fitCam.updateMatrixWorld();
+    let ok = true;
+    for (const p of pts){ fitV.copy(p).project(fitCam); if (fitV.z > 1 || Math.abs(fitV.x) > 0.93 || Math.abs(fitV.y) > 0.86){ ok = false; break; } }
+    if (ok) hi = mid; else lo = mid;
+  }
+  return hi;
+}
+function posFor(target, dist, polar, az){
+  return new THREE.Vector3(
+    target.x + dist * Math.sin(polar) * Math.sin(az),
+    target.y + dist * Math.cos(polar),
+    target.z + dist * Math.sin(polar) * Math.cos(az));
+}
+function flyTo(target, pos){
+  if (reduceMotion.matches){
+    controls.target.copy(target); camera.position.copy(pos); controls.update(); dirty = true; return;
+  }
+  tween = {t0: performance.now(), dur: 650, fT: controls.target.clone(), tT: target, fP: camera.position.clone(), tP: pos};
+}
+function defaultAz(){ return camera.aspect < 0.9 ? Math.PI / 2 : 0; }
+function curPolar(){ return viewMode === "top" ? 0.0001 : Math.max(0.35, controls.getPolarAngle()); }
+function resetView(){
+  const polar = viewMode === "top" ? 0.0001 : TILT;
+  const t = new THREE.Vector3(0, 0, 0), az = defaultAz();
+  flyTo(t, posFor(t, fitDist(BW + 1, BD + 1, polar, az), polar, az));
+}
+function focusBox(x1, z1, x2, z2, scale, minD){
+  const t = new THREE.Vector3((x1 + x2) / 2, 0, (z1 + z2) / 2);
+  const az = controls.getAzimuthalAngle(), polar = curPolar();
+  const d = Math.max(minD, fitDist((x2 - x1) * scale, (z2 - z1) * scale, polar, az, t.x, t.z));
+  flyTo(t, posFor(t, d, polar, az));
+}
+function focusRoom(r){ const g = r.geo; focusBox(g.X1, g.Z1, g.X2, g.Z2, 2.2, 10); }
+function zoomInto(r){
+  const g = r.geo, t = new THREE.Vector3((g.X1 + g.X2) / 2, 0, (g.Z1 + g.Z2) / 2);
+  const az = controls.getAzimuthalAngle(), polar = viewMode === "top" ? 0.0001 : 0.72;
+  const d = Math.max(6, fitDist(g.w * 1.15, g.d * 1.15, polar, az, t.x, t.z));
+  flyTo(t, posFor(t, d, polar, az));
+}
+function focusZone(z){
+  let x1 = Infinity, z1 = Infinity, x2 = -Infinity, z2 = -Infinity;
+  ROOMS.filter(r => r.zone === z).forEach(r => { x1 = Math.min(x1, r.geo.X1); z1 = Math.min(z1, r.geo.Z1); x2 = Math.max(x2, r.geo.X2); z2 = Math.max(z2, r.geo.Z2); });
+  focusBox(x1, z1, x2, z2, 1.15, 10);
+}
+
+$("#btn-view").addEventListener("click", () => {
+  viewMode = viewMode === "top" ? "tilt" : "top";
+  $("#btn-view").textContent = viewMode === "top" ? "มุมเอียง" : "มุมบน";
+  const t = controls.target.clone(), dist = camera.position.distanceTo(t);
+  const polar = viewMode === "top" ? 0.0001 : TILT;
+  flyTo(t, posFor(t, dist, polar, controls.getAzimuthalAngle()));
+});
+$("#btn-reset").addEventListener("click", () => { exitRoom(true); setZone(null, false); selectRoom(null); resetView(); });
+$("#btn-dash").addEventListener("click", e => {
+  dashMesh.visible = !dashMesh.visible;
+  e.currentTarget.setAttribute("aria-pressed", dashMesh.visible ? "true" : "false");
+  dirty = true;
+});
+
+controls.addEventListener("change", () => {
+  const t = controls.target;
+  t.x = Math.max(-BW / 2 - 4, Math.min(BW / 2 + 4, t.x));
+  t.z = Math.max(-BD / 2 - 4, Math.min(BD / 2 + 4, t.z));
+  if (!roomMode && !(tween && tween.look)) t.y = 0;
+  dirty = true;
+});
+controls.addEventListener("start", () => {
+  if (roomMode && controls.autoRotate){ controls.autoRotate = false; autoOn = false; updRoomUI(); }
+});
+
+/* ---------- inside a room: look around 360° ---------- */
+const EYE = 1.5, tmpD = new THREE.Vector3();
+let hiItem = null, hiT = 0;
+function lookDir(){
+  const d = new THREE.Vector3().subVectors(controls.target, camera.position); d.y = 0;
+  if (d.lengthSq() < 1e-10) d.set(0, 0, -1);
+  return d.normalize();
+}
+// where to stand: a clear spot in the room's largest rectangle, facing where the equipment is
+function roomSpot(r){
+  let q = r.r[0], ba = -1;
+  r.r.forEach(t => { const a = (t[2] - t[0]) * (t[3] - t[1]); if (a > ba){ ba = a; q = t; } });
+  const x1 = wx(q[0]), z1 = wz(q[1]), x2 = wx(q[2]), z2 = wz(q[3]), cx = (x1 + x2) / 2, cz = (z1 + z2) / 2;
+  const w = x2 - x1, d = z2 - z1, ext = Math.max(w, d);
+  const its = [...items.values()].filter(it => it.type !== "area" && roomAt(it.x, it.z) === r);
+  const rad = it => 0.5 * Math.hypot(it.fp ? it.fp[0] : 0.6, it.fp ? it.fp[1] : 0.6);
+  const inX = Math.min(0.5, w / 3), inZ = Math.min(0.5, d / 3);
+  const longX = w >= d, ratio = Math.max(w, d) / Math.max(0.1, Math.min(w, d));
+  let best = {x:cx, z:cz}, bs = -Infinity;
+  for (let i = 0; i <= 8; i++) for (let j = 0; j <= 8; j++){
+    const x = x1 + inX + (w - 2 * inX) * i / 8, z = z1 + inZ + (d - 2 * inZ) * j / 8;
+    let clear = 1.4;
+    its.forEach(it => { clear = Math.min(clear, Math.hypot(x - it.x, z - it.z) - rad(it)); });
+    let sc = clear - 0.35 * Math.hypot(x - cx, z - cz) / ext;
+    if (ratio > 1.7){   // long room: stand near one end, centred across it
+      const t = longX ? (x - x1) / w : (z - z1) / d, across = longX ? Math.abs(z - cz) / d : Math.abs(x - cx) / w;
+      sc = clear - 1.2 * Math.abs(Math.min(t, 1 - t) - 0.2) - 0.8 * across;
+    }
+    if (sc > bs){ bs = sc; best = {x, z}; }
+  }
+  if (ratio > 1.7){   // look down the length of the room
+    const toFar = longX ? Math.sign(cx - best.x) || 1 : Math.sign(cz - best.z) || 1;
+    return {x:best.x, z:best.z, dx: longX ? toFar : 0, dz: longX ? 0 : toFar};
+  }
+  let dx = 0, dz = -1;
+  if (its.length){
+    const mx = its.reduce((a, it) => a + it.x, 0) / its.length, mz = its.reduce((a, it) => a + it.z, 0) / its.length;
+    const vx = mx - best.x, vz = mz - best.z, L = Math.hypot(vx, vz);
+    if (L > 0.4){ dx = vx / L; dz = vz / L; }
+    else if (w > d){ dx = -1; dz = 0; }
+  } else if (w > d){ dx = -1; dz = 0; }
+  return {x:best.x, z:best.z, dx, dz};
+}
+function looseControls(){ Object.assign(controls, {minDistance:0, maxDistance:Infinity, minPolarAngle:0, maxPolarAngle:Math.PI}); }
+function setRoomControls(on){
+  if (on) Object.assign(controls, {minDistance:0.01, maxDistance:0.01, minPolarAngle:0.35, maxPolarAngle:Math.PI / 2 + 0.45,
+                                    enablePan:false, enableZoom:false, rotateSpeed:-0.42, autoRotateSpeed:1.1});
+  else Object.assign(controls, {minDistance:3, maxDistance:150, minPolarAngle:0, maxPolarAngle:1.32,
+                                enablePan:true, enableZoom:true, rotateSpeed:1, autoRotate:false});
+}
+function startLook(tP, tD, tL, tF, done, dur){
+  const fP = camera.position.clone(), fD = new THREE.Vector3().subVectors(controls.target, fP), fL = fD.length();
+  fD.normalize(); tD = tD.clone().normalize();
+  if (reduceMotion.matches){
+    camera.position.copy(tP); controls.target.copy(tP).addScaledVector(tD, tL);
+    camera.fov = tF; camera.updateProjectionMatrix(); controls.update(); dirty = true;
+    if (done) done(); return;
+  }
+  tween = {look:true, t0:performance.now(), dur:dur || 950, fP, tP, fD, tD, fL, tL, fF:camera.fov, tF, done};
+}
+function markRoomItems(){
+  const r = roomMode && roomMode.room;
+  items.forEach(it => { it.inRm = !!r && roomAt(it.x, it.z) === r; });
+}
+const hintEl = $("#hint"), hintOut = hintEl.innerHTML;
+const hintIn = `<span class="coarse">ลากนิ้วเพื่อมองรอบห้อง · ถ่างหรือบีบสองนิ้วเพื่อซูม · แตะพื้นเพื่อเดินไปจุดนั้น · แตะอุปกรณ์เพื่อดูชื่อ</span><span class="fine">ลากเพื่อมองรอบห้อง · ล้อเมาส์เพื่อซูม · คลิกพื้นเพื่อเดินไปจุดนั้น · คลิกอุปกรณ์เพื่อดูชื่อ · Esc เพื่อออกจากห้อง</span>`;
+function updRoomUI(){
+  const r = roomMode && roomMode.room;
+  $("#rmBar").hidden = !r;
+  if (r){
+    $("#rmCode").textContent = titleOf(r);
+    $("#rmName").textContent = (r.code ? (r.name || kindName(r)) + " · " : "") + "มุมมอง 360°";
+    requestAnimationFrame(() => { rmTop = $("#rmBar").offsetHeight + 16; dirty = true; });
+    const a = $("#rmAuto");
+    a.setAttribute("aria-pressed", autoOn ? "true" : "false");
+    a.textContent = autoOn ? "หยุดหมุน" : "หมุนรอบห้อง";
+  }
+  const f = $("#enterFab"), show = !r && canEnter(selected);
+  f.hidden = !show;
+  if (show) f.innerHTML = `เข้าห้อง <span class="c">${esc(titleOf(selected))}</span> 360°`;
+  $("#btn-view").disabled = !!r; $("#btn-dash").disabled = !!r;
+  hintEl.innerHTML = r ? hintIn : hintOut;
+}
+function enterRoom(r){
+  if (!canEnter(r)) return;
+  const first = !roomMode;
+  if (first) roomMode = {prevDash: dashMesh.visible};
+  roomMode.room = r;
+  if (selected !== r) selectRoom(r);
+  dashMesh.visible = false;
+  const s = roomSpot(r), eye = new THREE.Vector3(s.x, FLOOR_Y + EYE, s.z);
+  const dir = new THREE.Vector3(s.dx, -0.22, s.dz);
+  camera.near = 0.05; camera.updateProjectionMatrix();
+  looseControls(); controls.autoRotate = false; autoOn = true;
+  viewer.classList.add("inroom");
+  markRoomItems(); applyColors(); refreshLabels();
+  startLook(eye, dir, 0.01, roomFov(), () => { setRoomControls(true); controls.autoRotate = autoOn; updRoomUI(); }, first ? 1100 : 750);
+}
+function exitRoom(instant){
+  if (!roomMode) return;
+  const r = roomMode.room;
+  dashMesh.visible = roomMode.prevDash;
+  roomMode = null; hiItem = null;
+  controls.autoRotate = false;
+  viewer.classList.remove("inroom");
+  markRoomItems(); applyColors(); refreshLabels();
+  camera.near = 0.3;
+  if (instant){ setRoomControls(false); camera.fov = 36; camera.updateProjectionMatrix(); return; }
+  const g = r.geo, t = new THREE.Vector3((g.X1 + g.X2) / 2, 0, (g.Z1 + g.Z2) / 2);
+  const az = controls.getAzimuthalAngle(), polar = viewMode === "top" ? 0.0001 : 0.72;
+  const f0 = camera.fov; camera.fov = 36; camera.updateProjectionMatrix();
+  const d = Math.max(6, fitDist(g.w * 1.15, g.d * 1.15, polar, az, t.x, t.z));
+  camera.fov = f0; camera.updateProjectionMatrix();
+  const pos = posFor(t, d, polar, az);
+  looseControls(); setRoomControls(false); looseControls();
+  startLook(pos, t.clone().sub(pos), d, 36, () => setRoomControls(false), 900);
+}
+function walkTo(point, room){
+  const p = new THREE.Vector3(point.x, FLOOR_Y + EYE, point.z);
+  controls.autoRotate = false; autoOn = false;
+  if (room !== roomMode.room){ roomMode.room = room; selectRoom(room); markRoomItems(); applyColors(); refreshLabels(); }
+  updRoomUI();
+  const dir = new THREE.Vector3().subVectors(controls.target, camera.position);
+  startLook(p, dir, 0.01, camera.fov, null, 650);
+}
+function showItem(it){
+  hiItem = it; hiT = performance.now();
+  const kind = CAT[it.type] ? CAT[it.type].n : "";
+  toast(kind && kind !== it.name ? `${it.name} · ${kind}` : it.name);
+  dirty = true;
+  setTimeout(() => { if (hiItem === it && performance.now() - hiT >= 2900){ hiItem = null; dirty = true; } }, 3000);
+}
+function roomFov(){   // keep a usable sideways view on tall phone screens
+  const a = camera.aspect || 1;
+  return a >= 1 ? 68 : Math.min(84, Math.max(68, 2 * Math.atan(Math.tan(0.56) / a) * 180 / Math.PI));
+}
+let rmTop = 56;
+function setFov(f){ camera.fov = Math.max(32, Math.min(92, f)); camera.updateProjectionMatrix(); dirty = true; }
+$("#rmExit").addEventListener("click", () => exitRoom(false));
+$("#rmAuto").addEventListener("click", () => { autoOn = !autoOn; controls.autoRotate = autoOn; updRoomUI(); dirty = true; });
+$("#enterFab").addEventListener("click", () => { if (selected) enterRoom(selected); });
+document.addEventListener("keydown", e => {
+  if (!roomMode || e.key !== "Escape") return;
+  const tag = (document.activeElement && document.activeElement.tagName) || "";
+  if (tag === "INPUT" || tag === "TEXTAREA") return;
+  exitRoom(false);
+});
+
+/* ---------- picking & dragging ---------- */
+const ray = new THREE.Raycaster(), ndc = new THREE.Vector2();
+const ground = new THREE.Plane(new THREE.Vector3(0, 1, 0), -FLOOR_Y);
+const gp = new THREE.Vector3();
+let down = null, pointers = 0, lastTap = {room:null, t:0}, drag = null;
+const cv = renderer.domElement;
+function aim(e){
+  const rect = cv.getBoundingClientRect();
+  ndc.set((e.clientX - rect.left) / rect.width * 2 - 1, -((e.clientY - rect.top) / rect.height) * 2 + 1);
+  ray.setFromCamera(ndc, camera);
+}
+function groundAt(e){ aim(e); return ray.ray.intersectPlane(ground, gp) ? gp.clone() : null; }
+
+viewer.addEventListener("pointerdown", e => {
+  if (!editMode) return;
+  if (drag){ e.stopPropagation(); return; }
+  if (e.pointerType === "mouse" && e.button !== 0) return;
+  aim(e);
+  const hit = ray.intersectObjects(itemMeshes, false)[0];
+  if (!hit) return;
+  e.stopPropagation(); e.preventDefault();
+  const it = hit.object.userData.item;
+  if (selItem !== it) selectItem(it);
+  const g = groundAt(e);
+  drag = {item:it, id:e.pointerId, sx:e.clientX, sy:e.clientY, moved:false, ox: g ? it.x - g.x : 0, oz: g ? it.z - g.z : 0, before: bodyOf(it)};
+  try { viewer.setPointerCapture(e.pointerId); } catch (_){}
+}, true);
+viewer.addEventListener("pointermove", e => {
+  if (!drag) return;
+  e.stopPropagation();
+  if (e.pointerId !== drag.id) return;
+  if (!drag.moved && Math.hypot(e.clientX - drag.sx, e.clientY - drag.sy) < 5) return;
+  drag.moved = true;
+  const g = groundAt(e); if (!g) return;
+  const it = drag.item;
+  it.x = snap(clampX(g.x + drag.ox)); it.z = snap(clampZ(g.z + drag.oz));
+  placeGroup(it);
+}, true);
+function endDrag(e){
+  if (!drag) return;
+  e.stopPropagation();
+  if (e.pointerId !== drag.id) return;
+  const d = drag; drag = null;
+  try { viewer.releasePointerCapture(e.pointerId); } catch (_){}
+  if (d.moved && items.has(d.item.id)){ commit(d.item, d.before); afterItemsChange(); }
+}
+viewer.addEventListener("pointerup", endDrag, true);
+viewer.addEventListener("pointercancel", endDrag, true);
+
+const touches = new Map(); let pinch0 = null;
+const tdist = () => { const [a, b] = [...touches.values()]; return Math.hypot(a.x - b.x, a.y - b.y) || 1; };
+cv.addEventListener("pointerdown", e => {
+  if (e.pointerType !== "touch") return;
+  touches.set(e.pointerId, {x:e.clientX, y:e.clientY});
+  pinch0 = roomMode && touches.size === 2 ? {d:tdist(), fov:camera.fov} : null;
+});
+cv.addEventListener("pointermove", e => {
+  if (!touches.has(e.pointerId)) return;
+  touches.set(e.pointerId, {x:e.clientX, y:e.clientY});
+  if (roomMode && pinch0 && touches.size === 2) setFov(pinch0.fov * pinch0.d / tdist());
+});
+["pointerup", "pointercancel"].forEach(t => cv.addEventListener(t, e => { touches.delete(e.pointerId); if (touches.size < 2) pinch0 = null; }));
+cv.addEventListener("wheel", e => { if (!roomMode) return; e.preventDefault(); setFov(camera.fov + e.deltaY * 0.04); }, {passive:false});
+cv.addEventListener("pointerdown", e => { pointers++; down = pointers === 1 ? {x:e.clientX, y:e.clientY, t:performance.now()} : null; });
+cv.addEventListener("pointercancel", () => { pointers = Math.max(0, pointers - 1); down = null; });
+cv.addEventListener("pointerup", e => {
+  pointers = Math.max(0, pointers - 1);
+  if (!down) return;
+  const moved = Math.hypot(e.clientX - down.x, e.clientY - down.y), dt = performance.now() - down.t;
+  down = null;
+  if (moved > 7 || dt > 600) return;
+  aim(e);
+  if (roomMode){
+    if (editMode && selItem){ selectItem(null); return; }
+    const h = ray.intersectObjects(wallMeshes.concat(itemMeshes, pickables), false)[0];
+    if (!h) return;
+    if (h.object.userData.item){ showItem(h.object.userData.item); return; }
+    const rr = h.object.userData.room;
+    if (rr && canEnter(rr) && h.point.y < 0.2) walkTo(h.point, rr);
+    return;
+  }
+  const hit = ray.intersectObjects(pickables, false).find(h => h.object.userData.room);
+  const room = hit ? hit.object.userData.room : null, now = performance.now();
+  if (editMode && selItem) selectItem(null);
+  if (room && lastTap.room === room && now - lastTap.t < 380){ canEnter(room) ? enterRoom(room) : zoomInto(room); lastTap = {room:null, t:0}; return; }
+  lastTap = {room, t:now};
+  selectRoom(room);
+});
+
+/* ---------- size & loop ---------- */
+let fitted = false;
+function resize(){
+  const w = viewer.clientWidth, h = viewer.clientHeight;
+  if (!w || !h) return;
+  renderer.setSize(w, h, false);
+  camera.aspect = w / h; camera.updateProjectionMatrix();
+  if (!fitted){
+    fitted = true;
+    const t = new THREE.Vector3(0, 0, 0);
+    controls.target.copy(t);
+    const az = defaultAz();
+    camera.position.copy(posFor(t, fitDist(BW + 1, BD + 1, TILT, az), TILT, az));
+    controls.update();
+  }
+  dirty = true;
+}
+new ResizeObserver(resize).observe(viewer);
+
+function tick(now){
+  requestAnimationFrame(tick);
+  if (tween){
+    const k = Math.min(1, (now - tween.t0) / tween.dur), e = k < 0.5 ? 4 * k * k * k : 1 - Math.pow(-2 * k + 2, 3) / 2;
+    if (tween.look){
+      camera.position.lerpVectors(tween.fP, tween.tP, e);
+      tmpD.copy(tween.fD).lerp(tween.tD, e);
+      if (tmpD.lengthSq() < 1e-6) tmpD.copy(tween.tD); else tmpD.normalize();
+      controls.target.copy(camera.position).addScaledVector(tmpD, tween.fL + (tween.tL - tween.fL) * e);
+      camera.fov = tween.fF + (tween.tF - tween.fF) * e; camera.updateProjectionMatrix();
+    } else {
+      controls.target.lerpVectors(tween.fT, tween.tT, e);
+      camera.position.lerpVectors(tween.fP, tween.tP, e);
+    }
+    if (k >= 1){ const done = tween.done; tween = null; if (done) done(); }
+    dirty = true;
+  }
+  const moved = controls.update();
+  if (moved || dirty){
+    renderer.render(scene, camera);
+    updateLabels();
+    dirty = false;
+  }
+}
+
+Object.assign(three, {ok:true, applyColors, refreshLabels, focusRoom, focusZone, resetView, zoomInto, renderEditSel,
+  enterRoom, exitRoom, inRoom: () => !!roomMode});
+applyColors();
+renderPalette();
+resize();
+refreshLabels();
+updStatus();
+SEED.forEach(([id, body]) => { if (!items.has(id)) applyBody(id, body); });
+afterItemsChange();
+if (document.fonts && document.fonts.ready) document.fonts.ready.then(refreshLabels);
+requestAnimationFrame(tick);
+initDb();
+})();
+</script>
+</body>
+</html>
