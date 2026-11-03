@@ -72,7 +72,7 @@
   :focus-visible{outline:3px solid var(--yellow); outline-offset:2px; border-radius:6px;}
 
   /* ---------- NAV ---------- */
-  header{
+  #site-header{
     position:fixed; top:0; left:0; right:0; z-index:100;
     background:rgba(10,61,98,0.96);
     backdrop-filter:blur(6px);
@@ -93,7 +93,7 @@
   .logo-img{background:#fff url("data:image/png;base64,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") center/cover no-repeat;}
   .brand-text{line-height:1.2; min-width:0;}
   .brand-text b{font-family:'Kanit'; font-size:1rem; display:block; letter-spacing:.02em; white-space:nowrap;}
-  .brand-text span{font-size:.72rem; color:#BFDCF2;}
+  .brand-text span{font-size:.72rem; color:#BFDCF2; white-space:nowrap;}
   nav ul{display:flex; gap:26px; list-style:none; align-items:center;}
   nav a{
     color:#DCEBF7; font-size:.9rem; font-weight:500;
@@ -338,18 +338,98 @@
   .faq-a > div{overflow:hidden;}
   .faq-item.open .faq-a{grid-template-rows:1fr; margin-top:12px;}
 
-  /* news */
-  .news-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:22px;}
-  .news-card{border:1px solid var(--line); border-radius:16px; overflow:hidden; background:#fff;}
-  .news-thumb{height:130px; background:linear-gradient(135deg,var(--navy),var(--blue)); position:relative;}
-  .news-thumb::after{content:""; position:absolute; inset:0; background:repeating-linear-gradient(45deg, rgba(255,255,255,.05) 0 10px, transparent 10px 20px);}
-  .news-thumb.has-img{height:180px;}
-  .news-thumb img{position:absolute; inset:0; width:100%; height:100%; object-fit:cover; z-index:1;}
-  .news-body{padding:20px;}
-  .news-body .date{font-size:.75rem; color:var(--blue); font-weight:600; margin-bottom:6px; display:block;}
-  .news-body h4{font-size:.98rem; color:var(--navy-deep); margin-bottom:8px;}
-  .news-body p{font-size:.85rem; color:var(--ink-soft);}
+  /* news & activity albums */
+  [hidden]{display:none!important;}
+  .news-head{display:flex; justify-content:space-between; align-items:flex-end; gap:20px 32px; flex-wrap:wrap; margin-bottom:34px;}
+  .news-head .section-head{margin-bottom:0;}
+  .year-chips{display:flex; gap:8px; flex-wrap:wrap;}
+  .year-chip{padding:7px 16px; border-radius:999px; border:1px solid var(--line); background:#fff; color:var(--ink-soft); font-weight:600; font-size:.84rem; cursor:pointer; transition:.2s;}
+  .year-chip:hover{border-color:var(--blue-bright); color:var(--navy);}
+  .year-chip.active{background:var(--navy); border-color:var(--navy); color:#fff;}
+
+  .ph-box{position:relative; overflow:hidden; background:linear-gradient(135deg,var(--navy),var(--blue));}
+  .ph-box::before{content:""; position:absolute; inset:0; background:repeating-linear-gradient(45deg, rgba(255,255,255,.05) 0 10px, transparent 10px 20px);}
+  .ph-box .ph-icon{position:absolute; inset:0; display:flex; align-items:center; justify-content:center; font-size:2.6rem; opacity:.5;}
+  .ph-box img{position:absolute; inset:0; width:100%; height:100%; object-fit:cover; z-index:1; transition:transform .7s ease;}
+  .count-badge{position:absolute; z-index:2; display:inline-flex; align-items:center; gap:6px; background:rgba(6,42,69,.8); color:#fff; font-size:.78rem; font-weight:600; padding:5px 12px; border-radius:999px; backdrop-filter:blur(4px);}
+  img.broken{display:none!important;}
+
+  .feature{display:grid; grid-template-columns:1.35fr 1fr; gap:34px; align-items:center; background:#fff; border:1px solid var(--line); border-radius:24px; padding:16px; box-shadow:0 18px 40px rgba(10,61,98,.08); margin-bottom:26px; transition:.25s; color:inherit;}
+  .feature:hover{border-color:var(--blue); box-shadow:0 22px 48px rgba(10,61,98,.13);}
+  .feature .ph-box{aspect-ratio:16/10; border-radius:16px;}
+  .feature:hover .ph-box img{transform:scale(1.04);}
+  .feature .count-badge{left:14px; bottom:14px;}
+  .feature-body{padding:8px 20px 8px 0; min-width:0;}
+  .tag-new{display:inline-block; font-family:'Sarabun'; font-weight:700; font-size:.72rem; letter-spacing:.08em; color:#8A6500; background:var(--yellow-soft); padding:3px 10px; border-radius:999px; margin-bottom:12px;}
+  .album-date{display:block; font-size:.8rem; color:var(--blue); font-weight:600; margin-bottom:6px;}
+  .feature h3{font-size:clamp(1.3rem,2.2vw,1.75rem); color:var(--navy-deep); margin-bottom:12px;}
+  .feature p{color:var(--ink-soft); font-size:.95rem; display:-webkit-box; -webkit-line-clamp:4; -webkit-box-orient:vertical; overflow:hidden;}
+  .mini-strip{display:flex; gap:8px; margin:18px 0 0;}
+  .mini-strip span{position:relative; width:64px; height:64px; border-radius:10px; overflow:hidden; background:var(--blue-pale); flex-shrink:0;}
+  .mini-strip img{width:100%; height:100%; object-fit:cover;}
+  .mini-strip .more{position:absolute; inset:0; width:auto; height:auto; display:flex; align-items:center; justify-content:center; background:rgba(6,42,69,.62); color:#fff; font-weight:700; font-size:.9rem; border-radius:0;}
+  .feature .btn{margin-top:22px;}
+
+  .album-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:22px;}
+  .album-card{display:flex; flex-direction:column; border:1px solid var(--line); border-radius:18px; overflow:hidden; background:#fff; transition:.25s; color:inherit;}
+  .album-card:hover{transform:translateY(-4px); box-shadow:0 16px 30px rgba(10,61,98,.1); border-color:var(--blue);}
+  .album-card:hover .ph-box img{transform:scale(1.06);}
+  .album-card .ph-box{aspect-ratio:4/3;}
+  .album-card .count-badge{right:12px; top:12px;}
+  .album-card-body{padding:18px 20px 20px;}
+  .album-card h4{font-size:1rem; color:var(--navy-deep); margin-bottom:6px; display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden;}
+  .album-card p{font-size:.85rem; color:var(--ink-soft); display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden;}
   .news-more{text-align:center; margin-top:30px;}
+
+  /* album viewer */
+  html.modal-open, html.modal-open body{overflow:hidden;}
+  .album-view{position:fixed; inset:0; z-index:200; background:#fff; overflow-y:auto; overscroll-behavior:contain; animation:avIn .28s ease;}
+  @keyframes avIn{from{opacity:0; transform:translateY(14px);} to{opacity:1; transform:none;}}
+  .av-bar{position:sticky; top:0; z-index:3; display:flex; align-items:center; gap:14px; padding:12px 28px; background:rgba(10,61,98,.97); color:#fff; backdrop-filter:blur(6px);}
+  .av-bar button{background:none; border:1px solid rgba(255,255,255,.35); color:#fff; border-radius:999px; padding:7px 16px; font-weight:600; font-size:.88rem; cursor:pointer; white-space:nowrap; transition:.2s;}
+  .av-bar button:hover{border-color:var(--yellow); color:var(--yellow);}
+  .av-bar-title{flex:1; min-width:0; font-family:'Kanit'; font-weight:500; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; opacity:.92;}
+  .av-head{max-width:820px; padding:44px 0 28px;}
+  .av-head h2{font-size:clamp(1.6rem,3.2vw,2.4rem); color:var(--navy-deep); margin:6px 0 14px;}
+  .av-head p{color:var(--ink-soft); font-size:1rem;}
+  .av-meta{display:flex; gap:12px; align-items:center; flex-wrap:wrap;}
+  .av-meta .album-date{margin:0;}
+  .av-count{font-size:.8rem; font-weight:600; color:var(--navy); background:var(--blue-pale); padding:3px 12px; border-radius:999px;}
+  .av-grid{display:grid; grid-template-columns:repeat(4,1fr); gap:10px; grid-auto-flow:dense;}
+  .av-tile{position:relative; display:block; aspect-ratio:1; border-radius:12px; overflow:hidden; background:linear-gradient(135deg,var(--blue-pale),#fff); cursor:zoom-in;}
+  .av-tile.big{grid-column:span 2; grid-row:span 2;}
+  .av-tile img{width:100%; height:100%; object-fit:cover; transition:transform .5s ease;}
+  .av-tile:hover img{transform:scale(1.05);}
+  .av-empty{padding:34px; text-align:center; color:var(--ink-soft); background:var(--sky); border-radius:16px;}
+  .av-nav{display:grid; grid-template-columns:1fr 1fr; gap:16px; padding:44px 0 64px;}
+  .av-nav a{display:block; border:1px solid var(--line); border-radius:14px; padding:16px 20px; color:var(--navy-deep); min-width:0; transition:.2s;}
+  .av-nav a:hover{border-color:var(--blue-bright); background:var(--sky);}
+  .av-nav small{display:block; color:var(--blue); font-weight:600; font-size:.76rem;}
+  .av-nav b{font-family:'Kanit'; font-weight:500; display:block; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;}
+  .av-nav .next{grid-column:2; text-align:right;}
+
+  /* lightbox */
+  .lightbox{position:fixed; inset:0; z-index:300; background:#06121D; animation:lbIn .2s ease;}
+  .news-more b{font-weight:inherit;}
+  @keyframes lbIn{from{opacity:0;} to{opacity:1;}}
+  .lb-top{position:absolute; top:0; left:0; right:0; z-index:3; display:flex; align-items:center; gap:16px; padding:12px 16px 12px 22px; color:#DCEBF7; font-size:.9rem;}
+  .lb-count{font-variant-numeric:tabular-nums; font-weight:600; white-space:nowrap;}
+  .lb-title{flex:1; min-width:0; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; opacity:.75;}
+  .lb-top a{color:#BFE4FF; font-size:.82rem; white-space:nowrap;}
+  .lb-top a:hover{color:var(--yellow);}
+  .lb-btn{background:rgba(255,255,255,.1); border:none; color:#fff; width:46px; height:46px; border-radius:50%; font-size:1.6rem; line-height:1; cursor:pointer; display:flex; align-items:center; justify-content:center; transition:.2s; flex-shrink:0;}
+  .lb-btn:hover{background:rgba(255,255,255,.24);}
+  .lb-btn:disabled{opacity:.25; cursor:default;}
+  .lb-prev, .lb-next{position:absolute; top:50%; transform:translateY(-50%); z-index:3;}
+  .lb-prev{left:18px;} .lb-next{right:18px;}
+  .lb-stage{position:absolute; inset:0; display:flex; align-items:center; justify-content:center; padding:70px 84px 36px; touch-action:pan-y;}
+  .lb-stage img{max-width:100%; max-height:100%; object-fit:contain; border-radius:6px; box-shadow:0 20px 60px rgba(0,0,0,.5); transition:opacity .25s; user-select:none; -webkit-user-drag:none;}
+  .lb-stage.loading img{opacity:.2;}
+  .lb-spin{position:absolute; width:38px; height:38px; border:3px solid rgba(255,255,255,.2); border-top-color:#fff; border-radius:50%; animation:spin .8s linear infinite; display:none;}
+  .lb-stage.loading .lb-spin{display:block;}
+  @keyframes spin{to{transform:rotate(360deg);}}
+  .toast{position:fixed; left:50%; bottom:28px; z-index:400; transform:translate(-50%,20px); background:var(--navy-deep); color:#fff; padding:11px 20px; border-radius:999px; font-size:.9rem; box-shadow:0 10px 30px rgba(0,0,0,.25); opacity:0; pointer-events:none; transition:.25s; max-width:calc(100% - 32px); text-align:center;}
+  .toast.show{opacity:1; transform:translate(-50%,0);}
 
   /* contact */
   .contact-wrap{display:grid; grid-template-columns:1fr 1fr; gap:50px;}
@@ -402,7 +482,11 @@
     .hero-grid{grid-template-columns:1fr;}
     .about-grid, .contact-wrap{grid-template-columns:1fr;}
     .svc-grid, .team-grid{grid-template-columns:repeat(2,1fr);}
-    .checklist, .news-grid{grid-template-columns:1fr;}
+    .checklist{grid-template-columns:1fr;}
+    .album-grid{grid-template-columns:repeat(2,1fr);}
+    .feature{grid-template-columns:1fr; gap:18px; padding:12px;}
+    .feature-body{padding:4px 8px 10px;}
+    .av-grid{grid-template-columns:repeat(3,1fr); gap:8px;}
     .stats-grid{grid-template-columns:repeat(2,1fr);}
     .stats-grid .stat:first-child{grid-column:1/-1;}
     .disease-grid{grid-template-columns:1fr;}
@@ -415,12 +499,26 @@
     .svc-grid{grid-template-columns:1fr;}
     .team-grid{gap:14px;}
     .brand-text b{font-size:.92rem;}
+    .album-grid{grid-template-columns:1fr;}
+    .av-bar{padding:10px 14px; gap:10px;}
+    .av-bar button{padding:6px 13px; font-size:.84rem;}
+    .av-head{padding:30px 0 22px;}
+    .av-grid{gap:4px;}
+    .av-tile{border-radius:6px;}
+    .av-nav{grid-template-columns:1fr; padding:32px 0 48px;}
+    .av-nav .next{grid-column:auto;}
+    .lb-stage{padding:56px 0 86px;}
+    .lb-prev, .lb-next{top:auto; bottom:20px; transform:none;}
+    .lb-prev{left:calc(50% - 62px);} .lb-next{right:calc(50% - 62px);}
+    .lb-top{padding:10px 10px 10px 16px; gap:10px;}
   }
   @media (prefers-reduced-motion: reduce){
     html{scroll-behavior:auto;}
     .ecg-box svg, .ecg-divider svg, .pulse-dot, .stats.wait .stat b{animation:none!important;}
     .reveal{opacity:1; transform:none; transition:none;}
     .dept-fill, .faq-a{transition:none;}
+    .album-view, .lightbox{animation:none;}
+    .ph-box img, .av-tile img{transition:none;}
   }
 </style>
 </head>
@@ -443,7 +541,7 @@
         <li><a href="#stats">สถิติการผ่าตัด</a></li>
         <li data-for="team"><a href="#team">บุคลากร</a></li>
         <li data-for="patient-guide"><a href="#patient-guide">คำแนะนำผู้รับบริการ</a></li>
-        <li data-for="news"><a href="#news">ข่าวสาร</a></li>
+        <li data-for="news"><a href="#news">กิจกรรม</a></li>
         <li class="nav-mobile"><a href="#contact">ติดต่อเรา</a></li>
         <li class="is-hidden" id="nav-staff"><a class="nav-staff" href="#" target="_blank" rel="noopener">🔒 เจ้าหน้าที่</a></li>
       </ul>
@@ -579,12 +677,17 @@
 
 <section id="news" class="section">
   <div class="container">
-    <div class="section-head reveal">
-      <span class="eyebrow">ข่าวสารและกิจกรรม</span>
-      <h2>ความเคลื่อนไหวของกลุ่มงาน</h2>
+    <div class="news-head reveal">
+      <div class="section-head">
+        <span class="eyebrow">ข่าวสารและกิจกรรม</span>
+        <h2>ความเคลื่อนไหวและภาพกิจกรรม</h2>
+        <p>บันทึกภาพกิจกรรมของทีมห้องผ่าตัด กดที่อัลบั้มเพื่อชมภาพทั้งหมด</p>
+      </div>
+      <div class="year-chips" id="news-years" aria-label="เลือกปี"></div>
     </div>
-    <div class="news-grid reveal" id="news-grid"></div>
-    <div class="news-more is-hidden" id="news-more"><button class="btn btn-outline" type="button">ดูข่าวเพิ่มเติม</button></div>
+    <div class="reveal" id="news-feature"></div>
+    <div class="album-grid reveal" id="news-grid"></div>
+    <div class="news-more is-hidden" id="news-more"><button class="btn btn-outline" type="button"><span>ดูกิจกรรมทั้งหมด (<b id="news-total">0</b>)</span></button></div>
   </div>
 </section>
 
@@ -629,6 +732,7 @@
           <li><a href="#about">เกี่ยวกับเรา</a></li>
           <li data-for="services"><a href="#services">บริการ</a></li>
           <li data-for="patient-guide"><a href="#patient-guide">คำแนะนำผู้รับบริการ</a></li>
+          <li data-for="news"><a href="#news">ข่าวสารและภาพกิจกรรม</a></li>
           <li class="is-hidden" id="foot-staff"><a href="#" target="_blank" rel="noopener">สำหรับเจ้าหน้าที่</a></li>
         </ul>
       </div>
@@ -643,6 +747,37 @@
     <div class="footer-bottom">© <span id="year">2569</span> <span id="foot-copy">กลุ่มงานห้องผ่าตัด โรงพยาบาลยางตลาด</span> · สงวนลิขสิทธิ์</div>
   </div>
 </footer>
+
+<div class="album-view" id="album-view" role="dialog" aria-modal="true" aria-labelledby="av-title" hidden>
+  <div class="av-bar">
+    <button type="button" id="av-close">← กลับ</button>
+    <div class="av-bar-title" id="av-bar-title"></div>
+    <button type="button" id="av-share">แชร์อัลบั้ม</button>
+  </div>
+  <div class="container">
+    <div class="av-head">
+      <div class="av-meta"><span class="album-date" id="av-date"></span><span class="av-count" id="av-count"></span></div>
+      <h2 id="av-title"></h2>
+      <p id="av-desc"></p>
+    </div>
+    <div class="av-grid" id="av-grid"></div>
+    <nav class="av-nav" id="av-nav" aria-label="อัลบั้มอื่น"></nav>
+  </div>
+</div>
+
+<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="ดูรูปขนาดใหญ่" hidden>
+  <div class="lb-top">
+    <span class="lb-count" id="lb-count"></span>
+    <span class="lb-title" id="lb-title"></span>
+    <a id="lb-orig" href="#" target="_blank" rel="noopener">ดูไฟล์ต้นฉบับ ↗</a>
+    <button type="button" class="lb-btn" id="lb-close" aria-label="ปิด">×</button>
+  </div>
+  <button type="button" class="lb-btn lb-prev" id="lb-prev" aria-label="รูปก่อนหน้า">‹</button>
+  <div class="lb-stage" id="lb-stage"><img id="lb-img" alt="" referrerpolicy="no-referrer"><span class="lb-spin" aria-hidden="true"></span></div>
+  <button type="button" class="lb-btn lb-next" id="lb-next" aria-label="รูปถัดไป">›</button>
+</div>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
 
 <script>
 (function () {
@@ -672,7 +807,7 @@
   var TABS = Object.keys(REQUIRED);
 
   // เนื้อหาสำรอง (สำเนาจากชีต ณ วันที่สร้างไฟล์) ใช้เมื่อโหลดชีตไม่ได้
-  var FALLBACK = {"ตั้งค่า":[{"รายการ":"ชื่อหน่วยงาน","ข้อความ":"กลุ่มงานห้องผ่าตัด","คำอธิบาย":"แสดงบนแถบเมนูและส่วนท้าย"},{"รายการ":"ชื่อโรงพยาบาล","ข้อความ":"โรงพยาบาลยางตลาด","คำอธิบาย":null},{"รายการ":"หัวข้อหลัก","ข้อความ":"ดูแลทุกวินาที [ในห้องผ่าตัด]\nด้วยมาตรฐานและหัวใจของทีม","คำอธิบาย":"ข้อความใน [ ] จะเป็นสีเน้น"},{"รายการ":"คำโปรย","ข้อความ":"ทีมสหวิชาชีพห้องผ่าตัดของเรา ให้บริการผ่าตัดอย่างปลอดภัย แม่นยำ และใส่ใจผู้ป่วยในทุกขั้นตอน ตั้งแต่ก่อน ระหว่าง จนถึงหลังการผ่าตัด","คำอธิบาย":null},{"รายการ":"เกี่ยวกับ หัวข้อ","ข้อความ":"พื้นที่ปลอดภัยที่สุดของโรงพยาบาล คือที่ที่เรายืนทำงานทุกวัน","คำอธิบาย":null},{"รายการ":"เกี่ยวกับ ข้อความ","ข้อความ":"กลุ่มงานห้องผ่าตัด โรงพยาบาลยางตลาด ให้บริการผ่าตัดครอบคลุมสาขาศัลยกรรมหลัก โดยทีมสหวิชาชีพที่ผ่านการฝึกอบรมเฉพาะทาง พร้อมเครื่องมือและระบบควบคุมคุณภาพตามมาตรฐานสากล เพื่อความปลอดภัยสูงสุดของผู้ป่วยทุกราย","คำอธิบาย":null},{"รายการ":"วิสัยทัศน์","ข้อความ":"เป็นกลุ่มงานห้องผ่าตัดที่ได้มาตรฐาน ปลอดภัย และเป็นที่ไว้วางใจของผู้รับบริการในเขตอำเภอยางตลาดและใกล้เคียง","คำอธิบาย":null},{"รายการ":"พันธกิจ","ข้อความ":"ให้บริการผ่าตัดด้วยมาตรฐานวิชาชีพ ควบคุมการติดเชื้อ ลดความเสี่ยง และพัฒนาศักยภาพบุคลากรอย่างต่อเนื่อง","คำอธิบาย":null},{"รายการ":"ที่อยู่","ข้อความ":"โรงพยาบาลยางตลาด อำเภอยางตลาด จังหวัดกาฬสินธุ์","คำอธิบาย":null},{"รายการ":"โทรศัพท์","ข้อความ":null,"คำอธิบาย":"ว่างไว้ = ไม่แสดง ใส่เบอร์จริงแล้วจะขึ้นเว็บเอง"},{"รายการ":"เวลาทำการ","ข้อความ":"ห้องผ่าตัดตามนัด: จันทร์–ศุกร์ 08.30–16.30 น.\nห้องผ่าตัดฉุกเฉิน: ตลอด 24 ชั่วโมง","คำอธิบาย":null},{"รายการ":"แผนที่","ข้อความ":"โรงพยาบาลยางตลาด","คำอธิบาย":"คำค้นหาสถานที่ใน Google Maps"},{"รายการ":"ลิงก์ระบบเจ้าหน้าที่","ข้อความ":null,"คำอธิบาย":"ว่างไว้ = ไม่แสดงปุ่ม \"สำหรับเจ้าหน้าที่\""},{"รายการ":"ข้อความส่วนท้าย","ข้อความ":"ดูแลด้วยมาตรฐาน ปลอดภัยด้วยหัวใจ ทีมสหวิชาชีพห้องผ่าตัดพร้อมให้บริการผู้ป่วยทุกราย","คำอธิบาย":null}],"ตัวเลขเด่น":[{"ตัวเลข":"6","คำอธิบาย":"ห้องผ่าตัด","แสดง":false},{"ตัวเลข":"24/7","คำอธิบาย":"ห้องผ่าตัดฉุกเฉิน","แสดง":true},{"ตัวเลข":"98%","คำอธิบาย":"ความพึงพอใจผู้ป่วย","แสดง":false}],"บริการ":[{"ไอคอน":"✚","ชื่อบริการ":"ศัลยกรรมทั่วไป","รายละเอียด":"ผ่าตัดไส้ติ่ง ถุงน้ำดี ไส้เลื่อน และหัตถการศัลยกรรมพื้นฐาน","แสดง":true},{"ไอคอน":"♀","ชื่อบริการ":"สูติ-นรีเวชกรรม","รายละเอียด":"ผ่าตัดคลอด และหัตถการทางนรีเวชสำหรับผู้ป่วยหญิง","แสดง":true},{"ไอคอน":"🦴","ชื่อบริการ":"ออร์โธปิดิกส์","รายละเอียด":"ผ่าตัดกระดูกและข้อ กรณีอุบัติเหตุและโรคทางกระดูก","แสดง":true},{"ไอคอน":"⏱","ชื่อบริการ":"ห้องผ่าตัดฉุกเฉิน","รายละเอียด":"พร้อมให้บริการตลอด 24 ชั่วโมง สำหรับผู้ป่วยวิกฤต","แสดง":true}],"ความปลอดภัย":[{"ช่วงเวลา":"ก่อนนำสลบ","ขั้นตอน":"Sign In","รายละเอียด":"ยืนยันตัวผู้ป่วย ตำแหน่งผ่าตัด และประวัติแพ้ยาก่อนเริ่มกระบวนการ","แสดง":true},{"ช่วงเวลา":"ก่อนลงมีด","ขั้นตอน":"Time Out","รายละเอียด":"ทีมผ่าตัดยืนยันร่วมกันครั้งสุดท้ายก่อนเริ่มการผ่าตัดทุกครั้ง","แสดง":true},{"ช่วงเวลา":"ก่อนออกห้องผ่าตัด","ขั้นตอน":"Sign Out","รายละเอียด":"ตรวจนับอุปกรณ์และผ้าก๊อซ พร้อมสรุปแผนดูแลหลังผ่าตัด","แสดง":true}],"ทีมงาน":[{"ไอคอน":"👨‍⚕️","ชื่อหรือตำแหน่ง":"ศัลยแพทย์ทั่วไป","หน้าที่":"ทีมแพทย์ผ่าตัด","ลิงก์รูป":null,"แสดง":true},{"ไอคอน":"👩‍⚕️","ชื่อหรือตำแหน่ง":"วิสัญญีพยาบาล","หน้าที่":"ทีมระงับความรู้สึก","ลิงก์รูป":null,"แสดง":true},{"ไอคอน":"👨‍⚕️","ชื่อหรือตำแหน่ง":"พยาบาลเครื่องมือ","หน้าที่":"Scrub Nurse","ลิงก์รูป":null,"แสดง":true},{"ไอคอน":"👩‍⚕️","ชื่อหรือตำแหน่ง":"พยาบาลเวียน","หน้าที่":"Circulating Nurse","ลิงก์รูป":null,"แสดง":true}],"คำถาม":[{"หมวด":"ก่อนผ่าตัด","คำถาม":"ต้องงดน้ำงดอาหารก่อนผ่าตัดกี่ชั่วโมง?","คำตอบ":"โดยทั่วไปควรงดอาหารและน้ำอย่างน้อย 6-8 ชั่วโมงก่อนผ่าตัด ทั้งนี้ขึ้นอยู่กับคำแนะนำของแพทย์และวิสัญญีแพทย์ในแต่ละราย","แสดง":true},{"หมวด":"ก่อนผ่าตัด","คำถาม":"ควรเตรียมเอกสารอะไรมาในวันผ่าตัด?","คำตอบ":"บัตรประชาชน บัตรนัด ผลตรวจทางห้องปฏิบัติการ (ถ้ามี) และเอกสารสิทธิการรักษาพยาบาล","แสดง":true},{"หมวด":"ก่อนผ่าตัด","คำถาม":"ควรงดยาชนิดใดก่อนผ่าตัดหรือไม่?","คำตอบ":"ยาบางชนิด เช่น ยาละลายลิ่มเลือด ควรแจ้งแพทย์ล่วงหน้า และปฏิบัติตามคำแนะนำของแพทย์อย่างเคร่งครัด","แสดง":true},{"หมวด":"ก่อนผ่าตัด","คำถาม":"ญาติสามารถรอที่ไหนระหว่างผ่าตัด?","คำตอบ":"มีพื้นที่พักคอยสำหรับญาติบริเวณหน้าห้องผ่าตัด พร้อมระบบแจ้งความคืบหน้าจากทีมพยาบาล","แสดง":true},{"หมวด":"หลังผ่าตัด","คำถาม":"หลังผ่าตัดต้องพักฟื้นที่ใด?","คำตอบ":"ผู้ป่วยจะถูกย้ายไปพักฟื้นที่ห้องพักฟื้น (Recovery Room) ภายใต้การดูแลอย่างใกล้ชิดก่อนย้ายกลับหอผู้ป่วย","แสดง":true},{"หมวด":"หลังผ่าตัด","คำถาม":"เมื่อกลับบ้านแล้ว ดูแลแผลผ่าตัดอย่างไร?","คำตอบ":"รักษาแผลให้แห้งและสะอาด สังเกตอาการบวมแดงหรือมีหนอง หากพบความผิดปกติให้รีบกลับมาพบแพทย์","แสดง":true},{"หมวด":"หลังผ่าตัด","คำถาม":"ควรงดกิจกรรมใดหลังผ่าตัด?","คำตอบ":"หลีกเลี่ยงการยกของหนักและออกแรงบริเวณแผลผ่าตัด จนกว่าแพทย์จะอนุญาตในวันนัดติดตามอาการ","แสดง":true},{"หมวด":"หลังผ่าตัด","คำถาม":"ควรกลับมาพบแพทย์เมื่อใด?","คำตอบ":"ตามวันนัดที่ระบุในใบนัด หรือทันทีหากมีไข้สูง ปวดแผลรุนแรง หรือแผลมีเลือดออกผิดปกติ","แสดง":true}],"รายโรค":[{"ชื่อเรื่อง":"ผ่าตัดไส้ติ่ง","แผนก":"ศัลยกรรมทั่วไป","คำอธิบายสั้น":"การปฏิบัติตัวก่อน-หลังผ่าตัดไส้ติ่งอักเสบ","ข้อปฏิบัติ":"งดน้ำงดอาหารตามเวลาที่แพทย์กำหนดก่อนผ่าตัด\nหลังผ่าตัดค่อย ๆ เริ่มรับประทานอาหารอ่อนตามคำแนะนำพยาบาล\nสังเกตแผลผ่าตัด หากบวมแดงหรือมีไข้ให้รีบพบแพทย์\nงดยกของหนักอย่างน้อย 2-4 สัปดาห์","แสดง":true},{"ชื่อเรื่อง":"ผ่าตัดคลอด (C-Section)","แผนก":"สูติ-นรีเวชกรรม","คำอธิบายสั้น":"การดูแลตนเองสำหรับคุณแม่หลังผ่าตัดคลอด","ข้อปฏิบัติ":"ลุกเดินเบา ๆ ภายใน 24 ชั่วโมงแรกเพื่อลดความเสี่ยงลิ่มเลือดอุดตัน\nดูแลความสะอาดแผลผ่าตัดตามคำแนะนำของพยาบาล\nงดยกของหนักเกินน้ำหนักลูกอย่างน้อย 6 สัปดาห์\nสังเกตอาการผิดปกติ เช่น เลือดออกมาก ไข้สูง ปวดแผลรุนแรง","แสดง":true},{"ชื่อเรื่อง":"ผ่าตัดกระดูกและข้อ","แผนก":"ออร์โธปิดิกส์","คำอธิบายสั้น":"การปฏิบัติตัวหลังผ่าตัดออร์โธปิดิกส์","ข้อปฏิบัติ":"ฝึกขยับข้อตามโปรแกรมกายภาพบำบัดที่ได้รับ\nใช้อุปกรณ์ช่วยเดินตามคำแนะนำจนกว่าแพทย์จะอนุญาตให้ลงน้ำหนักเต็มที่\nระวังการหกล้มบริเวณที่ผ่าตัด\nมาตามนัดเพื่อติดตามผลเอกซเรย์และแผล","แสดง":true}],"ข่าวสาร":[{"วันที่":"15 กรกฎาคม 2569","หัวข้อ":"อบรมฟื้นฟู Surgical Safety Checklist ประจำปี","รายละเอียด":"ทีมห้องผ่าตัดเข้าร่วมอบรมทบทวนมาตรฐานความปลอดภัยในการผ่าตัด","ลิงก์รูป":null,"แสดง":false},{"วันที่":"2 มิถุนายน 2569","หัวข้อ":"ปรับปรุงห้องผ่าตัดหมายเลข 3","รายละเอียด":"ติดตั้งอุปกรณ์ผ่าตัดรุ่นใหม่เพื่อเพิ่มประสิทธิภาพการให้บริการ","ลิงก์รูป":null,"แสดง":false},{"วันที่":"18 พฤษภาคม 2569","หัวข้อ":"รับรางวัลหน่วยงานควบคุมการติดเชื้อดีเด่น","รายละเอียด":"กลุ่มงานห้องผ่าตัดได้รับการยกย่องด้านมาตรฐานป้องกันการติดเชื้อ","ลิงก์รูป":null,"แสดง":false}]};
+  var FALLBACK = {"ตั้งค่า":[{"รายการ":"ชื่อหน่วยงาน","ข้อความ":"กลุ่มงานห้องผ่าตัด","คำอธิบาย":"แสดงบนแถบเมนูและส่วนท้าย"},{"รายการ":"ชื่อโรงพยาบาล","ข้อความ":"โรงพยาบาลยางตลาด","คำอธิบาย":null},{"รายการ":"หัวข้อหลัก","ข้อความ":"ดูแลทุกวินาที [ในห้องผ่าตัด]\nด้วยมาตรฐานและหัวใจของทีม","คำอธิบาย":"ข้อความใน [ ] จะเป็นสีเน้น"},{"รายการ":"คำโปรย","ข้อความ":"ทีมสหวิชาชีพห้องผ่าตัดของเรา ให้บริการผ่าตัดอย่างปลอดภัย แม่นยำ และใส่ใจผู้ป่วยในทุกขั้นตอน ตั้งแต่ก่อน ระหว่าง จนถึงหลังการผ่าตัด","คำอธิบาย":null},{"รายการ":"เกี่ยวกับ หัวข้อ","ข้อความ":"พื้นที่ปลอดภัยที่สุดของโรงพยาบาล คือที่ที่เรายืนทำงานทุกวัน","คำอธิบาย":null},{"รายการ":"เกี่ยวกับ ข้อความ","ข้อความ":"กลุ่มงานห้องผ่าตัด โรงพยาบาลยางตลาด ให้บริการผ่าตัดครอบคลุมสาขาศัลยกรรมหลัก โดยทีมสหวิชาชีพที่ผ่านการฝึกอบรมเฉพาะทาง พร้อมเครื่องมือและระบบควบคุมคุณภาพตามมาตรฐานสากล เพื่อความปลอดภัยสูงสุดของผู้ป่วยทุกราย","คำอธิบาย":null},{"รายการ":"วิสัยทัศน์","ข้อความ":"เป็นกลุ่มงานห้องผ่าตัดที่ได้มาตรฐาน ปลอดภัย และเป็นที่ไว้วางใจของผู้รับบริการในเขตอำเภอยางตลาดและใกล้เคียง","คำอธิบาย":null},{"รายการ":"พันธกิจ","ข้อความ":"ให้บริการผ่าตัดด้วยมาตรฐานวิชาชีพ ควบคุมการติดเชื้อ ลดความเสี่ยง และพัฒนาศักยภาพบุคลากรอย่างต่อเนื่อง","คำอธิบาย":null},{"รายการ":"ที่อยู่","ข้อความ":"โรงพยาบาลยางตลาด อำเภอยางตลาด จังหวัดกาฬสินธุ์","คำอธิบาย":null},{"รายการ":"โทรศัพท์","ข้อความ":null,"คำอธิบาย":"ว่างไว้ = ไม่แสดง ใส่เบอร์จริงแล้วจะขึ้นเว็บเอง"},{"รายการ":"เวลาทำการ","ข้อความ":"ห้องผ่าตัดตามนัด: จันทร์–ศุกร์ 08.30–16.30 น.\nห้องผ่าตัดฉุกเฉิน: ตลอด 24 ชั่วโมง","คำอธิบาย":null},{"รายการ":"แผนที่","ข้อความ":"โรงพยาบาลยางตลาด","คำอธิบาย":"คำค้นหาสถานที่ใน Google Maps"},{"รายการ":"ลิงก์ระบบเจ้าหน้าที่","ข้อความ":null,"คำอธิบาย":"ว่างไว้ = ไม่แสดงปุ่ม \"สำหรับเจ้าหน้าที่\""},{"รายการ":"ข้อความส่วนท้าย","ข้อความ":"ดูแลด้วยมาตรฐาน ปลอดภัยด้วยหัวใจ ทีมสหวิชาชีพห้องผ่าตัดพร้อมให้บริการผู้ป่วยทุกราย","คำอธิบาย":null}],"ตัวเลขเด่น":[{"ตัวเลข":"6","คำอธิบาย":"ห้องผ่าตัด","แสดง":false},{"ตัวเลข":"24/7","คำอธิบาย":"ห้องผ่าตัดฉุกเฉิน","แสดง":true},{"ตัวเลข":"98%","คำอธิบาย":"ความพึงพอใจผู้ป่วย","แสดง":false}],"บริการ":[{"ไอคอน":"✚","ชื่อบริการ":"ศัลยกรรมทั่วไป","รายละเอียด":"ผ่าตัดไส้ติ่ง ถุงน้ำดี ไส้เลื่อน และหัตถการศัลยกรรมพื้นฐาน","แสดง":true},{"ไอคอน":"♀","ชื่อบริการ":"สูติ-นรีเวชกรรม","รายละเอียด":"ผ่าตัดคลอด และหัตถการทางนรีเวชสำหรับผู้ป่วยหญิง","แสดง":true},{"ไอคอน":"🦴","ชื่อบริการ":"ออร์โธปิดิกส์","รายละเอียด":"ผ่าตัดกระดูกและข้อ กรณีอุบัติเหตุและโรคทางกระดูก","แสดง":true},{"ไอคอน":"⏱","ชื่อบริการ":"ห้องผ่าตัดฉุกเฉิน","รายละเอียด":"พร้อมให้บริการตลอด 24 ชั่วโมง สำหรับผู้ป่วยวิกฤต","แสดง":true}],"ความปลอดภัย":[{"ช่วงเวลา":"ก่อนนำสลบ","ขั้นตอน":"Sign In","รายละเอียด":"ยืนยันตัวผู้ป่วย ตำแหน่งผ่าตัด และประวัติแพ้ยาก่อนเริ่มกระบวนการ","แสดง":true},{"ช่วงเวลา":"ก่อนลงมีด","ขั้นตอน":"Time Out","รายละเอียด":"ทีมผ่าตัดยืนยันร่วมกันครั้งสุดท้ายก่อนเริ่มการผ่าตัดทุกครั้ง","แสดง":true},{"ช่วงเวลา":"ก่อนออกห้องผ่าตัด","ขั้นตอน":"Sign Out","รายละเอียด":"ตรวจนับอุปกรณ์และผ้าก๊อซ พร้อมสรุปแผนดูแลหลังผ่าตัด","แสดง":true}],"ทีมงาน":[{"ไอคอน":"👨‍⚕️","ชื่อหรือตำแหน่ง":"ศัลยแพทย์ทั่วไป","หน้าที่":"ทีมแพทย์ผ่าตัด","ลิงก์รูป":null,"แสดง":true},{"ไอคอน":"👩‍⚕️","ชื่อหรือตำแหน่ง":"วิสัญญีพยาบาล","หน้าที่":"ทีมระงับความรู้สึก","ลิงก์รูป":null,"แสดง":true},{"ไอคอน":"👨‍⚕️","ชื่อหรือตำแหน่ง":"พยาบาลเครื่องมือ","หน้าที่":"Scrub Nurse","ลิงก์รูป":null,"แสดง":true},{"ไอคอน":"👩‍⚕️","ชื่อหรือตำแหน่ง":"พยาบาลเวียน","หน้าที่":"Circulating Nurse","ลิงก์รูป":null,"แสดง":true}],"คำถาม":[{"หมวด":"ก่อนผ่าตัด","คำถาม":"ต้องงดน้ำงดอาหารก่อนผ่าตัดกี่ชั่วโมง?","คำตอบ":"โดยทั่วไปควรงดอาหารและน้ำอย่างน้อย 6-8 ชั่วโมงก่อนผ่าตัด ทั้งนี้ขึ้นอยู่กับคำแนะนำของแพทย์และวิสัญญีแพทย์ในแต่ละราย","แสดง":true},{"หมวด":"ก่อนผ่าตัด","คำถาม":"ควรเตรียมเอกสารอะไรมาในวันผ่าตัด?","คำตอบ":"บัตรประชาชน บัตรนัด ผลตรวจทางห้องปฏิบัติการ (ถ้ามี) และเอกสารสิทธิการรักษาพยาบาล","แสดง":true},{"หมวด":"ก่อนผ่าตัด","คำถาม":"ควรงดยาชนิดใดก่อนผ่าตัดหรือไม่?","คำตอบ":"ยาบางชนิด เช่น ยาละลายลิ่มเลือด ควรแจ้งแพทย์ล่วงหน้า และปฏิบัติตามคำแนะนำของแพทย์อย่างเคร่งครัด","แสดง":true},{"หมวด":"ก่อนผ่าตัด","คำถาม":"ญาติสามารถรอที่ไหนระหว่างผ่าตัด?","คำตอบ":"มีพื้นที่พักคอยสำหรับญาติบริเวณหน้าห้องผ่าตัด พร้อมระบบแจ้งความคืบหน้าจากทีมพยาบาล","แสดง":true},{"หมวด":"หลังผ่าตัด","คำถาม":"หลังผ่าตัดต้องพักฟื้นที่ใด?","คำตอบ":"ผู้ป่วยจะถูกย้ายไปพักฟื้นที่ห้องพักฟื้น (Recovery Room) ภายใต้การดูแลอย่างใกล้ชิดก่อนย้ายกลับหอผู้ป่วย","แสดง":true},{"หมวด":"หลังผ่าตัด","คำถาม":"เมื่อกลับบ้านแล้ว ดูแลแผลผ่าตัดอย่างไร?","คำตอบ":"รักษาแผลให้แห้งและสะอาด สังเกตอาการบวมแดงหรือมีหนอง หากพบความผิดปกติให้รีบกลับมาพบแพทย์","แสดง":true},{"หมวด":"หลังผ่าตัด","คำถาม":"ควรงดกิจกรรมใดหลังผ่าตัด?","คำตอบ":"หลีกเลี่ยงการยกของหนักและออกแรงบริเวณแผลผ่าตัด จนกว่าแพทย์จะอนุญาตในวันนัดติดตามอาการ","แสดง":true},{"หมวด":"หลังผ่าตัด","คำถาม":"ควรกลับมาพบแพทย์เมื่อใด?","คำตอบ":"ตามวันนัดที่ระบุในใบนัด หรือทันทีหากมีไข้สูง ปวดแผลรุนแรง หรือแผลมีเลือดออกผิดปกติ","แสดง":true}],"รายโรค":[{"ชื่อเรื่อง":"ผ่าตัดไส้ติ่ง","แผนก":"ศัลยกรรมทั่วไป","คำอธิบายสั้น":"การปฏิบัติตัวก่อน-หลังผ่าตัดไส้ติ่งอักเสบ","ข้อปฏิบัติ":"งดน้ำงดอาหารตามเวลาที่แพทย์กำหนดก่อนผ่าตัด\nหลังผ่าตัดค่อย ๆ เริ่มรับประทานอาหารอ่อนตามคำแนะนำพยาบาล\nสังเกตแผลผ่าตัด หากบวมแดงหรือมีไข้ให้รีบพบแพทย์\nงดยกของหนักอย่างน้อย 2-4 สัปดาห์","แสดง":true},{"ชื่อเรื่อง":"ผ่าตัดคลอด (C-Section)","แผนก":"สูติ-นรีเวชกรรม","คำอธิบายสั้น":"การดูแลตนเองสำหรับคุณแม่หลังผ่าตัดคลอด","ข้อปฏิบัติ":"ลุกเดินเบา ๆ ภายใน 24 ชั่วโมงแรกเพื่อลดความเสี่ยงลิ่มเลือดอุดตัน\nดูแลความสะอาดแผลผ่าตัดตามคำแนะนำของพยาบาล\nงดยกของหนักเกินน้ำหนักลูกอย่างน้อย 6 สัปดาห์\nสังเกตอาการผิดปกติ เช่น เลือดออกมาก ไข้สูง ปวดแผลรุนแรง","แสดง":true},{"ชื่อเรื่อง":"ผ่าตัดกระดูกและข้อ","แผนก":"ออร์โธปิดิกส์","คำอธิบายสั้น":"การปฏิบัติตัวหลังผ่าตัดออร์โธปิดิกส์","ข้อปฏิบัติ":"ฝึกขยับข้อตามโปรแกรมกายภาพบำบัดที่ได้รับ\nใช้อุปกรณ์ช่วยเดินตามคำแนะนำจนกว่าแพทย์จะอนุญาตให้ลงน้ำหนักเต็มที่\nระวังการหกล้มบริเวณที่ผ่าตัด\nมาตามนัดเพื่อติดตามผลเอกซเรย์และแผล","แสดง":true}],"ข่าวสาร":[{"วันที่":"15 กรกฎาคม 2569","หัวข้อ":"อบรมฟื้นฟู Surgical Safety Checklist ประจำปี","รายละเอียด":"ทีมห้องผ่าตัดเข้าร่วมอบรมทบทวนมาตรฐานความปลอดภัยในการผ่าตัด","ลิงก์รูปปก":null,"ลิงก์โฟลเดอร์รูป":null,"แสดง":false,"รูปทั้งหมด":null},{"วันที่":"2 มิถุนายน 2569","หัวข้อ":"ปรับปรุงห้องผ่าตัดหมายเลข 3","รายละเอียด":"ติดตั้งอุปกรณ์ผ่าตัดรุ่นใหม่เพื่อเพิ่มประสิทธิภาพการให้บริการ","ลิงก์รูปปก":null,"ลิงก์โฟลเดอร์รูป":null,"แสดง":false,"รูปทั้งหมด":null},{"วันที่":"18 พฤษภาคม 2569","หัวข้อ":"รับรางวัลหน่วยงานควบคุมการติดเชื้อดีเด่น","รายละเอียด":"กลุ่มงานห้องผ่าตัดได้รับการยกย่องด้านมาตรฐานป้องกันการติดเชื้อ","ลิงก์รูปปก":null,"ลิงก์โฟลเดอร์รูป":null,"แสดง":false,"รูปทั้งหมด":null}]};
 
   var CACHE_KEY = 'or-yth-content-v1';
 
@@ -699,7 +834,7 @@
   function toggle(el, show) { if (el) el.classList.toggle('is-hidden', !show); }
 
   /* ==================== แสดงผลเนื้อหา ==================== */
-  var state = { faqTab: null, dzQuery: '', dzDept: '', newsAll: false };
+  var state = { faqTab: null, dzQuery: '', dzDept: '', newsAll: false, newsYear: 0 };
   var lastRendered = '', current = null;
 
   function settings(rows) {
@@ -900,20 +1035,257 @@
     box.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
   }
 
-  /* ---- ข่าวสาร ---- */
-  function renderNews(T) {
-    var news = visible(T['ข่าวสาร'], 'หัวข้อ');
-    var LIMIT = 6, list = state.newsAll ? news : news.slice(0, LIMIT);
-    $('news-grid').innerHTML = list.map(function (r) {
-      var src = imgUrl(val(r, 'ลิงก์รูป')), date = val(r, 'วันที่');
-      return '<article class="news-card"><div class="news-thumb' + (src ? ' has-img' : '') + '">' +
-        (src ? '<img src="' + esc(src) + '" alt="" loading="lazy" referrerpolicy="no-referrer" onerror="this.parentNode.classList.remove(\'has-img\');this.remove()">' : '') +
-        '</div><div class="news-body">' + (date ? '<span class="date">' + esc(date) + '</span>' : '') +
-        '<h4>' + esc(val(r, 'หัวข้อ')) + '</h4><p>' + txt(val(r, 'รายละเอียด')) + '</p></div></article>';
-    }).join('');
-    toggle($('news-more'), news.length > list.length);
-    showSection('news', news.length > 0);
+  /* ---- ข่าวสารและอัลบั้มภาพกิจกรรม ---- */
+  var TH_MONTHS_SHORT = ['ม.ค.', 'ก.พ.', 'มี.ค.', 'เม.ย.', 'พ.ค.', 'มิ.ย.', 'ก.ค.', 'ส.ค.', 'ก.ย.', 'ต.ค.', 'พ.ย.', 'ธ.ค.'];
+  var albums = [], contentFinal = false;
+
+  // "15 พฤศจิกายน 2569" / "15 พ.ย. 69" / "15/11/2569" → {y, m, d} (พ.ศ.)
+  function parseThaiDate(text) {
+    var s = String(text || '').trim(), m, mi;
+    function ymd(y, mo, d) {
+      if (y < 100) y += 2500; else if (y < 2400) y += 543;
+      return mo >= 1 && mo <= 12 && d >= 1 && d <= 31 ? { y: y, m: mo, d: d } : null;
+    }
+    if ((m = s.match(/^(\d{1,2})\s*[\/.-]\s*(\d{1,2})\s*[\/.-]\s*(\d{2,4})$/))) return ymd(+m[3], +m[2], +m[1]);
+    if ((m = s.match(/(\d{1,2})\s*([ก-๙.]+)\s*(\d{2,4})/))) {
+      var name = m[2].replace(/\s/g, '');
+      mi = TH_MONTHS.indexOf(name);
+      if (mi < 0) mi = TH_MONTHS_SHORT.indexOf(name);
+      if (mi < 0) mi = TH_MONTHS_SHORT.map(function (x) { return x.replace(/\./g, ''); }).indexOf(name.replace(/\./g, ''));
+      if (mi >= 0) return ymd(+m[3], mi + 1, +m[1]);
+    }
+    return null;
   }
+  function hashId(s) { var h = 5381; for (var i = 0; i < s.length; i++) h = (((h << 5) + h) + s.charCodeAt(i)) >>> 0; return h.toString(36); }
+
+  // ลิงก์/รหัสรูป Google Drive หรือ https อื่น → ตัวสร้างลิงก์รูปตามขนาด
+  function photoFrom(s) {
+    s = String(s || '').trim();
+    if (!s) return null;
+    var m = s.match(/drive\.google\.com\/(?:file\/d\/|open\?id=|uc\?(?:export=\w+&)?id=|thumbnail\?id=)([\w-]{20,})/) || s.match(/^([\w-]{25,})$/);
+    if (m) {
+      var id = m[1];
+      return {
+        src: function (w) { return 'https://drive.google.com/thumbnail?id=' + id + '&sz=w' + w; },
+        alt: function (w) { return 'https://lh3.googleusercontent.com/d/' + id + '=w' + w; },
+        orig: 'https://drive.google.com/file/d/' + id + '/view'
+      };
+    }
+    var u = safeUrl(s);
+    return u ? { src: function () { return u; }, alt: function () { return ''; }, orig: u } : null;
+  }
+  function imgTag(p, w, alt, eager) {
+    var a = p.alt(w);
+    return '<img src="' + esc(p.src(w)) + '"' + (a ? ' data-alt="' + esc(a) + '"' : '') + ' alt="' + esc(alt || '') + '"' +
+      (eager ? '' : ' loading="lazy"') + ' decoding="async" referrerpolicy="no-referrer">';
+  }
+
+  function buildAlbums(rows) {
+    var list = visible(rows, 'หัวข้อ').map(function (r, i) {
+      var title = val(r, 'หัวข้อ'), date = val(r, 'วันที่');
+      var photos = val(r, 'รูปทั้งหมด').split(/[\r\n,]+/).map(photoFrom).filter(Boolean);
+      var cover = photoFrom(val(r, 'ลิงก์รูปปก') || val(r, 'ลิงก์รูป'));
+      if (!photos.length && cover) photos = [cover];
+      var d = parseThaiDate(date);
+      return { id: 'a' + hashId(date + '|' + title), title: title, date: date, desc: val(r, 'รายละเอียด'),
+        photos: photos, cover: cover || photos[0] || null, ymd: d ? d.y * 10000 + d.m * 100 + d.d : 0, year: d ? d.y : 0, order: i };
+    });
+    list.sort(function (a, b) { return (b.ymd - a.ymd) || (a.order - b.order); }); // ใหม่สุดก่อน
+    var seen = {};
+    list.forEach(function (a) { while (seen[a.id]) a.id += 'b'; seen[a.id] = 1; });
+    return list;
+  }
+
+  function coverHtml(a, w, eager) {
+    return '<div class="ph-box"><span class="ph-icon" aria-hidden="true">' + (a.photos.length ? '🖼️' : '📰') + '</span>' +
+      (a.cover ? imgTag(a.cover, w, a.title, eager) : '') +
+      (a.photos.length > 1 ? '<span class="count-badge">📷 ' + a.photos.length + ' รูป</span>' : '') + '</div>';
+  }
+  function featureHtml(a, latest) {
+    var rest = a.photos.slice(1, 5);
+    var strip = rest.length ? '<div class="mini-strip" aria-hidden="true">' + rest.map(function (p, i) {
+      var more = i === rest.length - 1 && a.photos.length > 5 ? '<span class="more">+' + (a.photos.length - 5) + '</span>' : '';
+      return '<span>' + imgTag(p, 200, '') + more + '</span>';
+    }).join('') + '</div>' : '';
+    var label = a.photos.length > 1 ? 'ชมภาพทั้งหมด ' + a.photos.length + ' รูป' : (a.photos.length ? 'ชมภาพกิจกรรม' : 'อ่านต่อ');
+    return '<a class="feature" href="#album-' + a.id + '" data-album="' + a.id + '">' + coverHtml(a, 1400, true) +
+      '<div class="feature-body">' + (latest ? '<span class="tag-new">กิจกรรมล่าสุด</span>' : '') +
+      (a.date ? '<span class="album-date">' + esc(a.date) + '</span>' : '') + '<h3>' + esc(a.title) + '</h3>' +
+      (a.desc ? '<p>' + txt(a.desc) + '</p>' : '') + strip + '<span class="btn btn-primary">' + label + ' →</span></div></a>';
+  }
+  function cardHtml(a) {
+    return '<a class="album-card" href="#album-' + a.id + '" data-album="' + a.id + '">' + coverHtml(a, 800) +
+      '<div class="album-card-body">' + (a.date ? '<span class="album-date">' + esc(a.date) + '</span>' : '') +
+      '<h4>' + esc(a.title) + '</h4>' + (a.desc ? '<p>' + esc(a.desc) + '</p>' : '') + '</div></a>';
+  }
+
+  function renderNews(T) {
+    albums = buildAlbums(T['ข่าวสาร']);
+    showSection('news', albums.length > 0);
+    var years = [];
+    albums.forEach(function (a) { if (a.year && years.indexOf(a.year) < 0) years.push(a.year); });
+    years.sort(function (a, b) { return b - a; });
+    if (years.indexOf(state.newsYear) < 0) state.newsYear = 0;
+    $('news-years').innerHTML = years.length > 1 ? [0].concat(years).map(function (y) {
+      return '<button type="button" class="year-chip' + (y === state.newsYear ? ' active' : '') + '" data-year="' + y + '">' + (y ? 'ปี ' + y : 'ทั้งหมด') + '</button>';
+    }).join('') : '';
+    var list = state.newsYear ? albums.filter(function (a) { return a.year === state.newsYear; }) : albums;
+    var first = list[0], rest = list.slice(1), LIMIT = 6;
+    var shown = state.newsAll ? rest : rest.slice(0, LIMIT);
+    $('news-feature').innerHTML = first ? featureHtml(first, first === albums[0]) : '';
+    $('news-grid').innerHTML = shown.map(cardHtml).join('');
+    toggle($('news-grid'), shown.length > 0);
+    var more = $('news-more');
+    toggle(more, rest.length > shown.length);
+    setText($('news-total'), String(list.length));
+    route();
+  }
+
+  /* ---- หน้าอัลบั้ม + ดูรูปขนาดใหญ่ (ลิงก์ #album-รหัส แชร์ต่อได้) ---- */
+  var openKey = '', lbAlbum = null, lbIndex = -1, lastFocus = null;
+  function findAlbum(id) { for (var i = 0; i < albums.length; i++) if (albums[i].id === id) return albums[i]; return null; }
+  function hashParts() { var m = location.hash.match(/^#album-([a-z0-9]+)(?:\/(\d+))?$/); return m ? { id: m[1], n: m[2] ? +m[2] : 0 } : null; }
+
+  function route() {
+    var h = hashParts();
+    if (!h) { hideLightbox(); hideAlbum(); return; }
+    var a = findAlbum(h.id);
+    if (!a) {
+      if (contentFinal) { history.replaceState(null, '', '#news'); hideLightbox(); hideAlbum(); }
+      return;
+    }
+    showAlbum(a);
+    if (h.n && a.photos.length) showPhoto(a, Math.min(Math.max(h.n - 1, 0), a.photos.length - 1));
+    else hideLightbox();
+  }
+
+  function showAlbum(a) {
+    var view = $('album-view');
+    var key = [a.id, a.title, a.date, a.desc, a.photos.length, a.photos.length && a.photos[0].orig].join('|');
+    if (key !== openKey) {
+      openKey = key;
+      setText($('av-bar-title'), a.title);
+      setText($('av-title'), a.title);
+      setText($('av-date'), a.date); toggle($('av-date'), !!a.date);
+      $('av-desc').innerHTML = txt(a.desc); toggle($('av-desc'), !!a.desc);
+      setText($('av-count'), a.photos.length + ' รูป'); toggle($('av-count'), a.photos.length > 0);
+      $('av-grid').innerHTML = a.photos.length ? a.photos.map(function (p, i) {
+        var big = i === 0 && a.photos.length >= 5;
+        return '<a class="av-tile' + (big ? ' big' : '') + '" href="#album-' + a.id + '/' + (i + 1) + '" data-photo="' + i + '" aria-label="ดูรูปที่ ' + (i + 1) + '">' +
+          imgTag(p, big ? 1000 : 600, a.title + ' รูปที่ ' + (i + 1), i < 8) + '</a>';
+      }).join('') : '<p class="av-empty">กิจกรรมนี้ยังไม่มีรูป</p>';
+      var idx = albums.indexOf(a), newer = albums[idx - 1], older = albums[idx + 1];
+      $('av-nav').innerHTML =
+        (older ? '<a class="prev" href="#album-' + older.id + '" data-album-nav="' + older.id + '"><small>← กิจกรรมก่อนหน้า</small><b>' + esc(older.title) + '</b></a>' : '') +
+        (newer ? '<a class="next" href="#album-' + newer.id + '" data-album-nav="' + newer.id + '"><small>กิจกรรมถัดไป →</small><b>' + esc(newer.title) + '</b></a>' : '');
+      view.scrollTop = 0;
+    }
+    if (view.hidden) {
+      lastFocus = document.activeElement;
+      view.hidden = false;
+      document.documentElement.classList.add('modal-open');
+      try { $('av-close').focus({ preventScroll: true }); } catch (e) { /* ไม่เป็นไร */ }
+    }
+  }
+  function hideAlbum() {
+    var view = $('album-view');
+    if (view.hidden) return;
+    view.hidden = true; openKey = '';
+    document.documentElement.classList.remove('modal-open');
+    if (lastFocus && lastFocus.focus) { try { lastFocus.focus({ preventScroll: true }); } catch (e) { /* ไม่เป็นไร */ } }
+  }
+
+  function showPhoto(a, i) {
+    lbAlbum = a; lbIndex = i;
+    var p = a.photos[i], stage = $('lb-stage'), img = $('lb-img');
+    setText($('lb-count'), (i + 1) + ' / ' + a.photos.length);
+    setText($('lb-title'), a.title);
+    $('lb-orig').href = p.orig;
+    $('lb-prev').disabled = i === 0;
+    $('lb-next').disabled = i === a.photos.length - 1;
+    var big = p.src(2000), alt = p.alt(2000);
+    if (img.getAttribute('data-src') !== big) {
+      stage.classList.add('loading');
+      img.setAttribute('data-src', big);
+      img.removeAttribute('data-tried');
+      img.onload = function () { stage.classList.remove('loading'); };
+      img.onerror = function () {
+        if (alt && !img.getAttribute('data-tried')) { img.setAttribute('data-tried', '1'); img.src = alt; }
+        else stage.classList.remove('loading');
+      };
+      img.alt = a.title + ' รูปที่ ' + (i + 1);
+      img.src = big;
+    }
+    [i - 1, i + 1].forEach(function (j) { // โหลดรูปข้าง ๆ ไว้ก่อน
+      if (!a.photos[j]) return;
+      var pre = new Image(); pre.referrerPolicy = 'no-referrer'; pre.src = a.photos[j].src(2000);
+    });
+    var lb = $('lightbox');
+    if (lb.hidden) { lb.hidden = false; try { $('lb-close').focus({ preventScroll: true }); } catch (e) { /* ไม่เป็นไร */ } }
+  }
+  function hideLightbox() {
+    var lb = $('lightbox');
+    if (lb.hidden) return;
+    lb.hidden = true; lbAlbum = null; lbIndex = -1;
+    var h = hashParts(), tile = h && $('av-grid').querySelector('[data-photo="' + (h.n ? h.n - 1 : 0) + '"]');
+    if (tile) { try { tile.focus({ preventScroll: true }); } catch (e) { /* ไม่เป็นไร */ } }
+  }
+
+  function openAlbum(id) { history.pushState({ orApp: 1 }, '', '#album-' + id); route(); }
+  function switchAlbum(id) { history.replaceState(history.state, '', '#album-' + id); route(); }
+  function openPhoto(i) { var h = hashParts(); if (!h) return; history.pushState({ orApp: 1, lb: 1 }, '', '#album-' + h.id + '/' + (i + 1)); route(); }
+  function stepPhoto(d) {
+    if (!lbAlbum) return;
+    var j = lbIndex + d;
+    if (j < 0 || j >= lbAlbum.photos.length) return;
+    history.replaceState(history.state, '', '#album-' + lbAlbum.id + '/' + (j + 1));
+    showPhoto(lbAlbum, j);
+  }
+  function closePhoto() {
+    if (history.state && history.state.lb) { history.back(); return; }
+    var h = hashParts();
+    history.replaceState(null, '', h ? '#album-' + h.id : '#news');
+    route();
+  }
+  function closeAlbum() {
+    if (history.state && history.state.orApp && !history.state.lb) { history.back(); return; }
+    history.replaceState(null, '', '#news');
+    route();
+    var sec = $('news');
+    if (sec && !sec.classList.contains('is-hidden')) sec.scrollIntoView();
+  }
+
+  function shareAlbum() {
+    var h = hashParts(), a = h && findAlbum(h.id);
+    if (!a) return;
+    var url = location.href.split('#')[0] + '#album-' + a.id;
+    if (navigator.share) { navigator.share({ title: a.title, url: url }).catch(function () { /* ผู้ใช้ยกเลิก */ }); return; }
+    copyText(url).then(function () { toast('คัดลอกลิงก์อัลบั้มแล้ว ส่งต่อใน LINE ได้เลย'); }, function () { toast(url); });
+  }
+  function copyText(t) {
+    if (navigator.clipboard && window.isSecureContext) return navigator.clipboard.writeText(t);
+    return new Promise(function (resolve, reject) {
+      var ta = document.createElement('textarea');
+      ta.value = t; ta.style.position = 'fixed'; ta.style.opacity = '0';
+      document.body.appendChild(ta); ta.select();
+      var ok = false; try { ok = document.execCommand('copy'); } catch (e) { ok = false; }
+      ta.remove(); if (ok) resolve(); else reject();
+    });
+  }
+  var toastTimer = 0;
+  function toast(msg) {
+    var t = $('toast'); t.textContent = msg; t.classList.add('show');
+    clearTimeout(toastTimer); toastTimer = setTimeout(function () { t.classList.remove('show'); }, 2800);
+  }
+
+  // รูปจาก Drive โหลดไม่ขึ้น: ลองลิงก์สำรอง แล้วค่อยซ่อน
+  document.addEventListener('error', function (e) {
+    var img = e.target;
+    if (!img || img.tagName !== 'IMG' || img.id === 'lb-img') return;
+    var alt = img.getAttribute('data-alt');
+    if (alt && !img.getAttribute('data-tried')) { img.setAttribute('data-tried', '1'); img.src = alt; return; }
+    img.classList.add('broken');
+  }, true);
 
   /* ==================== โหลดเนื้อหาจาก Google Sheet ==================== */
   function gvizUrl(tab, tqx) {
@@ -1013,10 +1385,13 @@
   })).then(function (list) {
     var fresh = {}, ok = 0;
     list.forEach(function (p) { if (p[1]) { fresh[p[0]] = p[1]; ok++; } });
-    if (!ok) return;
-    var data = merged(FALLBACK, cached, fresh);
-    writeCache(data);
-    render(data);
+    contentFinal = true;
+    if (ok) {
+      var data = merged(FALLBACK, cached, fresh);
+      writeCache(data);
+      render(data);
+    }
+    route();
   });
 
   /* ==================== สถิติการผ่าตัด (ข้อมูลสด) ==================== */
@@ -1088,10 +1463,46 @@
     if (e.target.id === 'dz-search') { state.dzQuery = e.target.value; filterDiseases(); }
   });
 
-  $('news-more').addEventListener('click', function () {
-    state.newsAll = true;
-    if (current) renderNews(current);
+  $('news').addEventListener('click', function (e) {
+    var link = e.target.closest('[data-album]');
+    if (link) { e.preventDefault(); openAlbum(link.getAttribute('data-album')); return; }
+    var chip = e.target.closest('.year-chip');
+    if (chip) { state.newsYear = +chip.getAttribute('data-year'); state.newsAll = false; if (current) renderNews(current); return; }
+    if (e.target.closest('#news-more')) { state.newsAll = true; if (current) renderNews(current); }
   });
+  $('album-view').addEventListener('click', function (e) {
+    if (e.target.closest('#av-close')) { closeAlbum(); return; }
+    if (e.target.closest('#av-share')) { shareAlbum(); return; }
+    var tile = e.target.closest('[data-photo]');
+    if (tile) { e.preventDefault(); openPhoto(+tile.getAttribute('data-photo')); return; }
+    var nav = e.target.closest('[data-album-nav]');
+    if (nav) { e.preventDefault(); switchAlbum(nav.getAttribute('data-album-nav')); }
+  });
+  $('lightbox').addEventListener('click', function (e) {
+    if (e.target.closest('#lb-close')) closePhoto();
+    else if (e.target.closest('#lb-prev')) stepPhoto(-1);
+    else if (e.target.closest('#lb-next')) stepPhoto(1);
+    else if (e.target === $('lb-stage')) closePhoto();
+  });
+  (function swipe() {
+    var stage = $('lb-stage'), x0 = 0, y0 = 0, on = false;
+    stage.addEventListener('touchstart', function (e) { if (e.touches.length !== 1) { on = false; return; } on = true; x0 = e.touches[0].clientX; y0 = e.touches[0].clientY; }, { passive: true });
+    stage.addEventListener('touchend', function (e) {
+      if (!on) return; on = false;
+      var t = e.changedTouches[0], dx = t.clientX - x0, dy = t.clientY - y0;
+      if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy)) stepPhoto(dx < 0 ? 1 : -1);
+      else if (dy > 90 && Math.abs(dy) > Math.abs(dx)) closePhoto();
+    }, { passive: true });
+  })();
+  document.addEventListener('keydown', function (e) {
+    if (!$('lightbox').hidden) {
+      if (e.key === 'ArrowLeft') { e.preventDefault(); stepPhoto(-1); }
+      else if (e.key === 'ArrowRight') { e.preventDefault(); stepPhoto(1); }
+      else if (e.key === 'Escape') { e.preventDefault(); closePhoto(); }
+    } else if (!$('album-view').hidden && e.key === 'Escape') { e.preventDefault(); closeAlbum(); }
+  });
+  window.addEventListener('popstate', route);
+  window.addEventListener('hashchange', route);
 
   // เมนูมือถือ
   var header = $('site-header'), burger = $('burger');
