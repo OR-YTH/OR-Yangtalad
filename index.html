@@ -281,6 +281,7 @@
     color:#fff;
   }
   .stats .section-head h2{color:#fff;}
+  .stats-month{color:var(--yellow); white-space:nowrap;}
   .stats .section-head p{color:#EAF6FF;}
   .stats .eyebrow{color:#BFE4FF;}
   .stats-grid{display:grid; grid-template-columns:repeat(5,1fr); gap:16px; text-align:center; margin-bottom:44px;}
@@ -303,6 +304,60 @@
   .dept-fill{display:block; height:100%; background:linear-gradient(90deg,var(--yellow),#FFE380); border-radius:999px; width:0%; transition:width 1s ease;}
   .dept-empty{color:#BFE4FF; font-size:.86rem;}
   .stats-note{margin-top:20px; font-size:.78rem; color:#BFE4FF;}
+  .stats-retry{margin-left:6px; background:none; border:1px solid rgba(255,255,255,.4); color:#fff; border-radius:999px; padding:3px 12px; font-size:.76rem; font-weight:600; cursor:pointer;}
+
+  /* สลับ รายเดือน / รายปี */
+  .stats-bar{display:flex; flex-wrap:wrap; align-items:center; gap:12px 16px; margin:-22px 0 26px;}
+  .stats-tabs{display:inline-grid; grid-template-columns:1fr 1fr; gap:4px; background:rgba(255,255,255,.10); border:1px solid rgba(255,255,255,.18); border-radius:14px; padding:4px;}
+  .stats-tab{border:none; background:none; padding:9px 24px; border-radius:10px; font-weight:600; font-size:.9rem; color:#EAF6FF; cursor:pointer; transition:.2s;}
+  .stats-tab.active{background:#fff; color:var(--navy);}
+  .fy-chips{display:flex; flex-wrap:wrap; gap:8px;}
+  .fy-chips[hidden]{display:none;}
+  .fy-chip{border:1px solid rgba(255,255,255,.32); background:none; color:#EAF6FF; border-radius:999px; padding:6px 14px; font-size:.82rem; font-weight:600; cursor:pointer; transition:.2s;}
+  .fy-chip.active{background:var(--yellow); border-color:var(--yellow); color:var(--navy-deep);}
+  .stats-tab:focus-visible, .fy-chip:focus-visible, .trend-tbl-btn:focus-visible, .stats-retry:focus-visible, .tcol:focus-visible{outline:2px solid var(--yellow); outline-offset:2px;}
+
+  /* กราฟจำนวนผ่าตัดรายเดือน (มุมมองรายปี) */
+  .trend-panel{background:rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.16); border-radius:18px; padding:24px 26px 18px; margin-bottom:20px;}
+  .trend-panel[hidden]{display:none;}
+  .trend-head{display:flex; justify-content:space-between; align-items:center; gap:12px; margin-bottom:18px;}
+  .trend-head h3{font-size:1rem; color:#fff; font-family:'Kanit';}
+  .trend-tbl-btn{background:none; border:1px solid rgba(255,255,255,.32); color:#EAF6FF; border-radius:999px; padding:5px 14px; font-size:.78rem; font-weight:600; cursor:pointer; white-space:nowrap;}
+  .trend{position:relative; height:240px; --gut:40px; --lab:30px;}
+  .trend-axis{position:absolute; left:var(--gut); right:0; top:0; bottom:var(--lab);}
+  .trend-tick{position:absolute; left:0; right:0; height:0; border-top:1px solid rgba(255,255,255,.13);}
+  .trend-tick.base{border-top-color:rgba(255,255,255,.38);}
+  .trend-tick span{position:absolute; right:calc(100% + 8px); top:-.62em; font-size:.7rem; line-height:1.2; color:#BFE4FF; font-variant-numeric:tabular-nums; white-space:nowrap;}
+  .trend-cols{position:absolute; left:var(--gut); right:0; top:0; bottom:0; display:grid; grid-template-columns:repeat(12,minmax(0,1fr));}
+  .tcol{position:relative; border-radius:8px; outline:none;}
+  .tcol[tabindex]{cursor:pointer;}
+  .tcol[tabindex]:hover, .tcol.on{background:rgba(255,255,255,.07);}
+  .tplot{position:absolute; left:0; right:0; top:0; bottom:var(--lab);}
+  .tbar{position:absolute; bottom:0; left:50%; transform:translateX(-50%); width:min(24px,58%); height:0; background:var(--yellow); border-radius:4px 4px 0 0; transition:height .9s cubic-bezier(.2,.7,.2,1);}
+  .tcol.now .tbar{background:repeating-linear-gradient(135deg, var(--yellow) 0 4px, rgba(255,200,0,.45) 4px 7px);}
+  .tval{position:absolute; left:50%; transform:translateX(-50%); font-size:.72rem; font-weight:700; color:#fff; font-variant-numeric:tabular-nums; white-space:nowrap; line-height:1.2;}
+  .tmiss{position:absolute; bottom:4px; left:0; right:0; text-align:center; color:#BFE4FF; font-size:.8rem;}
+  .tlab{position:absolute; left:0; right:0; bottom:0; height:var(--lab); display:flex; align-items:center; justify-content:center; font-size:.72rem; color:#BFE4FF; white-space:nowrap;}
+  .tcol.future .tlab{opacity:.45;}
+  .trend.loading .trend-cols::after{content:'กำลังโหลด…'; position:absolute; left:0; right:0; top:42%; text-align:center; color:#BFE4FF; font-size:.82rem;}
+  .trend-msg{display:flex; align-items:center; justify-content:center; height:100%; color:#BFE4FF; font-size:.86rem; text-align:center; padding:0 12px;}
+  .trend-tip{position:absolute; z-index:3; pointer-events:none; transform:translate(-50%,-100%); background:#fff; color:var(--ink); border-radius:12px; padding:10px 12px; box-shadow:0 10px 28px rgba(0,0,0,.28); font-size:.78rem; min-width:158px;}
+  .trend-tip[hidden]{display:none;}
+  .trend-tip b{display:block; font-family:'Kanit'; font-weight:600; font-size:.86rem; color:var(--navy-deep); margin-bottom:4px; white-space:nowrap;}
+  .trend-tip .r{display:flex; justify-content:space-between; gap:16px; line-height:1.55;}
+  .trend-tip .r strong{font-variant-numeric:tabular-nums; color:var(--navy-deep);}
+  .trend-tip .r:first-of-type strong{font-size:.9rem;}
+  .trend-foot{display:flex; align-items:center; gap:8px; margin-top:12px; font-size:.74rem; color:#BFE4FF;}
+  .trend-foot[hidden]{display:none;}
+  .sw-now{display:inline-block; width:14px; height:10px; border-radius:2px; background:repeating-linear-gradient(135deg, var(--yellow) 0 4px, rgba(255,200,0,.45) 4px 7px);}
+  .trend-table{margin-top:14px; overflow-x:auto;}
+  .trend-table[hidden]{display:none;}
+  .trend-table table{width:100%; border-collapse:collapse; font-size:.8rem; color:#EAF6FF; min-width:420px;}
+  .trend-table th, .trend-table td{padding:7px 10px; border-bottom:1px solid rgba(255,255,255,.12); text-align:right; font-variant-numeric:tabular-nums; white-space:nowrap;}
+  .trend-table th:first-child{text-align:left;}
+  .trend-table thead th{color:#BFE4FF; font-weight:600; font-size:.74rem;}
+  .trend-table tbody th{font-weight:600;}
+  .trend-table tr.sum th, .trend-table tr.sum td{color:#fff; font-weight:700; border-bottom:none; border-top:1px solid rgba(255,255,255,.35);}
 
   /* patient guide */
   .patient-guide{background:var(--white);}
@@ -595,6 +650,7 @@
     .stats-grid .stat:first-child{grid-column:1/-1;}
     .disease-grid{grid-template-columns:1fr;}
     .dept-row{grid-template-columns:100px 1fr 40px; gap:8px; font-size:.78rem;}
+    .stats-bar{margin-top:-26px;}
     .footer-grid{grid-template-columns:1fr; gap:28px;}
   }
   @media (max-width:520px){
@@ -624,12 +680,21 @@
     .lb-prev, .lb-next{top:auto; bottom:20px; transform:none;}
     .lb-prev{left:calc(50% - 62px);} .lb-next{right:calc(50% - 62px);}
     .lb-top{padding:10px 10px 10px 16px; gap:10px;}
+    .stats-tab{padding:8px 18px;}
+    .trend-panel{padding:18px 12px 14px 10px;}
+    .trend-head{padding-left:6px; flex-wrap:wrap;}
+    .trend{height:210px; --gut:32px; --lab:26px;}
+    .trend-tick span{font-size:.62rem; right:calc(100% + 5px);}
+    .tlab{font-size:.6rem;}
+    .tval{font-size:.62rem;}
+    .tcol{border-radius:5px;}
+    .trend-foot{padding-left:6px;}
   }
   @media (prefers-reduced-motion: reduce){
     html{scroll-behavior:auto;}
     .ecg-box svg, .ecg-divider svg, .pulse-dot, .stats.wait .stat b{animation:none!important;}
     .reveal{opacity:1; transform:none; transition:none;}
-    .dept-fill, .faq-a{transition:none;}
+    .dept-fill, .faq-a, .tbar{transition:none;}
     .album-view, .lightbox{animation:none;}
     .ph-box img, .av-tile img{transition:none;}
   }
@@ -760,18 +825,34 @@
   <div class="container">
     <div class="section-head reveal">
       <span class="eyebrow">ข้อมูลผ่าตัด</span>
-      <h2>สถิติการผ่าตัดประจำเดือน</h2>
-      <p id="stats-sub">สรุปจำนวนเคสผ่าตัด จำแนกตามประเภทและแผนก ดึงจากระบบทะเบียนห้องผ่าตัดโดยอัตโนมัติ เป็นตัวเลขรวมเท่านั้น ไม่มีข้อมูลระบุตัวผู้ป่วย</p>
+      <h2><span id="stats-title">สถิติการผ่าตัดประจำเดือน</span><span class="stats-month" id="stats-month"></span></h2>
+      <p id="stats-sub">สรุปจำนวนเคสผ่าตัด จำแนกตามประเภทและแผนก ดึงจากระบบทะเบียนห้องผ่าตัดโดยอัตโนมัติ</p>
+    </div>
+    <div class="stats-bar reveal">
+      <div class="stats-tabs" role="tablist" aria-label="ช่วงเวลาของสถิติ" id="stats-tabs">
+        <button type="button" class="stats-tab active" data-mode="month" role="tab" aria-selected="true">รายเดือน</button>
+        <button type="button" class="stats-tab" data-mode="year" role="tab" aria-selected="false">รายปี</button>
+      </div>
+      <div class="fy-chips" id="fy-chips" role="group" aria-label="เลือกปี" hidden></div>
     </div>
     <div class="stats-grid reveal" id="stat-cards">
-      <div class="stat"><b data-k="total">–</b><span>ผ่าตัดทั้งหมด</span><small>เคส/เดือน</small></div>
-      <div class="stat"><b data-k="emergency">–</b><span>ผ่าตัดฉุกเฉิน</span><small>เคส/เดือน</small></div>
-      <div class="stat"><b data-k="offHours">–</b><span>ผ่าตัดนอกเวลา</span><small>เคส/เดือน</small></div>
+      <div class="stat"><b data-k="total">–</b><span>ผ่าตัดทั้งหมด</span><small data-unit>เคส/เดือน</small></div>
+      <div class="stat"><b data-k="emergency">–</b><span>ผ่าตัดฉุกเฉิน</span><small data-unit>เคส/เดือน</small></div>
+      <div class="stat"><b data-k="offHours">–</b><span>ผ่าตัดนอกเวลา</span><small data-unit>เคส/เดือน</small></div>
       <div class="stat"><b data-k="ods">–</b><span>ผ่าตัดแบบ ODS</span><small>One Day Surgery</small></div>
       <div class="stat"><b data-k="mis">–</b><span>ผ่าตัดแบบ MIS</span><small>Minimally Invasive</small></div>
     </div>
+    <div class="trend-panel" id="trend-panel" hidden>
+      <div class="trend-head">
+        <h3>จำนวนผ่าตัดรายเดือน <span id="trend-year"></span></h3>
+        <button type="button" class="trend-tbl-btn" id="trend-tbl-btn" aria-expanded="false" aria-controls="trend-table">ดูเป็นตาราง</button>
+      </div>
+      <div class="trend" id="trend"></div>
+      <p class="trend-foot" id="trend-foot" hidden><i class="sw-now" aria-hidden="true"></i>เดือนปัจจุบัน นับถึงวันนี้</p>
+      <div class="trend-table" id="trend-table" hidden></div>
+    </div>
     <div class="dept-panel reveal">
-      <h3>จำนวนผ่าตัดแยกตามแผนก (เดือนนี้)</h3>
+      <h3>จำนวนผ่าตัดแยกตามแผนก<span id="dept-month"> (เดือนนี้)</span></h3>
       <div id="dept-list"><p class="dept-empty">กำลังโหลด…</p></div>
     </div>
     <p class="stats-note" id="stats-note">กำลังโหลดข้อมูลสดจากระบบทะเบียนห้องผ่าตัด…</p>
@@ -973,9 +1054,11 @@
 
   /* ==================== ตั้งค่า (ปกติไม่ต้องแก้) ====================
      CONTENT_SHEET_ID = รหัสของ Google Sheet เนื้อหาเว็บ (ส่วนที่อยู่ระหว่าง /d/ กับ /edit ในลิงก์ชีต)
-     STATS_URL        = ลิงก์ข้อมูลสรุปจากระบบทะเบียนห้องผ่าตัด (ถ้า Deploy ทะเบียนใหม่แล้วลิงก์เปลี่ยน ให้แก้ตรงนี้) */
+     STATS_URL        = ลิงก์ข้อมูลสรุปจากระบบทะเบียนห้องผ่าตัด (ถ้า Deploy ทะเบียนใหม่แล้วลิงก์เปลี่ยน ให้แก้ตรงนี้)
+     STATS_YEAR_START = เดือนแรกของปีในสถิติรายปี: 10 = ปีงบประมาณ (ต.ค.–ก.ย.), 1 = ปีปฏิทิน (ม.ค.–ธ.ค.) */
   var CONTENT_SHEET_ID = '1BOz9uPOJTnbdfs0JJFXx5noSZBoh3pV5bBQ75nmyhow';
   var STATS_URL = 'https://script.google.com/macros/s/AKfycbxeAri5DipAT4djf5B-13iWhuk8JotXMQTlraj_hMqkQIDDAGTPNVXTAs8b8y5xWbKs_g/exec?action=publicStats';
+  var STATS_YEAR_START = 10;
 
   // รหัสแผนกในระบบทะเบียน → ชื่อที่แสดง
   var DEPT_LABELS = { gen: 'ศัลยกรรมทั่วไป', obgyn: 'สูติ-นรีเวชกรรม', ortho: 'ออร์โธปิดิกส์', ent: 'หู คอ จมูก', eye: 'จักษุ' };
@@ -996,7 +1079,7 @@
   var TABS = Object.keys(REQUIRED);
 
   // เนื้อหาสำรอง (สำเนาจากชีต ณ วันที่สร้างไฟล์) ใช้เมื่อโหลดชีตไม่ได้
-  var FALLBACK = {"ตั้งค่า":[{"รายการ":"ชื่อหน่วยงาน","ข้อความ":"กลุ่มงานห้องผ่าตัด","คำอธิบาย":"แสดงบนแถบเมนูและส่วนท้าย"},{"รายการ":"ชื่อโรงพยาบาล","ข้อความ":"โรงพยาบาลยางตลาด","คำอธิบาย":null},{"รายการ":"หัวข้อหลัก","ข้อความ":"ดูแลทุกวินาที [ในห้องผ่าตัด]\nด้วยมาตรฐานและหัวใจของทีม","คำอธิบาย":"ข้อความใน [ ] จะเป็นสีเน้น"},{"รายการ":"คำโปรย","ข้อความ":"ทีมสหวิชาชีพห้องผ่าตัดของเรา ให้บริการผ่าตัดอย่างปลอดภัย แม่นยำ และใส่ใจผู้ป่วยในทุกขั้นตอน ตั้งแต่ก่อน ระหว่าง จนถึงหลังการผ่าตัด","คำอธิบาย":null},{"รายการ":"เกี่ยวกับ หัวข้อ","ข้อความ":"พื้นที่ปลอดภัยที่สุดของโรงพยาบาล คือที่ที่เรายืนทำงานทุกวัน","คำอธิบาย":null},{"รายการ":"เกี่ยวกับ ข้อความ","ข้อความ":"กลุ่มงานห้องผ่าตัด โรงพยาบาลยางตลาด ให้บริการผ่าตัดครอบคลุมสาขาศัลยกรรมหลัก โดยทีมสหวิชาชีพที่ผ่านการฝึกอบรมเฉพาะทาง พร้อมเครื่องมือและระบบควบคุมคุณภาพตามมาตรฐานสากล เพื่อความปลอดภัยสูงสุดของผู้ป่วยทุกราย","คำอธิบาย":null},{"รายการ":"วิสัยทัศน์","ข้อความ":"เป็นกลุ่มงานห้องผ่าตัดที่ได้มาตรฐาน ปลอดภัย และเป็นที่ไว้วางใจของผู้รับบริการในเขตอำเภอยางตลาดและใกล้เคียง","คำอธิบาย":null},{"รายการ":"พันธกิจ","ข้อความ":"ให้บริการผ่าตัดด้วยมาตรฐานวิชาชีพ ควบคุมการติดเชื้อ ลดความเสี่ยง และพัฒนาศักยภาพบุคลากรอย่างต่อเนื่อง","คำอธิบาย":null},{"รายการ":"ที่อยู่","ข้อความ":"โรงพยาบาลยางตลาด อำเภอยางตลาด จังหวัดกาฬสินธุ์","คำอธิบาย":null},{"รายการ":"โทรศัพท์","ข้อความ":"043-891-249 ต่อ 127","คำอธิบาย":"ว่างไว้ = ไม่แสดง ใส่เบอร์จริงแล้วจะขึ้นเว็บเอง"},{"รายการ":"เวลาทำการ","ข้อความ":"ห้องผ่าตัดตามนัด: จันทร์–ศุกร์ 08.30–16.30 น.\nห้องผ่าตัดฉุกเฉิน: ตลอด 24 ชั่วโมง","คำอธิบาย":null},{"รายการ":"แผนที่","ข้อความ":"โรงพยาบาลยางตลาด","คำอธิบาย":"คำค้นหาสถานที่ใน Google Maps"},{"รายการ":"ลิงก์ระบบเจ้าหน้าที่","ข้อความ":null,"คำอธิบาย":"ว่างไว้ = ไม่แสดงปุ่ม \"สำหรับเจ้าหน้าที่\""},{"รายการ":"ลิงก์ระบบรับแบบประเมิน","ข้อความ":null,"คำอธิบาย":"วางลิงก์เว็บแอปของสคริปต์ แบบประเมิน.gs (ลงท้าย /exec) ว่างไว้ = ไม่แสดงส่วนประเมินบนเว็บ"},{"รายการ":"ช่องทางร้องเรียนอื่น","ข้อความ":null,"คำอธิบาย":"เช่น ศูนย์รับเรื่องร้องเรียน รพ. โทร ... ว่างไว้ = ไม่แสดง"},{"รายการ":"ข้อความส่วนท้าย","ข้อความ":"ดูแลด้วยมาตรฐาน ปลอดภัยด้วยหัวใจ ทีมสหวิชาชีพห้องผ่าตัดพร้อมให้บริการผู้ป่วยทุกราย","คำอธิบาย":null}],"ตัวเลขเด่น":[{"ตัวเลข":"6","คำอธิบาย":"ห้องผ่าตัด","แสดง":false},{"ตัวเลข":"24/7","คำอธิบาย":"ห้องผ่าตัดฉุกเฉิน","แสดง":true},{"ตัวเลข":"98%","คำอธิบาย":"ความพึงพอใจผู้ป่วย","แสดง":false}],"บริการ":[{"ไอคอน":"✚","ชื่อบริการ":"ศัลยกรรมทั่วไป","รายละเอียด":"ผ่าตัดไส้ติ่ง ถุงน้ำดี ไส้เลื่อน และหัตถการศัลยกรรมพื้นฐาน","แสดง":true},{"ไอคอน":"♀","ชื่อบริการ":"สูติ-นรีเวชกรรม","รายละเอียด":"ผ่าตัดคลอด และหัตถการทางนรีเวชสำหรับผู้ป่วยหญิง","แสดง":true},{"ไอคอน":"🦴","ชื่อบริการ":"ออร์โธปิดิกส์","รายละเอียด":"ผ่าตัดกระดูกและข้อ กรณีอุบัติเหตุและโรคทางกระดูก","แสดง":true},{"ไอคอน":"⏱","ชื่อบริการ":"ห้องผ่าตัดฉุกเฉิน","รายละเอียด":"พร้อมให้บริการตลอด 24 ชั่วโมง สำหรับผู้ป่วยวิกฤต","แสดง":true}],"ความปลอดภัย":[{"ช่วงเวลา":"ก่อนนำสลบ","ขั้นตอน":"Sign In","รายละเอียด":"ยืนยันตัวผู้ป่วย ตำแหน่งผ่าตัด และประวัติแพ้ยาก่อนเริ่มกระบวนการ","แสดง":true},{"ช่วงเวลา":"ก่อนลงมีด","ขั้นตอน":"Time Out","รายละเอียด":"ทีมผ่าตัดยืนยันร่วมกันครั้งสุดท้ายก่อนเริ่มการผ่าตัดทุกครั้ง","แสดง":true},{"ช่วงเวลา":"ก่อนออกห้องผ่าตัด","ขั้นตอน":"Sign Out","รายละเอียด":"ตรวจนับอุปกรณ์และผ้าก๊อซ พร้อมสรุปแผนดูแลหลังผ่าตัด","แสดง":true}],"ทีมงาน":[{"กลุ่ม":null,"ไอคอน":"👨‍⚕️","ชื่อหรือตำแหน่ง":"ศัลยแพทย์ทั่วไป","หน้าที่":"ทีมแพทย์ผ่าตัด","ลิงก์รูป":null,"แสดง":true},{"กลุ่ม":null,"ไอคอน":"👩‍⚕️","ชื่อหรือตำแหน่ง":"วิสัญญีพยาบาล","หน้าที่":"ทีมระงับความรู้สึก","ลิงก์รูป":null,"แสดง":true},{"กลุ่ม":null,"ไอคอน":"👨‍⚕️","ชื่อหรือตำแหน่ง":"พยาบาลเครื่องมือ","หน้าที่":"Scrub Nurse","ลิงก์รูป":null,"แสดง":true},{"กลุ่ม":null,"ไอคอน":"👩‍⚕️","ชื่อหรือตำแหน่ง":"พยาบาลเวียน","หน้าที่":"Circulating Nurse","ลิงก์รูป":null,"แสดง":true},{"กลุ่ม":"หัวหน้างานห้องผ่าตัด","ไอคอน":null,"ชื่อหรือตำแหน่ง":"พว.สุวิสาส์ ทองดอนง้าว","หน้าที่":"หัวหน้างานห้องผ่าตัด","ลิงก์รูป":null,"แสดง":false},{"กลุ่ม":"พยาบาลวิชาชีพ","ไอคอน":null,"ชื่อหรือตำแหน่ง":"พว.ฌณกฤต มะลิฉิม","หน้าที่":"พยาบาลวิชาชีพชำนาญการ","ลิงก์รูป":null,"แสดง":false}],"คำถาม":[{"หมวด":"ก่อนผ่าตัด","คำถาม":"ต้องงดน้ำงดอาหารก่อนผ่าตัดกี่ชั่วโมง?","คำตอบ":"โดยทั่วไปควรงดอาหารและน้ำอย่างน้อย 6-8 ชั่วโมงก่อนผ่าตัด ทั้งนี้ขึ้นอยู่กับคำแนะนำของแพทย์และวิสัญญีแพทย์ในแต่ละราย","แสดง":true},{"หมวด":"ก่อนผ่าตัด","คำถาม":"ควรเตรียมเอกสารอะไรมาในวันผ่าตัด?","คำตอบ":"บัตรประชาชน บัตรนัด ผลตรวจทางห้องปฏิบัติการ (ถ้ามี) และเอกสารสิทธิการรักษาพยาบาล","แสดง":true},{"หมวด":"ก่อนผ่าตัด","คำถาม":"ควรงดยาชนิดใดก่อนผ่าตัดหรือไม่?","คำตอบ":"ยาบางชนิด เช่น ยาละลายลิ่มเลือด ควรแจ้งแพทย์ล่วงหน้า และปฏิบัติตามคำแนะนำของแพทย์อย่างเคร่งครัด","แสดง":true},{"หมวด":"ก่อนผ่าตัด","คำถาม":"ญาติสามารถรอที่ไหนระหว่างผ่าตัด?","คำตอบ":"มีพื้นที่พักคอยสำหรับญาติบริเวณหน้าห้องผ่าตัด พร้อมระบบแจ้งความคืบหน้าจากทีมพยาบาล","แสดง":true},{"หมวด":"หลังผ่าตัด","คำถาม":"หลังผ่าตัดต้องพักฟื้นที่ใด?","คำตอบ":"ผู้ป่วยจะถูกย้ายไปพักฟื้นที่ห้องพักฟื้น (Recovery Room) ภายใต้การดูแลอย่างใกล้ชิดก่อนย้ายกลับหอผู้ป่วย","แสดง":true},{"หมวด":"หลังผ่าตัด","คำถาม":"เมื่อกลับบ้านแล้ว ดูแลแผลผ่าตัดอย่างไร?","คำตอบ":"รักษาแผลให้แห้งและสะอาด สังเกตอาการบวมแดงหรือมีหนอง หากพบความผิดปกติให้รีบกลับมาพบแพทย์","แสดง":true},{"หมวด":"หลังผ่าตัด","คำถาม":"ควรงดกิจกรรมใดหลังผ่าตัด?","คำตอบ":"หลีกเลี่ยงการยกของหนักและออกแรงบริเวณแผลผ่าตัด จนกว่าแพทย์จะอนุญาตในวันนัดติดตามอาการ","แสดง":true},{"หมวด":"หลังผ่าตัด","คำถาม":"ควรกลับมาพบแพทย์เมื่อใด?","คำตอบ":"ตามวันนัดที่ระบุในใบนัด หรือทันทีหากมีไข้สูง ปวดแผลรุนแรง หรือแผลมีเลือดออกผิดปกติ","แสดง":true}],"รายโรค":[{"ชื่อเรื่อง":"ผ่าตัดไส้ติ่ง","แผนก":"ศัลยกรรมทั่วไป","คำอธิบายสั้น":"การปฏิบัติตัวก่อน-หลังผ่าตัดไส้ติ่งอักเสบ","ข้อปฏิบัติ":"งดน้ำงดอาหารตามเวลาที่แพทย์กำหนดก่อนผ่าตัด\nหลังผ่าตัดค่อย ๆ เริ่มรับประทานอาหารอ่อนตามคำแนะนำพยาบาล\nสังเกตแผลผ่าตัด หากบวมแดงหรือมีไข้ให้รีบพบแพทย์\nงดยกของหนักอย่างน้อย 2-4 สัปดาห์","แสดง":true},{"ชื่อเรื่อง":"ผ่าตัดคลอด (C-Section)","แผนก":"สูติ-นรีเวชกรรม","คำอธิบายสั้น":"การดูแลตนเองสำหรับคุณแม่หลังผ่าตัดคลอด","ข้อปฏิบัติ":"ลุกเดินเบา ๆ ภายใน 24 ชั่วโมงแรกเพื่อลดความเสี่ยงลิ่มเลือดอุดตัน\nดูแลความสะอาดแผลผ่าตัดตามคำแนะนำของพยาบาล\nงดยกของหนักเกินน้ำหนักลูกอย่างน้อย 6 สัปดาห์\nสังเกตอาการผิดปกติ เช่น เลือดออกมาก ไข้สูง ปวดแผลรุนแรง","แสดง":true},{"ชื่อเรื่อง":"ผ่าตัดกระดูกและข้อ","แผนก":"ออร์โธปิดิกส์","คำอธิบายสั้น":"การปฏิบัติตัวหลังผ่าตัดออร์โธปิดิกส์","ข้อปฏิบัติ":"ฝึกขยับข้อตามโปรแกรมกายภาพบำบัดที่ได้รับ\nใช้อุปกรณ์ช่วยเดินตามคำแนะนำจนกว่าแพทย์จะอนุญาตให้ลงน้ำหนักเต็มที่\nระวังการหกล้มบริเวณที่ผ่าตัด\nมาตามนัดเพื่อติดตามผลเอกซเรย์และแผล","แสดง":true}],"ข่าวสาร":[{"วันที่":"15 กรกฎาคม 2569","หัวข้อ":"อบรมฟื้นฟู Surgical Safety Checklist ประจำปี","รายละเอียด":"ทีมห้องผ่าตัดเข้าร่วมอบรมทบทวนมาตรฐานความปลอดภัยในการผ่าตัด","ลิงก์รูปปก":null,"ลิงก์โฟลเดอร์รูป":null,"แสดง":false,"รูปทั้งหมด":null},{"วันที่":"2 มิถุนายน 2569","หัวข้อ":"ปรับปรุงห้องผ่าตัดหมายเลข 3","รายละเอียด":"ติดตั้งอุปกรณ์ผ่าตัดรุ่นใหม่เพื่อเพิ่มประสิทธิภาพการให้บริการ","ลิงก์รูปปก":null,"ลิงก์โฟลเดอร์รูป":null,"แสดง":false,"รูปทั้งหมด":null},{"วันที่":"18 พฤษภาคม 2569","หัวข้อ":"รับรางวัลหน่วยงานควบคุมการติดเชื้อดีเด่น","รายละเอียด":"กลุ่มงานห้องผ่าตัดได้รับการยกย่องด้านมาตรฐานป้องกันการติดเชื้อ","ลิงก์รูปปก":null,"ลิงก์โฟลเดอร์รูป":null,"แสดง":false,"รูปทั้งหมด":null},{"วันที่":"21 ตุลาคม 2569","หัวข้อ":"ร่วมกิจกรรม \"วันพยาบาลแห่งชาติ\"","รายละเอียด":"พว.สุวิสาส์   ทองดอนง้าว หัวหน้างานห้องผ่าตัด กลุ่มงานการพยาบาล โรงพยาบาลยางตลาด \nได้รับใบประกาศเกียรติคุณ เป็นผู้บำเพ็ญตนก่อให้เกิดประโยชน์ต่อสังคมและเป็นแบบอย่างที่ดีของผู้ประกอบวิชาชีพการพยาบาล\nและ\nพว.ฌณกฤต  มะลิฉิม พยาบาลวิชาชีพชำนาญการ ได้เข้าร่วมการนำเสนอผลงานวิชาการ CQI ODS Smart Service","ลิงก์รูปปก":null,"ลิงก์โฟลเดอร์รูป":"https://drive.google.com/drive/folders/1Q_G4xog3jz1Ba3-BMqScHe1-_Fi_aw4t?usp=drive_link","แสดง":true,"รูปทั้งหมด":"184oWB0x0zNrnmoERYovltCutFXS5TyVO\n1k_Ghanni1ady5nbwhnhr5o0mG27mvQoY"}],"แบบประเมิน":[{"คำถาม":"เจ้าหน้าที่ให้บริการด้วยความสุภาพ เป็นมิตร และเอาใจใส่","แสดง":true},{"คำถาม":"ได้รับคำอธิบายเรื่องการผ่าตัดและการเตรียมตัวอย่างเข้าใจ","แสดง":true},{"คำถาม":"ได้รับการดูแลความเป็นส่วนตัวและศักดิ์ศรี","แสดง":true},{"คำถาม":"ได้รับการดูแลอาการปวดและความไม่สุขสบาย","แสดง":true},{"คำถาม":"ความสะอาดและความปลอดภัยของสถานที่","แสดง":true},{"คำถาม":"ความพึงพอใจโดยรวมต่อบริการห้องผ่าตัด","แสดง":true}]};
+  var FALLBACK = {"ตั้งค่า":[{"รายการ":"ชื่อหน่วยงาน","ข้อความ":"กลุ่มงานห้องผ่าตัด","คำอธิบาย":"แสดงบนแถบเมนูและส่วนท้าย"},{"รายการ":"ชื่อโรงพยาบาล","ข้อความ":"โรงพยาบาลยางตลาด","คำอธิบาย":null},{"รายการ":"หัวข้อหลัก","ข้อความ":"ดูแลทุกวินาที [ในห้องผ่าตัด]\nด้วยมาตรฐานและหัวใจของทีม","คำอธิบาย":"ข้อความใน [ ] จะเป็นสีเน้น"},{"รายการ":"คำโปรย","ข้อความ":"ทีมสหวิชาชีพห้องผ่าตัดของเรา ให้บริการผ่าตัดอย่างปลอดภัย แม่นยำ และใส่ใจผู้ป่วยในทุกขั้นตอน ตั้งแต่ก่อน ระหว่าง จนถึงหลังการผ่าตัด","คำอธิบาย":null},{"รายการ":"เกี่ยวกับ หัวข้อ","ข้อความ":"พื้นที่ปลอดภัยที่สุดของโรงพยาบาล คือที่ที่เรายืนทำงานทุกวัน","คำอธิบาย":null},{"รายการ":"เกี่ยวกับ ข้อความ","ข้อความ":"กลุ่มงานห้องผ่าตัด โรงพยาบาลยางตลาด ให้บริการผ่าตัดครอบคลุมสาขาศัลยกรรมหลัก โดยทีมสหวิชาชีพที่ผ่านการฝึกอบรมเฉพาะทาง พร้อมเครื่องมือและระบบควบคุมคุณภาพตามมาตรฐานสากล เพื่อความปลอดภัยสูงสุดของผู้ป่วยทุกราย","คำอธิบาย":null},{"รายการ":"วิสัยทัศน์","ข้อความ":"เป็นกลุ่มงานห้องผ่าตัดที่ได้มาตรฐาน ปลอดภัย และเป็นที่ไว้วางใจของผู้รับบริการในเขตอำเภอยางตลาดและใกล้เคียง","คำอธิบาย":null},{"รายการ":"พันธกิจ","ข้อความ":"ให้บริการผ่าตัดด้วยมาตรฐานวิชาชีพ ควบคุมการติดเชื้อ ลดความเสี่ยง และพัฒนาศักยภาพบุคลากรอย่างต่อเนื่อง","คำอธิบาย":null},{"รายการ":"ที่อยู่","ข้อความ":"โรงพยาบาลยางตลาด อำเภอยางตลาด จังหวัดกาฬสินธุ์","คำอธิบาย":null},{"รายการ":"โทรศัพท์","ข้อความ":"043-891-249 ต่อ 127","คำอธิบาย":"ว่างไว้ = ไม่แสดง ใส่เบอร์จริงแล้วจะขึ้นเว็บเอง"},{"รายการ":"เวลาทำการ","ข้อความ":"ห้องผ่าตัดตามนัด: จันทร์–ศุกร์ 08.30–16.30 น.\nห้องผ่าตัดฉุกเฉิน: ตลอด 24 ชั่วโมง","คำอธิบาย":null},{"รายการ":"แผนที่","ข้อความ":"โรงพยาบาลยางตลาด","คำอธิบาย":"คำค้นหาสถานที่ใน Google Maps"},{"รายการ":"ลิงก์ระบบเจ้าหน้าที่","ข้อความ":null,"คำอธิบาย":"ว่างไว้ = ไม่แสดงปุ่ม \"สำหรับเจ้าหน้าที่\""},{"รายการ":"ลิงก์ระบบรับแบบประเมิน","ข้อความ":null,"คำอธิบาย":"วางลิงก์เว็บแอปของสคริปต์ แบบประเมิน.gs (ลงท้าย /exec) ว่างไว้ = ไม่แสดงส่วนประเมินบนเว็บ"},{"รายการ":"ช่องทางร้องเรียนอื่น","ข้อความ":null,"คำอธิบาย":"เช่น ศูนย์รับเรื่องร้องเรียน รพ. โทร ... ว่างไว้ = ไม่แสดง"},{"รายการ":"ข้อความส่วนท้าย","ข้อความ":"ดูแลด้วยมาตรฐาน ปลอดภัยด้วยหัวใจ ทีมสหวิชาชีพห้องผ่าตัดพร้อมให้บริการผู้ป่วยทุกราย","คำอธิบาย":null}],"ตัวเลขเด่น":[{"ตัวเลข":"6","คำอธิบาย":"ห้องผ่าตัด","แสดง":false},{"ตัวเลข":"24/7","คำอธิบาย":"ห้องผ่าตัดฉุกเฉิน","แสดง":true},{"ตัวเลข":"98%","คำอธิบาย":"ความพึงพอใจผู้ป่วย","แสดง":false}],"บริการ":[{"ไอคอน":"✚","ชื่อบริการ":"ศัลยกรรมทั่วไป","รายละเอียด":"ผ่าตัดไส้ติ่ง ถุงน้ำดี ไส้เลื่อน และหัตถการศัลยกรรมพื้นฐาน","แสดง":true},{"ไอคอน":"♀","ชื่อบริการ":"สูติ-นรีเวชกรรม","รายละเอียด":"ผ่าตัดคลอด และหัตถการทางนรีเวชสำหรับผู้ป่วยหญิง","แสดง":true},{"ไอคอน":"🦴","ชื่อบริการ":"ออร์โธปิดิกส์","รายละเอียด":"ผ่าตัดกระดูกและข้อ กรณีอุบัติเหตุและโรคทางกระดูก","แสดง":true},{"ไอคอน":"⏱","ชื่อบริการ":"ห้องผ่าตัดฉุกเฉิน","รายละเอียด":"พร้อมให้บริการตลอด 24 ชั่วโมง สำหรับผู้ป่วยวิกฤต","แสดง":true}],"ความปลอดภัย":[{"ช่วงเวลา":"ก่อนนำสลบ","ขั้นตอน":"Sign In","รายละเอียด":"ยืนยันตัวผู้ป่วย ตำแหน่งผ่าตัด และประวัติแพ้ยาก่อนเริ่มกระบวนการ","แสดง":true},{"ช่วงเวลา":"ก่อนลงมีด","ขั้นตอน":"Time Out","รายละเอียด":"ทีมผ่าตัดยืนยันร่วมกันครั้งสุดท้ายก่อนเริ่มการผ่าตัดทุกครั้ง","แสดง":true},{"ช่วงเวลา":"ก่อนออกห้องผ่าตัด","ขั้นตอน":"Sign Out","รายละเอียด":"ตรวจนับอุปกรณ์และผ้าก๊อซ พร้อมสรุปแผนดูแลหลังผ่าตัด","แสดง":true}],"ทีมงาน":[{"กลุ่ม":"หัวหน้างานห้องผ่าตัด","ไอคอน":null,"ชื่อหรือตำแหน่ง":"นางสุวิสาส์ ทองดอนง้าว","หน้าที่":"หัวหน้างานห้องผ่าตัด · พยาบาลวิชาชีพชำนาญการพิเศษ","ลิงก์รูป":null,"แสดง":true},{"กลุ่ม":"แพทย์","ไอคอน":null,"ชื่อหรือตำแหน่ง":"นพ.จักรกริช เถือนคำแสน","หน้าที่":"แพทย์ศัลยกรรมทั่วไป · นายแพทย์ชำนาญการพิเศษ","ลิงก์รูป":null,"แสดง":true},{"กลุ่ม":"แพทย์","ไอคอน":null,"ชื่อหรือตำแหน่ง":"นพ.บัญชา ปัตถารัตน์","หน้าที่":"แพทย์ศัลยกรรมทั่วไป · นายแพทย์ชำนาญการ","ลิงก์รูป":null,"แสดง":true},{"กลุ่ม":"แพทย์","ไอคอน":null,"ชื่อหรือตำแหน่ง":"นพ.เทอดธรรม อุปัชฌาย์","หน้าที่":"แพทย์ศัลยกรรมทั่วไป · นายแพทย์ชำนาญการ","ลิงก์รูป":null,"แสดง":true},{"กลุ่ม":"แพทย์","ไอคอน":null,"ชื่อหรือตำแหน่ง":"นพ.จักรภัทร ก้านจักร","หน้าที่":"แพทย์ศัลยกรรมทั่วไป · นายแพทย์ชำนาญการ","ลิงก์รูป":null,"แสดง":true},{"กลุ่ม":"แพทย์","ไอคอน":null,"ชื่อหรือตำแหน่ง":"นพ.วริวิทย์ กาญจนมิตร","หน้าที่":"สูติ-นรีแพทย์ · นายแพทย์ชำนาญการ","ลิงก์รูป":null,"แสดง":true},{"กลุ่ม":"แพทย์","ไอคอน":null,"ชื่อหรือตำแหน่ง":"พญ.วราภรณ์ จันทรัตน์","หน้าที่":"สูติ-นรีแพทย์ · นายแพทย์ชำนาญการ","ลิงก์รูป":null,"แสดง":true},{"กลุ่ม":"แพทย์","ไอคอน":null,"ชื่อหรือตำแหน่ง":"นพ.กฤษณะ ระดาพัฒน์","หน้าที่":"แพทย์ศัลยกรรมกระดูกและข้อ · นายแพทย์ชำนาญการ","ลิงก์รูป":null,"แสดง":true},{"กลุ่ม":"แพทย์","ไอคอน":null,"ชื่อหรือตำแหน่ง":"นพ.ธนชัย รินไธสง","หน้าที่":"แพทย์ศัลยกรรมกระดูกและข้อ · นายแพทย์ชำนาญการพิเศษ","ลิงก์รูป":null,"แสดง":true},{"กลุ่ม":"แพทย์","ไอคอน":null,"ชื่อหรือตำแหน่ง":"นพ.รชต ยุบลแมน","หน้าที่":"วิสัญญีแพทย์ · นายแพทย์ชำนาญการ","ลิงก์รูป":null,"แสดง":true},{"กลุ่ม":"พยาบาลห้องผ่าตัด","ไอคอน":null,"ชื่อหรือตำแหน่ง":"นางพัทธนันท์ เวียงสงศ์","หน้าที่":"พยาบาลวิชาชีพชำนาญการ","ลิงก์รูป":null,"แสดง":true},{"กลุ่ม":"พยาบาลห้องผ่าตัด","ไอคอน":null,"ชื่อหรือตำแหน่ง":"นางเจษฎ์ทิพย์ คุณสิงห์","หน้าที่":"พยาบาลวิชาชีพชำนาญการ","ลิงก์รูป":null,"แสดง":true},{"กลุ่ม":"พยาบาลห้องผ่าตัด","ไอคอน":null,"ชื่อหรือตำแหน่ง":"น.ส.เสาวนีย์ ภูงามเงิน","หน้าที่":"พยาบาลวิชาชีพชำนาญการ","ลิงก์รูป":null,"แสดง":true},{"กลุ่ม":"พยาบาลห้องผ่าตัด","ไอคอน":null,"ชื่อหรือตำแหน่ง":"น.ส.ศุภลักษณา ภูนีรับ","หน้าที่":"พยาบาลวิชาชีพชำนาญการ","ลิงก์รูป":null,"แสดง":true},{"กลุ่ม":"พยาบาลห้องผ่าตัด","ไอคอน":null,"ชื่อหรือตำแหน่ง":"นายประทีป ภูเต้านิล","หน้าที่":"พยาบาลวิชาชีพชำนาญการ","ลิงก์รูป":null,"แสดง":true},{"กลุ่ม":"พยาบาลห้องผ่าตัด","ไอคอน":null,"ชื่อหรือตำแหน่ง":"น.ส.ลดาวัลย์ ศรีวรสาร","หน้าที่":"พยาบาลวิชาชีพปฏิบัติการ","ลิงก์รูป":null,"แสดง":true},{"กลุ่ม":"พยาบาลห้องผ่าตัด","ไอคอน":null,"ชื่อหรือตำแหน่ง":"นางสมคิด โกสุมภ์ศิริ","หน้าที่":"พยาบาลวิชาชีพชำนาญการ","ลิงก์รูป":null,"แสดง":true},{"กลุ่ม":"พยาบาลห้องผ่าตัด","ไอคอน":null,"ชื่อหรือตำแหน่ง":"นางสาวศุภาพิชญ์ ภูถมลาย","หน้าที่":"พยาบาลวิชาชีพชำนาญการ","ลิงก์รูป":null,"แสดง":true},{"กลุ่ม":"พยาบาลห้องผ่าตัด","ไอคอน":null,"ชื่อหรือตำแหน่ง":"นายธีรพงศ์ มาพล","หน้าที่":"พยาบาลวิชาชีพชำนาญการ","ลิงก์รูป":null,"แสดง":true},{"กลุ่ม":"พยาบาลห้องผ่าตัด","ไอคอน":null,"ชื่อหรือตำแหน่ง":"นายฌณกฤต มะลิฉิม","หน้าที่":"พยาบาลวิชาชีพชำนาญการ","ลิงก์รูป":null,"แสดง":true},{"กลุ่ม":"พยาบาลห้องผ่าตัด","ไอคอน":null,"ชื่อหรือตำแหน่ง":"น.ส.วิภาภรณ์ พวงไธสง","หน้าที่":"พยาบาลวิชาชีพ","ลิงก์รูป":null,"แสดง":true},{"กลุ่ม":"พยาบาลห้องผ่าตัด","ไอคอน":null,"ชื่อหรือตำแหน่ง":"น.ส.ปัทมา ภูทองใบ","หน้าที่":"พยาบาลวิชาชีพชำนาญการ","ลิงก์รูป":null,"แสดง":true},{"กลุ่ม":"พยาบาลห้องผ่าตัด","ไอคอน":null,"ชื่อหรือตำแหน่ง":"นางนิภัชกานต์ วรรณู","หน้าที่":"พยาบาลวิชาชีพชำนาญการ","ลิงก์รูป":null,"แสดง":true},{"กลุ่ม":"พยาบาลห้องผ่าตัด","ไอคอน":null,"ชื่อหรือตำแหน่ง":"น.ส.สุชานันท์ สิงอ่อน","หน้าที่":"พยาบาลวิชาชีพปฏิบัติการ","ลิงก์รูป":null,"แสดง":true},{"กลุ่ม":"พยาบาลห้องผ่าตัด","ไอคอน":null,"ชื่อหรือตำแหน่ง":"น.ส.สุทธิดา โพธิ์สิงห์","หน้าที่":"พยาบาลวิชาชีพ","ลิงก์รูป":null,"แสดง":true},{"กลุ่ม":"พยาบาลห้องผ่าตัด","ไอคอน":null,"ชื่อหรือตำแหน่ง":"น.ส.ฟาริดา แก้วกันยา","หน้าที่":"พยาบาลวิชาชีพ","ลิงก์รูป":null,"แสดง":true},{"กลุ่ม":"พยาบาลห้องผ่าตัด","ไอคอน":null,"ชื่อหรือตำแหน่ง":"นายณัฐชนนท์ วิชญธีรากุล","หน้าที่":"พยาบาลวิชาชีพ","ลิงก์รูป":null,"แสดง":true},{"กลุ่ม":"ผู้ช่วยเหลือคนไข้","ไอคอน":null,"ชื่อหรือตำแหน่ง":"นายอภิชาติ อยู่ม่วง","หน้าที่":"พนักงานช่วยเหลือคนไข้","ลิงก์รูป":null,"แสดง":true},{"กลุ่ม":"ผู้ช่วยเหลือคนไข้","ไอคอน":null,"ชื่อหรือตำแหน่ง":"น.ส.นงคราญ บุญวิจิตร","หน้าที่":"พนักงานช่วยเหลือคนไข้","ลิงก์รูป":null,"แสดง":true},{"กลุ่ม":"ผู้ช่วยเหลือคนไข้","ไอคอน":null,"ชื่อหรือตำแหน่ง":"นายตะวัน คิสาลัง","หน้าที่":"พนักงานช่วยเหลือคนไข้","ลิงก์รูป":null,"แสดง":true},{"กลุ่ม":"ผู้ช่วยเหลือคนไข้","ไอคอน":null,"ชื่อหรือตำแหน่ง":"น.ส.นลิษา ภูผิวดง","หน้าที่":"พนักงานช่วยเหลือคนไข้","ลิงก์รูป":null,"แสดง":true},{"กลุ่ม":"ผู้ช่วยเหลือคนไข้","ไอคอน":null,"ชื่อหรือตำแหน่ง":"น.ส.ณัสฎาภรณ์ ภูตลาดขาม","หน้าที่":"พนักงานช่วยเหลือคนไข้","ลิงก์รูป":null,"แสดง":true},{"กลุ่ม":"พนักงานทั่วไป","ไอคอน":null,"ชื่อหรือตำแหน่ง":"น.ส.ธมลวรรณ พลยะเรศ","หน้าที่":"พนักงานซักฟอก","ลิงก์รูป":null,"แสดง":true},{"กลุ่ม":"พนักงานทั่วไป","ไอคอน":null,"ชื่อหรือตำแหน่ง":"นายณัฐพงค์ สิงห์สวัสดิ์","หน้าที่":"พนักงานซักฟอก","ลิงก์รูป":null,"แสดง":true},{"กลุ่ม":"พนักงานทั่วไป","ไอคอน":null,"ชื่อหรือตำแหน่ง":"นายอนุพงษ์ ภูวิเศษ","หน้าที่":"พนักงานทั่วไป","ลิงก์รูป":null,"แสดง":true},{"กลุ่ม":null,"ไอคอน":"👨‍⚕️","ชื่อหรือตำแหน่ง":"ศัลยแพทย์ทั่วไป","หน้าที่":"ทีมแพทย์ผ่าตัด","ลิงก์รูป":null,"แสดง":false},{"กลุ่ม":null,"ไอคอน":"👩‍⚕️","ชื่อหรือตำแหน่ง":"วิสัญญีพยาบาล","หน้าที่":"ทีมระงับความรู้สึก","ลิงก์รูป":null,"แสดง":false},{"กลุ่ม":null,"ไอคอน":"👨‍⚕️","ชื่อหรือตำแหน่ง":"พยาบาลห้องผ่าตัด","หน้าที่":"Scrub Nurse","ลิงก์รูป":null,"แสดง":false}],"คำถาม":[{"หมวด":"ก่อนผ่าตัด","คำถาม":"ต้องงดน้ำงดอาหารก่อนผ่าตัดกี่ชั่วโมง?","คำตอบ":"โดยทั่วไปควรงดอาหารและน้ำอย่างน้อย 6-8 ชั่วโมงก่อนผ่าตัด ทั้งนี้ขึ้นอยู่กับคำแนะนำของแพทย์และวิสัญญีแพทย์ในแต่ละราย","แสดง":true},{"หมวด":"ก่อนผ่าตัด","คำถาม":"ควรเตรียมเอกสารอะไรมาในวันผ่าตัด?","คำตอบ":"บัตรประชาชน บัตรนัด ผลตรวจทางห้องปฏิบัติการ (ถ้ามี) และเอกสารสิทธิการรักษาพยาบาล","แสดง":true},{"หมวด":"ก่อนผ่าตัด","คำถาม":"ควรงดยาชนิดใดก่อนผ่าตัดหรือไม่?","คำตอบ":"ยาบางชนิด เช่น ยาละลายลิ่มเลือด ควรแจ้งแพทย์ล่วงหน้า และปฏิบัติตามคำแนะนำของแพทย์อย่างเคร่งครัด","แสดง":true},{"หมวด":"ก่อนผ่าตัด","คำถาม":"ญาติสามารถรอที่ไหนระหว่างผ่าตัด?","คำตอบ":"มีพื้นที่พักคอยสำหรับญาติบริเวณหน้าห้องผ่าตัด พร้อมระบบแจ้งความคืบหน้าจากทีมพยาบาล","แสดง":true},{"หมวด":"หลังผ่าตัด","คำถาม":"หลังผ่าตัดต้องพักฟื้นที่ใด?","คำตอบ":"ผู้ป่วยจะถูกย้ายไปพักฟื้นที่ห้องพักฟื้น (Recovery Room) ภายใต้การดูแลอย่างใกล้ชิดก่อนย้ายกลับหอผู้ป่วย","แสดง":true},{"หมวด":"หลังผ่าตัด","คำถาม":"เมื่อกลับบ้านแล้ว ดูแลแผลผ่าตัดอย่างไร?","คำตอบ":"รักษาแผลให้แห้งและสะอาด สังเกตอาการบวมแดงหรือมีหนอง หากพบความผิดปกติให้รีบกลับมาพบแพทย์","แสดง":true},{"หมวด":"หลังผ่าตัด","คำถาม":"ควรงดกิจกรรมใดหลังผ่าตัด?","คำตอบ":"หลีกเลี่ยงการยกของหนักและออกแรงบริเวณแผลผ่าตัด จนกว่าแพทย์จะอนุญาตในวันนัดติดตามอาการ","แสดง":true},{"หมวด":"หลังผ่าตัด","คำถาม":"ควรกลับมาพบแพทย์เมื่อใด?","คำตอบ":"ตามวันนัดที่ระบุในใบนัด หรือทันทีหากมีไข้สูง ปวดแผลรุนแรง หรือแผลมีเลือดออกผิดปกติ","แสดง":true}],"รายโรค":[{"ชื่อเรื่อง":"ผ่าตัดไส้ติ่ง","แผนก":"ศัลยกรรมทั่วไป","คำอธิบายสั้น":"การปฏิบัติตัวก่อน-หลังผ่าตัดไส้ติ่งอักเสบ","ข้อปฏิบัติ":"งดน้ำงดอาหารตามเวลาที่แพทย์กำหนดก่อนผ่าตัด\nหลังผ่าตัดค่อย ๆ เริ่มรับประทานอาหารอ่อนตามคำแนะนำพยาบาล\nสังเกตแผลผ่าตัด หากบวมแดงหรือมีไข้ให้รีบพบแพทย์\nงดยกของหนักอย่างน้อย 2-4 สัปดาห์","แสดง":true},{"ชื่อเรื่อง":"ผ่าตัดคลอด (C-Section)","แผนก":"สูติ-นรีเวชกรรม","คำอธิบายสั้น":"การดูแลตนเองสำหรับคุณแม่หลังผ่าตัดคลอด","ข้อปฏิบัติ":"ลุกเดินเบา ๆ ภายใน 24 ชั่วโมงแรกเพื่อลดความเสี่ยงลิ่มเลือดอุดตัน\nดูแลความสะอาดแผลผ่าตัดตามคำแนะนำของพยาบาล\nงดยกของหนักเกินน้ำหนักลูกอย่างน้อย 6 สัปดาห์\nสังเกตอาการผิดปกติ เช่น เลือดออกมาก ไข้สูง ปวดแผลรุนแรง","แสดง":true},{"ชื่อเรื่อง":"ผ่าตัดกระดูกและข้อ","แผนก":"ออร์โธปิดิกส์","คำอธิบายสั้น":"การปฏิบัติตัวหลังผ่าตัดออร์โธปิดิกส์","ข้อปฏิบัติ":"ฝึกขยับข้อตามโปรแกรมกายภาพบำบัดที่ได้รับ\nใช้อุปกรณ์ช่วยเดินตามคำแนะนำจนกว่าแพทย์จะอนุญาตให้ลงน้ำหนักเต็มที่\nระวังการหกล้มบริเวณที่ผ่าตัด\nมาตามนัดเพื่อติดตามผลเอกซเรย์และแผล","แสดง":true}],"ข่าวสาร":[{"วันที่":"15 กรกฎาคม 2569","หัวข้อ":"อบรมฟื้นฟู Surgical Safety Checklist ประจำปี","รายละเอียด":"ทีมห้องผ่าตัดเข้าร่วมอบรมทบทวนมาตรฐานความปลอดภัยในการผ่าตัด","ลิงก์รูปปก":null,"ลิงก์โฟลเดอร์รูป":null,"แสดง":false,"รูปทั้งหมด":null},{"วันที่":"2 มิถุนายน 2569","หัวข้อ":"ปรับปรุงห้องผ่าตัดหมายเลข 3","รายละเอียด":"ติดตั้งอุปกรณ์ผ่าตัดรุ่นใหม่เพื่อเพิ่มประสิทธิภาพการให้บริการ","ลิงก์รูปปก":null,"ลิงก์โฟลเดอร์รูป":null,"แสดง":false,"รูปทั้งหมด":null},{"วันที่":"18 พฤษภาคม 2569","หัวข้อ":"รับรางวัลหน่วยงานควบคุมการติดเชื้อดีเด่น","รายละเอียด":"กลุ่มงานห้องผ่าตัดได้รับการยกย่องด้านมาตรฐานป้องกันการติดเชื้อ","ลิงก์รูปปก":null,"ลิงก์โฟลเดอร์รูป":null,"แสดง":false,"รูปทั้งหมด":null},{"วันที่":"21 ตุลาคม 2569","หัวข้อ":"ร่วมกิจกรรม \"วันพยาบาลแห่งชาติ\"","รายละเอียด":"พว.สุวิสาส์   ทองดอนง้าว หัวหน้างานห้องผ่าตัด กลุ่มงานการพยาบาล โรงพยาบาลยางตลาด \nได้รับใบประกาศเกียรติคุณ เป็นผู้บำเพ็ญตนก่อให้เกิดประโยชน์ต่อสังคมและเป็นแบบอย่างที่ดีของผู้ประกอบวิชาชีพการพยาบาล\nและ\nพว.ฌณกฤต  มะลิฉิม พยาบาลวิชาชีพชำนาญการ ได้เข้าร่วมการนำเสนอผลงานวิชาการ CQI ODS Smart Service","ลิงก์รูปปก":null,"ลิงก์โฟลเดอร์รูป":"https://drive.google.com/drive/folders/1Q_G4xog3jz1Ba3-BMqScHe1-_Fi_aw4t?usp=drive_link","แสดง":true,"รูปทั้งหมด":"184oWB0x0zNrnmoERYovltCutFXS5TyVO\n1k_Ghanni1ady5nbwhnhr5o0mG27mvQoY"}],"แบบประเมิน":[{"คำถาม":"เจ้าหน้าที่ให้บริการด้วยความสุภาพ เป็นมิตร และเอาใจใส่","แสดง":true},{"คำถาม":"ได้รับคำอธิบายเรื่องการผ่าตัดและการเตรียมตัวอย่างเข้าใจ","แสดง":true},{"คำถาม":"ได้รับการดูแลความเป็นส่วนตัวและศักดิ์ศรี","แสดง":true},{"คำถาม":"ได้รับการดูแลอาการปวดและความไม่สุขสบาย","แสดง":true},{"คำถาม":"ความสะอาดและความปลอดภัยของสถานที่","แสดง":true},{"คำถาม":"ความพึงพอใจโดยรวมต่อบริการห้องผ่าตัด","แสดง":true}]};
 
   var CACHE_KEY = 'or-yth-content-v1';
 
@@ -1795,43 +1878,366 @@
     route();
   });
 
-  /* ==================== สถิติการผ่าตัด (ข้อมูลสด) ==================== */
-  (function loadStats() {
-    var sec = $('stats'), note = $('stats-note');
+  /* ==================== สถิติการผ่าตัด (ข้อมูลสด) ====================
+     รายเดือน: เรียก STATS_URL ตามเดิม 1 ครั้ง
+     รายปี:    เรียก STATS_URL&month=YYYY-MM ทีละเดือน (เฉพาะเดือนที่ผ่านมาแล้ว) แล้วรวมตัวเลขในหน้าเว็บ
+               เดือนที่จบไปแล้วเก็บไว้ในเครื่องผู้ชม 6 ชั่วโมง จะได้ไม่ต้องโหลดซ้ำทุกครั้ง */
+  (function stats() {
+    var sec = $('stats'), note = $('stats-note'), trendEl = $('trend'), tip = null;
+    var KEYS = ['total', 'emergency', 'offHours', 'ods', 'mis'];
+    var FY_START = Math.min(12, Math.max(1, parseInt(STATS_YEAR_START, 10) || 10));
+    var YEAR_WORD = FY_START > 1 ? 'ปีงบประมาณ' : 'ปี พ.ศ.';
+    var mode = 'month', monthRes = null, yearSeq = 0, curFY = 0, selFY = 0, noHistory = false, yearRes = {};
+    var memo = {};
+    var today = new Date();
+    var curYM = today.getFullYear() + '-' + pad2(today.getMonth() + 1);
+
+    function pad2(n) { return (n < 10 ? '0' : '') + n; }
     function num(v) { var n = Number(v); return v !== '' && v != null && isFinite(n) ? n.toLocaleString('th-TH') : '–'; }
-    function done() { sec.classList.remove('wait'); sec.removeAttribute('aria-busy'); }
-    function fail() {
-      done();
-      sec.querySelectorAll('.stat b').forEach(function (b) { b.textContent = '–'; });
-      $('dept-list').innerHTML = '<p class="dept-empty">ยังโหลดข้อมูลไม่ได้ในขณะนี้</p>';
-      note.textContent = 'ยังโหลดข้อมูลสถิติไม่ได้ในขณะนี้ กรุณาลองเปิดหน้านี้ใหม่อีกครั้ง';
+    function ymParts(ym) { var m = String(ym || '').match(/^(\d{4})-(\d{1,2})$/); return m && +m[2] >= 1 && +m[2] <= 12 ? { y: +m[1], m: +m[2] } : null; }
+    function normYM(ym) { var p = ymParts(ym); return p ? p.y + '-' + pad2(p.m) : ''; }
+    function thMonth(ym, short) { var p = ymParts(ym); return p ? (short ? TH_MONTHS_SHORT : TH_MONTHS)[p.m - 1] + ' ' + (p.y + 543) : ''; }
+    function fyOf(ym) { var p = ymParts(ym); return p.y + 543 + (FY_START > 1 && p.m >= FY_START ? 1 : 0); }
+    function fyMonths(fy) {
+      var startY = fy - 543 - (FY_START > 1 ? 1 : 0), out = [];
+      for (var i = 0; i < 12; i++) { var mi = FY_START - 1 + i; out.push((startY + Math.floor(mi / 12)) + '-' + pad2(mi % 12 + 1)); }
+      return out;
     }
-    var timer = setTimeout(fail, 25000);
-    fetch(STATS_URL)
-      .then(function (r) { return r.json(); })
-      .then(function (d) {
-        clearTimeout(timer);
-        if (!d || !d.ok) { fail(); return; }
-        done();
-        sec.querySelectorAll('.stat b').forEach(function (b) { b.textContent = num(d[b.getAttribute('data-k')]); });
-        var depts = (d.departments || []).filter(function (x) { return x && Number(x.count) > 0; })
-          .sort(function (a, b) { return b.count - a.count; });
-        var max = depts.reduce(function (m, x) { return Math.max(m, Number(x.count) || 0); }, 1);
-        var list = $('dept-list');
-        list.innerHTML = depts.length ? depts.map(function (x) {
-          var name = DEPT_LABELS[String(x.name).toLowerCase()] || x.name;
-          return '<div class="dept-row"><span class="dept-name" title="' + esc(name) + '">' + esc(name) + '</span>' +
-            '<span class="dept-track"><span class="dept-fill" data-w="' + Math.round(x.count / max * 100) + '"></span></span>' +
-            '<span class="dept-count">' + num(x.count) + '</span></div>';
-        }).join('') : '<p class="dept-empty">ยังไม่มีข้อมูลของเดือนนี้</p>';
-        requestAnimationFrame(function () {
-          list.querySelectorAll('.dept-fill').forEach(function (f) { f.style.width = f.getAttribute('data-w') + '%'; });
+    function deptLabel(name) { return DEPT_LABELS[String(name).toLowerCase()] || String(name); }
+
+    /* ---------- ดึงข้อมูล ---------- */
+    function getJSON(url) {
+      return new Promise(function (resolve, reject) {
+        var t = setTimeout(function () { reject(new Error('timeout')); }, 25000);
+        fetch(url).then(function (r) { return r.json(); })
+          .then(function (d) { clearTimeout(t); resolve(d); }, function (e) { clearTimeout(t); reject(e); });
+      });
+    }
+    function cacheGet(ym) {
+      try { var c = JSON.parse(localStorage.getItem('or-stats-' + ym) || 'null'); return c && c.d && Date.now() - c.t < 6 * 3600 * 1000 ? c.d : null; }
+      catch (e) { return null; }
+    }
+    function cachePut(ym, d) { try { localStorage.setItem('or-stats-' + ym, JSON.stringify({ t: Date.now(), d: d })); } catch (e) { /* ไม่เป็นไร */ } }
+    function monthData(ym) {
+      if (memo[ym]) return memo[ym];
+      var past = ym < curYM, hit = past && cacheGet(ym);
+      if (hit) return (memo[ym] = Promise.resolve(hit));
+      var url = STATS_URL + (STATS_URL.indexOf('?') < 0 ? '?' : '&') + 'month=' + ym;
+      function once() {
+        return getJSON(url).then(function (d) {
+          if (!d || !d.ok) throw new Error('bad');
+          if (normYM(d.month) !== ym) { var e = new Error('nomonth'); e.nomonth = true; throw e; } // ระบบทะเบียนไม่รับค่าเดือน
+          return d;
         });
-        var mm = String(d.month || '').match(/^(\d{4})-(\d{1,2})$/);
-        var month = mm ? TH_MONTHS[+mm[2] - 1] + ' ' + (+mm[1] + 543) : (d.month || '');
-        note.textContent = '*ข้อมูลสดจากระบบทะเบียนห้องผ่าตัด' + (month ? ' ประจำเดือน ' + month : '') + ' — อัปเดตอัตโนมัติทุกครั้งที่เปิดหน้านี้';
+      }
+      var p = once().catch(function (e) { if (e && e.nomonth) throw e; return once(); }) // พลาดครั้งแรก ลองใหม่อีก 1 ครั้ง
+        .then(function (d) { if (past) cachePut(ym, d); return d; });
+      p.catch(function () { delete memo[ym]; });
+      return (memo[ym] = p);
+    }
+    function runPool(items, n, fn) {
+      return new Promise(function (resolve) {
+        var i = 0, left = items.length;
+        if (!left) { resolve(); return; }
+        function start(it) {
+          Promise.resolve().then(function () { return fn(it); }).catch(function () {}).then(function () {
+            if (--left === 0) resolve(); else if (i < items.length) start(items[i++]);
+          });
+        }
+        while (i < items.length && i < n) start(items[i++]);
+      });
+    }
+    function sumUp(list) {
+      var s = {}, dep = {}, order = [];
+      KEYS.forEach(function (k) { s[k] = 0; });
+      list.forEach(function (d) {
+        KEYS.forEach(function (k) { s[k] += Number(d[k]) || 0; });
+        (d.departments || []).forEach(function (x) {
+          if (!x) return;
+          var key = deptLabel(x.name);
+          if (!(key in dep)) { dep[key] = 0; order.push(key); }
+          dep[key] += Number(x.count) || 0;
+        });
+      });
+      s.departments = order.map(function (k) { return { name: k, count: dep[k] }; });
+      return s;
+    }
+
+    /* ---------- แสดงผลร่วม ---------- */
+    function busy(on) { sec.classList.toggle('wait', on); if (on) sec.setAttribute('aria-busy', 'true'); else sec.removeAttribute('aria-busy'); }
+    function setHead(title, when, deptWhen) {
+      setText($('stats-title'), title);
+      setText($('stats-month'), when ? ' ' + when : '');
+      setText($('dept-month'), deptWhen);
+    }
+    function setCards(d, unit) {
+      sec.querySelectorAll('.stat b').forEach(function (b) { b.textContent = d ? num(d[b.getAttribute('data-k')]) : '–'; });
+      sec.querySelectorAll('.stat small[data-unit]').forEach(function (s) { s.textContent = unit; });
+    }
+    function deptMsg(msg) { $('dept-list').innerHTML = '<p class="dept-empty">' + esc(msg) + '</p>'; }
+    function setDepts(list, emptyMsg) {
+      var depts = (list || []).filter(function (x) { return x && Number(x.count) > 0; })
+        .sort(function (a, b) { return b.count - a.count; });
+      if (!depts.length) { deptMsg(emptyMsg); return; }
+      var max = depts.reduce(function (m, x) { return Math.max(m, Number(x.count) || 0); }, 1);
+      var box = $('dept-list');
+      box.innerHTML = depts.map(function (x) {
+        var name = deptLabel(x.name);
+        return '<div class="dept-row"><span class="dept-name" title="' + esc(name) + '">' + esc(name) + '</span>' +
+          '<span class="dept-track"><span class="dept-fill" data-w="' + Math.round(x.count / max * 100) + '"></span></span>' +
+          '<span class="dept-count">' + num(x.count) + '</span></div>';
+      }).join('');
+      requestAnimationFrame(function () {
+        box.querySelectorAll('.dept-fill').forEach(function (f) { f.style.width = f.getAttribute('data-w') + '%'; });
+      });
+    }
+    function setNote(msg, retry) {
+      note.textContent = msg;
+      if (retry) {
+        var b = document.createElement('button');
+        b.type = 'button'; b.className = 'stats-retry'; b.textContent = 'ลองอีกครั้ง';
+        note.appendChild(b);
+      }
+    }
+
+    /* ---------- รายเดือน ---------- */
+    function showMonthView() {
+      $('trend-panel').hidden = true;
+      $('fy-chips').hidden = true;
+      var d = monthRes && monthRes.d;
+      var label = d ? (thMonth(d.month) || String(d.month || '')) : thMonth(curYM);
+      setHead('สถิติการผ่าตัดประจำเดือน', label, label ? ' เดือน' + label : ' (เดือนนี้)');
+      if (!monthRes) { busy(true); setCards(null, 'เคส/เดือน'); deptMsg('กำลังโหลด…'); note.textContent = 'กำลังโหลดข้อมูลสดจากระบบทะเบียนห้องผ่าตัด…'; return; }
+      busy(false);
+      if (!d) {
+        setCards(null, 'เคส/เดือน');
+        deptMsg('ยังโหลดข้อมูลไม่ได้ในขณะนี้');
+        note.textContent = 'ยังโหลดข้อมูลสถิติไม่ได้ในขณะนี้ กรุณาลองเปิดหน้านี้ใหม่อีกครั้ง';
+        return;
+      }
+      setCards(d, 'เคส/เดือน');
+      setDepts(d.departments, 'ยังไม่มีข้อมูลของเดือนนี้');
+      note.textContent = '*ข้อมูลสดจากระบบทะเบียนห้องผ่าตัด' + (label ? ' ประจำเดือน ' + label : '') + ' — อัปเดตอัตโนมัติทุกครั้งที่เปิดหน้านี้';
+    }
+
+    /* ---------- รายปี ---------- */
+    function niceScale(max) {
+      if (!(max > 0)) return { top: 4, step: 1 };
+      var raw = max * 1.12 / 4, p = Math.pow(10, Math.floor(Math.log(raw) / Math.LN10)), f = raw / p;
+      var step = Math.max(1, Math.round((f <= 1 ? 1 : f <= 2 ? 2 : f <= 5 ? 5 : 10) * p));
+      return { top: step * Math.ceil(max * 1.12 / step), step: step };
+    }
+    function drawTrend(months, res, failed, loading) {
+      tipHide();
+      failed = failed || [];
+      var vals = months.map(function (ym) { return res[ym] ? Number(res[ym].total) || 0 : null; });
+      var max = vals.reduce(function (m, v) { return Math.max(m, v || 0); }, 0);
+      var sc = niceScale(max), last = -1, top = -1;
+      vals.forEach(function (v, i) { if (v != null) { last = i; if (v > 0 && (top < 0 || v > vals[top])) top = i; } });
+      var ticks = '';
+      for (var v = 0; v <= sc.top; v += sc.step) {
+        ticks += '<div class="trend-tick' + (v === 0 ? ' base' : '') + '" style="bottom:' + (v / sc.top * 100).toFixed(3) + '%"><span>' + num(v) + '</span></div>';
+      }
+      var cols = months.map(function (ym, i) {
+        var p = ymParts(ym), val = vals[i], future = ym > curYM, now = ym === curYM, bad = failed.indexOf(ym) >= 0;
+        var h = val ? val / sc.top * 100 : 0;
+        var full = TH_MONTHS[p.m - 1] + ' ' + (p.y + 543);
+        var aria = full + (future ? ' (ยังไม่ถึง)' : bad ? ' (โหลดข้อมูลไม่สำเร็จ)' : val == null ? '' : ' ผ่าตัด ' + num(val) + ' เคส' + (now ? ' นับถึงวันนี้' : ''));
+        var inner = '';
+        if (val != null) {
+          inner = '<span class="tbar" data-h="' + h.toFixed(3) + '"></span>';
+          if (i === top || i === last) inner += '<span class="tval" style="bottom:calc(' + h.toFixed(3) + '% + 4px)">' + num(val) + '</span>';
+        } else if (bad) inner = '<span class="tmiss" aria-hidden="true">–</span>';
+        return '<div class="tcol' + (future ? ' future' : '') + (now ? ' now' : '') + '" data-ym="' + ym + '"' +
+          (val != null ? ' tabindex="0" role="button"' : ' role="img"') + ' aria-label="' + esc(aria) + '">' +
+          '<div class="tplot">' + inner + '</div><span class="tlab" aria-hidden="true">' + esc(TH_MONTHS_SHORT[p.m - 1]) + '</span></div>';
+      }).join('');
+      trendEl.classList.toggle('loading', !!loading);
+      trendEl.innerHTML = '<div class="trend-axis" aria-hidden="true">' + ticks + '</div><div class="trend-cols">' + cols + '</div>' +
+        '<div class="trend-tip" hidden></div>';
+      tip = trendEl.querySelector('.trend-tip');
+      $('trend-foot').hidden = loading || months.indexOf(curYM) < 0;
+      requestAnimationFrame(function () {
+        trendEl.querySelectorAll('.tbar').forEach(function (b) { b.style.height = b.getAttribute('data-h') + '%'; });
+      });
+    }
+    function trendMsg(msg) {
+      tipHide();
+      trendEl.classList.remove('loading');
+      trendEl.innerHTML = '<p class="trend-msg">' + esc(msg) + '</p>';
+      tip = null;
+      $('trend-foot').hidden = true;
+    }
+    function drawTable(months) {
+      var rows = months.filter(function (ym) { return yearRes[ym]; });
+      var box = $('trend-table');
+      if (!rows.length) { box.innerHTML = ''; return; }
+      var s = sumUp(rows.map(function (ym) { return yearRes[ym]; }));
+      box.innerHTML = '<table aria-label="จำนวนผ่าตัดรายเดือน"><thead><tr><th scope="col">เดือน</th><th scope="col">ทั้งหมด</th>' +
+        '<th scope="col">ฉุกเฉิน</th><th scope="col">นอกเวลา</th><th scope="col">ODS</th><th scope="col">MIS</th></tr></thead><tbody>' +
+        rows.map(function (ym) {
+          var d = yearRes[ym];
+          return '<tr><th scope="row">' + esc(thMonth(ym, true)) + (ym === curYM ? ' (ถึงวันนี้)' : '') + '</th>' +
+            KEYS.map(function (k) { return '<td>' + num(d[k]) + '</td>'; }).join('') + '</tr>';
+        }).join('') +
+        '<tr class="sum"><th scope="row">รวม</th>' + KEYS.map(function (k) { return '<td>' + num(s[k]) + '</td>'; }).join('') + '</tr>' +
+        '</tbody></table>';
+    }
+    function buildChips() {
+      var box = $('fy-chips');
+      if (box.childNodes.length) return;
+      curFY = fyOf(curYM);
+      box.innerHTML = [0, 1, 2].map(function (k) {
+        var fy = curFY - k;
+        return '<button type="button" class="fy-chip" data-fy="' + fy + '" aria-pressed="false">' + (FY_START > 1 ? 'ปีงบ ' : 'พ.ศ. ') + fy + '</button>';
+      }).join('');
+    }
+    function showYearView(fy) {
+      buildChips();
+      selFY = fy || selFY || curFY;
+      var seq = ++yearSeq;
+      $('fy-chips').hidden = false;
+      $('trend-panel').hidden = false;
+      $('fy-chips').querySelectorAll('.fy-chip').forEach(function (c) {
+        var on = +c.getAttribute('data-fy') === selFY;
+        c.classList.toggle('active', on); c.setAttribute('aria-pressed', on);
+      });
+      setHead('สถิติการผ่าตัดประจำ' + YEAR_WORD, String(selFY), ' ' + YEAR_WORD + ' ' + selFY);
+      setText($('trend-year'), YEAR_WORD + ' ' + selFY);
+      var months = fyMonths(selFY), avail = months.filter(function (ym) { return ym <= curYM; });
+      yearRes = {};
+      drawTable(months);
+      if (noHistory) { yearUnavailable(); return; }
+      busy(true);
+      setCards(null, 'เคส/ปี');
+      deptMsg('กำลังโหลด…');
+      drawTrend(months, {}, [], true);
+      var res = {}, errs = {}, done = 0;
+      note.textContent = 'กำลังรวบรวมข้อมูล 0/' + avail.length + ' เดือน…';
+      runPool(avail, 6, function (ym) {
+        return monthData(ym).then(function (d) { res[ym] = d; }, function (e) { errs[ym] = e || true; })
+          .then(function () { done++; if (seq === yearSeq) note.textContent = 'กำลังรวบรวมข้อมูล ' + done + '/' + avail.length + ' เดือน…'; });
+      }).then(function () {
+        if (seq !== yearSeq || mode !== 'year') return;
+        busy(false);
+        if (Object.keys(errs).some(function (k) { return errs[k] && errs[k].nomonth; })) { noHistory = true; yearUnavailable(); return; }
+        var got = avail.filter(function (ym) { return res[ym]; }), failed = avail.filter(function (ym) { return !res[ym]; });
+        if (!got.length) {
+          setCards(null, 'เคส/ปี');
+          deptMsg('ยังโหลดข้อมูลไม่ได้ในขณะนี้');
+          trendMsg('ยังโหลดข้อมูลไม่ได้ในขณะนี้');
+          setNote('ยังโหลดข้อมูลสถิติรายปีไม่ได้ในขณะนี้', true);
+          return;
+        }
+        yearRes = res;
+        var sum = sumUp(got.map(function (ym) { return res[ym]; }));
+        setCards(sum, 'เคส/ปี');
+        setDepts(sum.departments, 'ยังไม่มีข้อมูลของปีนี้');
+        drawTrend(months, res, failed);
+        drawTable(months);
+        var partial = avail.length < 12;
+        if (failed.length) {
+          setNote('โหลดข้อมูลบางเดือนไม่สำเร็จ (' + failed.map(function (ym) { return thMonth(ym, true); }).join(', ') + ') ตัวเลขรวมจึงยังไม่ครบ', true);
+        } else if (!sum.total) {
+          note.textContent = 'ยังไม่มีข้อมูลการผ่าตัดในระบบทะเบียนของ' + YEAR_WORD + ' ' + selFY;
+        } else {
+          note.textContent = '*รวมข้อมูลจากระบบทะเบียนห้องผ่าตัด ' + thMonth(months[0], true) + ' – ' +
+            (partial ? thMonth(curYM, true) + ' (นับถึงวันนี้)' : thMonth(months[11], true));
+        }
+      });
+    }
+    function yearUnavailable() {
+      busy(false);
+      setCards(null, 'เคส/ปี');
+      deptMsg('ยังแสดงสถิติรายปีไม่ได้ในขณะนี้');
+      trendMsg('ยังแสดงสถิติรายปีไม่ได้ในขณะนี้');
+      note.textContent = 'ยังแสดงสถิติรายปีไม่ได้ในขณะนี้ ดูสถิติรายเดือนได้ที่ปุ่ม "รายเดือน"';
+    }
+
+    /* ---------- กล่องรายละเอียดเมื่อชี้/แตะแท่งกราฟ ---------- */
+    function tipHide() {
+      if (tip) tip.hidden = true;
+      trendEl.querySelectorAll('.tcol.on').forEach(function (c) { c.classList.remove('on'); });
+    }
+    function tipShow(col) {
+      var ym = col.getAttribute('data-ym'), d = yearRes[ym];
+      if (!d || !tip) { tipHide(); return; }
+      trendEl.querySelectorAll('.tcol.on').forEach(function (c) { if (c !== col) c.classList.remove('on'); });
+      col.classList.add('on');
+      tip.textContent = '';
+      var h = document.createElement('b');
+      h.textContent = thMonth(ym) + (ym === curYM ? ' (ถึงวันนี้)' : '');
+      tip.appendChild(h);
+      [['total', 'ผ่าตัดทั้งหมด'], ['emergency', 'ฉุกเฉิน'], ['offHours', 'นอกเวลา'], ['ods', 'ODS'], ['mis', 'MIS']].forEach(function (r) {
+        var row = document.createElement('div'), a = document.createElement('span'), s = document.createElement('strong');
+        row.className = 'r'; a.textContent = r[1]; s.textContent = num(d[r[0]]);
+        row.appendChild(a); row.appendChild(s); tip.appendChild(row);
+      });
+      tip.hidden = false;
+      var tr = trendEl.getBoundingClientRect(), cr = col.getBoundingClientRect(), bar = col.querySelector('.tbar');
+      var y = (bar ? bar.getBoundingClientRect().top : cr.bottom) - tr.top - 8;
+      var w = tip.offsetWidth, x = cr.left + cr.width / 2 - tr.left;
+      x = Math.max(w / 2 + 2, Math.min(tr.width - w / 2 - 2, x));
+      tip.style.left = x + 'px';
+      tip.style.top = Math.max(y, tip.offsetHeight - 36) + 'px';
+    }
+    function colFrom(e) { return e.target.closest && e.target.closest('.tcol[tabindex]'); }
+    trendEl.addEventListener('pointerover', function (e) { var c = colFrom(e); if (c) tipShow(c); });
+    trendEl.addEventListener('pointerleave', function (e) { if (e.pointerType === 'mouse') tipHide(); }); // มือถือ: ซ่อนเมื่อแตะที่อื่น
+    trendEl.addEventListener('focusin', function (e) { var c = colFrom(e); if (c) tipShow(c); });
+    trendEl.addEventListener('focusout', function (e) { if (!trendEl.contains(e.relatedTarget)) tipHide(); });
+    trendEl.addEventListener('click', function (e) { var c = colFrom(e); if (c) tipShow(c); });
+    trendEl.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape') { tipHide(); return; }
+      if (e.key !== 'ArrowLeft' && e.key !== 'ArrowRight') return;
+      var c = colFrom(e); if (!c) return;
+      var all = [].slice.call(trendEl.querySelectorAll('.tcol[tabindex]')), i = all.indexOf(c) + (e.key === 'ArrowRight' ? 1 : -1);
+      if (all[i]) { e.preventDefault(); all[i].focus(); }
+    });
+    document.addEventListener('click', function (e) { if (!trendEl.contains(e.target)) tipHide(); });
+    var lastW = window.innerWidth;
+    window.addEventListener('resize', function () { if (window.innerWidth !== lastW) { lastW = window.innerWidth; tipHide(); } }); // แถบที่อยู่บนมือถือยุบ/ขยาย ไม่ต้องปิด
+
+    /* ---------- ปุ่มต่าง ๆ ---------- */
+    function setMode(m) {
+      if (m === mode) return;
+      mode = m;
+      ++yearSeq; // ยกเลิกผลรายปีที่ยังโหลดค้าง
+      $('stats-tabs').querySelectorAll('.stats-tab').forEach(function (b) {
+        var on = b.getAttribute('data-mode') === m;
+        b.classList.toggle('active', on); b.setAttribute('aria-selected', on);
+      });
+      if (m === 'year') showYearView(); else showMonthView();
+    }
+    $('stats-tabs').addEventListener('click', function (e) {
+      var b = e.target.closest('.stats-tab');
+      if (b) setMode(b.getAttribute('data-mode'));
+    });
+    $('fy-chips').addEventListener('click', function (e) {
+      var c = e.target.closest('.fy-chip');
+      if (c && mode === 'year') showYearView(+c.getAttribute('data-fy'));
+    });
+    note.addEventListener('click', function (e) {
+      if (e.target.closest('.stats-retry') && mode === 'year') showYearView(selFY);
+    });
+    $('trend-tbl-btn').addEventListener('click', function () {
+      var box = $('trend-table'), open = box.hidden;
+      box.hidden = !open;
+      this.setAttribute('aria-expanded', open);
+      this.textContent = open ? 'ซ่อนตาราง' : 'ดูเป็นตาราง';
+    });
+
+    /* ---------- เริ่มต้น: โหลดสถิติเดือนปัจจุบัน ---------- */
+    showMonthView();
+    getJSON(STATS_URL)
+      .then(function (d) {
+        if (!d || !d.ok) throw new Error('bad');
+        var ym = normYM(d.month);
+        if (ym) { curYM = ym; if (!memo[ym]) memo[ym] = Promise.resolve(d); }
+        monthRes = { d: d };
       })
-      .catch(function () { clearTimeout(timer); fail(); });
+      .catch(function () { monthRes = {}; })
+      .then(function () { if (mode === 'month') showMonthView(); });
   })();
 
   /* ==================== การโต้ตอบ ==================== */
