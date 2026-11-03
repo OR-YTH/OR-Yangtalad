@@ -82,7 +82,8 @@
     display:flex; align-items:center; justify-content:space-between; gap:20px;
     padding:14px 28px; max-width:1180px; margin:0 auto;
   }
-  .brand{display:flex; align-items:center; gap:12px; color:var(--white); min-width:0;}
+  .brand{display:flex; align-items:center; gap:12px; color:var(--white); min-width:0; flex-shrink:0;}
+  #site-header nav{flex-shrink:0;}
   .brand-mark{
     width:42px; height:42px; border-radius:50%;
     background:#fff;
@@ -100,7 +101,8 @@
     position:relative; padding:6px 0; white-space:nowrap;
   }
   nav a:hover{color:var(--yellow);}
-  nav a.nav-staff{border:1px solid rgba(255,255,255,.35); border-radius:999px; padding:5px 14px; font-size:.82rem;}
+  nav a.nav-staff{border:1px solid rgba(255,255,255,.35); border-radius:999px; padding:5px 11px; font-size:.82rem;}
+  .nav-staff-text{display:none;}
   nav a.nav-staff:hover{border-color:var(--yellow);}
   .nav-cta{
     background:var(--yellow); color:var(--navy-deep)!important;
@@ -408,6 +410,72 @@
   .av-nav b{font-family:'Kanit'; font-weight:500; display:block; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;}
   .av-nav .next{grid-column:2; text-align:right;}
 
+  /* feedback: survey + complaints */
+  .fb-grid{display:grid; grid-template-columns:.85fr 1.4fr; gap:32px; align-items:start;}
+  .score-card{background:linear-gradient(135deg,var(--navy) 0%,var(--blue-bright) 100%); color:#fff; border-radius:22px; padding:28px 28px 26px; box-shadow:0 18px 40px rgba(10,61,98,.18);}
+  .score-card .sc-label{display:block; font-size:.86rem; color:#CFE8FA; font-weight:600;}
+  .sc-main{display:flex; align-items:baseline; gap:8px; margin:4px 0 6px;}
+  .sc-main b{font-family:'Kanit'; font-size:3.6rem; line-height:1; color:var(--yellow);}
+  .sc-main span{font-family:'Kanit'; font-size:1.2rem; color:#CFE8FA;}
+  .stars{position:relative; display:inline-block; font-size:1.7rem; letter-spacing:3px; line-height:1; color:rgba(255,255,255,.25);}
+  .stars-fill{position:absolute; left:0; top:0; overflow:hidden; white-space:nowrap; color:var(--yellow);}
+  .score-card p{margin-top:12px; font-size:.86rem; color:#EAF6FF;}
+  .score-card .sc-icon{font-size:2rem;}
+  .score-card .sc-title{display:block; font-family:'Kanit'; font-size:1.25rem; font-weight:600; margin-top:6px;}
+  .fb-points{list-style:none; display:grid; gap:16px; margin-top:24px;}
+  .fb-points li{display:flex; gap:14px; align-items:flex-start;}
+  .fb-points li > span{width:40px; height:40px; border-radius:11px; background:#fff; display:flex; align-items:center; justify-content:center; flex-shrink:0;}
+  .fb-points b{display:block; font-family:'Kanit'; font-weight:500; color:var(--navy-deep);}
+  .fb-points p{font-size:.86rem; color:var(--ink-soft);}
+  .fb-card{background:#fff; border:1px solid var(--line); border-radius:22px; padding:26px; box-shadow:0 18px 40px rgba(10,61,98,.07);}
+  .fb-tabs{display:grid; grid-template-columns:1fr 1fr; gap:6px; background:var(--sky); border-radius:14px; padding:5px; margin-bottom:24px;}
+  .fb-tab{border:none; background:none; padding:11px 10px; border-radius:10px; font-weight:600; font-size:.9rem; color:var(--ink-soft); cursor:pointer; transition:.2s;}
+  .fb-tab.active{background:#fff; color:var(--navy); box-shadow:0 4px 12px rgba(10,61,98,.1);}
+  .fb-field{display:block; border:none; margin-bottom:18px; min-width:0;}
+  .fb-field legend, .fb-field .lbl{display:block; font-weight:600; color:var(--navy-deep); font-size:.92rem; margin-bottom:8px; padding:0;}
+  .fb-field i{color:#C0392B; font-style:normal;}
+  .fb-field input[type=text], .fb-field input[type=date], .fb-field select, .fb-field textarea{width:100%; font:inherit; font-size:.95rem; color:var(--ink); background:#fff; border:1.5px solid var(--line); border-radius:12px; padding:11px 14px; transition:.2s;}
+  .fb-field textarea{resize:vertical; min-height:96px;}
+  .fb-field input:focus, .fb-field select:focus, .fb-field textarea:focus{outline:none; border-color:var(--blue-bright); box-shadow:0 0 0 4px rgba(46,156,226,.14);}
+  .fb-field .count{display:block; text-align:right; font-size:.75rem; color:var(--ink-soft); margin-top:4px;}
+  .fb-row2{display:grid; grid-template-columns:1fr 1fr; gap:14px;}
+  .chips{display:flex; gap:8px; flex-wrap:wrap;}
+  .chip{position:relative; cursor:pointer;}
+  .chip input{position:absolute; opacity:0; inset:0; margin:0; cursor:pointer;}
+  .chip span{display:inline-block; padding:8px 18px; border-radius:999px; border:1.5px solid var(--line); background:#fff; font-weight:600; font-size:.88rem; color:var(--ink-soft); transition:.2s;}
+  .chip input:checked + span{background:var(--navy); border-color:var(--navy); color:#fff;}
+  .chip input:focus-visible + span{outline:3px solid var(--yellow); outline-offset:2px;}
+  .fb-q{padding:16px 0; border-top:1px solid var(--line);}
+  .fb-q:first-child{border-top:none; padding-top:4px;}
+  .fb-q-text{font-size:.94rem; color:var(--ink); margin-bottom:10px;}
+  .fb-q-text b{color:var(--blue);}
+  .rating{display:grid; grid-template-columns:repeat(5,1fr); gap:8px;}
+  .rating label{position:relative; display:flex; flex-direction:column; align-items:center; gap:3px; padding:10px 4px 8px; border:1.5px solid var(--line); border-radius:14px; background:#fff; cursor:pointer; transition:.2s;}
+  .rating label:hover{border-color:var(--blue-bright);}
+  .rating input{position:absolute; inset:0; opacity:0; margin:0; cursor:pointer;}
+  .rating .face{font-size:1.6rem; line-height:1.1; filter:grayscale(.75); opacity:.7; transition:.2s;}
+  .rating small{font-size:.68rem; color:var(--ink-soft); text-align:center; line-height:1.2;}
+  .rating input:checked ~ .face{filter:none; opacity:1; transform:scale(1.18);}
+  .rating input:checked ~ small{color:var(--navy); font-weight:700;}
+  .rating label:has(input:checked){border-color:var(--yellow); background:var(--yellow-soft);}
+  .rating input:focus-visible ~ .face{outline:3px solid var(--yellow); outline-offset:3px; border-radius:50%;}
+  .invalid .rating label, .invalid .chip span, .fb-field.invalid textarea, .fb-consent.invalid{border-color:#E8A29C;}
+  .fb-q.invalid .fb-q-text{color:#B42318;}
+  .fb-consent{display:flex; gap:10px; align-items:flex-start; font-size:.88rem; color:var(--ink); background:var(--sky); border:1.5px solid transparent; border-radius:12px; padding:12px 14px; margin-bottom:16px; cursor:pointer;}
+  .fb-consent input{width:18px; height:18px; margin-top:3px; flex-shrink:0; accent-color:var(--navy);}
+  .fb-note{font-size:.82rem; color:#8A4B00; background:var(--yellow-soft); border-radius:10px; padding:9px 12px; margin-bottom:18px;}
+  .hp{position:absolute!important; left:-9999px; width:1px; height:1px; opacity:0;}
+  .fb-error{color:#B42318; font-size:.88rem; font-weight:600; min-height:1.2em; margin-bottom:12px;}
+  .fb-submit{border:none; width:100%; justify-content:center; font-size:1rem; padding:14px 26px;}
+  .fb-submit:disabled{opacity:.6; cursor:wait; transform:none;}
+  .fb-done{text-align:center; padding:30px 10px 16px;}
+  .fb-done-ic{width:72px; height:72px; border-radius:50%; margin:0 auto 16px; background:#DCF2E1; color:#1E8E3E; font-size:2.2rem; display:flex; align-items:center; justify-content:center;}
+  .fb-done h3{font-size:1.4rem; color:var(--navy-deep); margin-bottom:8px;}
+  .fb-done p{color:var(--ink-soft);}
+  .fb-ref{margin:16px auto 0; display:inline-block; background:var(--sky); border:1px dashed var(--blue); border-radius:12px; padding:10px 18px; color:var(--navy)!important;}
+  .fb-ref b{font-family:'Kanit'; font-size:1.15rem; letter-spacing:.04em;}
+  .fb-done .btn{margin-top:22px;}
+
   /* lightbox */
   .lightbox{position:fixed; inset:0; z-index:300; background:#06121D; animation:lbIn .2s ease;}
   .news-more b{font-weight:inherit;}
@@ -438,7 +506,7 @@
   .contact-list{display:grid; gap:18px;}
   .contact-item{display:flex; gap:16px; align-items:flex-start;}
   .contact-item .ic{
-    width:42px; height:42px; border-radius:11px; background:var(--white);
+    width:42px; height:42px; border-radius:11px; background:var(--blue-pale);
     color:var(--navy); display:flex; align-items:center; justify-content:center; flex-shrink:0;
   }
   .contact-item h4{font-size:.95rem; color:var(--navy-deep); margin-bottom:2px;}
@@ -476,7 +544,19 @@
     }
     header.open nav a{font-size:1rem;}
     .nav-mobile{display:list-item;}
+    .nav-staff-text{display:inline;}
   }
+  /* เมนูยาวเกินแถบ (วัดด้วย JS) → ใช้เมนูแบบพับเหมือนมือถือ */
+  #site-header.collapsed nav ul, #site-header.collapsed .nav-cta{display:none;}
+  #site-header.collapsed .burger{display:flex;}
+  #site-header.collapsed.open nav ul{
+    display:flex; position:fixed; top:70px; left:0; right:0; background:#0A3D62;
+    flex-direction:column; align-items:flex-start; padding:16px 28px 22px; gap:14px;
+    box-shadow:0 12px 24px rgba(0,0,0,.2);
+  }
+  #site-header.collapsed.open nav a{font-size:1rem;}
+  #site-header.collapsed .nav-mobile{display:list-item;}
+  #site-header.collapsed .nav-staff-text{display:inline;}
   @media (max-width:980px){
     .hero{padding:130px 0 70px;}
     .hero-grid{grid-template-columns:1fr;}
@@ -487,6 +567,7 @@
     .feature{grid-template-columns:1fr; gap:18px; padding:12px;}
     .feature-body{padding:4px 8px 10px;}
     .av-grid{grid-template-columns:repeat(3,1fr); gap:8px;}
+    .fb-grid{grid-template-columns:1fr;}
     .stats-grid{grid-template-columns:repeat(2,1fr);}
     .stats-grid .stat:first-child{grid-column:1/-1;}
     .disease-grid{grid-template-columns:1fr;}
@@ -500,6 +581,13 @@
     .team-grid{gap:14px;}
     .brand-text b{font-size:.92rem;}
     .album-grid{grid-template-columns:1fr;}
+    .fb-card{padding:18px 16px; border-radius:18px;}
+    .fb-row2{grid-template-columns:1fr;}
+    .rating{gap:5px;}
+    .rating label{padding:8px 2px 7px; border-radius:12px;}
+    .rating .face{font-size:1.4rem;}
+    .rating small{font-size:.62rem;}
+    .fb-tab{font-size:.82rem; padding:10px 6px;}
     .av-bar{padding:10px 14px; gap:10px;}
     .av-bar button{padding:6px 13px; font-size:.84rem;}
     .av-head{padding:30px 0 22px;}
@@ -537,13 +625,14 @@
       <ul id="nav-list">
         <li><a href="#about">เกี่ยวกับเรา</a></li>
         <li data-for="services"><a href="#services">บริการ</a></li>
-        <li data-for="safety"><a href="#safety">มาตรฐานความปลอดภัย</a></li>
+        <li data-for="safety"><a href="#safety">ความปลอดภัย</a></li>
         <li><a href="#stats">สถิติการผ่าตัด</a></li>
         <li data-for="team"><a href="#team">บุคลากร</a></li>
-        <li data-for="patient-guide"><a href="#patient-guide">คำแนะนำผู้รับบริการ</a></li>
+        <li data-for="patient-guide"><a href="#patient-guide">คำแนะนำ</a></li>
         <li data-for="news"><a href="#news">กิจกรรม</a></li>
+        <li data-for="feedback"><a href="#feedback">ประเมิน/ร้องเรียน</a></li>
         <li class="nav-mobile"><a href="#contact">ติดต่อเรา</a></li>
-        <li class="is-hidden" id="nav-staff"><a class="nav-staff" href="#" target="_blank" rel="noopener">🔒 เจ้าหน้าที่</a></li>
+        <li class="is-hidden" id="nav-staff"><a class="nav-staff" href="#" target="_blank" rel="noopener" title="ระบบสำหรับเจ้าหน้าที่" aria-label="ระบบสำหรับเจ้าหน้าที่">🔒<span class="nav-staff-text"> ระบบเจ้าหน้าที่</span></a></li>
       </ul>
     </nav>
     <a href="#contact" class="nav-cta">ติดต่อเรา</a>
@@ -691,7 +780,79 @@
   </div>
 </section>
 
-<section id="contact" class="section bg-tint">
+<section id="feedback" class="section bg-tint is-hidden">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow">ความคิดเห็นของคุณ</span>
+      <h2>ประเมินบริการและแจ้งข้อร้องเรียน</h2>
+      <p>ทุกความคิดเห็นช่วยให้ทีมห้องผ่าตัดพัฒนาบริการให้ดียิ่งขึ้น ใช้เวลาไม่ถึง 2 นาที</p>
+    </div>
+    <div class="fb-grid">
+      <aside class="reveal">
+        <div class="score-card" id="score-card"></div>
+        <ul class="fb-points">
+          <li><span aria-hidden="true">🔒</span><div><b>ข้อมูลเป็นความลับ</b><p>คำตอบส่งถึงทีมห้องผ่าตัดโดยตรง ไม่เปิดเผยต่อสาธารณะ</p></div></li>
+          <li><span aria-hidden="true">💬</span><div><b>ไม่ต้องระบุชื่อก็ได้</b><p>ใส่ช่องทางติดต่อเฉพาะเมื่อต้องการให้เราติดต่อกลับ</p></div></li>
+          <li class="is-hidden" id="fb-other"><span aria-hidden="true">📞</span><div><b>ช่องทางอื่น</b><p id="fb-other-text"></p></div></li>
+        </ul>
+      </aside>
+      <div class="fb-card reveal" id="fb-card">
+        <div class="fb-tabs" role="tablist" id="fb-tabs">
+          <button type="button" class="fb-tab active" id="fb-tab-survey" data-fb="survey" role="tab" aria-selected="true">⭐ ประเมินความพึงพอใจ</button>
+          <button type="button" class="fb-tab" id="fb-tab-complaint" data-fb="complaint" role="tab" aria-selected="false">💬 ร้องเรียน / เสนอแนะ</button>
+        </div>
+
+        <form class="fb-form" id="fb-survey" data-kind="survey" novalidate>
+          <fieldset class="fb-field" data-field="respondent">
+            <legend>ผู้ตอบแบบประเมิน <i>*</i></legend>
+            <div class="chips">
+              <label class="chip"><input type="radio" name="respondent" value="ผู้ป่วย"><span>ผู้ป่วย</span></label>
+              <label class="chip"><input type="radio" name="respondent" value="ญาติ"><span>ญาติ</span></label>
+            </div>
+          </fieldset>
+          <label class="fb-field"><span class="lbl">แผนกที่รับบริการ</span><select name="dept" id="fb-dept"></select></label>
+          <div class="fb-field"><span class="lbl">ให้คะแนนความพึงพอใจ <i>*</i></span><div id="fb-qs"></div></div>
+          <label class="fb-field"><span class="lbl">ข้อเสนอแนะเพิ่มเติม</span><textarea name="comment" rows="3" maxlength="1000" placeholder="สิ่งที่ประทับใจ หรือสิ่งที่อยากให้ปรับปรุง"></textarea></label>
+          <input type="text" name="website" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true">
+          <p class="fb-error" role="alert"></p>
+          <button type="submit" class="btn btn-primary fb-submit">ส่งแบบประเมิน</button>
+        </form>
+
+        <form class="fb-form" id="fb-complaint" data-kind="complaint" novalidate hidden>
+          <fieldset class="fb-field" data-field="kind">
+            <legend>ประเภทเรื่อง <i>*</i></legend>
+            <div class="chips">
+              <label class="chip"><input type="radio" name="kind" value="ข้อร้องเรียน"><span>ข้อร้องเรียน</span></label>
+              <label class="chip"><input type="radio" name="kind" value="ข้อเสนอแนะ"><span>ข้อเสนอแนะ</span></label>
+              <label class="chip"><input type="radio" name="kind" value="คำชมเชย"><span>คำชมเชย</span></label>
+            </div>
+          </fieldset>
+          <label class="fb-field" data-field="detail"><span class="lbl">รายละเอียด <i>*</i></span><textarea name="detail" rows="5" maxlength="2000" placeholder="เล่าเหตุการณ์ที่พบ เช่น วันเวลา จุดบริการ และสิ่งที่อยากให้ปรับปรุง"></textarea><small class="count"><span id="fb-count">0</span>/2000</small></label>
+          <div class="fb-row2">
+            <label class="fb-field"><span class="lbl">วันที่รับบริการ</span><input type="date" name="serviceDate"></label>
+            <label class="fb-field"><span class="lbl">ชื่อผู้แจ้ง (ไม่บังคับ)</span><input type="text" name="name" maxlength="80" autocomplete="name"></label>
+          </div>
+          <label class="fb-field"><span class="lbl">เบอร์โทรหรืออีเมล สำหรับติดต่อกลับ (ไม่บังคับ)</span><input type="text" name="contact" maxlength="100" autocomplete="tel"></label>
+          <label class="fb-consent is-hidden" id="fb-consent"><input type="checkbox" name="consent"><span>ยินยอมให้กลุ่มงานห้องผ่าตัดใช้ข้อมูลติดต่อนี้เพื่อติดตามเรื่องที่แจ้งเท่านั้น</span></label>
+          <p class="fb-note">⚠️ กรุณาอย่าใส่เลขบัตรประชาชน เลข HN หรือรายละเอียดการรักษา</p>
+          <input type="text" name="website" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true">
+          <p class="fb-error" role="alert"></p>
+          <button type="submit" class="btn btn-primary fb-submit">ส่งเรื่อง</button>
+        </form>
+
+        <div class="fb-done" id="fb-done" hidden>
+          <div class="fb-done-ic" aria-hidden="true">✓</div>
+          <h3 id="fb-done-title"></h3>
+          <p id="fb-done-text"></p>
+          <p class="fb-ref" id="fb-ref" hidden>เลขที่อ้างอิง <b></b></p>
+          <div><button type="button" class="btn btn-outline" id="fb-again">ส่งความคิดเห็นอีกครั้ง</button></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="contact" class="section">
   <div class="container contact-wrap" id="contact-wrap">
     <div class="reveal">
       <span class="eyebrow">ติดต่อเรา</span>
@@ -733,6 +894,7 @@
           <li data-for="services"><a href="#services">บริการ</a></li>
           <li data-for="patient-guide"><a href="#patient-guide">คำแนะนำผู้รับบริการ</a></li>
           <li data-for="news"><a href="#news">ข่าวสารและภาพกิจกรรม</a></li>
+          <li data-for="feedback"><a href="#feedback">ประเมินบริการ / แจ้งข้อร้องเรียน</a></li>
           <li class="is-hidden" id="foot-staff"><a href="#" target="_blank" rel="noopener">สำหรับเจ้าหน้าที่</a></li>
         </ul>
       </div>
@@ -802,12 +964,13 @@
     'ทีมงาน': ['ชื่อหรือตำแหน่ง', 'แสดง'],
     'คำถาม': ['หมวด', 'คำถาม', 'คำตอบ', 'แสดง'],
     'รายโรค': ['ชื่อเรื่อง', 'ข้อปฏิบัติ', 'แสดง'],
-    'ข่าวสาร': ['หัวข้อ', 'แสดง']
+    'ข่าวสาร': ['หัวข้อ', 'แสดง'],
+    'แบบประเมิน': ['คำถาม', 'แสดง']
   };
   var TABS = Object.keys(REQUIRED);
 
   // เนื้อหาสำรอง (สำเนาจากชีต ณ วันที่สร้างไฟล์) ใช้เมื่อโหลดชีตไม่ได้
-  var FALLBACK = {"ตั้งค่า":[{"รายการ":"ชื่อหน่วยงาน","ข้อความ":"กลุ่มงานห้องผ่าตัด","คำอธิบาย":"แสดงบนแถบเมนูและส่วนท้าย"},{"รายการ":"ชื่อโรงพยาบาล","ข้อความ":"โรงพยาบาลยางตลาด","คำอธิบาย":null},{"รายการ":"หัวข้อหลัก","ข้อความ":"ดูแลทุกวินาที [ในห้องผ่าตัด]\nด้วยมาตรฐานและหัวใจของทีม","คำอธิบาย":"ข้อความใน [ ] จะเป็นสีเน้น"},{"รายการ":"คำโปรย","ข้อความ":"ทีมสหวิชาชีพห้องผ่าตัดของเรา ให้บริการผ่าตัดอย่างปลอดภัย แม่นยำ และใส่ใจผู้ป่วยในทุกขั้นตอน ตั้งแต่ก่อน ระหว่าง จนถึงหลังการผ่าตัด","คำอธิบาย":null},{"รายการ":"เกี่ยวกับ หัวข้อ","ข้อความ":"พื้นที่ปลอดภัยที่สุดของโรงพยาบาล คือที่ที่เรายืนทำงานทุกวัน","คำอธิบาย":null},{"รายการ":"เกี่ยวกับ ข้อความ","ข้อความ":"กลุ่มงานห้องผ่าตัด โรงพยาบาลยางตลาด ให้บริการผ่าตัดครอบคลุมสาขาศัลยกรรมหลัก โดยทีมสหวิชาชีพที่ผ่านการฝึกอบรมเฉพาะทาง พร้อมเครื่องมือและระบบควบคุมคุณภาพตามมาตรฐานสากล เพื่อความปลอดภัยสูงสุดของผู้ป่วยทุกราย","คำอธิบาย":null},{"รายการ":"วิสัยทัศน์","ข้อความ":"เป็นกลุ่มงานห้องผ่าตัดที่ได้มาตรฐาน ปลอดภัย และเป็นที่ไว้วางใจของผู้รับบริการในเขตอำเภอยางตลาดและใกล้เคียง","คำอธิบาย":null},{"รายการ":"พันธกิจ","ข้อความ":"ให้บริการผ่าตัดด้วยมาตรฐานวิชาชีพ ควบคุมการติดเชื้อ ลดความเสี่ยง และพัฒนาศักยภาพบุคลากรอย่างต่อเนื่อง","คำอธิบาย":null},{"รายการ":"ที่อยู่","ข้อความ":"โรงพยาบาลยางตลาด อำเภอยางตลาด จังหวัดกาฬสินธุ์","คำอธิบาย":null},{"รายการ":"โทรศัพท์","ข้อความ":null,"คำอธิบาย":"ว่างไว้ = ไม่แสดง ใส่เบอร์จริงแล้วจะขึ้นเว็บเอง"},{"รายการ":"เวลาทำการ","ข้อความ":"ห้องผ่าตัดตามนัด: จันทร์–ศุกร์ 08.30–16.30 น.\nห้องผ่าตัดฉุกเฉิน: ตลอด 24 ชั่วโมง","คำอธิบาย":null},{"รายการ":"แผนที่","ข้อความ":"โรงพยาบาลยางตลาด","คำอธิบาย":"คำค้นหาสถานที่ใน Google Maps"},{"รายการ":"ลิงก์ระบบเจ้าหน้าที่","ข้อความ":null,"คำอธิบาย":"ว่างไว้ = ไม่แสดงปุ่ม \"สำหรับเจ้าหน้าที่\""},{"รายการ":"ข้อความส่วนท้าย","ข้อความ":"ดูแลด้วยมาตรฐาน ปลอดภัยด้วยหัวใจ ทีมสหวิชาชีพห้องผ่าตัดพร้อมให้บริการผู้ป่วยทุกราย","คำอธิบาย":null}],"ตัวเลขเด่น":[{"ตัวเลข":"6","คำอธิบาย":"ห้องผ่าตัด","แสดง":false},{"ตัวเลข":"24/7","คำอธิบาย":"ห้องผ่าตัดฉุกเฉิน","แสดง":true},{"ตัวเลข":"98%","คำอธิบาย":"ความพึงพอใจผู้ป่วย","แสดง":false}],"บริการ":[{"ไอคอน":"✚","ชื่อบริการ":"ศัลยกรรมทั่วไป","รายละเอียด":"ผ่าตัดไส้ติ่ง ถุงน้ำดี ไส้เลื่อน และหัตถการศัลยกรรมพื้นฐาน","แสดง":true},{"ไอคอน":"♀","ชื่อบริการ":"สูติ-นรีเวชกรรม","รายละเอียด":"ผ่าตัดคลอด และหัตถการทางนรีเวชสำหรับผู้ป่วยหญิง","แสดง":true},{"ไอคอน":"🦴","ชื่อบริการ":"ออร์โธปิดิกส์","รายละเอียด":"ผ่าตัดกระดูกและข้อ กรณีอุบัติเหตุและโรคทางกระดูก","แสดง":true},{"ไอคอน":"⏱","ชื่อบริการ":"ห้องผ่าตัดฉุกเฉิน","รายละเอียด":"พร้อมให้บริการตลอด 24 ชั่วโมง สำหรับผู้ป่วยวิกฤต","แสดง":true}],"ความปลอดภัย":[{"ช่วงเวลา":"ก่อนนำสลบ","ขั้นตอน":"Sign In","รายละเอียด":"ยืนยันตัวผู้ป่วย ตำแหน่งผ่าตัด และประวัติแพ้ยาก่อนเริ่มกระบวนการ","แสดง":true},{"ช่วงเวลา":"ก่อนลงมีด","ขั้นตอน":"Time Out","รายละเอียด":"ทีมผ่าตัดยืนยันร่วมกันครั้งสุดท้ายก่อนเริ่มการผ่าตัดทุกครั้ง","แสดง":true},{"ช่วงเวลา":"ก่อนออกห้องผ่าตัด","ขั้นตอน":"Sign Out","รายละเอียด":"ตรวจนับอุปกรณ์และผ้าก๊อซ พร้อมสรุปแผนดูแลหลังผ่าตัด","แสดง":true}],"ทีมงาน":[{"ไอคอน":"👨‍⚕️","ชื่อหรือตำแหน่ง":"ศัลยแพทย์ทั่วไป","หน้าที่":"ทีมแพทย์ผ่าตัด","ลิงก์รูป":null,"แสดง":true},{"ไอคอน":"👩‍⚕️","ชื่อหรือตำแหน่ง":"วิสัญญีพยาบาล","หน้าที่":"ทีมระงับความรู้สึก","ลิงก์รูป":null,"แสดง":true},{"ไอคอน":"👨‍⚕️","ชื่อหรือตำแหน่ง":"พยาบาลเครื่องมือ","หน้าที่":"Scrub Nurse","ลิงก์รูป":null,"แสดง":true},{"ไอคอน":"👩‍⚕️","ชื่อหรือตำแหน่ง":"พยาบาลเวียน","หน้าที่":"Circulating Nurse","ลิงก์รูป":null,"แสดง":true}],"คำถาม":[{"หมวด":"ก่อนผ่าตัด","คำถาม":"ต้องงดน้ำงดอาหารก่อนผ่าตัดกี่ชั่วโมง?","คำตอบ":"โดยทั่วไปควรงดอาหารและน้ำอย่างน้อย 6-8 ชั่วโมงก่อนผ่าตัด ทั้งนี้ขึ้นอยู่กับคำแนะนำของแพทย์และวิสัญญีแพทย์ในแต่ละราย","แสดง":true},{"หมวด":"ก่อนผ่าตัด","คำถาม":"ควรเตรียมเอกสารอะไรมาในวันผ่าตัด?","คำตอบ":"บัตรประชาชน บัตรนัด ผลตรวจทางห้องปฏิบัติการ (ถ้ามี) และเอกสารสิทธิการรักษาพยาบาล","แสดง":true},{"หมวด":"ก่อนผ่าตัด","คำถาม":"ควรงดยาชนิดใดก่อนผ่าตัดหรือไม่?","คำตอบ":"ยาบางชนิด เช่น ยาละลายลิ่มเลือด ควรแจ้งแพทย์ล่วงหน้า และปฏิบัติตามคำแนะนำของแพทย์อย่างเคร่งครัด","แสดง":true},{"หมวด":"ก่อนผ่าตัด","คำถาม":"ญาติสามารถรอที่ไหนระหว่างผ่าตัด?","คำตอบ":"มีพื้นที่พักคอยสำหรับญาติบริเวณหน้าห้องผ่าตัด พร้อมระบบแจ้งความคืบหน้าจากทีมพยาบาล","แสดง":true},{"หมวด":"หลังผ่าตัด","คำถาม":"หลังผ่าตัดต้องพักฟื้นที่ใด?","คำตอบ":"ผู้ป่วยจะถูกย้ายไปพักฟื้นที่ห้องพักฟื้น (Recovery Room) ภายใต้การดูแลอย่างใกล้ชิดก่อนย้ายกลับหอผู้ป่วย","แสดง":true},{"หมวด":"หลังผ่าตัด","คำถาม":"เมื่อกลับบ้านแล้ว ดูแลแผลผ่าตัดอย่างไร?","คำตอบ":"รักษาแผลให้แห้งและสะอาด สังเกตอาการบวมแดงหรือมีหนอง หากพบความผิดปกติให้รีบกลับมาพบแพทย์","แสดง":true},{"หมวด":"หลังผ่าตัด","คำถาม":"ควรงดกิจกรรมใดหลังผ่าตัด?","คำตอบ":"หลีกเลี่ยงการยกของหนักและออกแรงบริเวณแผลผ่าตัด จนกว่าแพทย์จะอนุญาตในวันนัดติดตามอาการ","แสดง":true},{"หมวด":"หลังผ่าตัด","คำถาม":"ควรกลับมาพบแพทย์เมื่อใด?","คำตอบ":"ตามวันนัดที่ระบุในใบนัด หรือทันทีหากมีไข้สูง ปวดแผลรุนแรง หรือแผลมีเลือดออกผิดปกติ","แสดง":true}],"รายโรค":[{"ชื่อเรื่อง":"ผ่าตัดไส้ติ่ง","แผนก":"ศัลยกรรมทั่วไป","คำอธิบายสั้น":"การปฏิบัติตัวก่อน-หลังผ่าตัดไส้ติ่งอักเสบ","ข้อปฏิบัติ":"งดน้ำงดอาหารตามเวลาที่แพทย์กำหนดก่อนผ่าตัด\nหลังผ่าตัดค่อย ๆ เริ่มรับประทานอาหารอ่อนตามคำแนะนำพยาบาล\nสังเกตแผลผ่าตัด หากบวมแดงหรือมีไข้ให้รีบพบแพทย์\nงดยกของหนักอย่างน้อย 2-4 สัปดาห์","แสดง":true},{"ชื่อเรื่อง":"ผ่าตัดคลอด (C-Section)","แผนก":"สูติ-นรีเวชกรรม","คำอธิบายสั้น":"การดูแลตนเองสำหรับคุณแม่หลังผ่าตัดคลอด","ข้อปฏิบัติ":"ลุกเดินเบา ๆ ภายใน 24 ชั่วโมงแรกเพื่อลดความเสี่ยงลิ่มเลือดอุดตัน\nดูแลความสะอาดแผลผ่าตัดตามคำแนะนำของพยาบาล\nงดยกของหนักเกินน้ำหนักลูกอย่างน้อย 6 สัปดาห์\nสังเกตอาการผิดปกติ เช่น เลือดออกมาก ไข้สูง ปวดแผลรุนแรง","แสดง":true},{"ชื่อเรื่อง":"ผ่าตัดกระดูกและข้อ","แผนก":"ออร์โธปิดิกส์","คำอธิบายสั้น":"การปฏิบัติตัวหลังผ่าตัดออร์โธปิดิกส์","ข้อปฏิบัติ":"ฝึกขยับข้อตามโปรแกรมกายภาพบำบัดที่ได้รับ\nใช้อุปกรณ์ช่วยเดินตามคำแนะนำจนกว่าแพทย์จะอนุญาตให้ลงน้ำหนักเต็มที่\nระวังการหกล้มบริเวณที่ผ่าตัด\nมาตามนัดเพื่อติดตามผลเอกซเรย์และแผล","แสดง":true}],"ข่าวสาร":[{"วันที่":"15 กรกฎาคม 2569","หัวข้อ":"อบรมฟื้นฟู Surgical Safety Checklist ประจำปี","รายละเอียด":"ทีมห้องผ่าตัดเข้าร่วมอบรมทบทวนมาตรฐานความปลอดภัยในการผ่าตัด","ลิงก์รูปปก":null,"ลิงก์โฟลเดอร์รูป":null,"แสดง":false,"รูปทั้งหมด":null},{"วันที่":"2 มิถุนายน 2569","หัวข้อ":"ปรับปรุงห้องผ่าตัดหมายเลข 3","รายละเอียด":"ติดตั้งอุปกรณ์ผ่าตัดรุ่นใหม่เพื่อเพิ่มประสิทธิภาพการให้บริการ","ลิงก์รูปปก":null,"ลิงก์โฟลเดอร์รูป":null,"แสดง":false,"รูปทั้งหมด":null},{"วันที่":"18 พฤษภาคม 2569","หัวข้อ":"รับรางวัลหน่วยงานควบคุมการติดเชื้อดีเด่น","รายละเอียด":"กลุ่มงานห้องผ่าตัดได้รับการยกย่องด้านมาตรฐานป้องกันการติดเชื้อ","ลิงก์รูปปก":null,"ลิงก์โฟลเดอร์รูป":null,"แสดง":false,"รูปทั้งหมด":null}]};
+  var FALLBACK = {"ตั้งค่า":[{"รายการ":"ชื่อหน่วยงาน","ข้อความ":"กลุ่มงานห้องผ่าตัด","คำอธิบาย":"แสดงบนแถบเมนูและส่วนท้าย"},{"รายการ":"ชื่อโรงพยาบาล","ข้อความ":"โรงพยาบาลยางตลาด","คำอธิบาย":null},{"รายการ":"หัวข้อหลัก","ข้อความ":"ดูแลทุกวินาที [ในห้องผ่าตัด]\nด้วยมาตรฐานและหัวใจของทีม","คำอธิบาย":"ข้อความใน [ ] จะเป็นสีเน้น"},{"รายการ":"คำโปรย","ข้อความ":"ทีมสหวิชาชีพห้องผ่าตัดของเรา ให้บริการผ่าตัดอย่างปลอดภัย แม่นยำ และใส่ใจผู้ป่วยในทุกขั้นตอน ตั้งแต่ก่อน ระหว่าง จนถึงหลังการผ่าตัด","คำอธิบาย":null},{"รายการ":"เกี่ยวกับ หัวข้อ","ข้อความ":"พื้นที่ปลอดภัยที่สุดของโรงพยาบาล คือที่ที่เรายืนทำงานทุกวัน","คำอธิบาย":null},{"รายการ":"เกี่ยวกับ ข้อความ","ข้อความ":"กลุ่มงานห้องผ่าตัด โรงพยาบาลยางตลาด ให้บริการผ่าตัดครอบคลุมสาขาศัลยกรรมหลัก โดยทีมสหวิชาชีพที่ผ่านการฝึกอบรมเฉพาะทาง พร้อมเครื่องมือและระบบควบคุมคุณภาพตามมาตรฐานสากล เพื่อความปลอดภัยสูงสุดของผู้ป่วยทุกราย","คำอธิบาย":null},{"รายการ":"วิสัยทัศน์","ข้อความ":"เป็นกลุ่มงานห้องผ่าตัดที่ได้มาตรฐาน ปลอดภัย และเป็นที่ไว้วางใจของผู้รับบริการในเขตอำเภอยางตลาดและใกล้เคียง","คำอธิบาย":null},{"รายการ":"พันธกิจ","ข้อความ":"ให้บริการผ่าตัดด้วยมาตรฐานวิชาชีพ ควบคุมการติดเชื้อ ลดความเสี่ยง และพัฒนาศักยภาพบุคลากรอย่างต่อเนื่อง","คำอธิบาย":null},{"รายการ":"ที่อยู่","ข้อความ":"โรงพยาบาลยางตลาด อำเภอยางตลาด จังหวัดกาฬสินธุ์","คำอธิบาย":null},{"รายการ":"โทรศัพท์","ข้อความ":"043-891-249 ต่อ 127","คำอธิบาย":"ว่างไว้ = ไม่แสดง ใส่เบอร์จริงแล้วจะขึ้นเว็บเอง"},{"รายการ":"เวลาทำการ","ข้อความ":"ห้องผ่าตัดตามนัด: จันทร์–ศุกร์ 08.30–16.30 น.\nห้องผ่าตัดฉุกเฉิน: ตลอด 24 ชั่วโมง","คำอธิบาย":null},{"รายการ":"แผนที่","ข้อความ":"โรงพยาบาลยางตลาด","คำอธิบาย":"คำค้นหาสถานที่ใน Google Maps"},{"รายการ":"ลิงก์ระบบเจ้าหน้าที่","ข้อความ":null,"คำอธิบาย":"ว่างไว้ = ไม่แสดงปุ่ม \"สำหรับเจ้าหน้าที่\""},{"รายการ":"ลิงก์ระบบรับแบบประเมิน","ข้อความ":null,"คำอธิบาย":"วางลิงก์เว็บแอปของสคริปต์ แบบประเมิน.gs (ลงท้าย /exec) ว่างไว้ = ไม่แสดงส่วนประเมินบนเว็บ"},{"รายการ":"ช่องทางร้องเรียนอื่น","ข้อความ":null,"คำอธิบาย":"เช่น ศูนย์รับเรื่องร้องเรียน รพ. โทร ... ว่างไว้ = ไม่แสดง"},{"รายการ":"ข้อความส่วนท้าย","ข้อความ":"ดูแลด้วยมาตรฐาน ปลอดภัยด้วยหัวใจ ทีมสหวิชาชีพห้องผ่าตัดพร้อมให้บริการผู้ป่วยทุกราย","คำอธิบาย":null}],"ตัวเลขเด่น":[{"ตัวเลข":"6","คำอธิบาย":"ห้องผ่าตัด","แสดง":false},{"ตัวเลข":"24/7","คำอธิบาย":"ห้องผ่าตัดฉุกเฉิน","แสดง":true},{"ตัวเลข":"98%","คำอธิบาย":"ความพึงพอใจผู้ป่วย","แสดง":false}],"บริการ":[{"ไอคอน":"✚","ชื่อบริการ":"ศัลยกรรมทั่วไป","รายละเอียด":"ผ่าตัดไส้ติ่ง ถุงน้ำดี ไส้เลื่อน และหัตถการศัลยกรรมพื้นฐาน","แสดง":true},{"ไอคอน":"♀","ชื่อบริการ":"สูติ-นรีเวชกรรม","รายละเอียด":"ผ่าตัดคลอด และหัตถการทางนรีเวชสำหรับผู้ป่วยหญิง","แสดง":true},{"ไอคอน":"🦴","ชื่อบริการ":"ออร์โธปิดิกส์","รายละเอียด":"ผ่าตัดกระดูกและข้อ กรณีอุบัติเหตุและโรคทางกระดูก","แสดง":true},{"ไอคอน":"⏱","ชื่อบริการ":"ห้องผ่าตัดฉุกเฉิน","รายละเอียด":"พร้อมให้บริการตลอด 24 ชั่วโมง สำหรับผู้ป่วยวิกฤต","แสดง":true}],"ความปลอดภัย":[{"ช่วงเวลา":"ก่อนนำสลบ","ขั้นตอน":"Sign In","รายละเอียด":"ยืนยันตัวผู้ป่วย ตำแหน่งผ่าตัด และประวัติแพ้ยาก่อนเริ่มกระบวนการ","แสดง":true},{"ช่วงเวลา":"ก่อนลงมีด","ขั้นตอน":"Time Out","รายละเอียด":"ทีมผ่าตัดยืนยันร่วมกันครั้งสุดท้ายก่อนเริ่มการผ่าตัดทุกครั้ง","แสดง":true},{"ช่วงเวลา":"ก่อนออกห้องผ่าตัด","ขั้นตอน":"Sign Out","รายละเอียด":"ตรวจนับอุปกรณ์และผ้าก๊อซ พร้อมสรุปแผนดูแลหลังผ่าตัด","แสดง":true}],"ทีมงาน":[{"ไอคอน":"👨‍⚕️","ชื่อหรือตำแหน่ง":"ศัลยแพทย์ทั่วไป","หน้าที่":"ทีมแพทย์ผ่าตัด","ลิงก์รูป":null,"แสดง":true},{"ไอคอน":"👩‍⚕️","ชื่อหรือตำแหน่ง":"วิสัญญีพยาบาล","หน้าที่":"ทีมระงับความรู้สึก","ลิงก์รูป":null,"แสดง":true},{"ไอคอน":"👨‍⚕️","ชื่อหรือตำแหน่ง":"พยาบาลเครื่องมือ","หน้าที่":"Scrub Nurse","ลิงก์รูป":null,"แสดง":true},{"ไอคอน":"👩‍⚕️","ชื่อหรือตำแหน่ง":"พยาบาลเวียน","หน้าที่":"Circulating Nurse","ลิงก์รูป":null,"แสดง":true}],"คำถาม":[{"หมวด":"ก่อนผ่าตัด","คำถาม":"ต้องงดน้ำงดอาหารก่อนผ่าตัดกี่ชั่วโมง?","คำตอบ":"โดยทั่วไปควรงดอาหารและน้ำอย่างน้อย 6-8 ชั่วโมงก่อนผ่าตัด ทั้งนี้ขึ้นอยู่กับคำแนะนำของแพทย์และวิสัญญีแพทย์ในแต่ละราย","แสดง":true},{"หมวด":"ก่อนผ่าตัด","คำถาม":"ควรเตรียมเอกสารอะไรมาในวันผ่าตัด?","คำตอบ":"บัตรประชาชน บัตรนัด ผลตรวจทางห้องปฏิบัติการ (ถ้ามี) และเอกสารสิทธิการรักษาพยาบาล","แสดง":true},{"หมวด":"ก่อนผ่าตัด","คำถาม":"ควรงดยาชนิดใดก่อนผ่าตัดหรือไม่?","คำตอบ":"ยาบางชนิด เช่น ยาละลายลิ่มเลือด ควรแจ้งแพทย์ล่วงหน้า และปฏิบัติตามคำแนะนำของแพทย์อย่างเคร่งครัด","แสดง":true},{"หมวด":"ก่อนผ่าตัด","คำถาม":"ญาติสามารถรอที่ไหนระหว่างผ่าตัด?","คำตอบ":"มีพื้นที่พักคอยสำหรับญาติบริเวณหน้าห้องผ่าตัด พร้อมระบบแจ้งความคืบหน้าจากทีมพยาบาล","แสดง":true},{"หมวด":"หลังผ่าตัด","คำถาม":"หลังผ่าตัดต้องพักฟื้นที่ใด?","คำตอบ":"ผู้ป่วยจะถูกย้ายไปพักฟื้นที่ห้องพักฟื้น (Recovery Room) ภายใต้การดูแลอย่างใกล้ชิดก่อนย้ายกลับหอผู้ป่วย","แสดง":true},{"หมวด":"หลังผ่าตัด","คำถาม":"เมื่อกลับบ้านแล้ว ดูแลแผลผ่าตัดอย่างไร?","คำตอบ":"รักษาแผลให้แห้งและสะอาด สังเกตอาการบวมแดงหรือมีหนอง หากพบความผิดปกติให้รีบกลับมาพบแพทย์","แสดง":true},{"หมวด":"หลังผ่าตัด","คำถาม":"ควรงดกิจกรรมใดหลังผ่าตัด?","คำตอบ":"หลีกเลี่ยงการยกของหนักและออกแรงบริเวณแผลผ่าตัด จนกว่าแพทย์จะอนุญาตในวันนัดติดตามอาการ","แสดง":true},{"หมวด":"หลังผ่าตัด","คำถาม":"ควรกลับมาพบแพทย์เมื่อใด?","คำตอบ":"ตามวันนัดที่ระบุในใบนัด หรือทันทีหากมีไข้สูง ปวดแผลรุนแรง หรือแผลมีเลือดออกผิดปกติ","แสดง":true}],"รายโรค":[{"ชื่อเรื่อง":"ผ่าตัดไส้ติ่ง","แผนก":"ศัลยกรรมทั่วไป","คำอธิบายสั้น":"การปฏิบัติตัวก่อน-หลังผ่าตัดไส้ติ่งอักเสบ","ข้อปฏิบัติ":"งดน้ำงดอาหารตามเวลาที่แพทย์กำหนดก่อนผ่าตัด\nหลังผ่าตัดค่อย ๆ เริ่มรับประทานอาหารอ่อนตามคำแนะนำพยาบาล\nสังเกตแผลผ่าตัด หากบวมแดงหรือมีไข้ให้รีบพบแพทย์\nงดยกของหนักอย่างน้อย 2-4 สัปดาห์","แสดง":true},{"ชื่อเรื่อง":"ผ่าตัดคลอด (C-Section)","แผนก":"สูติ-นรีเวชกรรม","คำอธิบายสั้น":"การดูแลตนเองสำหรับคุณแม่หลังผ่าตัดคลอด","ข้อปฏิบัติ":"ลุกเดินเบา ๆ ภายใน 24 ชั่วโมงแรกเพื่อลดความเสี่ยงลิ่มเลือดอุดตัน\nดูแลความสะอาดแผลผ่าตัดตามคำแนะนำของพยาบาล\nงดยกของหนักเกินน้ำหนักลูกอย่างน้อย 6 สัปดาห์\nสังเกตอาการผิดปกติ เช่น เลือดออกมาก ไข้สูง ปวดแผลรุนแรง","แสดง":true},{"ชื่อเรื่อง":"ผ่าตัดกระดูกและข้อ","แผนก":"ออร์โธปิดิกส์","คำอธิบายสั้น":"การปฏิบัติตัวหลังผ่าตัดออร์โธปิดิกส์","ข้อปฏิบัติ":"ฝึกขยับข้อตามโปรแกรมกายภาพบำบัดที่ได้รับ\nใช้อุปกรณ์ช่วยเดินตามคำแนะนำจนกว่าแพทย์จะอนุญาตให้ลงน้ำหนักเต็มที่\nระวังการหกล้มบริเวณที่ผ่าตัด\nมาตามนัดเพื่อติดตามผลเอกซเรย์และแผล","แสดง":true}],"ข่าวสาร":[{"วันที่":"15 กรกฎาคม 2569","หัวข้อ":"อบรมฟื้นฟู Surgical Safety Checklist ประจำปี","รายละเอียด":"ทีมห้องผ่าตัดเข้าร่วมอบรมทบทวนมาตรฐานความปลอดภัยในการผ่าตัด","ลิงก์รูปปก":null,"ลิงก์โฟลเดอร์รูป":null,"แสดง":false,"รูปทั้งหมด":null},{"วันที่":"2 มิถุนายน 2569","หัวข้อ":"ปรับปรุงห้องผ่าตัดหมายเลข 3","รายละเอียด":"ติดตั้งอุปกรณ์ผ่าตัดรุ่นใหม่เพื่อเพิ่มประสิทธิภาพการให้บริการ","ลิงก์รูปปก":null,"ลิงก์โฟลเดอร์รูป":null,"แสดง":false,"รูปทั้งหมด":null},{"วันที่":"18 พฤษภาคม 2569","หัวข้อ":"รับรางวัลหน่วยงานควบคุมการติดเชื้อดีเด่น","รายละเอียด":"กลุ่มงานห้องผ่าตัดได้รับการยกย่องด้านมาตรฐานป้องกันการติดเชื้อ","ลิงก์รูปปก":null,"ลิงก์โฟลเดอร์รูป":null,"แสดง":false,"รูปทั้งหมด":null},{"วันที่":"21 ตุลาคม 2569","หัวข้อ":"ร่วมกิจกรรม \"วันพยาบาลแห่งชาติ\"","รายละเอียด":"พว.สุวิสาส์   ทองดอนง้าว หัวหน้างานห้องผ่าตัด กลุ่มงานการพยาบาล โรงพยาบาลยางตลาด \nได้รับใบประกาศเกียรติคุณ เป็นผู้บำเพ็ญตนก่อให้เกิดประโยชน์ต่อสังคมและเป็นแบบอย่างที่ดีของผู้ประกอบวิชาชีพการพยาบาล\nและ\nพว.ฌณกฤต  มะลิฉิม พยาบาลวิชาชีพชำนาญการ ได้เข้าร่วมการนำเสนอผลงานวิชาการ CQI ODS Smart Service","ลิงก์รูปปก":null,"ลิงก์โฟลเดอร์รูป":"https://drive.google.com/drive/folders/1Q_G4xog3jz1Ba3-BMqScHe1-_Fi_aw4t?usp=drive_link","แสดง":true,"รูปทั้งหมด":"184oWB0x0zNrnmoERYovltCutFXS5TyVO\n1k_Ghanni1ady5nbwhnhr5o0mG27mvQoY"}],"แบบประเมิน":[{"คำถาม":"เจ้าหน้าที่ให้บริการด้วยความสุภาพ เป็นมิตร และเอาใจใส่","แสดง":true},{"คำถาม":"ได้รับคำอธิบายเรื่องการผ่าตัดและการเตรียมตัวอย่างเข้าใจ","แสดง":true},{"คำถาม":"ได้รับการดูแลความเป็นส่วนตัวและศักดิ์ศรี","แสดง":true},{"คำถาม":"ได้รับการดูแลอาการปวดและความไม่สุขสบาย","แสดง":true},{"คำถาม":"ความสะอาดและความปลอดภัยของสถานที่","แสดง":true},{"คำถาม":"ความพึงพอใจโดยรวมต่อบริการห้องผ่าตัด","แสดง":true}]};
 
   var CACHE_KEY = 'or-yth-content-v1';
 
@@ -867,12 +1030,7 @@
     toggle($('hero-lead'), !!S['คำโปรย']);
     $('hero-lead').innerHTML = txt(S['คำโปรย']);
 
-    // ตัวเลขเด่น
-    var vit = visible(T['ตัวเลขเด่น'], 'ตัวเลข');
-    var vEl = $('vitals');
-    vEl.style.setProperty('--n', Math.max(1, Math.min(vit.length, 4)));
-    vEl.innerHTML = vit.map(function (r) { return '<div><b>' + esc(val(r, 'ตัวเลข')) + '</b><span>' + esc(val(r, 'คำอธิบาย')) + '</span></div>'; }).join('');
-    toggle(vEl, vit.length > 0);
+    renderVitals(T);
 
     // บริการ
     var svc = visible(T['บริการ'], 'ชื่อบริการ');
@@ -902,6 +1060,7 @@
     showSection('team', team.length > 0);
 
     renderGuide(T);
+    renderFeedback(T, S);
     renderNews(T);
 
     // ติดต่อ
@@ -1033,6 +1192,181 @@
     card.classList.add('active');
     card.setAttribute('aria-expanded', 'true');
     box.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  }
+
+  // ตัวเลขเด่นบนหน้าแรก (+ ความพึงพอใจจริงจากแบบประเมิน เมื่อมีผู้ประเมินครบ)
+  function renderVitals(T) {
+    var vit = visible(T['ตัวเลขเด่น'], 'ตัวเลข').map(function (r) { return [val(r, 'ตัวเลข'), val(r, 'คำอธิบาย')]; });
+    var sm = fb.summary;
+    if (sm && sm.show && !vit.some(function (v) { return /พึงพอใจ/.test(v[1]); })) vit.push([Math.round(sm.percent) + '%', 'ความพึงพอใจผู้ป่วย']);
+    var vEl = $('vitals');
+    vEl.style.setProperty('--n', Math.max(1, Math.min(vit.length, 4)));
+    vEl.innerHTML = vit.map(function (v) { return '<div><b>' + esc(v[0]) + '</b><span>' + esc(v[1]) + '</span></div>'; }).join('');
+    toggle(vEl, vit.length > 0);
+  }
+
+  /* ---- ประเมินความพึงพอใจ / ข้อร้องเรียน ---- */
+  var fb = { url: '', sig: '', summary: null, summaryFor: '', builtAt: Date.now(), busy: false };
+  var FB_URL_RE = /^https:\/\/script\.google\.com\/(?:a\/[\w.-]+\/)?macros\/s\/[\w-]+\/exec$/;
+  var FACES = [['😞', 'น้อยที่สุด'], ['🙁', 'น้อย'], ['😐', 'ปานกลาง'], ['🙂', 'มาก'], ['😄', 'มากที่สุด']];
+  var FB_ERR = {
+    consent: 'กรุณาติ๊กยินยอมให้ติดต่อกลับ หรือลบช่องทางติดต่อออก',
+    detail: 'กรุณาพิมพ์รายละเอียดอย่างน้อย 10 ตัวอักษร',
+    kind: 'กรุณาเลือกประเภทเรื่อง',
+    no_scores: 'กรุณาให้คะแนนอย่างน้อย 1 ข้อ',
+    busy: 'ขณะนี้มีผู้ส่งข้อมูลจำนวนมาก กรุณาลองใหม่ในอีกสักครู่',
+    'default': 'ส่งไม่สำเร็จ กรุณาลองใหม่อีกครั้ง หรือติดต่อทางโทรศัพท์'
+  };
+
+  function renderFeedback(T, S) {
+    var url = String(S['ลิงก์ระบบรับแบบประเมิน'] || '').trim();
+    if (!FB_URL_RE.test(url)) url = '';
+    fb.url = url;
+    showSection('feedback', !!url);
+    var other = S['ช่องทางร้องเรียนอื่น'];
+    $('fb-other-text').innerHTML = txt(other);
+    toggle($('fb-other'), !!other);
+    if (!url) return;
+    var qs = visible(T['แบบประเมิน'], 'คำถาม').map(function (r) { return val(r, 'คำถาม'); });
+    var depts = visible(T['บริการ'], 'ชื่อบริการ').map(function (r) { return val(r, 'ชื่อบริการ'); });
+    var sig = JSON.stringify([qs, depts]);
+    if (sig !== fb.sig) {
+      fb.sig = sig;
+      $('fb-qs').innerHTML = qs.map(function (q, i) {
+        return '<div class="fb-q" data-q="' + esc(q) + '"><p class="fb-q-text"><b>' + (i + 1) + '.</b> ' + esc(q) + '</p>' +
+          '<div class="rating" role="radiogroup" aria-label="' + esc(q) + '">' + FACES.map(function (f, j) {
+            return '<label><input type="radio" name="q' + i + '" value="' + (j + 1) + '" aria-label="' + f[1] + '"><span class="face" aria-hidden="true">' + f[0] + '</span><small>' + f[1] + '</small></label>';
+          }).join('') + '</div></div>';
+      }).join('');
+      $('fb-dept').innerHTML = '<option value="">ไม่ระบุ</option>' + depts.concat(['อื่น ๆ']).map(function (d) { return '<option>' + esc(d) + '</option>'; }).join('');
+      toggle($('fb-tab-survey'), qs.length > 0);
+      $('fb-tabs').style.gridTemplateColumns = qs.length ? '' : '1fr';
+      if (!qs.length) fbTab('complaint');
+      fb.builtAt = Date.now();
+    }
+    if (fb.summaryFor !== url) { fb.summaryFor = url; loadFbSummary(); }
+    renderScore();
+  }
+
+  function renderScore() {
+    var s = fb.summary, el = $('score-card');
+    if (s && s.show) {
+      var pct = Math.max(0, Math.min(100, s.avg / 5 * 100));
+      el.innerHTML = '<span class="sc-label">คะแนนความพึงพอใจเฉลี่ย</span><div class="sc-main"><b>' + s.avg.toFixed(1) + '</b><span>/ 5</span></div>' +
+        '<div class="stars" role="img" aria-label="' + s.avg.toFixed(1) + ' จาก 5 ดาว"><span class="stars-fill" style="width:' + pct.toFixed(1) + '%">★★★★★</span>★★★★★</div>' +
+        '<p>จาก ' + s.n.toLocaleString('th-TH') + ' ความคิดเห็นใน 12 เดือนล่าสุด · คิดเป็นร้อยละ ' + s.percent.toFixed(1) + '</p>';
+    } else {
+      el.innerHTML = '<span class="sc-icon" aria-hidden="true">⭐</span><b class="sc-title">ร่วมประเมินบริการของเรา</b><p>' +
+        (s ? 'คะแนนเฉลี่ยจะแสดงที่นี่เมื่อมีผู้ประเมินครบ ' + s.min + ' คน' : 'ความคิดเห็นของคุณช่วยให้เราพัฒนาบริการ') + '</p>';
+    }
+  }
+
+  function loadFbSummary() {
+    var url = fb.url;
+    if (!url) return;
+    fetch(url + '?action=summary').then(function (r) { return r.json(); }).then(function (d) {
+      if (url !== fb.url || !d || !d.ok) return;
+      fb.summary = { show: !!d.show, n: Number(d.n) || 0, min: Number(d.min) || 10, avg: Number(d.avg) || 0, percent: Number(d.percent) || 0 };
+      renderScore();
+      if (current) renderVitals(current);
+    }).catch(function () { /* ไม่แสดงคะแนน */ });
+  }
+
+  function fbTab(kind) {
+    $('fb-tabs').querySelectorAll('.fb-tab').forEach(function (b) {
+      var on = b.getAttribute('data-fb') === kind;
+      b.classList.toggle('active', on); b.setAttribute('aria-selected', on);
+    });
+    $('fb-survey').hidden = kind !== 'survey';
+    $('fb-complaint').hidden = kind !== 'complaint';
+    $('fb-done').hidden = true;
+    $('fb-tabs').hidden = false;
+  }
+
+  function fbDone(kind, ref, contacted) {
+    $('fb-survey').hidden = true; $('fb-complaint').hidden = true; $('fb-tabs').hidden = true;
+    var done = $('fb-done');
+    setText($('fb-done-title'), kind === 'survey' ? 'ขอบคุณสำหรับการประเมิน 🙏' : 'ได้รับเรื่องของคุณแล้ว');
+    setText($('fb-done-text'), kind === 'survey' ? 'ความคิดเห็นของคุณช่วยให้ทีมห้องผ่าตัดพัฒนาบริการให้ดียิ่งขึ้น'
+      : 'ทีมห้องผ่าตัดจะพิจารณาและดำเนินการ' + (contacted ? ' และติดต่อกลับตามช่องทางที่ให้ไว้' : '') + ' ขอบคุณที่แจ้งให้เราทราบ');
+    var r = $('fb-ref');
+    r.hidden = !ref;
+    if (ref) r.querySelector('b').textContent = ref;
+    done.hidden = false;
+    done.setAttribute('data-kind', kind);
+    try { $('fb-again').focus({ preventScroll: true }); } catch (e) { /* ไม่เป็นไร */ }
+    $('fb-card').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  }
+
+  function fbField(form, n) { return form.elements.namedItem(n); }
+
+  function fbSubmit(form) {
+    if (fb.busy || !fb.url) return;
+    var kind = form.getAttribute('data-kind'), err = form.querySelector('.fb-error');
+    form.querySelectorAll('.invalid').forEach(function (x) { x.classList.remove('invalid'); });
+    var payload = { type: kind, t: Date.now() - fb.builtAt, hp: fbField(form, 'website').value }, problems = [];
+    if (kind === 'survey') {
+      var resp = form.querySelector('input[name="respondent"]:checked');
+      if (!resp) { problems.push('เลือกผู้ตอบแบบประเมิน'); form.querySelector('[data-field="respondent"]').classList.add('invalid'); }
+      var scores = {}, missing = 0;
+      form.querySelectorAll('.fb-q').forEach(function (q) {
+        var c = q.querySelector('input:checked');
+        if (c) scores[q.getAttribute('data-q')] = Number(c.value); else { missing++; q.classList.add('invalid'); }
+      });
+      if (missing) problems.push('ให้คะแนนให้ครบทุกข้อ (เหลืออีก ' + missing + ' ข้อ)');
+      payload.respondent = resp ? resp.value : '';
+      payload.dept = fbField(form, 'dept').value;
+      payload.scores = scores;
+      payload.comment = fbField(form, 'comment').value.trim();
+    } else {
+      var k = form.querySelector('input[name="kind"]:checked');
+      if (!k) { problems.push('เลือกประเภทเรื่อง'); form.querySelector('[data-field="kind"]').classList.add('invalid'); }
+      var detail = fbField(form, 'detail').value.trim();
+      if (detail.length < 10) { problems.push('พิมพ์รายละเอียดอย่างน้อย 10 ตัวอักษร'); form.querySelector('[data-field="detail"]').classList.add('invalid'); }
+      var contact = fbField(form, 'contact').value.trim();
+      if (contact && !fbField(form, 'consent').checked) { problems.push('ติ๊กยินยอมให้ติดต่อกลับ หรือลบช่องทางติดต่อออก'); $('fb-consent').classList.add('invalid'); }
+      payload.kind = k ? k.value : '';
+      payload.detail = detail;
+      payload.serviceDate = fbField(form, 'serviceDate').value;
+      payload.name = fbField(form, 'name').value.trim();
+      payload.contact = contact;
+      payload.consent = !!fbField(form, 'consent').checked;
+    }
+    if (problems.length) {
+      err.textContent = 'กรุณา' + problems.join(' และ');
+      var first = form.querySelector('.invalid');
+      if (first) first.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      return;
+    }
+    err.textContent = '';
+    var btn = form.querySelector('.fb-submit'), label = btn.textContent;
+    fb.busy = true; btn.disabled = true; btn.textContent = 'กำลังส่ง…';
+    var ctl = window.AbortController ? new AbortController() : null;
+    var timer = setTimeout(function () { if (ctl) ctl.abort(); }, 25000);
+    fetch(fb.url, { method: 'POST', headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: JSON.stringify(payload), signal: ctl ? ctl.signal : undefined })
+      .then(function (r) { return r.json(); })
+      .then(function (d) {
+        if (d && d.ok) {
+          var contacted = !!payload.contact;
+          form.reset();
+          $('fb-consent').classList.add('is-hidden');
+          setText($('fb-count'), '0');
+          fbDone(kind, d.ref, contacted);
+          if (kind === 'survey') setTimeout(loadFbSummary, 1500);
+        } else {
+          err.textContent = FB_ERR[d && d.error] || FB_ERR['default'];
+        }
+      }, function () { err.textContent = FB_ERR['default']; })
+      .then(function () { clearTimeout(timer); fb.busy = false; btn.disabled = false; btn.textContent = label; });
+  }
+
+  function fbHash() {
+    var h = location.hash;
+    if ((h === '#complaint' || h === '#survey') && fb.url) {
+      fbTab(h === '#complaint' ? 'complaint' : 'survey');
+      var sec = $('feedback');
+      if (sec) sec.scrollIntoView();
+    }
   }
 
   /* ---- ข่าวสารและอัลบั้มภาพกิจกรรม ---- */
@@ -1362,6 +1696,7 @@
     lastRendered = key;
     current = d;
     renderAll(d);
+    if (typeof fitNav === 'function' && header) fitNav();
   }
 
   function merged() {
@@ -1386,6 +1721,7 @@
     var fresh = {}, ok = 0;
     list.forEach(function (p) { if (p[1]) { fresh[p[0]] = p[1]; ok++; } });
     contentFinal = true;
+    setTimeout(fbHash, 50);
     if (ok) {
       var data = merged(FALLBACK, cached, fresh);
       writeCache(data);
@@ -1504,8 +1840,43 @@
   window.addEventListener('popstate', route);
   window.addEventListener('hashchange', route);
 
+  $('feedback').addEventListener('submit', function (e) {
+    var form = e.target.closest('.fb-form');
+    if (form) { e.preventDefault(); fbSubmit(form); }
+  });
+  $('feedback').addEventListener('click', function (e) {
+    var tab = e.target.closest('.fb-tab');
+    if (tab) { fbTab(tab.getAttribute('data-fb')); return; }
+    if (e.target.closest('#fb-again')) { fbTab($('fb-done').getAttribute('data-kind') || 'survey'); fb.builtAt = Date.now(); }
+  });
+  function fbRecheck(e) {
+    var t = e.target, bad = t.closest('.invalid');
+    if (bad && (t.type === 'radio' || t.type === 'checkbox' ? t.checked : t.value.trim().length >= (t.name === 'detail' ? 10 : 1))) bad.classList.remove('invalid');
+    var form = t.closest('.fb-form');
+    if (form && !form.querySelector('.invalid')) form.querySelector('.fb-error').textContent = '';
+  }
+  $('feedback').addEventListener('input', function (e) {
+    if (e.target.name === 'contact') toggle($('fb-consent'), !!e.target.value.trim());
+    if (e.target.name === 'detail') setText($('fb-count'), String(e.target.value.length));
+    fbRecheck(e);
+  });
+  $('feedback').addEventListener('change', fbRecheck);
+  window.addEventListener('hashchange', fbHash);
+
   // เมนูมือถือ
   var header = $('site-header'), burger = $('burger');
+  function fitNav() {
+    var was = header.classList.contains('collapsed');
+    header.classList.remove('collapsed');
+    var wrap = header.querySelector('.nav-wrap');
+    var over = window.innerWidth > 1099 && wrap.scrollWidth > wrap.clientWidth + 1;
+    header.classList.toggle('collapsed', over);
+    if (was && !over) header.classList.remove('open');
+  }
+  var fitTimer = 0;
+  window.addEventListener('resize', function () { clearTimeout(fitTimer); fitTimer = setTimeout(fitNav, 120); });
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(fitNav);
+  fitNav();
   burger.addEventListener('click', function () {
     var open = !header.classList.contains('open');
     header.classList.toggle('open', open);
