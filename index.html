@@ -695,6 +695,126 @@
   .footer-bottom{border-top:1px solid rgba(255,255,255,.1); padding-top:20px; text-align:center; color:#7FA5C4; font-size:.8rem;}
 
   /* reveal animation */
+  /* 5ส. */
+  .fives{background:var(--sky);}
+  .fv-head{display:flex; align-items:flex-end; justify-content:space-between; gap:28px; margin-bottom:34px;}
+  .fv-head .section-head{margin-bottom:0;}
+  .fv-facts{list-style:none; display:flex; gap:10px; flex-wrap:wrap; justify-content:flex-end;}
+  .fv-facts li{background:#fff; border:1px solid var(--line); border-radius:14px; padding:10px 16px; min-width:92px; text-align:center;}
+  .fv-facts b{display:block; font-family:'Kanit'; font-weight:600; font-size:1.45rem; line-height:1.1; color:var(--navy-deep); font-variant-numeric:tabular-nums;}
+  .fv-facts small{font-size:.76rem; color:var(--ink-soft); font-weight:600;}
+  .fv-s{list-style:none; display:grid; grid-template-columns:repeat(5,1fr); gap:12px; margin-bottom:34px; counter-reset:fvs;}
+  .fv-s li{position:relative; background:#fff; border:1px solid var(--line); border-radius:16px; padding:18px 16px 16px; counter-increment:fvs;}
+  .fv-s li::before{content:counter(fvs); position:absolute; right:14px; top:12px; font-family:'Kanit'; font-weight:700; font-size:1.6rem; line-height:1; color:var(--blue-pale);}
+  .fv-s b{display:block; font-family:'Kanit'; font-weight:600; font-size:1.08rem; color:var(--navy-deep); margin-bottom:4px;}
+  .fv-s b::before{content:""; display:block; width:26px; height:4px; border-radius:2px; background:var(--yellow); margin-bottom:10px;}
+  .fv-s span{display:block; font-size:.83rem; color:var(--ink-soft); line-height:1.55;}
+  .fv-tabs{display:flex; gap:10px; justify-content:center; flex-wrap:wrap; margin-bottom:26px;}
+  .fv-tabs .ptab-btn{display:inline-flex; align-items:center; gap:8px;}
+  .fv-tabs .ptab-btn i{font-style:normal; font-size:.72rem; min-width:22px; padding:1px 7px; border-radius:999px; background:var(--blue-pale); color:var(--navy);}
+  .fv-tabs .ptab-btn.active i{background:rgba(255,255,255,.18); color:#fff;}
+  .fv-chips{display:flex; gap:8px; flex-wrap:wrap; margin-bottom:14px;}
+  .fv-chip{display:inline-flex; align-items:center; gap:8px; padding:6px 14px 6px 6px; border-radius:999px; border:1.5px solid var(--line); background:#fff; color:var(--ink); font:600 .82rem 'Noto Sans Thai',sans-serif; cursor:pointer; transition:.2s; white-space:nowrap;}
+  .fv-chip:hover{border-color:hsl(var(--h) 55% 45%);}
+  .fv-chip[aria-pressed="true"]{background:hsl(var(--h) 62% 30%); border-color:hsl(var(--h) 62% 30%); color:#fff;}
+  .fv-chip.all{padding-left:14px;}
+  .fv-chip.all[aria-pressed="true"]{background:var(--navy); border-color:var(--navy);}
+  .fv-num{display:inline-flex; align-items:center; justify-content:center; flex:0 0 auto; width:24px; height:24px; border-radius:50%; background:hsl(var(--h) 62% 34%); color:#fff; font:600 .78rem 'Kanit',sans-serif; box-shadow:0 0 0 2px #fff;}
+  .fv-chip[aria-pressed="true"] .fv-num{box-shadow:0 0 0 2px rgba(255,255,255,.55);}
+  .fv-card{background:#fff; border:1px solid var(--line); border-radius:20px; box-shadow:0 14px 34px rgba(10,61,98,.07);}
+  .fv-plan-card{padding:14px 14px 12px;}
+  .fv-plan-bar{display:flex; align-items:center; justify-content:space-between; gap:12px; padding:2px 4px 12px;}
+  .fv-plan-bar b{font-family:'Kanit'; font-weight:600; font-size:1rem; color:var(--navy-deep);}
+  .fv-tools{display:flex; gap:8px; align-items:center; flex-wrap:wrap; justify-content:flex-end;}
+  .fv-tool{display:inline-flex; align-items:center; gap:6px; padding:6px 13px; border-radius:999px; border:1.5px solid var(--line); background:#fff; color:var(--navy); font:600 .8rem 'Noto Sans Thai',sans-serif; cursor:pointer; white-space:nowrap; transition:.2s;}
+  .fv-tool:hover{border-color:var(--blue-bright); background:var(--blue-pale);}
+  .fv-tool.solid{background:var(--navy); border-color:var(--navy); color:#fff;}
+  .fv-tool.solid:hover{background:var(--navy-deep);}
+  .fv-plan{position:relative; border-radius:12px; overflow:hidden; background:#F6F9FB; touch-action:manipulation;}
+  .fv-svg{display:block; width:100%; height:auto; aspect-ratio:52/27.96; -webkit-tap-highlight-color:transparent;}
+  .fv-plan.zoom .fv-svg{aspect-ratio:5/4;}
+  .fv-floor{fill:#fff;}
+  .fv-room{cursor:pointer;}
+  .fv-room rect{fill:hsl(var(--h) 52% 89%); transition:fill .25s, opacity .25s;}
+  .fv-room.t-corridor rect, .fv-room.t-hall rect{fill:hsl(var(--h) 38% 95%);}
+  .fv-room.t-or rect, .fv-room.t-ods rect, .fv-room.t-recovery rect{fill:hsl(var(--h) 58% 83%);}
+  .fv-room.t-lift rect, .fv-room.t-stair rect{fill:url(#fv-hatch);}
+  .fv-room.t-new rect{fill:hsl(var(--h) 40% 93%);}
+  .fv-room:hover rect{fill:hsl(var(--h) 62% 80%);}
+  .fv-walls{fill:none; stroke:#3A4A46; stroke-width:.14; stroke-linecap:square; pointer-events:none;}
+  .fv-outer{fill:none; stroke:#26332F; stroke-width:.26; pointer-events:none;}
+  .fv-dash{fill:none; stroke:#7E8E8A; stroke-width:.07; stroke-dasharray:.32 .22; pointer-events:none;}
+  .fv-l{font-family:'Noto Sans Thai',sans-serif; text-anchor:middle; dominant-baseline:central; fill:#1E2B28; pointer-events:none; transition:opacity .25s;}
+  .fv-l-n{font-size:.62px; font-weight:600;}
+  .fv-l-b{font-size:.8px; font-weight:700; font-family:'Kanit','Noto Sans Thai',sans-serif;}
+  .fv-l-c{font-size:.5px; font-weight:500; fill:#52625D;}
+  .fv-badge{cursor:pointer; transition:opacity .25s;}
+  .fv-badge circle{fill:hsl(var(--h) 62% 34%); stroke:#fff; stroke-width:.14;}
+  .fv-badge text{fill:#fff; font-family:'Kanit',sans-serif; font-weight:600; font-size:.82px; text-anchor:middle; dominant-baseline:central; pointer-events:none;}
+  .fv-svg.lo-c .fv-l-c, .fv-svg.lo-n .fv-l{visibility:hidden;}
+  .fv-svg.sel .fv-zone:not(.on) rect{opacity:.3;}
+  .fv-svg.sel .fv-l:not(.on), .fv-svg.sel .fv-badge:not(.on){opacity:.28;}
+  .fv-zone.on .fv-room rect{fill:hsl(var(--h) 66% 80%);}
+  .fv-zone.on .fv-room.t-corridor rect, .fv-zone.on .fv-room.t-hall rect{fill:hsl(var(--h) 55% 89%);}
+  .fv-zone.on .fv-room.t-lift rect, .fv-zone.on .fv-room.t-stair rect{fill:url(#fv-hatch);}
+  .fv-svg .fv-room.hl rect{fill:hsl(var(--h) 78% 66%); opacity:1;}
+  .fv-tip{position:absolute; z-index:2; max-width:min(280px,calc(100% - 16px)); background:#fff; border:1px solid var(--line); border-radius:12px; padding:9px 12px 10px; box-shadow:0 12px 28px rgba(6,42,69,.18); font-size:.8rem; line-height:1.5; pointer-events:none;}
+  .fv-tip b{display:block; font-family:'Kanit'; font-weight:600; font-size:.9rem; color:var(--navy-deep);}
+  .fv-tip span{display:block; color:var(--ink-soft);}
+  .fv-tip .m{color:var(--ink);}
+  .fv-hint{display:flex; flex-wrap:wrap; gap:6px 16px; padding:10px 4px 0; font-size:.76rem; color:var(--ink-soft);}
+  .fv-hint i{display:inline-block; width:18px; height:0; border-top:2px dashed #7E8E8A; vertical-align:middle; margin-right:6px;}
+  .fv-zone-box{margin-top:18px;}
+  .fv-over{display:grid; grid-template-columns:repeat(5,1fr); gap:12px;}
+  .fv-ozone{display:flex; flex-direction:column; gap:6px; text-align:left; padding:14px; border-radius:16px; border:1px solid var(--line); background:#fff; cursor:pointer; font:inherit; color:inherit; transition:.2s;}
+  .fv-ozone:hover{border-color:hsl(var(--h) 55% 45%); transform:translateY(-2px); box-shadow:0 10px 22px rgba(10,61,98,.08);}
+  .fv-ozone .t{display:flex; align-items:center; gap:9px; font-family:'Kanit'; font-weight:600; font-size:.92rem; line-height:1.3; color:var(--navy-deep);}
+  .fv-ozone small{font-size:.78rem; color:var(--ink-soft); line-height:1.5;}
+  .fv-zd{padding:22px 24px 24px; border-top:5px solid hsl(var(--h) 62% 40%);}
+  .fv-zd-head{display:flex; align-items:center; gap:14px; margin-bottom:16px;}
+  .fv-zd-head .fv-num{width:42px; height:42px; font-size:1.15rem; box-shadow:none;}
+  .fv-zd-head small{display:block; font-size:.78rem; font-weight:600; color:hsl(var(--h) 55% 32%);}
+  .fv-zd-head h3{font-size:1.25rem; color:var(--navy-deep);}
+  .fv-zd-nav{margin-left:auto; display:flex; gap:6px;}
+  .fv-zd-nav button{width:36px; height:36px; border-radius:50%; border:1.5px solid var(--line); background:#fff; color:var(--navy); font-size:1rem; cursor:pointer;}
+  .fv-zd-nav button:hover:not(:disabled){border-color:var(--blue-bright); background:var(--blue-pale);}
+  .fv-zd-nav button:disabled{opacity:.35; cursor:default;}
+  .fv-zd-grid{display:grid; grid-template-columns:minmax(0,5fr) minmax(0,7fr); gap:24px; align-items:start;}
+  .fv-desc p{font-size:.92rem; color:var(--ink); margin-bottom:10px;}
+  .fv-desc p.focus{background:hsl(var(--h) 60% 96%); border-left:4px solid hsl(var(--h) 55% 45%); border-radius:0 12px 12px 0; padding:10px 14px; font-size:.88rem;}
+  .fv-desc p.focus b{display:block; font-family:'Kanit'; font-weight:600; color:hsl(var(--h) 55% 28%); margin-bottom:2px;}
+  .fv-ppl h4{font-size:.86rem; color:var(--navy-deep); margin:16px 0 8px;}
+  .fv-ppl ul{list-style:none; display:flex; flex-wrap:wrap; gap:6px;}
+  .fv-ppl li{border:1px solid var(--line); border-radius:999px; padding:3px 12px; font-size:.84rem; background:#fff;}
+  .fv-ppl li.main{border-color:hsl(var(--h) 55% 45%); background:hsl(var(--h) 60% 95%); font-weight:600;}
+  .fv-ppl li.main::before{content:"✓ "; color:hsl(var(--h) 55% 32%);}
+  .fv-ppl li small{color:var(--ink-soft); font-weight:500;}
+  .fv-table{width:100%; border-collapse:collapse; font-size:.86rem;}
+  .fv-table th{text-align:left; font-size:.74rem; font-weight:600; color:var(--ink-soft); padding:0 10px 8px; border-bottom:1.5px solid var(--line);}
+  .fv-table td{padding:9px 10px; border-bottom:1px solid var(--line); vertical-align:top;}
+  .fv-table tr{transition:background .2s;}
+  .fv-table tbody tr:hover, .fv-table tr.hl{background:hsl(var(--h) 60% 96%);}
+  .fv-table tbody tr{cursor:pointer;}
+  .fv-code{font-family:'Sarabun',sans-serif; font-weight:600; font-size:.8rem; color:var(--navy); white-space:nowrap;}
+  .fv-main{font-weight:600;}
+  .fv-mut{color:#9AAAB8;}
+  .fv-panel[hidden]{display:none;}
+  .fv-ba-grid{display:grid; grid-template-columns:repeat(2,1fr); gap:20px;}
+  .fv-ba{background:#fff; border:1px solid var(--line); border-radius:18px; padding:16px; display:flex; flex-direction:column; gap:12px;}
+  .fv-ba-top{display:flex; align-items:baseline; justify-content:space-between; gap:10px; flex-wrap:wrap;}
+  .fv-ba h4{font-size:1rem; color:var(--navy-deep);}
+  .fv-ba-date{font-size:.76rem; color:var(--blue); font-weight:600;}
+  .fv-ba-pair{display:grid; grid-template-columns:1fr 1fr; gap:10px;}
+  .fv-ba-ph{position:relative; display:block; aspect-ratio:4/3; border-radius:12px; overflow:hidden; background:#E3EAF0;}
+  .fv-ba-ph::before{content:""; position:absolute; inset:-12px; background:var(--bg) center/cover no-repeat; filter:blur(12px) brightness(.92); opacity:.75;}
+  .fv-ba-ph img{position:relative; width:100%; height:100%; object-fit:contain; display:block; transition:transform .5s ease;}
+  .fv-ba-ph:hover img{transform:scale(1.03);}
+  .fv-tag{position:absolute; z-index:1; left:8px; top:8px; padding:2px 10px; border-radius:999px; font-size:.74rem; font-weight:700; color:#fff;}
+  .fv-tag.b{background:#C8322E;}
+  .fv-tag.a{background:#16804A;}
+  .fv-ba-cap{display:grid; grid-template-columns:1fr 1fr; gap:10px; font-size:.82rem; color:var(--ink-soft); line-height:1.5;}
+  .fv-act-note{text-align:center; font-size:.82rem; color:var(--ink-soft); margin-top:18px;}
+
   .reveal{opacity:0; transform:translateY(24px); transition:opacity .7s ease, transform .7s ease;}
   .reveal.in{opacity:1; transform:translateY(0);}
 
@@ -743,6 +863,33 @@
     .dept-row{grid-template-columns:100px 1fr 40px; gap:8px; font-size:.78rem;}
     .stats-bar{margin-top:-26px;}
     .footer-grid{grid-template-columns:1fr; gap:28px;}
+    .fv-head{flex-direction:column; align-items:flex-start;}
+    .fv-facts{justify-content:flex-start;}
+    .fv-s{grid-template-columns:repeat(2,1fr);}
+    .fv-s li:last-child{grid-column:1/-1;}
+    .fv-over{grid-template-columns:repeat(2,1fr);}
+    .fv-zd-grid{grid-template-columns:1fr;}
+    .fv-ba-grid{grid-template-columns:1fr;}
+  }
+  @media (max-width:640px){
+    .fv-chips{flex-wrap:nowrap; overflow-x:auto; padding:2px 2px 6px; margin-bottom:10px; scrollbar-width:none;}
+    .fv-chips::-webkit-scrollbar{display:none;}
+    .fv-plan-card{padding:10px 8px 10px; border-radius:16px;}
+    .fv-plan-bar{flex-wrap:wrap; padding:2px 4px 10px;}
+    .fv-zd{padding:18px 14px 16px;}
+    .fv-zd-head h3{font-size:1.08rem;}
+    .fv-table thead{display:none;}
+    .fv-table, .fv-table tbody, .fv-table tr, .fv-table td{display:block;}
+    .fv-table tr{display:grid; grid-template-columns:auto 1fr; gap:2px 10px; padding:10px 6px; border-bottom:1px solid var(--line);}
+    .fv-table td{padding:0; border:none;}
+    .fv-table td:nth-child(1){grid-row:1 / span 3;}
+    .fv-table td:nth-child(n+2){grid-column:2;}
+    .fv-table td[data-l]::before{content:attr(data-l) " "; font-size:.74rem; color:var(--ink-soft); font-weight:500;}
+    .fv-ba{padding:12px; border-radius:16px;}
+    .fv-lg{display:none;}
+    .fv-tabs{gap:6px; flex-wrap:nowrap;}
+    .fv-tabs .ptab-btn{padding:9px 13px; font-size:.84rem; gap:6px; white-space:nowrap;}
+    .fv-ba-pair, .fv-ba-cap{gap:8px;}
   }
   @media (max-width:520px){
     .container, .nav-wrap{padding-left:18px; padding-right:18px;}
@@ -804,6 +951,7 @@
     .dept-fill, .faq-a, .tbar, .stp-bar i{transition:none;}
     .album-view, .lightbox, .media-view, .staff-view, .svc-top{animation:none;}
     .ph-box img, .av-tile img{transition:none;}
+    .fv-room rect, .fv-l, .fv-badge, .fv-ba-ph img{transition:none;}
   }
 </style>
 </head>
@@ -827,6 +975,7 @@
         <li data-for="team"><a href="#team">บุคลากร</a></li>
         <li data-for="patient-guide"><a href="#patient-guide">คำแนะนำ</a></li>
         <li data-for="news"><a href="#news">กิจกรรม</a></li>
+        <li data-for="fives"><a href="#fives">5ส.</a></li>
         <li data-for="feedback"><a href="#feedback">ประเมิน/ร้องเรียน</a></li>
         <li class="nav-mobile"><a href="#contact">ติดต่อเรา</a></li>
         <li class="is-hidden" id="nav-staff"><a class="nav-staff" href="#staff" title="ระบบสำหรับเจ้าหน้าที่" aria-label="ระบบสำหรับเจ้าหน้าที่">🔒<span class="nav-staff-text"> ระบบเจ้าหน้าที่</span></a></li>
@@ -994,6 +1143,53 @@
   </div>
 </section>
 
+<section id="fives" class="section fives is-hidden">
+  <div class="container">
+    <div class="fv-head reveal">
+      <div class="section-head">
+        <span class="eyebrow">กิจกรรม 5ส.</span>
+        <h2>5ส. ห้องผ่าตัด ชั้น 5</h2>
+        <p>ทีมห้องผ่าตัดดูแลพื้นที่ให้สะอาด เป็นระเบียบ ปลอดภัย และอุปกรณ์พร้อมใช้ตลอดเวลา ซึ่งเป็นพื้นฐานของความปลอดภัยของผู้ป่วยและการป้องกันการติดเชื้อในห้องผ่าตัด ทุกพื้นที่มีผู้รับผิดชอบชัดเจน</p>
+      </div>
+      <ul class="fv-facts" id="fv-facts"></ul>
+    </div>
+    <ol class="fv-s reveal" aria-label="หลัก 5ส.">
+      <li><b>สะสาง</b><span>คัดแยกของที่ไม่จำเป็น ชำรุด หรือหมดอายุ ออกจากพื้นที่</span></li>
+      <li><b>สะดวก</b><span>จัดวางอุปกรณ์ตามแผนผังรายห้อง มีป้ายบอกตำแหน่ง หยิบใช้และเก็บคืนง่าย</span></li>
+      <li><b>สะอาด</b><span>ทำความสะอาดพื้นที่และอุปกรณ์ตามรอบ พร้อมตรวจความพร้อมใช้</span></li>
+      <li><b>สุขลักษณะ</b><span>รักษามาตรฐานอย่างต่อเนื่อง และแจ้งซ่อมสิ่งที่ชำรุด</span></li>
+      <li><b>สร้างนิสัย</b><span>ชี้แจงแนวปฏิบัติแก่ผู้ร่วมงาน และเป็นแบบอย่างในพื้นที่</span></li>
+    </ol>
+    <div class="fv-tabs reveal" id="fv-tabs" role="tablist" aria-label="เนื้อหา 5ส.">
+      <button type="button" class="ptab-btn active" role="tab" id="fv-t-plan" data-fv-tab="plan" aria-controls="fv-p-plan" aria-selected="true">🗺️ <span>แผนผัง<span class="fv-lg">และผู้รับผิดชอบ</span></span></button>
+      <button type="button" class="ptab-btn" role="tab" id="fv-t-act" data-fv-tab="act" aria-controls="fv-p-act" aria-selected="false" tabindex="-1">📷 <span><span class="fv-lg">ภาพ</span>กิจกรรม</span> <i id="fv-n-act"></i></button>
+      <button type="button" class="ptab-btn" role="tab" id="fv-t-ba" data-fv-tab="ba" aria-controls="fv-p-ba" aria-selected="false" tabindex="-1">🔁 <span>ก่อน–หลัง</span> <i id="fv-n-ba"></i></button>
+    </div>
+    <div class="fv-panel" id="fv-p-plan" role="tabpanel" aria-labelledby="fv-t-plan">
+      <div class="fv-chips" id="fv-chips" role="group" aria-label="เลือกโซน"></div>
+      <div class="fv-card fv-plan-card">
+        <div class="fv-plan-bar">
+          <b id="fv-plan-title">แผนผัง 2 มิติ · ทั้งชั้น</b>
+          <span class="fv-tools">
+            <button type="button" class="fv-tool" id="fv-all" hidden>⤢ ดูทั้งชั้น</button>
+            <a class="fv-tool solid" id="fv-3d" href="5s-3d.html" target="_blank" rel="noopener">ดูแบบ 3 มิติ ↗</a>
+          </span>
+        </div>
+        <div class="fv-plan" id="fv-plan"><svg class="fv-svg" id="fv-svg" viewBox="-0.5 -0.5 52 27.96" data-full="-0.5 -0.5 52 27.96" preserveAspectRatio="xMidYMid meet" role="img" aria-labelledby="fv-svg-t" xmlns="http://www.w3.org/2000/svg"><title id="fv-svg-t">แผนผัง 2 มิติ ห้องผ่าตัด ชั้น 5 แบ่งพื้นที่รับผิดชอบ 5ส. เป็น 10 โซน</title><defs><pattern id="fv-hatch" width=".5" height=".5" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width=".5" height=".5" fill="#ECEFF2"/><line x1="0" y1="0" x2="0" y2=".5" stroke="#C9D0D6" stroke-width=".12"/></pattern></defs><rect class="fv-floor" x="0" y="0" width="51" height="26.96"/><g class="fv-zone" data-z="z1" style="--h:200"><g class="fv-room t-room" data-id="7HX517" data-k="7HX517"><rect x="0" y="0" width="3.72" height="2.13"/></g><g class="fv-room t-room" data-id="7HX516" data-k="7HX516"><rect x="0" y="2.13" width="3.72" height="3.48"/></g><g class="fv-room t-room" data-id="2CX530" data-k="2CX530"><rect x="3.72" y="0" width="4.11" height="2.7"/></g><g class="fv-room t-room" data-id="S-530" data-k="2CX530"><rect x="3.72" y="2.7" width="4.11" height="1.41"/></g><g class="fv-room t-room" data-id="2CX531" data-k="2CX531"><rect x="7.83" y="0" width="3.39" height="2.7"/></g><g class="fv-room t-room" data-id="S-531" data-k="2CX531"><rect x="7.83" y="2.7" width="3.39" height="1.41"/></g><g class="fv-room t-room" data-id="2KX534" data-k="2KX534"><rect x="11.22" y="0" width="0.78" height="4.11"/></g><g class="fv-room t-room" data-id="2KX535" data-k="2KX535"><rect x="12" y="0" width="9.12" height="4.11"/></g><g class="fv-room t-corridor" data-id="7HX518" data-k="7HX518"><rect x="3.72" y="4.11" width="17.4" height="1.5"/></g></g><g class="fv-zone" data-z="z2" style="--h:30"><g class="fv-room t-room" data-id="7HX515" data-k="7HX515"><rect x="0" y="5.61" width="7.07" height="3.67"/></g><g class="fv-room t-or" data-id="7HX514" data-k="7HX514"><rect x="0" y="9.28" width="7.07" height="5.53"/></g><g class="fv-room t-room" data-id="7HX513" data-k="7HX513"><rect x="0" y="14.81" width="3.63" height="3.61"/></g><g class="fv-room t-corridor" data-id="C-V" data-k="C-V"><rect x="7.07" y="5.61" width="2.6" height="9.2"/></g></g><g class="fv-zone" data-z="z3" style="--h:140"><g class="fv-room t-room" data-id="7HX506" data-k="7HX506"><rect x="9.67" y="5.61" width="2.82" height="3.67"/></g><g class="fv-room t-room" data-id="7HX505" data-k="7HX505"><rect x="12.49" y="5.61" width="2.02" height="3.67"/></g><g class="fv-room t-room" data-id="7HX504" data-k="7HX504"><rect x="18.46" y="5.61" width="4.44" height="3.67"/></g><g class="fv-room t-room" data-id="S-504R" data-k="7HX504"><rect x="14.51" y="5.61" width="3.95" height="1.9"/></g><g class="fv-room t-room" data-id="S-504L" data-k="7HX504"><rect x="14.51" y="7.51" width="3.95" height="1.77"/></g><g class="fv-room t-recovery" data-id="7HX503" data-k="7HX503"><rect x="9.67" y="9.28" width="13.23" height="5.53"/></g><g class="fv-room t-room" data-id="7HX502" data-k="7HX502"><rect x="22.9" y="5.61" width="3.47" height="9.2"/></g><g class="fv-room t-corridor" data-id="7HX507" data-k="7HX507"><rect x="3.63" y="14.81" width="22.74" height="3.61"/></g></g><g class="fv-zone" data-z="z4" style="--h:52"><g class="fv-room t-hall" data-id="7HX501" data-k="7HX501"><rect x="21.1" y="-0.02" width="14.8" height="5.65"/><rect x="26.35" y="5.59" width="9.55" height="3.65"/><rect x="26.35" y="9.2" width="4.63" height="5.63"/></g><g class="fv-room t-lift" data-id="2KX536" data-k="2KX536"><rect x="30.96" y="9.22" width="2.46" height="2.7"/></g><g class="fv-room t-room" data-id="7KX538" data-k="7KX538"><rect x="33.42" y="9.22" width="2.46" height="1.38"/></g><g class="fv-room t-lift" data-id="2KX537" data-k="2KX537"><rect x="30.96" y="11.92" width="3.39" height="2.89"/></g><g class="fv-room t-stair" data-id="2KX539" data-k="2KX539"><rect x="34.35" y="10.6" width="1.53" height="2.53"/></g><g class="fv-room t-corridor" data-id="C-MID" data-k="C-MID"><rect x="26.37" y="14.81" width="9.51" height="3.61"/></g></g><g class="fv-zone" data-z="z5" style="--h:290"><g class="fv-room t-room" data-id="7HX522" data-k="7HX522"><rect x="35.88" y="3.96" width="6.01" height="3.86"/></g><g class="fv-room t-room" data-id="7HX523" data-k="7HX523"><rect x="35.88" y="7.82" width="6.01" height="10.6"/></g></g><g class="fv-zone" data-z="z6" style="--h:95"><g class="fv-room t-room" data-id="7HX519" data-k="7HX519"><rect x="35.88" y="0" width="4.34" height="2.47"/></g><g class="fv-room t-room" data-id="7HX520" data-k="7HX520"><rect x="40.22" y="0" width="3.75" height="2.47"/></g><g class="fv-room t-corridor" data-id="C-R" data-k="C-R"><rect x="35.88" y="2.47" width="8.09" height="1.49"/></g><g class="fv-room t-room" data-id="2CX532" data-k="2CX532"><rect x="43.97" y="0" width="2.79" height="3.96"/></g><g class="fv-room t-room" data-id="2CX533" data-k="2CX533"><rect x="46.76" y="0" width="4.24" height="3.96"/></g><g class="fv-room t-corridor" data-id="7HX521" data-k="7HX521"><rect x="41.89" y="3.96" width="9.11" height="1.4"/></g></g><g class="fv-zone" data-z="z7" style="--h:330"><g class="fv-room t-ods" data-id="7HX524" data-k="7HX524"><rect x="41.89" y="5.36" width="9.11" height="9.45"/></g></g><g class="fv-zone" data-z="z8" style="--h:175"><g class="fv-room t-room" data-id="7HX525" data-k="7HX525"><rect x="45.51" y="14.81" width="5.49" height="6.73"/></g><g class="fv-room t-corridor" data-id="C-P" data-k="C-P"><rect x="41.87" y="14.79" width="3.66" height="3.65"/><rect x="42.44" y="18.4" width="3.09" height="5.1"/><rect x="45.49" y="21.52" width="2.66" height="1.98"/></g><g class="fv-room t-new" data-id="N-A" data-k="N-A"><rect x="39.14" y="18.42" width="3.32" height="5.06"/></g><g class="fv-room t-room" data-id="7HX526" data-k="7HX526"><rect x="39.14" y="23.48" width="2.22" height="3.48"/></g><g class="fv-room t-new" data-id="N-X" data-k="N-X"><rect x="41.36" y="23.48" width="6.77" height="3.48"/></g><g class="fv-room t-room" data-id="7HX527" data-k="7HX527"><rect x="48.13" y="21.54" width="2.87" height="5.42"/></g></g><g class="fv-zone" data-z="z9" style="--h:245"><g class="fv-room t-room" data-id="7HX512" data-k="7HX512"><rect x="0" y="18.42" width="5.43" height="6.75"/></g><g class="fv-room t-or" data-id="7HX511" data-k="7HX511"><rect x="5.43" y="18.42" width="4.97" height="6.75"/></g><g class="fv-room t-room" data-id="7HX529" data-k="7HX529"><rect x="10.4" y="18.42" width="3.41" height="4.65"/></g><g class="fv-room t-room" data-id="S-529" data-k="7HX529"><rect x="10.4" y="23.07" width="3.41" height="2.1"/></g><g class="fv-room t-or" data-id="7HX510" data-k="7HX510"><rect x="13.81" y="18.42" width="5.87" height="6.75"/></g><g class="fv-room t-corridor" data-id="C-S1" data-k="C-S1"><rect x="0" y="25.17" width="19.68" height="1.79"/></g></g><g class="fv-zone" data-z="z10" style="--h:8"><g class="fv-room t-or" data-id="7HX509" data-k="7HX509"><rect x="19.68" y="18.42" width="7.45" height="6.75"/></g><g class="fv-room t-room" data-id="7HX528" data-k="7HX528"><rect x="27.13" y="18.42" width="5.95" height="4.45"/></g><g class="fv-room t-room" data-id="S-528" data-k="7HX528"><rect x="27.13" y="22.87" width="5.95" height="2.3"/></g><g class="fv-room t-or" data-id="7HX508" data-k="7HX508"><rect x="33.08" y="18.42" width="6.06" height="8.54"/></g><g class="fv-room t-corridor" data-id="C-S2" data-k="C-S2"><rect x="19.68" y="25.17" width="13.4" height="1.79"/></g></g><path class="fv-walls" d="M3.72 0V4.11M0 2.13H2.65M7.83 0V4.11M11.22 0V4.11M12 0V4.11M21.12 0V4.11M3.72 2.7H5.12M6.02 2.7H7.83M7.83 2.7H9.65M10.55 2.7H11.22M3.72 4.11V4.21M3.72 5.11V5.61M3.72 4.11H5.12M6.02 4.11H9.65M10.55 4.11H11.26M11.96 4.11H12.84M14.44 4.11H18.77M20.37 4.11H21.12M0 5.61H7.07M9.67 5.61H18.56M19.46 5.61H26.37M7.07 5.61V7.97M7.07 8.97V11.85M7.07 13.45V14.81M0 9.28H7.07M9.67 5.61V5.76M9.67 6.66V11.19M9.67 12.79V14.81M12.49 5.61V5.76M12.49 6.66V9.28M14.51 5.61V9.28M9.67 9.28H20.64M22.25 9.28H22.9M14.51 7.51H18.46M18.46 7.51V8M18.46 8.79V9.28M18.46 5.61V6.16M18.46 6.96V7.51M22.9 5.61V11.19M22.9 12.79V14.81M26.37 5.61V7.2M26.37 8.8V14.81M0 14.81H0.4M1.4 14.81H7.07M9.67 14.81H22.9M22.9 14.81H23.73M25.54 14.81H26.37M26.37 14.81H26.8M29.2 14.81H30.96M3.63 14.81V18.42M30.96 9.22V10.02M30.96 11.12V12.71M30.96 14.02V14.81M30.96 9.22H35.88M30.96 14.81H34.6M35.8 14.81H35.88M33.42 9.22V11.92M30.96 11.92H34.35M34.35 10.6V14.81M33.42 10.6H35.88M34.35 13.13H35.88M35.88 0V2.47M35.88 3.96V5.22M35.88 7.02V16.35M35.88 18.15V18.42M35.88 2.47H39.03M39.93 2.47H43.97M40.22 0V1.42M40.22 2.32V2.47M43.97 0V3.96M46.76 0V3.96M35.88 3.96H45.53M46.43 3.96H48.47M49.37 3.96H51M41.89 3.96V5.86M41.89 7.46V16.18M41.89 17.78V18.42M35.88 7.82H38.16M39.97 7.82H41.89M41.89 5.36H42.54M43.44 5.36H51M41.89 14.81H43.08M45.08 14.81H49.4M50.6 14.81H51M45.51 14.81V17.57M45.51 18.77V21.54M45.51 21.54H51M48.13 22.44V26.96M42.46 23.48H44.8M45.8 23.48H48.13M0 18.42H3.7M5.5 18.42H6.87M8.87 18.42H10.4M13.81 18.42H15.96M17.76 18.42H22.8M24.6 18.42H27.13M33.08 18.42H42.46M5.43 18.42V25.17M10.4 18.42V23.72M10.4 24.62V25.17M13.81 18.42V23.72M13.81 24.62V25.17M19.68 18.42V25.17M27.13 18.42V23.62M27.13 24.52V25.17M33.08 18.42V19.31M33.08 21.11V23.02M33.08 23.92V26.96M39.14 18.42V26.96M42.46 18.42V19.02M42.46 20.02V23.48M10.4 23.07H13.81M27.13 22.87H33.08M41.36 23.48H42.46M0 25.17H11.3M12.9 25.17H29.3M30.91 25.17H33.08M41.36 23.48V26.96M39.14 23.48H39.29M40.09 23.48H41.36"/><rect class="fv-outer" x="0" y="0" width="51" height="26.96"/><path class="fv-dash" d="M21.1 0L21.1 5.6M35.9 0L35.9 13.1M35.9 14.8L35.9 18.4M41.9 4L41.9 18.4M9.7 5.6L9.7 14.8M26.4 5.6L26.4 18.4M3.6 14.8L3.6 18.4M19.7 18.4L19.7 27M39.1 18.4L39.1 27M35.9 4L41.9 4M41.9 5.4L51 5.4M0 5.6L26.4 5.6M3.6 14.8L9.7 14.8M41.9 14.8L51 14.8M0 18.4L41.9 18.4"/><g class="fv-labels"><text class="fv-l fv-l-n" x="1.86" y="0.65" data-w="3.37" data-z="z1" data-id="7HX517">ห้องครัว</text><text class="fv-l fv-l-c" x="1.86" y="1.47" data-w="3.37" data-z="z1" data-id="7HX517">7HX517</text><text class="fv-l fv-l-c" x="1.86" y="3.87" data-w="3.37" data-z="z1" data-id="7HX516">7HX516</text><text class="fv-l fv-l-n" x="5.78" y="0.94" data-w="3.76" data-z="z1" data-id="2CX530">ห้องน้ำ</text><text class="fv-l fv-l-c" x="5.78" y="1.76" data-w="3.76" data-z="z1" data-id="2CX530">2CX530</text><text class="fv-l fv-l-n" x="5.78" y="3.41" data-w="3.76" data-z="z1" data-id="S-530">ห้องเล็ก</text><text class="fv-l fv-l-n" x="9.53" y="0.94" data-w="3.04" data-z="z1" data-id="2CX531">ห้องน้ำ</text><text class="fv-l fv-l-c" x="9.53" y="1.76" data-w="3.04" data-z="z1" data-id="2CX531">2CX531</text><text class="fv-l fv-l-n" x="9.53" y="3.41" data-w="3.04" data-z="z1" data-id="S-531">ห้องเล็ก</text><text class="fv-l fv-l-n" x="11.61" y="2.06" data-w="3.76" data-z="z1" data-id="2KX534" transform="rotate(-90 11.61 2.06)">ทางหนีไฟ</text><text class="fv-l fv-l-c" x="16.56" y="2.06" data-w="8.77" data-z="z1" data-id="2KX535">2KX535</text><text class="fv-l fv-l-n" x="12.4" y="4.86" data-w="17.05" data-z="z1" data-id="7HX518">ทางเดิน 7HX518</text><text class="fv-l fv-l-n" x="3.54" y="7.04" data-w="6.72" data-z="z2" data-id="7HX515">ห้องเก็บอุปกรณ์</text><text class="fv-l fv-l-c" x="3.54" y="7.86" data-w="6.72" data-z="z2" data-id="7HX515">7HX515</text><text class="fv-l fv-l-b" x="3.54" y="11.63" data-w="6.72" data-z="z2" data-id="7HX514">OR5</text><text class="fv-l fv-l-c" x="3.54" y="12.45" data-w="6.72" data-z="z2" data-id="7HX514">7HX514</text><text class="fv-l fv-l-n" x="1.81" y="16.21" data-w="3.28" data-z="z2" data-id="7HX513">ห้องชะล้าง</text><text class="fv-l fv-l-c" x="1.81" y="17.03" data-w="3.28" data-z="z2" data-id="7HX513">7HX513</text><text class="fv-l fv-l-n" x="8.37" y="10.21" data-w="2.25" data-z="z2" data-id="C-V">ทางเดิน</text><text class="fv-l fv-l-n" x="11.08" y="6.71" data-w="2.47" data-z="z3" data-id="7HX506">ห้องเปลี่ยน</text><text class="fv-l fv-l-n" x="11.08" y="7.45" data-w="2.47" data-z="z3" data-id="7HX506">เสื้อผ้า</text><text class="fv-l fv-l-c" x="11.08" y="8.19" data-w="2.47" data-z="z3" data-id="7HX506">7HX506</text><text class="fv-l fv-l-n" x="13.5" y="6.71" data-w="1.67" data-z="z3" data-id="7HX505">ห้องเปลี่ยน</text><text class="fv-l fv-l-n" x="13.5" y="7.45" data-w="1.67" data-z="z3" data-id="7HX505">เสื้อผ้า</text><text class="fv-l fv-l-c" x="13.5" y="8.19" data-w="1.67" data-z="z3" data-id="7HX505">7HX505</text><text class="fv-l fv-l-c" x="20.7" y="6.6" data-w="4.09" data-z="z3" data-id="7HX504">7HX504</text><text class="fv-l fv-l-n" x="16.48" y="6.56" data-w="3.6" data-z="z3" data-id="S-504R">ห้องย่อย (ขวา)</text><text class="fv-l fv-l-n" x="16.48" y="8.39" data-w="3.6" data-z="z3" data-id="S-504L">ห้องย่อย (ซ้าย)</text><text class="fv-l fv-l-n" x="16.29" y="11.63" data-w="12.88" data-z="z3" data-id="7HX503">ห้องพักฟื้น</text><text class="fv-l fv-l-c" x="16.29" y="12.45" data-w="12.88" data-z="z3" data-id="7HX503">7HX503</text><text class="fv-l fv-l-n" x="24.63" y="9.8" data-w="3.12" data-z="z3" data-id="7HX502">จุดส่งผู้ป่วย</text><text class="fv-l fv-l-c" x="24.63" y="10.62" data-w="3.12" data-z="z3" data-id="7HX502">7HX502</text><text class="fv-l fv-l-n" x="14" y="16.6" data-w="22.39" data-z="z3" data-id="7HX507">ทางเดิน 7HX507</text><text class="fv-l fv-l-n" x="28.5" y="2.19" data-w="14.41" data-z="z4" data-id="7HX501">บริเวณโถงหน้าลิฟต์</text><text class="fv-l fv-l-c" x="28.5" y="3.01" data-w="14.41" data-z="z4" data-id="7HX501">7HX501</text><text class="fv-l fv-l-n" x="32.19" y="10.16" data-w="2.11" data-z="z4" data-id="2KX536">ลิฟต์</text><text class="fv-l fv-l-c" x="32.19" y="10.98" data-w="2.11" data-z="z4" data-id="2KX536">2KX536</text><text class="fv-l fv-l-c" x="34.65" y="9.91" data-w="2.11" data-z="z4" data-id="7KX538">7KX538</text><text class="fv-l fv-l-n" x="32.66" y="12.96" data-w="3.04" data-z="z4" data-id="2KX537">ลิฟต์</text><text class="fv-l fv-l-c" x="32.66" y="13.78" data-w="3.04" data-z="z4" data-id="2KX537">2KX537</text><text class="fv-l fv-l-n" x="35.12" y="11.46" data-w="1.18" data-z="z4" data-id="2KX539">บันได</text><text class="fv-l fv-l-c" x="35.12" y="12.28" data-w="1.18" data-z="z4" data-id="2KX539">2KX539</text><text class="fv-l fv-l-n" x="31.1" y="16.6" data-w="9.16" data-z="z4" data-id="C-MID">ทางเดินหน้าลิฟต์</text><text class="fv-l fv-l-n" x="38.89" y="5.48" data-w="5.66" data-z="z5" data-id="7HX522">จุดรับผู้ป่วย</text><text class="fv-l fv-l-c" x="38.89" y="6.3" data-w="5.66" data-z="z5" data-id="7HX522">7HX522</text><text class="fv-l fv-l-n" x="38.89" y="12.71" data-w="5.66" data-z="z5" data-id="7HX523">ห้องเตรียมผ่าตัด</text><text class="fv-l fv-l-c" x="38.89" y="13.53" data-w="5.66" data-z="z5" data-id="7HX523">7HX523</text><text class="fv-l fv-l-c" x="38.05" y="1.24" data-w="3.99" data-z="z6" data-id="7HX519">7HX519</text><text class="fv-l fv-l-c" x="42.09" y="1.24" data-w="3.4" data-z="z6" data-id="7HX520">7HX520</text><text class="fv-l fv-l-n" x="39.9" y="3.22" data-w="7.74" data-z="z6" data-id="C-R">ทางเดิน</text><text class="fv-l fv-l-n" x="45.36" y="1.57" data-w="2.44" data-z="z6" data-id="2CX532">ห้องน้ำ</text><text class="fv-l fv-l-c" x="45.36" y="2.39" data-w="2.44" data-z="z6" data-id="2CX532">2CX532</text><text class="fv-l fv-l-n" x="48.88" y="1.57" data-w="3.89" data-z="z6" data-id="2CX533">ห้องน้ำ</text><text class="fv-l fv-l-c" x="48.88" y="2.39" data-w="3.89" data-z="z6" data-id="2CX533">2CX533</text><text class="fv-l fv-l-n" x="46.4" y="4.66" data-w="8.76" data-z="z6" data-id="7HX521">7HX521</text><text class="fv-l fv-l-b" x="46.45" y="9.68" data-w="8.76" data-z="z7" data-id="7HX524">ODS</text><text class="fv-l fv-l-c" x="46.45" y="10.5" data-w="8.76" data-z="z7" data-id="7HX524">7HX524</text><text class="fv-l fv-l-n" x="48.25" y="17.77" data-w="5.14" data-z="z8" data-id="7HX525">ห้องประชุม</text><text class="fv-l fv-l-c" x="48.25" y="18.59" data-w="5.14" data-z="z8" data-id="7HX525">7HX525</text><text class="fv-l fv-l-n" x="43.98" y="19.6" data-w="2.7" data-z="z8" data-id="C-P">ทางเดิน</text><text class="fv-l fv-l-n" x="40.8" y="21" data-w="2.97" data-z="z8" data-id="N-A">พื้นที่ใหม่</text><text class="fv-l fv-l-c" x="40.25" y="25.22" data-w="1.87" data-z="z8" data-id="7HX526">7HX526</text><text class="fv-l fv-l-n" x="44.75" y="25.22" data-w="6.42" data-z="z8" data-id="N-X">ห้องที่กั้นใหม่</text><text class="fv-l fv-l-c" x="49.56" y="24.25" data-w="2.52" data-z="z8" data-id="7HX527">7HX527</text><text class="fv-l fv-l-n" x="2.71" y="21.39" data-w="5.08" data-z="z9" data-id="7HX512">ห้อง Sterile</text><text class="fv-l fv-l-c" x="2.71" y="22.21" data-w="5.08" data-z="z9" data-id="7HX512">7HX512</text><text class="fv-l fv-l-b" x="7.92" y="21.39" data-w="4.62" data-z="z9" data-id="7HX511">OR4</text><text class="fv-l fv-l-c" x="7.92" y="22.21" data-w="4.62" data-z="z9" data-id="7HX511">7HX511</text><text class="fv-l fv-l-n" x="12.11" y="20.34" data-w="3.06" data-z="z9" data-id="7HX529">ห้องชะล้าง</text><text class="fv-l fv-l-c" x="12.11" y="21.16" data-w="3.06" data-z="z9" data-id="7HX529">7HX529</text><text class="fv-l fv-l-n" x="12.11" y="24.12" data-w="3.06" data-z="z9" data-id="S-529">ด้านหลัง</text><text class="fv-l fv-l-b" x="16.75" y="21.39" data-w="5.52" data-z="z9" data-id="7HX510">OR3</text><text class="fv-l fv-l-c" x="16.75" y="22.21" data-w="5.52" data-z="z9" data-id="7HX510">7HX510</text><text class="fv-l fv-l-n" x="9.8" y="26.07" data-w="19.33" data-z="z9" data-id="C-S1">ทางเดินด้านล่าง ฝั่งซ้าย</text><text class="fv-l fv-l-b" x="23.41" y="21.39" data-w="7.1" data-z="z10" data-id="7HX509">OR2</text><text class="fv-l fv-l-c" x="23.41" y="22.21" data-w="7.1" data-z="z10" data-id="7HX509">7HX509</text><text class="fv-l fv-l-n" x="30.1" y="20.24" data-w="5.6" data-z="z10" data-id="7HX528">ห้องชะล้าง</text><text class="fv-l fv-l-c" x="30.1" y="21.06" data-w="5.6" data-z="z10" data-id="7HX528">7HX528</text><text class="fv-l fv-l-n" x="30.1" y="24.02" data-w="5.6" data-z="z10" data-id="S-528">ด้านหลัง</text><text class="fv-l fv-l-b" x="36.11" y="22.28" data-w="5.71" data-z="z10" data-id="7HX508">OR1</text><text class="fv-l fv-l-c" x="36.11" y="23.1" data-w="5.71" data-z="z10" data-id="7HX508">7HX508</text><text class="fv-l fv-l-n" x="26.4" y="26.07" data-w="13.05" data-z="z10" data-id="C-S2">ทางเดินด้านล่าง ฝั่งขวา</text></g><g class="fv-badges"><g class="fv-badge" data-z="z1" style="--h:200" transform="translate(13 1)"><circle r=".72"/><text y=".02">1</text></g><g class="fv-badge" data-z="z2" style="--h:30" transform="translate(0.95 10.25)"><circle r=".72"/><text y=".02">2</text></g><g class="fv-badge" data-z="z3" style="--h:140" transform="translate(10.55 10.25)"><circle r=".72"/><text y=".02">3</text></g><g class="fv-badge" data-z="z4" style="--h:52" transform="translate(22.2 1)"><circle r=".72"/><text y=".02">4</text></g><g class="fv-badge" data-z="z5" style="--h:290" transform="translate(36.85 9)"><circle r=".72"/><text y=".02">5</text></g><g class="fv-badge" data-z="z6" style="--h:95" transform="translate(36.65 3.22)"><circle r=".72"/><text y=".02">6</text></g><g class="fv-badge" data-z="z7" style="--h:330" transform="translate(50.1 6.3)"><circle r=".72"/><text y=".02">7</text></g><g class="fv-badge" data-z="z8" style="--h:175" transform="translate(50.1 15.75)"><circle r=".72"/><text y=".02">8</text></g><g class="fv-badge" data-z="z9" style="--h:245" transform="translate(0.95 19.4)"><circle r=".72"/><text y=".02">9</text></g><g class="fv-badge" data-z="z10" style="--h:8" transform="translate(20.6 19.4)"><circle r=".72"/><text y=".02">10</text></g></g></svg><div class="fv-tip" id="fv-tip" hidden></div></div>
+        <div class="fv-hint"><span>แตะห้องในแผนผังหรือเลือกโซนด้านบน เพื่อดูคำบรรยายและผู้รับผิดชอบ</span><span><i></i>เส้นแบ่งโซน 5ส.</span></div>
+      </div>
+      <div class="fv-zone-box" id="fv-zone" aria-live="polite"></div>
+    </div>
+    <div class="fv-panel" id="fv-p-act" role="tabpanel" aria-labelledby="fv-t-act" hidden>
+      <div class="album-grid" id="fv-act"></div>
+    </div>
+    <div class="fv-panel" id="fv-p-ba" role="tabpanel" aria-labelledby="fv-t-ba" hidden>
+      <div class="fv-ba-grid" id="fv-ba"></div>
+      <div class="news-more is-hidden" id="fv-ba-more"><button class="btn btn-outline" type="button"><span>ดูภาพก่อน–หลังทั้งหมด (<b id="fv-ba-total">0</b>)</span></button></div>
+    </div>
+  </div>
+</section>
+
 <section id="feedback" class="section bg-tint is-hidden">
   <div class="container">
     <div class="section-head reveal">
@@ -1108,6 +1304,7 @@
           <li data-for="services"><a href="#services">บริการ</a></li>
           <li data-for="patient-guide"><a href="#patient-guide">คำแนะนำผู้รับบริการ</a></li>
           <li data-for="news"><a href="#news">ข่าวสารและภาพกิจกรรม</a></li>
+          <li data-for="fives"><a href="#fives">5ส. แผนผังและผู้รับผิดชอบพื้นที่</a></li>
           <li data-for="feedback"><a href="#feedback">ประเมินบริการ / แจ้งข้อร้องเรียน</a></li>
           <li class="is-hidden" id="foot-staff"><a href="#staff">สำหรับเจ้าหน้าที่</a></li>
         </ul>
@@ -1204,12 +1401,16 @@
     'รายโรค': ['ชื่อเรื่อง', 'ข้อปฏิบัติ', 'แสดง'],
     'ข่าวสาร': ['หัวข้อ', 'แสดง'],
     'แบบประเมิน': ['คำถาม', 'แสดง'],
-    'ระบบเจ้าหน้าที่': ['ชื่อระบบ', 'ลิงก์', 'แสดง']
+    'ระบบเจ้าหน้าที่': ['ชื่อระบบ', 'ลิงก์', 'แสดง'],
+    '5ส-โซน': ['โซน', 'ชื่อโซน', 'แสดง'],
+    '5ส-ผู้รับผิดชอบ': ['โซน', 'รหัสห้อง', 'ผู้รับผิดชอบหลัก', 'แสดง'],
+    '5ส-กิจกรรม': ['หัวข้อ', 'แสดง'],
+    '5ส-ก่อนหลัง': ['หัวข้อ', 'รูปก่อน', 'รูปหลัง', 'แสดง']
   };
   var TABS = Object.keys(REQUIRED);
 
   // เนื้อหาสำรอง (สำเนาจากชีต ณ วันที่สร้างไฟล์) ใช้เมื่อโหลดชีตไม่ได้
-  var FALLBACK = {"ตั้งค่า":[{"รายการ":"ชื่อหน่วยงาน","ข้อความ":"กลุ่มงานห้องผ่าตัด","คำอธิบาย":"แสดงบนแถบเมนูและส่วนท้าย"},{"รายการ":"ชื่อโรงพยาบาล","ข้อความ":"โรงพยาบาลยางตลาด","คำอธิบาย":null},{"รายการ":"หัวข้อหลัก","ข้อความ":"ดูแลทุกวินาที [ในห้องผ่าตัด]\nด้วยมาตรฐานและหัวใจของทีม","คำอธิบาย":"ข้อความใน [ ] จะเป็นสีเน้น"},{"รายการ":"คำโปรย","ข้อความ":"ทีมสหวิชาชีพห้องผ่าตัดของเรา ให้บริการผ่าตัดอย่างปลอดภัย แม่นยำ และใส่ใจผู้ป่วยในทุกขั้นตอน ตั้งแต่ก่อน ระหว่าง จนถึงหลังการผ่าตัด","คำอธิบาย":null},{"รายการ":"เกี่ยวกับ หัวข้อ","ข้อความ":"พื้นที่ปลอดภัยที่สุดของโรงพยาบาล คือที่ที่เรายืนทำงานทุกวัน","คำอธิบาย":null},{"รายการ":"เกี่ยวกับ ข้อความ","ข้อความ":"กลุ่มงานห้องผ่าตัด โรงพยาบาลยางตลาด ให้บริการผ่าตัดครอบคลุมสาขาศัลยกรรมหลัก โดยทีมสหวิชาชีพที่ผ่านการฝึกอบรมเฉพาะทาง พร้อมเครื่องมือและระบบควบคุมคุณภาพตามมาตรฐานสากล เพื่อความปลอดภัยสูงสุดของผู้ป่วยทุกราย","คำอธิบาย":null},{"รายการ":"วิสัยทัศน์","ข้อความ":"เป็นกลุ่มงานห้องผ่าตัดที่ได้มาตรฐาน ปลอดภัย และเป็นที่ไว้วางใจของผู้รับบริการในเขตอำเภอยางตลาดและใกล้เคียง","คำอธิบาย":null},{"รายการ":"พันธกิจ","ข้อความ":"ให้บริการผ่าตัดด้วยมาตรฐานวิชาชีพ ควบคุมการติดเชื้อ ลดความเสี่ยง และพัฒนาศักยภาพบุคลากรอย่างต่อเนื่อง","คำอธิบาย":null},{"รายการ":"ที่อยู่","ข้อความ":"โรงพยาบาลยางตลาด อำเภอยางตลาด จังหวัดกาฬสินธุ์","คำอธิบาย":null},{"รายการ":"โทรศัพท์","ข้อความ":"043-891-249 ต่อ 127","คำอธิบาย":"ว่างไว้ = ไม่แสดง ใส่เบอร์จริงแล้วจะขึ้นเว็บเอง"},{"รายการ":"เวลาทำการ","ข้อความ":"ห้องผ่าตัดตามนัด: จันทร์–ศุกร์ 08.30–16.30 น.\nห้องผ่าตัดฉุกเฉิน: ตลอด 24 ชั่วโมง","คำอธิบาย":null},{"รายการ":"แผนที่","ข้อความ":"โรงพยาบาลยางตลาด","คำอธิบาย":"คำค้นหาสถานที่ใน Google Maps"},{"รายการ":"ลิงก์ระบบเจ้าหน้าที่","ข้อความ":null,"คำอธิบาย":"ว่างไว้ = ไม่แสดงปุ่ม \"สำหรับเจ้าหน้าที่\""},{"รายการ":"ลิงก์ระบบรับแบบประเมิน","ข้อความ":null,"คำอธิบาย":"วางลิงก์เว็บแอปของสคริปต์ แบบประเมิน.gs (ลงท้าย /exec) ว่างไว้ = ไม่แสดงส่วนประเมินบนเว็บ"},{"รายการ":"ช่องทางร้องเรียนอื่น","ข้อความ":null,"คำอธิบาย":"เช่น ศูนย์รับเรื่องร้องเรียน รพ. โทร ... ว่างไว้ = ไม่แสดง"},{"รายการ":"ข้อความส่วนท้าย","ข้อความ":"ดูแลด้วยมาตรฐาน ปลอดภัยด้วยหัวใจ ทีมสหวิชาชีพห้องผ่าตัดพร้อมให้บริการผู้ป่วยทุกราย","คำอธิบาย":null}],"ตัวเลขเด่น":[{"ตัวเลข":"6","คำอธิบาย":"ห้องผ่าตัด","แสดง":false},{"ตัวเลข":"24/7","คำอธิบาย":"ห้องผ่าตัดฉุกเฉิน","แสดง":true},{"ตัวเลข":"98%","คำอธิบาย":"ความพึงพอใจผู้ป่วย","แสดง":false}],"บริการ":[{"ไอคอน":"✚","ชื่อบริการ":"ศัลยกรรมทั่วไป","รายละเอียด":"ผ่าตัดไส้ติ่ง ถุงน้ำดี ไส้เลื่อน และหัตถการศัลยกรรมพื้นฐาน","แสดง":true},{"ไอคอน":"♀","ชื่อบริการ":"สูติ-นรีเวชกรรม","รายละเอียด":"ผ่าตัดคลอด และหัตถการทางนรีเวชสำหรับผู้ป่วยหญิง","แสดง":true},{"ไอคอน":"🦴","ชื่อบริการ":"ออร์โธปิดิกส์","รายละเอียด":"ผ่าตัดกระดูกและข้อ กรณีอุบัติเหตุและโรคทางกระดูก","แสดง":true},{"ไอคอน":"⏱","ชื่อบริการ":"ห้องผ่าตัดฉุกเฉิน","รายละเอียด":"พร้อมให้บริการตลอด 24 ชั่วโมง สำหรับผู้ป่วยวิกฤต","แสดง":true}],"ความปลอดภัย":[{"ช่วงเวลา":"ก่อนนำสลบ","ขั้นตอน":"Sign In","รายละเอียด":"ยืนยันตัวผู้ป่วย ตำแหน่งผ่าตัด และประวัติแพ้ยาก่อนเริ่มกระบวนการ","แสดง":true},{"ช่วงเวลา":"ก่อนลงมีด","ขั้นตอน":"Time Out","รายละเอียด":"ทีมผ่าตัดยืนยันร่วมกันครั้งสุดท้ายก่อนเริ่มการผ่าตัดทุกครั้ง","แสดง":true},{"ช่วงเวลา":"ก่อนออกห้องผ่าตัด","ขั้นตอน":"Sign Out","รายละเอียด":"ตรวจนับอุปกรณ์และผ้าก๊อซ พร้อมสรุปแผนดูแลหลังผ่าตัด","แสดง":true}],"ทีมงาน":[{"กลุ่ม":"ผู้บริหาร","ไอคอน":null,"ชื่อหรือตำแหน่ง":"นพ.สมานมิตร อัฐนาค","หน้าที่":"ผู้อำนวยการโรงพยาบาลยางตลาด","ลิงก์รูป":"https://drive.google.com/file/d/1W5LTt04OsNOdYurYBc0VTxw0BJvecoHW/view","แสดง":true},{"กลุ่ม":"ผู้บริหาร","ไอคอน":null,"ชื่อหรือตำแหน่ง":"พว.พัชรินทร์ เลิศวีรพล","หน้าที่":"หัวหน้ากลุ่มงานการพยาบาล","ลิงก์รูป":"https://drive.google.com/file/d/1ZnrUd_muh0Siw_VM5bsSwuA9AvSkwjjd/view","แสดง":true},{"กลุ่ม":"หัวหน้างานห้องผ่าตัด","ไอคอน":null,"ชื่อหรือตำแหน่ง":"นางสุวิสาส์ ทองดอนง้าว","หน้าที่":"หัวหน้างานห้องผ่าตัด · พยาบาลวิชาชีพชำนาญการพิเศษ","ลิงก์รูป":"https://drive.google.com/file/d/14g7taXNS-Ib_3R6pHMZTUSZAHPmvKlkr/view","แสดง":true},{"กลุ่ม":"แพทย์","ไอคอน":null,"ชื่อหรือตำแหน่ง":"นพ.จักรกริช เถือนคำแสน","หน้าที่":"แพทย์ศัลยกรรมทั่วไป · นายแพทย์ชำนาญการพิเศษ","ลิงก์รูป":null,"แสดง":true},{"กลุ่ม":"แพทย์","ไอคอน":null,"ชื่อหรือตำแหน่ง":"นพ.บัญชา ปัตถารัตน์","หน้าที่":"แพทย์ศัลยกรรมทั่วไป · นายแพทย์ชำนาญการ","ลิงก์รูป":null,"แสดง":true},{"กลุ่ม":"แพทย์","ไอคอน":null,"ชื่อหรือตำแหน่ง":"นพ.เทอดธรรม อุปัชฌาย์","หน้าที่":"แพทย์ศัลยกรรมทั่วไป · นายแพทย์ชำนาญการ","ลิงก์รูป":null,"แสดง":true},{"กลุ่ม":"แพทย์","ไอคอน":null,"ชื่อหรือตำแหน่ง":"นพ.จักรภัทร ก้านจักร","หน้าที่":"แพทย์ศัลยกรรมทั่วไป · นายแพทย์ชำนาญการ","ลิงก์รูป":null,"แสดง":true},{"กลุ่ม":"แพทย์","ไอคอน":null,"ชื่อหรือตำแหน่ง":"นพ.วริวิทย์ กาญจนมิตร","หน้าที่":"สูติ-นรีแพทย์ · นายแพทย์ชำนาญการ","ลิงก์รูป":null,"แสดง":true},{"กลุ่ม":"แพทย์","ไอคอน":null,"ชื่อหรือตำแหน่ง":"พญ.วราภรณ์ จันทรัตน์","หน้าที่":"สูติ-นรีแพทย์ · นายแพทย์ชำนาญการ","ลิงก์รูป":null,"แสดง":true},{"กลุ่ม":"แพทย์","ไอคอน":null,"ชื่อหรือตำแหน่ง":"นพ.กฤษณะ ระดาพัฒน์","หน้าที่":"แพทย์ศัลยกรรมกระดูกและข้อ · นายแพทย์ชำนาญการ","ลิงก์รูป":null,"แสดง":true},{"กลุ่ม":"แพทย์","ไอคอน":null,"ชื่อหรือตำแหน่ง":"นพ.ธนชัย รินไธสง","หน้าที่":"แพทย์ศัลยกรรมกระดูกและข้อ · นายแพทย์ชำนาญการพิเศษ","ลิงก์รูป":null,"แสดง":true},{"กลุ่ม":"แพทย์","ไอคอน":null,"ชื่อหรือตำแหน่ง":"นพ.รชต ยุบลแมน","หน้าที่":"วิสัญญีแพทย์ · นายแพทย์ชำนาญการ","ลิงก์รูป":"https://drive.google.com/file/d/1TGVQthKxuv15QCL3-vch175U0eVuvxMG/view","แสดง":true},{"กลุ่ม":"วิสัญญีพยาบาล","ไอคอน":null,"ชื่อหรือตำแหน่ง":"นางพัทธนันท์ เวียงสงศ์","หน้าที่":"พยาบาลวิชาชีพชำนาญการ","ลิงก์รูป":"https://drive.google.com/file/d/1ZC8s1h-qQurm29UgxuWy51dolodkV1Ko/view","แสดง":true},{"กลุ่ม":"วิสัญญีพยาบาล","ไอคอน":null,"ชื่อหรือตำแหน่ง":"นางเจษฎ์ทิพย์ คุณสิงห์","หน้าที่":"พยาบาลวิชาชีพชำนาญการ","ลิงก์รูป":"https://drive.google.com/file/d/1wtwllwxj3DhpFNg6ZERnyQVJZsoQh6f5/view","แสดง":true},{"กลุ่ม":"วิสัญญีพยาบาล","ไอคอน":null,"ชื่อหรือตำแหน่ง":"น.ส.เสาวนีย์ ภูงามเงิน","หน้าที่":"พยาบาลวิชาชีพชำนาญการ","ลิงก์รูป":"https://drive.google.com/file/d/1dbeMjnRCSy9evdCLqRAO5ECwgnky4x3i/view","แสดง":true},{"กลุ่ม":"วิสัญญีพยาบาล","ไอคอน":null,"ชื่อหรือตำแหน่ง":"น.ส.ศุภลักษณา ภูนีรับ","หน้าที่":"พยาบาลวิชาชีพชำนาญการ","ลิงก์รูป":"https://drive.google.com/file/d/1TsAqWsnM0N-weNa99fwtl6IN7__FjNFi/view","แสดง":true},{"กลุ่ม":"วิสัญญีพยาบาล","ไอคอน":null,"ชื่อหรือตำแหน่ง":"นายประทีป ภูเต้านิล","หน้าที่":"พยาบาลวิชาชีพชำนาญการ","ลิงก์รูป":"https://drive.google.com/file/d/1aSVW-lPu3Z3F8gU4xcjUJCsBeEb9U4dR/view","แสดง":true},{"กลุ่ม":"วิสัญญีพยาบาล","ไอคอน":null,"ชื่อหรือตำแหน่ง":"น.ส.ลดาวัลย์ ศรีวรสาร","หน้าที่":"พยาบาลวิชาชีพปฏิบัติการ","ลิงก์รูป":"https://drive.google.com/file/d/1cmXg7V36qDPBCLoe_VvRtodksp2eM3cD/view","แสดง":true},{"กลุ่ม":"วิสัญญีพยาบาล","ไอคอน":null,"ชื่อหรือตำแหน่ง":"ปทิตตา ภูแสงสั่น","หน้าที่":"พยาบาลวิชาชีพ","ลิงก์รูป":"https://drive.google.com/file/d/1blMrczcrXQ3W3ECIEOY-nHbtY5e8ehI6/view","แสดง":true},{"กลุ่ม":"พยาบาลห้องผ่าตัด","ไอคอน":null,"ชื่อหรือตำแหน่ง":"นางสมคิด โกสุมภ์ศิริ","หน้าที่":"พยาบาลวิชาชีพชำนาญการ","ลิงก์รูป":"https://drive.google.com/file/d/1NfnqDJgkangJgyAnuM5de8jpv87q1LCa/view","แสดง":true},{"กลุ่ม":"พยาบาลห้องผ่าตัด","ไอคอน":null,"ชื่อหรือตำแหน่ง":"นางสาวศุภาพิชญ์ ภูถมลาย","หน้าที่":"พยาบาลวิชาชีพชำนาญการ","ลิงก์รูป":"https://drive.google.com/file/d/1tJPTcjwLvel88oZLpeE79DrkUPT6uj98/view","แสดง":true},{"กลุ่ม":"พยาบาลห้องผ่าตัด","ไอคอน":null,"ชื่อหรือตำแหน่ง":"นายธีรพงศ์ มาพล","หน้าที่":"พยาบาลวิชาชีพชำนาญการ","ลิงก์รูป":"https://drive.google.com/file/d/1BUYkXlam9rPPEW_bs5kMkTdfm0LBsjlV/view","แสดง":true},{"กลุ่ม":"พยาบาลห้องผ่าตัด","ไอคอน":null,"ชื่อหรือตำแหน่ง":"นายฌณกฤต มะลิฉิม","หน้าที่":"พยาบาลวิชาชีพชำนาญการ","ลิงก์รูป":"https://drive.google.com/file/d/1ZYPHKD6Jvth2zPWR6W9jaWwfEEn2He2x/view","แสดง":true},{"กลุ่ม":"พยาบาลห้องผ่าตัด","ไอคอน":null,"ชื่อหรือตำแหน่ง":"น.ส.วิภาภรณ์ พวงไธสง","หน้าที่":"พยาบาลวิชาชีพ","ลิงก์รูป":"https://drive.google.com/file/d/13INQpRKA3H0U9dP8Z741iKonoVV8WEdt/view","แสดง":true},{"กลุ่ม":"พยาบาลห้องผ่าตัด","ไอคอน":null,"ชื่อหรือตำแหน่ง":"น.ส.ปัทมา ภูทองใบ","หน้าที่":"พยาบาลวิชาชีพชำนาญการ","ลิงก์รูป":"https://drive.google.com/file/d/1Wi9JBj_VjyiGw9aCkuiJs3yfZMTRIVAc/view","แสดง":true},{"กลุ่ม":"พยาบาลห้องผ่าตัด","ไอคอน":null,"ชื่อหรือตำแหน่ง":"นางนิภัชกานต์ วรรณู","หน้าที่":"พยาบาลวิชาชีพชำนาญการ","ลิงก์รูป":"https://drive.google.com/file/d/1YvDsKDnqkv5oUsfbMSXeasmYaqFCkC5n/view","แสดง":true},{"กลุ่ม":"พยาบาลห้องผ่าตัด","ไอคอน":null,"ชื่อหรือตำแหน่ง":"น.ส.สุชานันท์ สิงอ่อน","หน้าที่":"พยาบาลวิชาชีพปฏิบัติการ","ลิงก์รูป":"https://drive.google.com/file/d/1GPh8DM5WYzFsdzU5zrGEH_JUWdtMY6GO/view","แสดง":true},{"กลุ่ม":"พยาบาลห้องผ่าตัด","ไอคอน":null,"ชื่อหรือตำแหน่ง":"น.ส.สุทธิดา โพธิ์สิงห์","หน้าที่":"พยาบาลวิชาชีพ","ลิงก์รูป":"https://drive.google.com/file/d/1PAfhkQhNRQWgxTRLKhLa5ruMp-QoZtPg/view","แสดง":true},{"กลุ่ม":"พยาบาลห้องผ่าตัด","ไอคอน":null,"ชื่อหรือตำแหน่ง":"น.ส.ฟาริดา แก้วกันยา","หน้าที่":"พยาบาลวิชาชีพ","ลิงก์รูป":"https://drive.google.com/file/d/1M1O0-ENDcBCdf4DcKGOZsz3393mf3GEH/view","แสดง":true},{"กลุ่ม":"พยาบาลห้องผ่าตัด","ไอคอน":null,"ชื่อหรือตำแหน่ง":"นายณัฐชนนท์ วิชญธีรากุล","หน้าที่":"พยาบาลวิชาชีพ","ลิงก์รูป":null,"แสดง":true},{"กลุ่ม":"ผู้ช่วยเหลือคนไข้","ไอคอน":null,"ชื่อหรือตำแหน่ง":"นายอภิชาติ อยู่ม่วง","หน้าที่":"พนักงานช่วยเหลือคนไข้","ลิงก์รูป":"https://drive.google.com/file/d/1gLlUcIC7A_cg88WjgFdKnCpY5LAMGjUx/view","แสดง":true},{"กลุ่ม":"ผู้ช่วยเหลือคนไข้","ไอคอน":null,"ชื่อหรือตำแหน่ง":"น.ส.นงคราญ บุญวิจิตร","หน้าที่":"พนักงานช่วยเหลือคนไข้","ลิงก์รูป":"https://drive.google.com/file/d/15gMsvBKykKM36ztVqZt73TYP5VHyhc1I/view","แสดง":true},{"กลุ่ม":"ผู้ช่วยเหลือคนไข้","ไอคอน":null,"ชื่อหรือตำแหน่ง":"นายตะวัน คิสาลัง","หน้าที่":"พนักงานช่วยเหลือคนไข้","ลิงก์รูป":"https://drive.google.com/file/d/1voy8RWNzd2kX9LJuATdc6RJLcXVt43EP/view","แสดง":true},{"กลุ่ม":"ผู้ช่วยเหลือคนไข้","ไอคอน":null,"ชื่อหรือตำแหน่ง":"น.ส.นลิษา ภูผิวดง","หน้าที่":"พนักงานช่วยเหลือคนไข้","ลิงก์รูป":"https://drive.google.com/file/d/12CgVJ299XD_efwNAQQLzCjaBjxrcOtg5/view","แสดง":true},{"กลุ่ม":"ผู้ช่วยเหลือคนไข้","ไอคอน":null,"ชื่อหรือตำแหน่ง":"น.ส.ณัสฎาภรณ์ ภูตลาดขาม","หน้าที่":"พนักงานช่วยเหลือคนไข้","ลิงก์รูป":"https://drive.google.com/file/d/1gb5DUU_UAvqqwmhtP1BGwzTX7uLXv-D1/view","แสดง":true},{"กลุ่ม":"พนักงานทั่วไป","ไอคอน":null,"ชื่อหรือตำแหน่ง":"น.ส.ธมลวรรณ พลยะเรศ","หน้าที่":"พนักงานซักฟอก","ลิงก์รูป":null,"แสดง":true},{"กลุ่ม":"พนักงานทั่วไป","ไอคอน":null,"ชื่อหรือตำแหน่ง":"นายณัฐพงค์ สิงห์สวัสดิ์","หน้าที่":"พนักงานซักฟอก","ลิงก์รูป":"https://drive.google.com/file/d/1TohNkyvqWUFWDmQA2OjZZsYhzQlB8C3L/view","แสดง":true},{"กลุ่ม":"พนักงานทั่วไป","ไอคอน":null,"ชื่อหรือตำแหน่ง":"นายอนุพงษ์ ภูวิเศษ","หน้าที่":"พนักงานทั่วไป","ลิงก์รูป":"https://drive.google.com/file/d/19_9UGiv76_i_ZiabU3xBZKbdT-so_5AA/view","แสดง":true},{"กลุ่ม":"พนักงานทั่วไป","ไอคอน":null,"ชื่อหรือตำแหน่ง":"น.ส.ฐิติกาล หินพลอย","หน้าที่":"พนักงานทำความสะอาด","ลิงก์รูป":"https://drive.google.com/file/d/15WLygWj3-8te0JJEi2gQsxikwPE-RHyD/view","แสดง":true},{"กลุ่ม":null,"ไอคอน":"👨‍⚕️","ชื่อหรือตำแหน่ง":"ศัลยแพทย์ทั่วไป","หน้าที่":"ทีมแพทย์ผ่าตัด","ลิงก์รูป":null,"แสดง":false},{"กลุ่ม":null,"ไอคอน":"👩‍⚕️","ชื่อหรือตำแหน่ง":"วิสัญญีพยาบาล","หน้าที่":"ทีมระงับความรู้สึก","ลิงก์รูป":null,"แสดง":false},{"กลุ่ม":null,"ไอคอน":"👨‍⚕️","ชื่อหรือตำแหน่ง":"พยาบาลห้องผ่าตัด","หน้าที่":"Scrub Nurse","ลิงก์รูป":null,"แสดง":false}],"คำถาม":[{"หมวด":"ก่อนผ่าตัด","คำถาม":"ต้องงดน้ำงดอาหารก่อนผ่าตัดกี่ชั่วโมง?","คำตอบ":"โดยทั่วไปควรงดอาหารและน้ำอย่างน้อย 6-8 ชั่วโมงก่อนผ่าตัด ทั้งนี้ขึ้นอยู่กับคำแนะนำของแพทย์และวิสัญญีแพทย์ในแต่ละราย","แสดง":true},{"หมวด":"ก่อนผ่าตัด","คำถาม":"ควรเตรียมเอกสารอะไรมาในวันผ่าตัด?","คำตอบ":"บัตรประชาชน บัตรนัด ผลตรวจทางห้องปฏิบัติการ (ถ้ามี) และเอกสารสิทธิการรักษาพยาบาล","แสดง":true},{"หมวด":"ก่อนผ่าตัด","คำถาม":"ควรงดยาชนิดใดก่อนผ่าตัดหรือไม่?","คำตอบ":"ยาบางชนิด เช่น ยาละลายลิ่มเลือด ควรแจ้งแพทย์ล่วงหน้า และปฏิบัติตามคำแนะนำของแพทย์อย่างเคร่งครัด","แสดง":true},{"หมวด":"ก่อนผ่าตัด","คำถาม":"ญาติสามารถรอที่ไหนระหว่างผ่าตัด?","คำตอบ":"มีพื้นที่พักคอยสำหรับญาติบริเวณหน้าห้องผ่าตัด พร้อมระบบแจ้งความคืบหน้าจากทีมพยาบาล","แสดง":true},{"หมวด":"หลังผ่าตัด","คำถาม":"หลังผ่าตัดต้องพักฟื้นที่ใด?","คำตอบ":"ผู้ป่วยจะถูกย้ายไปพักฟื้นที่ห้องพักฟื้น (Recovery Room) ภายใต้การดูแลอย่างใกล้ชิดก่อนย้ายกลับหอผู้ป่วย","แสดง":true},{"หมวด":"หลังผ่าตัด","คำถาม":"เมื่อกลับบ้านแล้ว ดูแลแผลผ่าตัดอย่างไร?","คำตอบ":"รักษาแผลให้แห้งและสะอาด สังเกตอาการบวมแดงหรือมีหนอง หากพบความผิดปกติให้รีบกลับมาพบแพทย์","แสดง":true},{"หมวด":"หลังผ่าตัด","คำถาม":"ควรงดกิจกรรมใดหลังผ่าตัด?","คำตอบ":"หลีกเลี่ยงการยกของหนักและออกแรงบริเวณแผลผ่าตัด จนกว่าแพทย์จะอนุญาตในวันนัดติดตามอาการ","แสดง":true},{"หมวด":"หลังผ่าตัด","คำถาม":"ควรกลับมาพบแพทย์เมื่อใด?","คำตอบ":"ตามวันนัดที่ระบุในใบนัด หรือทันทีหากมีไข้สูง ปวดแผลรุนแรง หรือแผลมีเลือดออกผิดปกติ","แสดง":true}],"รายโรค":[{"ชื่อเรื่อง":"ผ่าตัดไส้ติ่ง","แผนก":"ศัลยกรรมทั่วไป","คำอธิบายสั้น":"การปฏิบัติตัวก่อน-หลังผ่าตัดไส้ติ่งอักเสบ","ข้อปฏิบัติ":"งดน้ำงดอาหารตามเวลาที่แพทย์กำหนดก่อนผ่าตัด\nหลังผ่าตัดค่อย ๆ เริ่มรับประทานอาหารอ่อนตามคำแนะนำพยาบาล\nสังเกตแผลผ่าตัด หากบวมแดงหรือมีไข้ให้รีบพบแพทย์\nงดยกของหนักอย่างน้อย 2-4 สัปดาห์","สื่อความรู้":null,"แสดง":true},{"ชื่อเรื่อง":"ผ่าตัดคลอด (C-Section)","แผนก":"สูติ-นรีเวชกรรม","คำอธิบายสั้น":"การดูแลตนเองสำหรับคุณแม่หลังผ่าตัดคลอด","ข้อปฏิบัติ":"ลุกเดินเบา ๆ ภายใน 24 ชั่วโมงแรกเพื่อลดความเสี่ยงลิ่มเลือดอุดตัน\nดูแลความสะอาดแผลผ่าตัดตามคำแนะนำของพยาบาล\nงดยกของหนักเกินน้ำหนักลูกอย่างน้อย 6 สัปดาห์\nสังเกตอาการผิดปกติ เช่น เลือดออกมาก ไข้สูง ปวดแผลรุนแรง","สื่อความรู้":null,"แสดง":true},{"ชื่อเรื่อง":"ผ่าตัดกระดูกและข้อ","แผนก":"ออร์โธปิดิกส์","คำอธิบายสั้น":"การปฏิบัติตัวหลังผ่าตัดออร์โธปิดิกส์","ข้อปฏิบัติ":"ฝึกขยับข้อตามโปรแกรมกายภาพบำบัดที่ได้รับ\nใช้อุปกรณ์ช่วยเดินตามคำแนะนำจนกว่าแพทย์จะอนุญาตให้ลงน้ำหนักเต็มที่\nระวังการหกล้มบริเวณที่ผ่าตัด\nมาตามนัดเพื่อติดตามผลเอกซเรย์และแผล","สื่อความรู้":null,"แสดง":true}],"ข่าวสาร":[{"วันที่":"15 กรกฎาคม 2569","หัวข้อ":"อบรมฟื้นฟู Surgical Safety Checklist ประจำปี","รายละเอียด":"ทีมห้องผ่าตัดเข้าร่วมอบรมทบทวนมาตรฐานความปลอดภัยในการผ่าตัด","ลิงก์รูปปก":null,"ลิงก์โฟลเดอร์รูป":null,"แสดง":false,"รูปทั้งหมด":null},{"วันที่":"2 มิถุนายน 2569","หัวข้อ":"ปรับปรุงห้องผ่าตัดหมายเลข 3","รายละเอียด":"ติดตั้งอุปกรณ์ผ่าตัดรุ่นใหม่เพื่อเพิ่มประสิทธิภาพการให้บริการ","ลิงก์รูปปก":null,"ลิงก์โฟลเดอร์รูป":null,"แสดง":false,"รูปทั้งหมด":null},{"วันที่":"18 พฤษภาคม 2569","หัวข้อ":"รับรางวัลหน่วยงานควบคุมการติดเชื้อดีเด่น","รายละเอียด":"กลุ่มงานห้องผ่าตัดได้รับการยกย่องด้านมาตรฐานป้องกันการติดเชื้อ","ลิงก์รูปปก":null,"ลิงก์โฟลเดอร์รูป":null,"แสดง":false,"รูปทั้งหมด":null},{"วันที่":"1 ตุลาคม 2569","หัวข้อ":"รับการตรวจคลังพัสดุ","รายละเอียด":"ห้องผ่าตัดได้รับการตรวจคลังพัสดุ ประจำปี 2569\nนำทีมโดย พว.ศศิวิมล  ภูกาสอน ","ลิงก์รูปปก":null,"ลิงก์โฟลเดอร์รูป":"https://drive.google.com/drive/folders/1ekfa9k8PFslT_AaoAHAkYov4gZetxCHi?usp=sharing","แสดง":true,"รูปทั้งหมด":"1xflHoAB4sZC268mHCCeEYX2GbD2XetNY\n1rmoYkKVoEWxUFftiMEpiPzn1jy8Rbf36\n1CYwCvlDpp7lBhuvQ7If2MO7ZuHrGAQ0E\n1j7DTgs5wncHPQ227vBWILNmBA1LJ504w\n1ffwcUTwaX6mTagfsC93ynRr0pi3wqeU1"},{"วันที่":"21 ตุลาคม 2569","หัวข้อ":"ร่วมกิจกรรม \"วันพยาบาลแห่งชาติ\"","รายละเอียด":"พว.สุวิสาส์   ทองดอนง้าว หัวหน้างานห้องผ่าตัด กลุ่มงานการพยาบาล โรงพยาบาลยางตลาด \nได้รับใบประกาศเกียรติคุณ เป็นผู้บำเพ็ญตนก่อให้เกิดประโยชน์ต่อสังคมและเป็นแบบอย่างที่ดีของผู้ประกอบวิชาชีพการพยาบาล\nและ\nพว.ฌณกฤต  มะลิฉิม พยาบาลวิชาชีพชำนาญการ ได้เข้าร่วมการนำเสนอผลงานวิชาการ CQI ODS Smart Service","ลิงก์รูปปก":null,"ลิงก์โฟลเดอร์รูป":"https://drive.google.com/drive/folders/1Q_G4xog3jz1Ba3-BMqScHe1-_Fi_aw4t?usp=drive_link","แสดง":true,"รูปทั้งหมด":"184oWB0x0zNrnmoERYovltCutFXS5TyVO\n16Vy154fQqn5nATkn0x_X64zuyjx2_AhA\n1_wsHlyaIQUFalsDc8m2Zz5qBp-tEOHlx\n1k_Ghanni1ady5nbwhnhr5o0mG27mvQoY"}],"แบบประเมิน":[{"คำถาม":"เจ้าหน้าที่ให้บริการด้วยความสุภาพ เป็นมิตร และเอาใจใส่","แสดง":true},{"คำถาม":"ได้รับคำอธิบายเรื่องการผ่าตัดและการเตรียมตัวอย่างเข้าใจ","แสดง":true},{"คำถาม":"ได้รับการดูแลความเป็นส่วนตัวและศักดิ์ศรี","แสดง":true},{"คำถาม":"ได้รับการดูแลอาการปวดและความไม่สุขสบาย","แสดง":true},{"คำถาม":"ความสะอาดและความปลอดภัยของสถานที่","แสดง":true},{"คำถาม":"ความพึงพอใจโดยรวมต่อบริการห้องผ่าตัด","แสดง":true}],"ระบบเจ้าหน้าที่":[{"ไอคอน":"📋","ชื่อระบบ":"ระบบลงทะเบียนผ่าตัด","คำอธิบาย":"บันทึกทะเบียนผู้ป่วยผ่าตัด สถิติ และรายงานของห้องผ่าตัด","ลิงก์":"https://script.google.com/macros/s/AKfycbxeAri5DipAT4djf5B-13iWhuk8JotXMQTlraj_hMqkQIDDAGTPNVXTAs8b8y5xWbKs_g/exec","แสดง":true},{"ไอคอน":"🏥","ชื่อระบบ":"ระบบ ODS","คำอธิบาย":"ติดตามผู้ป่วยผ่าตัดแบบ ODS / MIS","ลิงก์":"https://script.google.com/macros/s/AKfycbw-tljin3OeDW245c3lCVinhm0BWztYO3JE3Qdyhxp9rKf-mZAj1cd7HXSySqMosgYlsA/exec","แสดง":true},{"ไอคอน":"🧰","ชื่อระบบ":"Sterile Stock","คำอธิบาย":"คลังเครื่องมือปลอดเชื้อ","ลิงก์":"https://or-yth.github.io/sterilestock/","แสดง":true}]};
+  var FALLBACK = {"ตั้งค่า":[{"รายการ":"ชื่อหน่วยงาน","ข้อความ":"กลุ่มงานห้องผ่าตัด","คำอธิบาย":"แสดงบนแถบเมนูและส่วนท้าย"},{"รายการ":"ชื่อโรงพยาบาล","ข้อความ":"โรงพยาบาลยางตลาด","คำอธิบาย":null},{"รายการ":"หัวข้อหลัก","ข้อความ":"ดูแลทุกวินาที [ในห้องผ่าตัด]\nด้วยมาตรฐานและหัวใจของทีม","คำอธิบาย":"ข้อความใน [ ] จะเป็นสีเน้น"},{"รายการ":"คำโปรย","ข้อความ":"ทีมสหวิชาชีพห้องผ่าตัดของเรา ให้บริการผ่าตัดอย่างปลอดภัย แม่นยำ และใส่ใจผู้ป่วยในทุกขั้นตอน ตั้งแต่ก่อน ระหว่าง จนถึงหลังการผ่าตัด","คำอธิบาย":null},{"รายการ":"เกี่ยวกับ หัวข้อ","ข้อความ":"พื้นที่ปลอดภัยที่สุดของโรงพยาบาล คือที่ที่เรายืนทำงานทุกวัน","คำอธิบาย":null},{"รายการ":"เกี่ยวกับ ข้อความ","ข้อความ":"กลุ่มงานห้องผ่าตัด โรงพยาบาลยางตลาด ให้บริการผ่าตัดครอบคลุมสาขาศัลยกรรมหลัก โดยทีมสหวิชาชีพที่ผ่านการฝึกอบรมเฉพาะทาง พร้อมเครื่องมือและระบบควบคุมคุณภาพตามมาตรฐานสากล เพื่อความปลอดภัยสูงสุดของผู้ป่วยทุกราย","คำอธิบาย":null},{"รายการ":"วิสัยทัศน์","ข้อความ":"เป็นกลุ่มงานห้องผ่าตัดที่ได้มาตรฐาน ปลอดภัย และเป็นที่ไว้วางใจของผู้รับบริการในเขตอำเภอยางตลาดและใกล้เคียง","คำอธิบาย":null},{"รายการ":"พันธกิจ","ข้อความ":"ให้บริการผ่าตัดด้วยมาตรฐานวิชาชีพ ควบคุมการติดเชื้อ ลดความเสี่ยง และพัฒนาศักยภาพบุคลากรอย่างต่อเนื่อง","คำอธิบาย":null},{"รายการ":"ที่อยู่","ข้อความ":"โรงพยาบาลยางตลาด อำเภอยางตลาด จังหวัดกาฬสินธุ์","คำอธิบาย":null},{"รายการ":"โทรศัพท์","ข้อความ":"043-891-249 ต่อ 127","คำอธิบาย":"ว่างไว้ = ไม่แสดง ใส่เบอร์จริงแล้วจะขึ้นเว็บเอง"},{"รายการ":"เวลาทำการ","ข้อความ":"ห้องผ่าตัดตามนัด: จันทร์–ศุกร์ 08.30–16.30 น.\nห้องผ่าตัดฉุกเฉิน: ตลอด 24 ชั่วโมง","คำอธิบาย":null},{"รายการ":"แผนที่","ข้อความ":"โรงพยาบาลยางตลาด","คำอธิบาย":"คำค้นหาสถานที่ใน Google Maps"},{"รายการ":"ลิงก์ระบบเจ้าหน้าที่","ข้อความ":null,"คำอธิบาย":"ว่างไว้ = ไม่แสดงปุ่ม \"สำหรับเจ้าหน้าที่\""},{"รายการ":"ลิงก์ระบบรับแบบประเมิน","ข้อความ":null,"คำอธิบาย":"วางลิงก์เว็บแอปของสคริปต์ แบบประเมิน.gs (ลงท้าย /exec) ว่างไว้ = ไม่แสดงส่วนประเมินบนเว็บ"},{"รายการ":"ช่องทางร้องเรียนอื่น","ข้อความ":null,"คำอธิบาย":"เช่น ศูนย์รับเรื่องร้องเรียน รพ. โทร ... ว่างไว้ = ไม่แสดง"},{"รายการ":"ข้อความส่วนท้าย","ข้อความ":"ดูแลด้วยมาตรฐาน ปลอดภัยด้วยหัวใจ ทีมสหวิชาชีพห้องผ่าตัดพร้อมให้บริการผู้ป่วยทุกราย","คำอธิบาย":null}],"ตัวเลขเด่น":[{"ตัวเลข":"6","คำอธิบาย":"ห้องผ่าตัด","แสดง":false},{"ตัวเลข":"24/7","คำอธิบาย":"ห้องผ่าตัดฉุกเฉิน","แสดง":true},{"ตัวเลข":"98%","คำอธิบาย":"ความพึงพอใจผู้ป่วย","แสดง":false}],"บริการ":[{"ไอคอน":"✚","ชื่อบริการ":"ศัลยกรรมทั่วไป","รายละเอียด":"ผ่าตัดไส้ติ่ง ถุงน้ำดี ไส้เลื่อน และหัตถการศัลยกรรมพื้นฐาน","แสดง":true},{"ไอคอน":"♀","ชื่อบริการ":"สูติ-นรีเวชกรรม","รายละเอียด":"ผ่าตัดคลอด และหัตถการทางนรีเวชสำหรับผู้ป่วยหญิง","แสดง":true},{"ไอคอน":"🦴","ชื่อบริการ":"ออร์โธปิดิกส์","รายละเอียด":"ผ่าตัดกระดูกและข้อ กรณีอุบัติเหตุและโรคทางกระดูก","แสดง":true},{"ไอคอน":"⏱","ชื่อบริการ":"ห้องผ่าตัดฉุกเฉิน","รายละเอียด":"พร้อมให้บริการตลอด 24 ชั่วโมง สำหรับผู้ป่วยวิกฤต","แสดง":true}],"ความปลอดภัย":[{"ช่วงเวลา":"ก่อนนำสลบ","ขั้นตอน":"Sign In","รายละเอียด":"ยืนยันตัวผู้ป่วย ตำแหน่งผ่าตัด และประวัติแพ้ยาก่อนเริ่มกระบวนการ","แสดง":true},{"ช่วงเวลา":"ก่อนลงมีด","ขั้นตอน":"Time Out","รายละเอียด":"ทีมผ่าตัดยืนยันร่วมกันครั้งสุดท้ายก่อนเริ่มการผ่าตัดทุกครั้ง","แสดง":true},{"ช่วงเวลา":"ก่อนออกห้องผ่าตัด","ขั้นตอน":"Sign Out","รายละเอียด":"ตรวจนับอุปกรณ์และผ้าก๊อซ พร้อมสรุปแผนดูแลหลังผ่าตัด","แสดง":true}],"ทีมงาน":[{"กลุ่ม":"ผู้บริหาร","ไอคอน":null,"ชื่อหรือตำแหน่ง":"นพ.สมานมิตร อัฐนาค","หน้าที่":"ผู้อำนวยการโรงพยาบาลยางตลาด","ลิงก์รูป":"https://drive.google.com/file/d/1W5LTt04OsNOdYurYBc0VTxw0BJvecoHW/view","แสดง":true},{"กลุ่ม":"ผู้บริหาร","ไอคอน":null,"ชื่อหรือตำแหน่ง":"พว.พัชรินทร์ เลิศวีรพล","หน้าที่":"หัวหน้ากลุ่มงานการพยาบาล","ลิงก์รูป":"https://drive.google.com/file/d/1ZnrUd_muh0Siw_VM5bsSwuA9AvSkwjjd/view","แสดง":true},{"กลุ่ม":"หัวหน้างานห้องผ่าตัด","ไอคอน":null,"ชื่อหรือตำแหน่ง":"นางสุวิสาส์ ทองดอนง้าว","หน้าที่":"หัวหน้างานห้องผ่าตัด · พยาบาลวิชาชีพชำนาญการพิเศษ","ลิงก์รูป":"https://drive.google.com/file/d/14g7taXNS-Ib_3R6pHMZTUSZAHPmvKlkr/view","แสดง":true},{"กลุ่ม":"แพทย์","ไอคอน":null,"ชื่อหรือตำแหน่ง":"นพ.จักรกริช เถือนคำแสน","หน้าที่":"แพทย์ศัลยกรรมทั่วไป · นายแพทย์ชำนาญการพิเศษ","ลิงก์รูป":null,"แสดง":true},{"กลุ่ม":"แพทย์","ไอคอน":null,"ชื่อหรือตำแหน่ง":"นพ.บัญชา ปัตถารัตน์","หน้าที่":"แพทย์ศัลยกรรมทั่วไป · นายแพทย์ชำนาญการ","ลิงก์รูป":null,"แสดง":true},{"กลุ่ม":"แพทย์","ไอคอน":null,"ชื่อหรือตำแหน่ง":"นพ.เทอดธรรม อุปัชฌาย์","หน้าที่":"แพทย์ศัลยกรรมทั่วไป · นายแพทย์ชำนาญการ","ลิงก์รูป":null,"แสดง":true},{"กลุ่ม":"แพทย์","ไอคอน":null,"ชื่อหรือตำแหน่ง":"นพ.จักรภัทร ก้านจักร","หน้าที่":"แพทย์ศัลยกรรมทั่วไป · นายแพทย์ชำนาญการ","ลิงก์รูป":null,"แสดง":true},{"กลุ่ม":"แพทย์","ไอคอน":null,"ชื่อหรือตำแหน่ง":"นพ.วริวิทย์ กาญจนมิตร","หน้าที่":"สูติ-นรีแพทย์ · นายแพทย์ชำนาญการ","ลิงก์รูป":null,"แสดง":true},{"กลุ่ม":"แพทย์","ไอคอน":null,"ชื่อหรือตำแหน่ง":"พญ.วราภรณ์ จันทรัตน์","หน้าที่":"สูติ-นรีแพทย์ · นายแพทย์ชำนาญการ","ลิงก์รูป":null,"แสดง":true},{"กลุ่ม":"แพทย์","ไอคอน":null,"ชื่อหรือตำแหน่ง":"นพ.กฤษณะ ระดาพัฒน์","หน้าที่":"แพทย์ศัลยกรรมกระดูกและข้อ · นายแพทย์ชำนาญการ","ลิงก์รูป":null,"แสดง":true},{"กลุ่ม":"แพทย์","ไอคอน":null,"ชื่อหรือตำแหน่ง":"นพ.ธนชัย รินไธสง","หน้าที่":"แพทย์ศัลยกรรมกระดูกและข้อ · นายแพทย์ชำนาญการพิเศษ","ลิงก์รูป":null,"แสดง":true},{"กลุ่ม":"แพทย์","ไอคอน":null,"ชื่อหรือตำแหน่ง":"นพ.รชต ยุบลแมน","หน้าที่":"วิสัญญีแพทย์ · นายแพทย์ชำนาญการ","ลิงก์รูป":"https://drive.google.com/file/d/1TGVQthKxuv15QCL3-vch175U0eVuvxMG/view","แสดง":true},{"กลุ่ม":"วิสัญญีพยาบาล","ไอคอน":null,"ชื่อหรือตำแหน่ง":"นางพัทธนันท์ เวียงสงศ์","หน้าที่":"พยาบาลวิชาชีพชำนาญการ","ลิงก์รูป":"https://drive.google.com/file/d/1ZC8s1h-qQurm29UgxuWy51dolodkV1Ko/view","แสดง":true},{"กลุ่ม":"วิสัญญีพยาบาล","ไอคอน":null,"ชื่อหรือตำแหน่ง":"นางเจษฎ์ทิพย์ คุณสิงห์","หน้าที่":"พยาบาลวิชาชีพชำนาญการ","ลิงก์รูป":"https://drive.google.com/file/d/1wtwllwxj3DhpFNg6ZERnyQVJZsoQh6f5/view","แสดง":true},{"กลุ่ม":"วิสัญญีพยาบาล","ไอคอน":null,"ชื่อหรือตำแหน่ง":"น.ส.เสาวนีย์ ภูงามเงิน","หน้าที่":"พยาบาลวิชาชีพชำนาญการ","ลิงก์รูป":"https://drive.google.com/file/d/1dbeMjnRCSy9evdCLqRAO5ECwgnky4x3i/view","แสดง":true},{"กลุ่ม":"วิสัญญีพยาบาล","ไอคอน":null,"ชื่อหรือตำแหน่ง":"น.ส.ศุภลักษณา ภูนีรับ","หน้าที่":"พยาบาลวิชาชีพชำนาญการ","ลิงก์รูป":"https://drive.google.com/file/d/1TsAqWsnM0N-weNa99fwtl6IN7__FjNFi/view","แสดง":true},{"กลุ่ม":"วิสัญญีพยาบาล","ไอคอน":null,"ชื่อหรือตำแหน่ง":"นายประทีป ภูเต้านิล","หน้าที่":"พยาบาลวิชาชีพชำนาญการ","ลิงก์รูป":"https://drive.google.com/file/d/1aSVW-lPu3Z3F8gU4xcjUJCsBeEb9U4dR/view","แสดง":true},{"กลุ่ม":"วิสัญญีพยาบาล","ไอคอน":null,"ชื่อหรือตำแหน่ง":"น.ส.ลดาวัลย์ ศรีวรสาร","หน้าที่":"พยาบาลวิชาชีพปฏิบัติการ","ลิงก์รูป":"https://drive.google.com/file/d/1cmXg7V36qDPBCLoe_VvRtodksp2eM3cD/view","แสดง":true},{"กลุ่ม":"วิสัญญีพยาบาล","ไอคอน":null,"ชื่อหรือตำแหน่ง":"ปทิตตา ภูแสงสั่น","หน้าที่":"พยาบาลวิชาชีพ","ลิงก์รูป":"https://drive.google.com/file/d/1blMrczcrXQ3W3ECIEOY-nHbtY5e8ehI6/view","แสดง":true},{"กลุ่ม":"พยาบาลห้องผ่าตัด","ไอคอน":null,"ชื่อหรือตำแหน่ง":"นางสมคิด โกสุมภ์ศิริ","หน้าที่":"พยาบาลวิชาชีพชำนาญการ","ลิงก์รูป":"https://drive.google.com/file/d/1NfnqDJgkangJgyAnuM5de8jpv87q1LCa/view","แสดง":true},{"กลุ่ม":"พยาบาลห้องผ่าตัด","ไอคอน":null,"ชื่อหรือตำแหน่ง":"นางสาวศุภาพิชญ์ ภูถมลาย","หน้าที่":"พยาบาลวิชาชีพชำนาญการ","ลิงก์รูป":"https://drive.google.com/file/d/1tJPTcjwLvel88oZLpeE79DrkUPT6uj98/view","แสดง":true},{"กลุ่ม":"พยาบาลห้องผ่าตัด","ไอคอน":null,"ชื่อหรือตำแหน่ง":"นายธีรพงศ์ มาพล","หน้าที่":"พยาบาลวิชาชีพชำนาญการ","ลิงก์รูป":"https://drive.google.com/file/d/1BUYkXlam9rPPEW_bs5kMkTdfm0LBsjlV/view","แสดง":true},{"กลุ่ม":"พยาบาลห้องผ่าตัด","ไอคอน":null,"ชื่อหรือตำแหน่ง":"นายฌณกฤต มะลิฉิม","หน้าที่":"พยาบาลวิชาชีพชำนาญการ","ลิงก์รูป":"https://drive.google.com/file/d/1ZYPHKD6Jvth2zPWR6W9jaWwfEEn2He2x/view","แสดง":true},{"กลุ่ม":"พยาบาลห้องผ่าตัด","ไอคอน":null,"ชื่อหรือตำแหน่ง":"น.ส.วิภาภรณ์ พวงไธสง","หน้าที่":"พยาบาลวิชาชีพ","ลิงก์รูป":"https://drive.google.com/file/d/13INQpRKA3H0U9dP8Z741iKonoVV8WEdt/view","แสดง":true},{"กลุ่ม":"พยาบาลห้องผ่าตัด","ไอคอน":null,"ชื่อหรือตำแหน่ง":"น.ส.ปัทมา ภูทองใบ","หน้าที่":"พยาบาลวิชาชีพชำนาญการ","ลิงก์รูป":"https://drive.google.com/file/d/1Wi9JBj_VjyiGw9aCkuiJs3yfZMTRIVAc/view","แสดง":true},{"กลุ่ม":"พยาบาลห้องผ่าตัด","ไอคอน":null,"ชื่อหรือตำแหน่ง":"นางนิภัชกานต์ วรรณู","หน้าที่":"พยาบาลวิชาชีพชำนาญการ","ลิงก์รูป":"https://drive.google.com/file/d/1YvDsKDnqkv5oUsfbMSXeasmYaqFCkC5n/view","แสดง":true},{"กลุ่ม":"พยาบาลห้องผ่าตัด","ไอคอน":null,"ชื่อหรือตำแหน่ง":"น.ส.สุชานันท์ สิงอ่อน","หน้าที่":"พยาบาลวิชาชีพปฏิบัติการ","ลิงก์รูป":"https://drive.google.com/file/d/1GPh8DM5WYzFsdzU5zrGEH_JUWdtMY6GO/view","แสดง":true},{"กลุ่ม":"พยาบาลห้องผ่าตัด","ไอคอน":null,"ชื่อหรือตำแหน่ง":"น.ส.สุทธิดา โพธิ์สิงห์","หน้าที่":"พยาบาลวิชาชีพ","ลิงก์รูป":"https://drive.google.com/file/d/1PAfhkQhNRQWgxTRLKhLa5ruMp-QoZtPg/view","แสดง":true},{"กลุ่ม":"พยาบาลห้องผ่าตัด","ไอคอน":null,"ชื่อหรือตำแหน่ง":"น.ส.ฟาริดา แก้วกันยา","หน้าที่":"พยาบาลวิชาชีพ","ลิงก์รูป":"https://drive.google.com/file/d/1M1O0-ENDcBCdf4DcKGOZsz3393mf3GEH/view","แสดง":true},{"กลุ่ม":"พยาบาลห้องผ่าตัด","ไอคอน":null,"ชื่อหรือตำแหน่ง":"นายณัฐชนนท์ วิชญธีรากุล","หน้าที่":"พยาบาลวิชาชีพ","ลิงก์รูป":null,"แสดง":true},{"กลุ่ม":"ผู้ช่วยเหลือคนไข้","ไอคอน":null,"ชื่อหรือตำแหน่ง":"นายอภิชาติ อยู่ม่วง","หน้าที่":"พนักงานช่วยเหลือคนไข้","ลิงก์รูป":"https://drive.google.com/file/d/1gLlUcIC7A_cg88WjgFdKnCpY5LAMGjUx/view","แสดง":true},{"กลุ่ม":"ผู้ช่วยเหลือคนไข้","ไอคอน":null,"ชื่อหรือตำแหน่ง":"น.ส.นงคราญ บุญวิจิตร","หน้าที่":"พนักงานช่วยเหลือคนไข้","ลิงก์รูป":"https://drive.google.com/file/d/15gMsvBKykKM36ztVqZt73TYP5VHyhc1I/view","แสดง":true},{"กลุ่ม":"ผู้ช่วยเหลือคนไข้","ไอคอน":null,"ชื่อหรือตำแหน่ง":"นายตะวัน คิสาลัง","หน้าที่":"พนักงานช่วยเหลือคนไข้","ลิงก์รูป":"https://drive.google.com/file/d/1voy8RWNzd2kX9LJuATdc6RJLcXVt43EP/view","แสดง":true},{"กลุ่ม":"ผู้ช่วยเหลือคนไข้","ไอคอน":null,"ชื่อหรือตำแหน่ง":"น.ส.นลิษา ภูผิวดง","หน้าที่":"พนักงานช่วยเหลือคนไข้","ลิงก์รูป":"https://drive.google.com/file/d/12CgVJ299XD_efwNAQQLzCjaBjxrcOtg5/view","แสดง":true},{"กลุ่ม":"ผู้ช่วยเหลือคนไข้","ไอคอน":null,"ชื่อหรือตำแหน่ง":"น.ส.ณัสฎาภรณ์ ภูตลาดขาม","หน้าที่":"พนักงานช่วยเหลือคนไข้","ลิงก์รูป":"https://drive.google.com/file/d/1gb5DUU_UAvqqwmhtP1BGwzTX7uLXv-D1/view","แสดง":true},{"กลุ่ม":"พนักงานทั่วไป","ไอคอน":null,"ชื่อหรือตำแหน่ง":"น.ส.ธมลวรรณ พลยะเรศ","หน้าที่":"พนักงานซักฟอก","ลิงก์รูป":null,"แสดง":true},{"กลุ่ม":"พนักงานทั่วไป","ไอคอน":null,"ชื่อหรือตำแหน่ง":"นายณัฐพงค์ สิงห์สวัสดิ์","หน้าที่":"พนักงานซักฟอก","ลิงก์รูป":"https://drive.google.com/file/d/1TohNkyvqWUFWDmQA2OjZZsYhzQlB8C3L/view","แสดง":true},{"กลุ่ม":"พนักงานทั่วไป","ไอคอน":null,"ชื่อหรือตำแหน่ง":"นายอนุพงษ์ ภูวิเศษ","หน้าที่":"พนักงานทั่วไป","ลิงก์รูป":"https://drive.google.com/file/d/19_9UGiv76_i_ZiabU3xBZKbdT-so_5AA/view","แสดง":true},{"กลุ่ม":"พนักงานทั่วไป","ไอคอน":null,"ชื่อหรือตำแหน่ง":"น.ส.ฐิติกาล หินพลอย","หน้าที่":"พนักงานทำความสะอาด","ลิงก์รูป":"https://drive.google.com/file/d/15WLygWj3-8te0JJEi2gQsxikwPE-RHyD/view","แสดง":true},{"กลุ่ม":null,"ไอคอน":"👨‍⚕️","ชื่อหรือตำแหน่ง":"ศัลยแพทย์ทั่วไป","หน้าที่":"ทีมแพทย์ผ่าตัด","ลิงก์รูป":null,"แสดง":false},{"กลุ่ม":null,"ไอคอน":"👩‍⚕️","ชื่อหรือตำแหน่ง":"วิสัญญีพยาบาล","หน้าที่":"ทีมระงับความรู้สึก","ลิงก์รูป":null,"แสดง":false},{"กลุ่ม":null,"ไอคอน":"👨‍⚕️","ชื่อหรือตำแหน่ง":"พยาบาลห้องผ่าตัด","หน้าที่":"Scrub Nurse","ลิงก์รูป":null,"แสดง":false}],"คำถาม":[{"หมวด":"ก่อนผ่าตัด","คำถาม":"ต้องงดน้ำงดอาหารก่อนผ่าตัดกี่ชั่วโมง?","คำตอบ":"โดยทั่วไปควรงดอาหารและน้ำอย่างน้อย 6-8 ชั่วโมงก่อนผ่าตัด ทั้งนี้ขึ้นอยู่กับคำแนะนำของแพทย์และวิสัญญีแพทย์ในแต่ละราย","แสดง":true},{"หมวด":"ก่อนผ่าตัด","คำถาม":"ควรเตรียมเอกสารอะไรมาในวันผ่าตัด?","คำตอบ":"บัตรประชาชน บัตรนัด ผลตรวจทางห้องปฏิบัติการ (ถ้ามี) และเอกสารสิทธิการรักษาพยาบาล","แสดง":true},{"หมวด":"ก่อนผ่าตัด","คำถาม":"ควรงดยาชนิดใดก่อนผ่าตัดหรือไม่?","คำตอบ":"ยาบางชนิด เช่น ยาละลายลิ่มเลือด ควรแจ้งแพทย์ล่วงหน้า และปฏิบัติตามคำแนะนำของแพทย์อย่างเคร่งครัด","แสดง":true},{"หมวด":"ก่อนผ่าตัด","คำถาม":"ญาติสามารถรอที่ไหนระหว่างผ่าตัด?","คำตอบ":"มีพื้นที่พักคอยสำหรับญาติบริเวณหน้าห้องผ่าตัด พร้อมระบบแจ้งความคืบหน้าจากทีมพยาบาล","แสดง":true},{"หมวด":"หลังผ่าตัด","คำถาม":"หลังผ่าตัดต้องพักฟื้นที่ใด?","คำตอบ":"ผู้ป่วยจะถูกย้ายไปพักฟื้นที่ห้องพักฟื้น (Recovery Room) ภายใต้การดูแลอย่างใกล้ชิดก่อนย้ายกลับหอผู้ป่วย","แสดง":true},{"หมวด":"หลังผ่าตัด","คำถาม":"เมื่อกลับบ้านแล้ว ดูแลแผลผ่าตัดอย่างไร?","คำตอบ":"รักษาแผลให้แห้งและสะอาด สังเกตอาการบวมแดงหรือมีหนอง หากพบความผิดปกติให้รีบกลับมาพบแพทย์","แสดง":true},{"หมวด":"หลังผ่าตัด","คำถาม":"ควรงดกิจกรรมใดหลังผ่าตัด?","คำตอบ":"หลีกเลี่ยงการยกของหนักและออกแรงบริเวณแผลผ่าตัด จนกว่าแพทย์จะอนุญาตในวันนัดติดตามอาการ","แสดง":true},{"หมวด":"หลังผ่าตัด","คำถาม":"ควรกลับมาพบแพทย์เมื่อใด?","คำตอบ":"ตามวันนัดที่ระบุในใบนัด หรือทันทีหากมีไข้สูง ปวดแผลรุนแรง หรือแผลมีเลือดออกผิดปกติ","แสดง":true}],"รายโรค":[{"ชื่อเรื่อง":"ผ่าตัดไส้ติ่ง","แผนก":"ศัลยกรรมทั่วไป","คำอธิบายสั้น":"การปฏิบัติตัวก่อน-หลังผ่าตัดไส้ติ่งอักเสบ","ข้อปฏิบัติ":"งดน้ำงดอาหารตามเวลาที่แพทย์กำหนดก่อนผ่าตัด\nหลังผ่าตัดค่อย ๆ เริ่มรับประทานอาหารอ่อนตามคำแนะนำพยาบาล\nสังเกตแผลผ่าตัด หากบวมแดงหรือมีไข้ให้รีบพบแพทย์\nงดยกของหนักอย่างน้อย 2-4 สัปดาห์","สื่อความรู้":null,"แสดง":true},{"ชื่อเรื่อง":"ผ่าตัดคลอด (C-Section)","แผนก":"สูติ-นรีเวชกรรม","คำอธิบายสั้น":"การดูแลตนเองสำหรับคุณแม่หลังผ่าตัดคลอด","ข้อปฏิบัติ":"ลุกเดินเบา ๆ ภายใน 24 ชั่วโมงแรกเพื่อลดความเสี่ยงลิ่มเลือดอุดตัน\nดูแลความสะอาดแผลผ่าตัดตามคำแนะนำของพยาบาล\nงดยกของหนักเกินน้ำหนักลูกอย่างน้อย 6 สัปดาห์\nสังเกตอาการผิดปกติ เช่น เลือดออกมาก ไข้สูง ปวดแผลรุนแรง","สื่อความรู้":null,"แสดง":true},{"ชื่อเรื่อง":"ผ่าตัดกระดูกและข้อ","แผนก":"ออร์โธปิดิกส์","คำอธิบายสั้น":"การปฏิบัติตัวหลังผ่าตัดออร์โธปิดิกส์","ข้อปฏิบัติ":"ฝึกขยับข้อตามโปรแกรมกายภาพบำบัดที่ได้รับ\nใช้อุปกรณ์ช่วยเดินตามคำแนะนำจนกว่าแพทย์จะอนุญาตให้ลงน้ำหนักเต็มที่\nระวังการหกล้มบริเวณที่ผ่าตัด\nมาตามนัดเพื่อติดตามผลเอกซเรย์และแผล","สื่อความรู้":null,"แสดง":true}],"ข่าวสาร":[{"วันที่":"15 กรกฎาคม 2569","หัวข้อ":"อบรมฟื้นฟู Surgical Safety Checklist ประจำปี","รายละเอียด":"ทีมห้องผ่าตัดเข้าร่วมอบรมทบทวนมาตรฐานความปลอดภัยในการผ่าตัด","ลิงก์รูปปก":null,"ลิงก์โฟลเดอร์รูป":null,"แสดง":false,"รูปทั้งหมด":null},{"วันที่":"2 มิถุนายน 2569","หัวข้อ":"ปรับปรุงห้องผ่าตัดหมายเลข 3","รายละเอียด":"ติดตั้งอุปกรณ์ผ่าตัดรุ่นใหม่เพื่อเพิ่มประสิทธิภาพการให้บริการ","ลิงก์รูปปก":null,"ลิงก์โฟลเดอร์รูป":null,"แสดง":false,"รูปทั้งหมด":null},{"วันที่":"18 พฤษภาคม 2569","หัวข้อ":"รับรางวัลหน่วยงานควบคุมการติดเชื้อดีเด่น","รายละเอียด":"กลุ่มงานห้องผ่าตัดได้รับการยกย่องด้านมาตรฐานป้องกันการติดเชื้อ","ลิงก์รูปปก":null,"ลิงก์โฟลเดอร์รูป":null,"แสดง":false,"รูปทั้งหมด":null},{"วันที่":"1 ตุลาคม 2569","หัวข้อ":"รับการตรวจคลังพัสดุ","รายละเอียด":"ห้องผ่าตัดได้รับการตรวจคลังพัสดุ ประจำปี 2569\nนำทีมโดย พว.ศศิวิมล  ภูกาสอน ","ลิงก์รูปปก":null,"ลิงก์โฟลเดอร์รูป":"https://drive.google.com/drive/folders/1ekfa9k8PFslT_AaoAHAkYov4gZetxCHi?usp=sharing","แสดง":true,"รูปทั้งหมด":"1xflHoAB4sZC268mHCCeEYX2GbD2XetNY\n1rmoYkKVoEWxUFftiMEpiPzn1jy8Rbf36\n1CYwCvlDpp7lBhuvQ7If2MO7ZuHrGAQ0E\n1j7DTgs5wncHPQ227vBWILNmBA1LJ504w\n1ffwcUTwaX6mTagfsC93ynRr0pi3wqeU1"},{"วันที่":"21 ตุลาคม 2569","หัวข้อ":"ร่วมกิจกรรม \"วันพยาบาลแห่งชาติ\"","รายละเอียด":"พว.สุวิสาส์   ทองดอนง้าว หัวหน้างานห้องผ่าตัด กลุ่มงานการพยาบาล โรงพยาบาลยางตลาด \nได้รับใบประกาศเกียรติคุณ เป็นผู้บำเพ็ญตนก่อให้เกิดประโยชน์ต่อสังคมและเป็นแบบอย่างที่ดีของผู้ประกอบวิชาชีพการพยาบาล\nและ\nพว.ฌณกฤต  มะลิฉิม พยาบาลวิชาชีพชำนาญการ ได้เข้าร่วมการนำเสนอผลงานวิชาการ CQI ODS Smart Service","ลิงก์รูปปก":null,"ลิงก์โฟลเดอร์รูป":"https://drive.google.com/drive/folders/1Q_G4xog3jz1Ba3-BMqScHe1-_Fi_aw4t?usp=drive_link","แสดง":true,"รูปทั้งหมด":"184oWB0x0zNrnmoERYovltCutFXS5TyVO\n16Vy154fQqn5nATkn0x_X64zuyjx2_AhA\n1_wsHlyaIQUFalsDc8m2Zz5qBp-tEOHlx\n1k_Ghanni1ady5nbwhnhr5o0mG27mvQoY"}],"แบบประเมิน":[{"คำถาม":"เจ้าหน้าที่ให้บริการด้วยความสุภาพ เป็นมิตร และเอาใจใส่","แสดง":true},{"คำถาม":"ได้รับคำอธิบายเรื่องการผ่าตัดและการเตรียมตัวอย่างเข้าใจ","แสดง":true},{"คำถาม":"ได้รับการดูแลความเป็นส่วนตัวและศักดิ์ศรี","แสดง":true},{"คำถาม":"ได้รับการดูแลอาการปวดและความไม่สุขสบาย","แสดง":true},{"คำถาม":"ความสะอาดและความปลอดภัยของสถานที่","แสดง":true},{"คำถาม":"ความพึงพอใจโดยรวมต่อบริการห้องผ่าตัด","แสดง":true}],"ระบบเจ้าหน้าที่":[{"ไอคอน":"📋","ชื่อระบบ":"ระบบลงทะเบียนผ่าตัด","คำอธิบาย":"บันทึกทะเบียนผู้ป่วยผ่าตัด สถิติ และรายงานของห้องผ่าตัด","ลิงก์":"https://script.google.com/macros/s/AKfycbxeAri5DipAT4djf5B-13iWhuk8JotXMQTlraj_hMqkQIDDAGTPNVXTAs8b8y5xWbKs_g/exec","แสดง":true},{"ไอคอน":"🏥","ชื่อระบบ":"ระบบ ODS","คำอธิบาย":"ติดตามผู้ป่วยผ่าตัดแบบ ODS / MIS","ลิงก์":"https://script.google.com/macros/s/AKfycbw-tljin3OeDW245c3lCVinhm0BWztYO3JE3Qdyhxp9rKf-mZAj1cd7HXSySqMosgYlsA/exec","แสดง":true},{"ไอคอน":"🧰","ชื่อระบบ":"Sterile Stock","คำอธิบาย":"คลังเครื่องมือปลอดเชื้อ","ลิงก์":"https://or-yth.github.io/sterilestock/","แสดง":true},{"ไอคอน":"🗺️","ชื่อระบบ":"แผนผัง 5ส. ห้องผ่าตัด 3 มิติ","คำอธิบาย":"ผังห้องผ่าตัด ชั้น 5 แบบ 3 มิติ รหัสห้อง ขนาด โซน 5ส. และอุปกรณ์รายห้อง","ลิงก์":"https://or-yth.github.io/OR-Yangtalad/5s-3d.html","แสดง":true}],"5ส-โซน":[{"โซน":1,"ชื่อโซน":"แนวห้องด้านบนซ้าย","คำบรรยาย":"แนวห้องริมขอบบนด้านซ้ายของผัง ได้แก่ ห้องครัว ห้องน้ำ 2 ห้อง (แต่ละห้องมีห้องเล็กด้านใน) ทางหนีไฟ ห้อง 7HX516 ห้อง 2KX535 และทางเดินยาวหน้าแนวห้อง\nจุดเน้น 5ส.: ทางเดินและทางหนีไฟต้องโล่ง ไม่มีของวางกีดขวาง ห้องน้ำและห้องครัวสะอาดตามรอบ","แสดง":true},{"โซน":2,"ชื่อโซน":"โซนห้องผ่าตัด 5","คำบรรยาย":"มุมซ้ายของผัง ถัดลงมาจากแนวห้องด้านบน ได้แก่ ห้องผ่าตัด OR5 ห้องเก็บอุปกรณ์ ห้องชะล้าง และทางเดินข้างห้องผ่าตัด\nจุดเน้น 5ส.: อุปกรณ์ในห้องผ่าตัดวางตามแผนผังอุปกรณ์รายห้อง ห้องเก็บอุปกรณ์แยกหมวดหมู่และมีป้ายบอกตำแหน่ง ห้องชะล้างสะอาดและแห้ง","แสดง":true},{"โซน":3,"ชื่อโซน":"โซนห้องพักฟื้น","คำบรรยาย":"กลางผังด้านซ้าย ได้แก่ ห้องพักฟื้น จุดส่งผู้ป่วย ห้องเปลี่ยนเสื้อผ้า 2 ห้อง ห้อง 7HX504 (มีห้องย่อย 2 ห้อง) และทางเดินยาวด้านล่าง\nจุดเน้น 5ส.: เตียงและอุปกรณ์ในห้องพักฟื้นพร้อมใช้ ห้องเปลี่ยนเสื้อผ้าไม่มีของส่วนตัววางค้าง ทางเดินเข็นเปลได้สะดวก","แสดง":true},{"โซน":4,"ชื่อโซน":"โซนโถงกลาง · ลิฟต์","คำบรรยาย":"กลางผัง ได้แก่ บริเวณโถงหน้าลิฟต์ ห้อง 7KX538 และทางเดินหน้าลิฟต์ (ตัวลิฟต์และบันไดไม่รวมในพื้นที่รับผิดชอบ)\nจุดเน้น 5ส.: โถงและทางเดินโล่ง อุปกรณ์ที่จอดริมผนังวางเป็นแนว ไม่กีดขวางทางเข้า–ออกลิฟต์","แสดง":true},{"โซน":5,"ชื่อโซน":"โซนจุดรับ · ห้องเตรียม","คำบรรยาย":"ถัดจากโถงลิฟต์ไปทางขวา ได้แก่ จุดรับผู้ป่วย และห้องเตรียมผ่าตัด\nจุดเน้น 5ส.: จุดรับผู้ป่วยโล่งและเป็นระเบียบ อุปกรณ์และเวชภัณฑ์ในห้องเตรียมจัดเป็นหมวดหมู่ หยิบใช้ได้ทันที","แสดง":true},{"โซน":6,"ชื่อโซน":"แนวห้องด้านบนขวา","คำบรรยาย":"แนวห้องริมขอบบนด้านขวาของผัง ได้แก่ ห้อง 7HX519 ห้อง 7HX520 ห้องน้ำ 2 ห้อง และทางเดิน 2 ช่วง (รวมทางเดิน 7HX521)\nจุดเน้น 5ส.: ทางเดินโล่ง ไม่ใช้เป็นที่พักของ ห้องน้ำสะอาดตามรอบ","แสดง":true},{"โซน":7,"ชื่อโซน":"ห้อง ODS","คำบรรยาย":"ห้องผ่าตัดแบบไม่ต้องนอนโรงพยาบาล (ODS) ด้านขวาของผัง เป็นห้องใหญ่ห้องเดียว (7HX524)\nจุดเน้น 5ส.: เตียง ตู้ข้างเตียง และอุปกรณ์วางตามตำแหน่งที่กำหนด บนตู้และโต๊ะเจ้าหน้าที่ไม่มีของส่วนตัววางค้าง","แสดง":true},{"โซน":8,"ชื่อโซน":"โซนห้องประชุม","คำบรรยาย":"มุมขวาล่างของผัง ได้แก่ ห้องประชุม ห้อง 7HX526 ห้อง 7HX527 พื้นที่ใหม่ ห้องที่กั้นใหม่ และทางเดิน\nจุดเน้น 5ส.: โต๊ะ เก้าอี้ และตู้เอกสารวางเป็นที่ พื้นที่ที่กั้นใหม่จัดให้เป็นสัดส่วนตั้งแต่เริ่มใช้","แสดง":true},{"โซน":9,"ชื่อโซน":"โซนห้องผ่าตัด 3–4","คำบรรยาย":"แนวล่างด้านซ้ายของผัง ได้แก่ ห้องผ่าตัด OR3 และ OR4 ห้อง Sterile ห้องชะล้าง (ส่วนหน้าและส่วนหลัง) และทางเดินด้านล่างฝั่งซ้าย\nจุดเน้น 5ส.: ของในห้อง Sterile จัดเป็นหมวดหมู่และตรวจวันหมดอายุตามรอบ อุปกรณ์ในห้องผ่าตัดวางตามแผนผังอุปกรณ์รายห้อง","แสดง":true},{"โซน":10,"ชื่อโซน":"โซนห้องผ่าตัด 1–2","คำบรรยาย":"แนวล่างตรงกลางของผัง ได้แก่ ห้องผ่าตัด OR1 และ OR2 ห้องชะล้าง (ส่วนหน้าและส่วนหลัง) และทางเดินด้านล่างฝั่งขวา\nจุดเน้น 5ส.: รถเครื่องมือจัดชิดผนังตามประเภท พื้นที่กลางห้องโล่ง สายไฟ ผ้า และถุงขยะไม่วางบนพื้น","แสดง":true}],"5ส-ผู้รับผิดชอบ":[{"โซน":1,"รหัสห้อง":"7HX517","ชื่อห้อง / พื้นที่":"ห้องครัว","ผู้รับผิดชอบหลัก":"ฐิติกาล","ผู้รับผิดชอบร่วม":"ณัฐชนันท์","แสดง":true},{"โซน":1,"รหัสห้อง":"7HX516","ชื่อห้อง / พื้นที่":null,"ผู้รับผิดชอบหลัก":"ฐิติกาล","ผู้รับผิดชอบร่วม":null,"แสดง":true},{"โซน":1,"รหัสห้อง":"2CX530","ชื่อห้อง / พื้นที่":"ห้องน้ำ (รวมห้องเล็ก)","ผู้รับผิดชอบหลัก":"ฐิติกาล","ผู้รับผิดชอบร่วม":null,"แสดง":true},{"โซน":1,"รหัสห้อง":"2CX531","ชื่อห้อง / พื้นที่":"ห้องน้ำ (รวมห้องเล็ก)","ผู้รับผิดชอบหลัก":"ฐิติกาล","ผู้รับผิดชอบร่วม":null,"แสดง":true},{"โซน":1,"รหัสห้อง":"2KX534","ชื่อห้อง / พื้นที่":"ทางหนีไฟ","ผู้รับผิดชอบหลัก":"ฐิติกาล","ผู้รับผิดชอบร่วม":null,"แสดง":true},{"โซน":1,"รหัสห้อง":"2KX535","ชื่อห้อง / พื้นที่":null,"ผู้รับผิดชอบหลัก":"ฐิติกาล","ผู้รับผิดชอบร่วม":null,"แสดง":true},{"โซน":1,"รหัสห้อง":"7HX518","ชื่อห้อง / พื้นที่":"ทางเดิน","ผู้รับผิดชอบหลัก":"ฐิติกาล","ผู้รับผิดชอบร่วม":null,"แสดง":true},{"โซน":2,"รหัสห้อง":"7HX515","ชื่อห้อง / พื้นที่":"ห้องเก็บอุปกรณ์","ผู้รับผิดชอบหลัก":"เจษฎ์ทิพย์","ผู้รับผิดชอบร่วม":"สุทธิดา, นงคราญ, ฟาริดา, ณัสฎาภรณ์","แสดง":true},{"โซน":2,"รหัสห้อง":"7HX514","ชื่อห้อง / พื้นที่":"ห้องผ่าตัด OR5","ผู้รับผิดชอบหลัก":"ลดาวัลย์","ผู้รับผิดชอบร่วม":"ณัฐชนันท์","แสดง":true},{"โซน":2,"รหัสห้อง":"7HX513","ชื่อห้อง / พื้นที่":"ห้องชะล้าง","ผู้รับผิดชอบหลัก":"นงคราญ","ผู้รับผิดชอบร่วม":null,"แสดง":true},{"โซน":2,"รหัสห้อง":"–","ชื่อห้อง / พื้นที่":"ทางเดิน โซนห้องผ่าตัด 5","ผู้รับผิดชอบหลัก":"ฐิติกาล","ผู้รับผิดชอบร่วม":null,"แสดง":true},{"โซน":3,"รหัสห้อง":"7HX506","ชื่อห้อง / พื้นที่":"ห้องเปลี่ยนเสื้อผ้า","ผู้รับผิดชอบหลัก":"ณัฐชนันท์","ผู้รับผิดชอบร่วม":null,"แสดง":true},{"โซน":3,"รหัสห้อง":"7HX505","ชื่อห้อง / พื้นที่":"ห้องเปลี่ยนเสื้อผ้า","ผู้รับผิดชอบหลัก":"นงคราญ","ผู้รับผิดชอบร่วม":null,"แสดง":true},{"โซน":3,"รหัสห้อง":"7HX504","ชื่อห้อง / พื้นที่":"(มีห้องย่อย 2 ห้อง)","ผู้รับผิดชอบหลัก":"นลิษา","ผู้รับผิดชอบร่วม":null,"แสดง":true},{"โซน":3,"รหัสห้อง":"7HX503","ชื่อห้อง / พื้นที่":"ห้องพักฟื้น","ผู้รับผิดชอบหลัก":"นลิษา, ปทิตตา, พัทธนันท์","ผู้รับผิดชอบร่วม":null,"แสดง":true},{"โซน":3,"รหัสห้อง":"7HX502","ชื่อห้อง / พื้นที่":"จุดส่งผู้ป่วย","ผู้รับผิดชอบหลัก":"นลิษา","ผู้รับผิดชอบร่วม":null,"แสดง":true},{"โซน":3,"รหัสห้อง":"7HX507","ชื่อห้อง / พื้นที่":"ทางเดิน","ผู้รับผิดชอบหลัก":"ฐิติกาล","ผู้รับผิดชอบร่วม":null,"แสดง":true},{"โซน":4,"รหัสห้อง":"7HX501","ชื่อห้อง / พื้นที่":"บริเวณโถงหน้าลิฟต์","ผู้รับผิดชอบหลัก":"ฐิติกาล","ผู้รับผิดชอบร่วม":null,"แสดง":true},{"โซน":4,"รหัสห้อง":"7KX538","ชื่อห้อง / พื้นที่":null,"ผู้รับผิดชอบหลัก":"ฐิติกาล","ผู้รับผิดชอบร่วม":null,"แสดง":true},{"โซน":4,"รหัสห้อง":"–","ชื่อห้อง / พื้นที่":"ทางเดินหน้าลิฟต์","ผู้รับผิดชอบหลัก":"ฐิติกาล","ผู้รับผิดชอบร่วม":null,"แสดง":true},{"โซน":5,"รหัสห้อง":"7HX522","ชื่อห้อง / พื้นที่":"จุดรับผู้ป่วย","ผู้รับผิดชอบหลัก":"อภิชาติ","ผู้รับผิดชอบร่วม":"สมคิด","แสดง":true},{"โซน":5,"รหัสห้อง":"7HX523","ชื่อห้อง / พื้นที่":"ห้องเตรียมผ่าตัด","ผู้รับผิดชอบหลัก":"อภิชาติ","ผู้รับผิดชอบร่วม":"นิภัชกานต์","แสดง":true},{"โซน":6,"รหัสห้อง":"7HX519","ชื่อห้อง / พื้นที่":null,"ผู้รับผิดชอบหลัก":"ฐิติกาล","ผู้รับผิดชอบร่วม":null,"แสดง":true},{"โซน":6,"รหัสห้อง":"7HX520","ชื่อห้อง / พื้นที่":null,"ผู้รับผิดชอบหลัก":"ฐิติกาล","ผู้รับผิดชอบร่วม":null,"แสดง":true},{"โซน":6,"รหัสห้อง":"–","ชื่อห้อง / พื้นที่":"ทางเดิน แนวห้องด้านบนขวา","ผู้รับผิดชอบหลัก":"ฐิติกาล","ผู้รับผิดชอบร่วม":null,"แสดง":true},{"โซน":6,"รหัสห้อง":"2CX532","ชื่อห้อง / พื้นที่":"ห้องน้ำ","ผู้รับผิดชอบหลัก":"ฐิติกาล","ผู้รับผิดชอบร่วม":null,"แสดง":true},{"โซน":6,"รหัสห้อง":"2CX533","ชื่อห้อง / พื้นที่":"ห้องน้ำ","ผู้รับผิดชอบหลัก":"ฐิติกาล","ผู้รับผิดชอบร่วม":null,"แสดง":true},{"โซน":6,"รหัสห้อง":"7HX521","ชื่อห้อง / พื้นที่":"ทางเดิน","ผู้รับผิดชอบหลัก":"ฐิติกาล","ผู้รับผิดชอบร่วม":null,"แสดง":true},{"โซน":7,"รหัสห้อง":"7HX524","ชื่อห้อง / พื้นที่":"ห้อง ODS","ผู้รับผิดชอบหลัก":"ฐิติกาล, อนุพงศ์","ผู้รับผิดชอบร่วม":"ฌณกฤต","แสดง":true},{"โซน":8,"รหัสห้อง":"7HX525","ชื่อห้อง / พื้นที่":"ห้องประชุม","ผู้รับผิดชอบหลัก":"ฐิติกาล","ผู้รับผิดชอบร่วม":"ธมลวรรณ","แสดง":true},{"โซน":8,"รหัสห้อง":"–","ชื่อห้อง / พื้นที่":"ทางเดิน โซนห้องประชุม","ผู้รับผิดชอบหลัก":"ฐิติกาล","ผู้รับผิดชอบร่วม":"ธมลวรรณ","แสดง":true},{"โซน":8,"รหัสห้อง":"–","ชื่อห้อง / พื้นที่":"พื้นที่ใหม่","ผู้รับผิดชอบหลัก":"ฐิติกาล","ผู้รับผิดชอบร่วม":"ธมลวรรณ","แสดง":true},{"โซน":8,"รหัสห้อง":"7HX526","ชื่อห้อง / พื้นที่":null,"ผู้รับผิดชอบหลัก":"ฐิติกาล","ผู้รับผิดชอบร่วม":"ธมลวรรณ","แสดง":true},{"โซน":8,"รหัสห้อง":"–","ชื่อห้อง / พื้นที่":"ห้องที่กั้นใหม่","ผู้รับผิดชอบหลัก":"ฐิติกาล","ผู้รับผิดชอบร่วม":"ธมลวรรณ","แสดง":true},{"โซน":8,"รหัสห้อง":"7HX527","ชื่อห้อง / พื้นที่":null,"ผู้รับผิดชอบหลัก":"ฐิติกาล","ผู้รับผิดชอบร่วม":"ธมลวรรณ","แสดง":true},{"โซน":9,"รหัสห้อง":"7HX512","ชื่อห้อง / พื้นที่":"ห้อง Sterile","ผู้รับผิดชอบหลัก":"ธมลวรรณ, ธีรพงศ์","ผู้รับผิดชอบร่วม":null,"แสดง":true},{"โซน":9,"รหัสห้อง":"7HX511","ชื่อห้อง / พื้นที่":"ห้องผ่าตัด OR4","ผู้รับผิดชอบหลัก":"วิภาภรณ์, ประทีป","ผู้รับผิดชอบร่วม":"ตะวัน, ณัสฎาภรณ์","แสดง":true},{"โซน":9,"รหัสห้อง":"7HX529","ชื่อห้อง / พื้นที่":"ห้องชะล้าง (ส่วนหน้าและส่วนหลัง)","ผู้รับผิดชอบหลัก":"ตะวัน","ผู้รับผิดชอบร่วม":"ณัสฎาภรณ์","แสดง":true},{"โซน":9,"รหัสห้อง":"7HX510","ชื่อห้อง / พื้นที่":"ห้องผ่าตัด OR3","ผู้รับผิดชอบหลัก":"ศุภลักษณา, สุชานันท์","ผู้รับผิดชอบร่วม":"ตะวัน, ณัสฎาภรณ์","แสดง":true},{"โซน":9,"รหัสห้อง":"–","ชื่อห้อง / พื้นที่":"ทางเดินด้านล่าง ฝั่งซ้าย","ผู้รับผิดชอบหลัก":"ฐิติกาล","ผู้รับผิดชอบร่วม":null,"แสดง":true},{"โซน":10,"รหัสห้อง":"7HX509","ชื่อห้อง / พื้นที่":"ห้องผ่าตัด OR2","ผู้รับผิดชอบหลัก":"เสาวนีย์, ปัทมา","ผู้รับผิดชอบร่วม":"ณัฐพงค์, ณัสฎาภรณ์","แสดง":true},{"โซน":10,"รหัสห้อง":"7HX528","ชื่อห้อง / พื้นที่":"ห้องชะล้าง (ส่วนหน้าและส่วนหลัง)","ผู้รับผิดชอบหลัก":"ฐิติกาล","ผู้รับผิดชอบร่วม":null,"แสดง":true},{"โซน":10,"รหัสห้อง":"7HX508","ชื่อห้อง / พื้นที่":"ห้องผ่าตัด OR1","ผู้รับผิดชอบหลัก":"เจษฎ์ทิพย์, ศุภลักษณา","ผู้รับผิดชอบร่วม":"ณัฐพงค์","แสดง":true},{"โซน":10,"รหัสห้อง":"–","ชื่อห้อง / พื้นที่":"ทางเดินด้านล่าง ฝั่งขวา","ผู้รับผิดชอบหลัก":"ฐิติกาล","ผู้รับผิดชอบร่วม":null,"แสดง":true}],"5ส-กิจกรรม":[{"วันที่":"10 มิ.ย. 2569","หัวข้อ":"สะสางพื้นที่ทางเดินหน้าลิฟต์และบริเวณ ODS","รายละเอียด":"ทีมงานห้องผ่าตัดลงพื้นที่คัดแยก จัดวางอุปกรณ์ และกำหนดตำแหน่งของ","ลิงก์รูปปก":null,"ลิงก์โฟลเดอร์รูป":null,"แสดง":true,"รูปทั้งหมด":"5s-act/a01-1.jpg\n5s-act/a01-2.jpg\n5s-act/a01-3.jpg\n5s-act/a01-4.jpg\n5s-act/a01-5.jpg\n5s-act/a01-6.jpg"},{"วันที่":null,"หัวข้อ":"สะสางและจัดระเบียบห้องเก็บเวชภัณฑ์","รายละเอียด":"คัดแยกของ เปลี่ยนที่จัดเก็บ และจัดชั้นวางให้หยิบใช้ง่าย","ลิงก์รูปปก":null,"ลิงก์โฟลเดอร์รูป":null,"แสดง":true,"รูปทั้งหมด":"5s-act/a02-1.jpg\n5s-act/a02-2.jpg\n5s-act/a02-3.jpg\n5s-act/a02-4.jpg\n5s-act/a02-5.jpg\n5s-act/a02-6.jpg"},{"วันที่":null,"หัวข้อ":"ขัดพื้นและทำความสะอาดห้องผ่าตัด","รายละเอียด":"ขัดล้างพื้นห้องผ่าตัด เก็บกวาด และเช็ดทำความสะอาดอุปกรณ์","ลิงก์รูปปก":null,"ลิงก์โฟลเดอร์รูป":null,"แสดง":true,"รูปทั้งหมด":"5s-act/a03-1.jpg\n5s-act/a03-2.jpg\n5s-act/a03-3.jpg\n5s-act/a03-4.jpg\n5s-act/a03-5.jpg\n5s-act/a03-6.jpg"},{"วันที่":null,"หัวข้อ":"จัดระเบียบตู้ รถเครื่องมือ และทางเดินด้านหลัง","รายละเอียด":"ตรวจนับ จัดหมวดหมู่วัสดุในตู้และรถเครื่องมือ และเก็บของบริเวณทางเดิน","ลิงก์รูปปก":null,"ลิงก์โฟลเดอร์รูป":null,"แสดง":true,"รูปทั้งหมด":"5s-act/a04-1.jpg\n5s-act/a04-2.jpg\n5s-act/a04-3.jpg\n5s-act/a04-4.jpg\n5s-act/a04-5.jpg\n5s-act/a04-6.jpg"},{"วันที่":"9 ธ.ค. 2568","หัวข้อ":"ทำความสะอาดห้องอ่างล้างและที่เก็บอุปกรณ์ทำความสะอาด","รายละเอียด":"ขัดล้างอ่าง จัดเก็บอุปกรณ์ทำความสะอาดเข้าที่","ลิงก์รูปปก":null,"ลิงก์โฟลเดอร์รูป":null,"แสดง":true,"รูปทั้งหมด":"5s-act/a05-1.jpg\n5s-act/a05-2.jpg\n5s-act/a05-3.jpg\n5s-act/a05-4.jpg\n5s-act/a05-5.jpg\n5s-act/a05-6.jpg"},{"วันที่":null,"หัวข้อ":"จัดห้องทำงานและมุมเก็บรองเท้า","รายละเอียด":"คัดแยกเอกสาร จัดชั้นเอกสาร และจัดชั้นวางรองเท้าให้เป็นระเบียบ","ลิงก์รูปปก":null,"ลิงก์โฟลเดอร์รูป":null,"แสดง":true,"รูปทั้งหมด":"5s-act/a06-1.jpg\n5s-act/a06-2.jpg\n5s-act/a06-3.jpg\n5s-act/a06-4.jpg\n5s-act/a06-5.jpg\n5s-act/a06-6.jpg"},{"วันที่":null,"หัวข้อ":"ประชุมทีมและตรวจโต๊ะทำงาน","รายละเอียด":"ประชุมทีมห้องผ่าตัด และตรวจสอบเอกสารที่โต๊ะทำงาน","ลิงก์รูปปก":null,"ลิงก์โฟลเดอร์รูป":null,"แสดง":true,"รูปทั้งหมด":"5s-act/a07-1.jpg\n5s-act/a07-2.jpg\n5s-act/a07-3.jpg\n5s-act/a07-4.jpg\n5s-act/a07-5.jpg\n5s-act/a07-6.jpg"},{"วันที่":"30 ต.ค. 2568","หัวข้อ":"ทำความสะอาดห้องผ่าตัดและจัดห้องเก็บของ","รายละเอียด":"เช็ดโคมไฟผ่าตัด ทำความสะอาดพื้น และจัดของในห้องเก็บ","ลิงก์รูปปก":null,"ลิงก์โฟลเดอร์รูป":null,"แสดง":true,"รูปทั้งหมด":"5s-act/a08-1.jpg\n5s-act/a08-2.jpg\n5s-act/a08-3.jpg\n5s-act/a08-4.jpg\n5s-act/a08-5.jpg\n5s-act/a08-6.jpg"},{"วันที่":"8 ส.ค. 2568","หัวข้อ":"จัดระเบียบรถยา รถเครื่องมือ และทำความสะอาด","รายละเอียด":"จัดวัสดุบนรถยาและรถเครื่องมือ กวาดพื้นห้องผ่าตัด","ลิงก์รูปปก":null,"ลิงก์โฟลเดอร์รูป":null,"แสดง":true,"รูปทั้งหมด":"5s-act/a09-1.jpg\n5s-act/a09-2.jpg\n5s-act/a09-3.jpg\n5s-act/a09-4.jpg\n5s-act/a09-5.jpg\n5s-act/a09-6.jpg"},{"วันที่":null,"หัวข้อ":"ย้ายและจัดวางเฟอร์นิเจอร์ใหม่","รายละเอียด":"ย้ายโต๊ะ ตู้เอกสาร และเก้าอี้ให้เป็นสัดส่วน เปิดพื้นที่ทางเดิน","ลิงก์รูปปก":null,"ลิงก์โฟลเดอร์รูป":null,"แสดง":true,"รูปทั้งหมด":"5s-act/a10-1.jpg\n5s-act/a10-2.jpg\n5s-act/a10-3.jpg\n5s-act/a10-4.jpg\n5s-act/a10-5.jpg\n5s-act/a10-6.jpg"},{"วันที่":null,"หัวข้อ":"เคลียร์ทางเดินและจัดตู้ล็อกเกอร์","รายละเอียด":"เก็บขยะและกล่อง ย้ายตู้ล็อกเกอร์เข้าที่","ลิงก์รูปปก":null,"ลิงก์โฟลเดอร์รูป":null,"แสดง":true,"รูปทั้งหมด":"5s-act/a11-1.jpg\n5s-act/a11-2.jpg\n5s-act/a11-3.jpg\n5s-act/a11-4.jpg\n5s-act/a11-5.jpg\n5s-act/a11-6.jpg"},{"วันที่":null,"หัวข้อ":"ล้าง ตรวจเช็ค และจัดเก็บอุปกรณ์ดมยา","รายละเอียด":"ล้างหน้ากากดมยา ตรวจใบ laryngoscope และจัดลิ้นชักอุปกรณ์","ลิงก์รูปปก":null,"ลิงก์โฟลเดอร์รูป":null,"แสดง":true,"รูปทั้งหมด":"5s-act/a12-1.jpg\n5s-act/a12-2.jpg\n5s-act/a12-3.jpg\n5s-act/a12-4.jpg\n5s-act/a12-5.jpg\n5s-act/a12-6.jpg"}],"5ส-ก่อนหลัง":[{"หัวข้อ":"ห้องเก็บเวชภัณฑ์ (มุมที่ 1)","วันที่":null,"รูปก่อน":"5s-ba/b01-before.jpg","คำบรรยายก่อน":"ของวางกองกลางห้อง ทางเดินแคบ","รูปหลัง":"5s-ba/b01-after.jpg","คำบรรยายหลัง":"จัดแยกกล่องและเครื่องมือ ทางเดินโล่ง","แสดง":true},{"หัวข้อ":"ห้องเก็บเวชภัณฑ์ (มุมที่ 2)","วันที่":null,"รูปก่อน":"5s-ba/b02-before.jpg","คำบรรยายก่อน":"อุปกรณ์และตะกร้าวางปนกับตู้เก็บ","รูปหลัง":"5s-ba/b02-after.jpg","คำบรรยายหลัง":"จัดเก็บเข้าตู้และชั้น พื้นที่โล่ง","แสดง":true},{"หัวข้อ":"โต๊ะคอมพิวเตอร์และตู้เอกสาร","วันที่":null,"รูปก่อน":"5s-ba/b03-before.jpg","คำบรรยายก่อน":"แฟ้มเอกสารกองกับพื้น","รูปหลัง":"5s-ba/b03-after.jpg","คำบรรยายหลัง":"จัดแฟ้มเข้าตู้ โต๊ะเป็นระเบียบ","แสดง":true},{"หัวข้อ":"ชั้นเอกสารข้างโต๊ะคอมพิวเตอร์","วันที่":null,"รูปก่อน":"5s-ba/b04-before.jpg","คำบรรยายก่อน":"เครื่องดูดฝุ่นและเก้าอี้วางหน้าตู้เอกสาร","รูปหลัง":"5s-ba/b04-after.jpg","คำบรรยายหลัง":"เคลียร์หน้าตู้ ตั้งโต๊ะคอมพิวเตอร์เป็นระเบียบ","แสดง":true},{"หัวข้อ":"ตู้ลิ้นชักสีและตู้เย็นยา (ODS)","วันที่":"ก่อน 10 มิ.ย. 2569 · หลัง 11 มิ.ย. 2569","รูปก่อน":"5s-ba/b05-before.jpg","คำบรรยายก่อน":"มีของส่วนตัวและอุปกรณ์วางบนตู้","รูปหลัง":"5s-ba/b05-after.jpg","คำบรรยายหลัง":"นำของส่วนตัวออก เหลือเฉพาะของใช้งาน","แสดง":true},{"หัวข้อ":"โต๊ะเจ้าหน้าที่ ODS","วันที่":"ก่อน 10 มิ.ย. 2569 · หลัง 11 มิ.ย. 2569","รูปก่อน":"5s-ba/b06-before.jpg","คำบรรยายก่อน":"โต๊ะและโซฟาวางของส่วนตัวบนโต๊ะ","รูปหลัง":"5s-ba/b06-after.jpg","คำบรรยายหลัง":"จัดโต๊ะ เก็บของเข้าที่ พื้นที่โล่ง","แสดง":true},{"หัวข้อ":"บริเวณเก้าอี้พักคอย","วันที่":"ก่อน 10 มิ.ย. 2569 · หลัง 11 มิ.ย. 2569","รูปก่อน":"5s-ba/b07-before.jpg","คำบรรยายก่อน":"ตู้เก็บของและเครื่องทำความเย็นวางชิดเก้าอี้","รูปหลัง":"5s-ba/b07-after.jpg","คำบรรยายหลัง":"เก็บของออก แถวเก้าอี้และทางเดินโล่ง","แสดง":true},{"หัวข้อ":"ห้องผ่าตัด 2 · รถเครื่องมือ (1)","วันที่":null,"รูปก่อน":"5s-ba/b08-before.jpg","คำบรรยายก่อน":"ถังขยะแดงและรถเครื่องมือวางไม่เป็นที่","รูปหลัง":"5s-ba/b08-after.jpg","คำบรรยายหลัง":"เก็บถังขยะ จัดรถเครื่องมือเรียงตามประเภท","แสดง":true},{"หัวข้อ":"ห้องผ่าตัด 2 · รถเครื่องมือ (2)","วันที่":null,"รูปก่อน":"5s-ba/b09-before.jpg","คำบรรยายก่อน":"ของบนรถเครื่องมือยังไม่จัดหมวดหมู่","รูปหลัง":"5s-ba/b09-after.jpg","คำบรรยายหลัง":"จัดวัสดุเป็นช่อง หยิบใช้ง่าย","แสดง":true},{"หัวข้อ":"ตู้เก็บผ้าห่อเครื่องมือ","วันที่":null,"รูปก่อน":"5s-ba/b10-before.jpg","คำบรรยายก่อน":"ผ้าวางกองบนตู้ กล่องวางกับพื้น","รูปหลัง":"5s-ba/b10-after.jpg","คำบรรยายหลัง":"บนตู้โล่ง ผ้าจัดเก็บในตู้ตามชั้น","แสดง":true},{"หัวข้อ":"ห้องเก็บวัสดุ","วันที่":"24 พ.ย. 2568","รูปก่อน":"5s-ba/b11-before.jpg","คำบรรยายก่อน":"กล่องและอุปกรณ์วางกองชิดผนัง","รูปหลัง":"5s-ba/b11-after.jpg","คำบรรยายหลัง":"ติดตั้งชั้นวาง จัดกล่องเรียงเป็นแถว","แสดง":true},{"หัวข้อ":"ห้องผ่าตัดผนังเขียว · มุมที่ 1","วันที่":"หลัง 30 ต.ค. 2568","รูปก่อน":"5s-ba/b12-before.jpg","คำบรรยายก่อน":"ผ้า ถุงขยะ และรถเครื่องมือวางเกะกะกลางห้อง","รูปหลัง":"5s-ba/b12-after.jpg","คำบรรยายหลัง":"จัดรถเครื่องมือชิดผนัง พื้นที่กลางห้องโล่ง","แสดง":true},{"หัวข้อ":"ห้องผ่าตัดผนังเขียว · มุมที่ 2","วันที่":"หลัง 30 ต.ค. 2568","รูปก่อน":"5s-ba/b13-before.jpg","คำบรรยายก่อน":"สายไฟ ผ้า และถุงขยะวางบนพื้น","รูปหลัง":"5s-ba/b13-after.jpg","คำบรรยายหลัง":"เก็บสายไฟและผ้า พื้นสะอาดพร้อมใช้","แสดง":true},{"หัวข้อ":"ห้องผ่าตัด 2 · มุมหน้าต่าง","วันที่":null,"รูปก่อน":"5s-ba/b14-before.jpg","คำบรรยายก่อน":"เครื่องให้ความอบอุ่นคลุมผ้า เก้าอี้วางกลางห้อง","รูปหลัง":"5s-ba/b14-after.jpg","คำบรรยายหลัง":"เก็บอุปกรณ์ที่ไม่ใช้ เครื่องดมยาเข้าที่","แสดง":true},{"หัวข้อ":"แนวอุปกรณ์ริมผนังหน้าลิฟต์","วันที่":"ก่อน 10 มิ.ย. 2569 · หลัง 11 มิ.ย. 2569","รูปก่อน":"5s-ba/b15-before.jpg","คำบรรยายก่อน":"รถผ้า พัดลม และอุปกรณ์วางปนกัน","รูปหลัง":"5s-ba/b15-after.jpg","คำบรรยายหลัง":"จัดเรียงฉากกันรังสี ถังออกซิเจน และเครื่องให้ความอบอุ่นเป็นแนว","แสดง":true},{"หัวข้อ":"ห้องโต๊ะเจ้าหน้าที่และตู้เอกสาร","วันที่":"ก่อน 10 มิ.ย. 2569 · หลัง 11 มิ.ย. 2569","รูปก่อน":"5s-ba/b16-before.jpg","คำบรรยายก่อน":"โต๊ะ ตู้เอกสาร และเก้าอี้ยังไม่กำหนดตำแหน่ง","รูปหลัง":"5s-ba/b16-after.jpg","คำบรรยายหลัง":"โต๊ะและตู้เอกสารชิดผนัง เก้าอี้เรียงแถว ทางเดินโล่ง","แสดง":true},{"หัวข้อ":"ตู้ลิ้นชักและเครื่องอัลตราซาวด์","วันที่":null,"รูปก่อน":"5s-ba/b17-before.jpg","คำบรรยายก่อน":"รถเข็นและของใช้วางรวมหน้าตู้ลิ้นชัก","รูปหลัง":"5s-ba/b17-after.jpg","คำบรรยายหลัง":"ตู้ลิ้นชักติดป้าย เครื่องอัลตราซาวด์มีที่จอดประจำ","แสดง":true},{"หัวข้อ":"ชั้นวางรองเท้า","วันที่":null,"รูปก่อน":"5s-ba/b18-before.jpg","คำบรรยายก่อน":"รองเท้าวางกระจายบนพื้น","รูปหลัง":"5s-ba/b18-after.jpg","คำบรรยายหลัง":"รองเท้าเก็บขึ้นชั้นวางเป็นคู่","แสดง":true}]};
 
   var CACHE_KEY = 'or-yth-content-v1';
 
@@ -1307,6 +1508,7 @@
 
     renderGuide(T);
     renderFeedback(T, S);
+    renderFives(T);
     renderNews(T);
 
     // ติดต่อ
@@ -1804,7 +2006,7 @@
         orig: 'https://drive.google.com/file/d/' + id + '/view'
       };
     }
-    var u = safeUrl(s);
+    var u = safeUrl(s) || (/^[\w-]+(?:\/[\w-]+)*\.(?:jpe?g|png|webp|gif)$/i.test(s) ? s : ''); // หรือไฟล์รูปในเว็บนี้ เช่น 5s-act/a01-1.jpg
     return u ? { src: function () { return u; }, alt: function () { return ''; }, orig: u } : null;
   }
   function imgTag(p, w, alt, eager) {
@@ -1876,7 +2078,11 @@
 
   /* ---- หน้าอัลบั้ม + ดูรูปขนาดใหญ่ (ลิงก์ #album-รหัส แชร์ต่อได้) ---- */
   var openKey = '', lbAlbum = null, lbIndex = -1, lastFocus = null;
-  function findAlbum(id) { for (var i = 0; i < albums.length; i++) if (albums[i].id === id) return albums[i]; return null; }
+  function findAlbum(id) {
+    var all = albums.concat(fv.albums, fv.baAlbum ? [fv.baAlbum] : []);
+    for (var i = 0; i < all.length; i++) if (all[i].id === id) return all[i];
+    return null;
+  }
   function hashParts() { var m = location.hash.match(/^#album-([a-z0-9]+)(?:\/(\d+))?$/); return m ? { id: m[1], n: m[2] ? +m[2] : 0 } : null; }
 
   function route() {
@@ -1884,7 +2090,7 @@
     if (!h) { hideLightbox(); hideAlbum(); return; }
     var a = findAlbum(h.id);
     if (!a) {
-      if (contentFinal) { history.replaceState(null, '', '#news'); hideLightbox(); hideAlbum(); }
+      if (contentFinal) { history.replaceState(null, '', /^#album-s/.test(location.hash) ? '#fives' : '#news'); hideLightbox(); hideAlbum(); }
       return;
     }
     showAlbum(a);
@@ -1908,7 +2114,8 @@
         return '<a class="av-tile' + (big ? ' big' : '') + '" href="#album-' + a.id + '/' + (i + 1) + '" data-photo="' + i + '" aria-label="ดูรูปที่ ' + (i + 1) + '">' +
           imgTag(p, big ? 1000 : 600, a.title + ' รูปที่ ' + (i + 1), i < 8) + '</a>';
       }).join('') : '<p class="av-empty">กิจกรรมนี้ยังไม่มีรูป</p>';
-      var idx = albums.indexOf(a), newer = albums[idx - 1], older = albums[idx + 1];
+      var list = a.list || albums, idx = list.indexOf(a), newer = list[idx - 1], older = list[idx + 1];
+      if (a.list) { var t = newer; newer = older; older = t; } // อัลบั้ม 5ส. เรียงตามแถวในชีต: ก่อนหน้า = แถวบน
       $('av-nav').innerHTML =
         (older ? '<a class="prev" href="#album-' + older.id + '" data-album-nav="' + older.id + '"><small>← กิจกรรมก่อนหน้า</small><b>' + esc(older.title) + '</b></a>' : '') +
         (newer ? '<a class="next" href="#album-' + newer.id + '" data-album-nav="' + newer.id + '"><small>กิจกรรมถัดไป →</small><b>' + esc(newer.title) + '</b></a>' : '');
@@ -1933,7 +2140,7 @@
     lbAlbum = a; lbIndex = i;
     var p = a.photos[i], stage = $('lb-stage'), img = $('lb-img');
     setText($('lb-count'), (i + 1) + ' / ' + a.photos.length);
-    setText($('lb-title'), a.title);
+    setText($('lb-title'), p.cap || a.title);
     $('lb-orig').href = p.orig;
     $('lb-prev').disabled = i === 0;
     $('lb-next').disabled = i === a.photos.length - 1;
@@ -1947,7 +2154,7 @@
         if (alt && !img.getAttribute('data-tried')) { img.setAttribute('data-tried', '1'); img.src = alt; }
         else stage.classList.remove('loading');
       };
-      img.alt = a.title + ' รูปที่ ' + (i + 1);
+      img.alt = p.cap || (a.title + ' รูปที่ ' + (i + 1));
       img.src = big;
     }
     [i - 1, i + 1].forEach(function (j) { // โหลดรูปข้าง ๆ ไว้ก่อน
@@ -1978,16 +2185,19 @@
   function closePhoto() {
     if (history.state && history.state.lb) { history.back(); return; }
     var h = hashParts();
-    history.replaceState(null, '', h ? '#album-' + h.id : '#news');
+    history.replaceState(null, '', h && h.id !== 'sba' ? '#album-' + h.id : (h ? '#fives' : '#news'));
     route();
   }
   function closeAlbum() {
     if (history.state && history.state.orApp && !history.state.lb) { history.back(); return; }
-    history.replaceState(null, '', '#news');
+    var h = hashParts(), home = h && /^s/.test(h.id) ? 'fives' : 'news';
+    history.replaceState(null, '', '#' + home);
     route();
-    var sec = $('news');
+    var sec = $(home);
     if (sec && !sec.classList.contains('is-hidden')) sec.scrollIntoView();
   }
+  // เปิดรูปขนาดใหญ่ทันที (ไม่ผ่านหน้าอัลบั้ม) ใช้กับภาพก่อน–หลัง 5ส.
+  function openPhotoOf(id, i) { history.pushState({ orApp: 1, lb: 1 }, '', '#album-' + id + '/' + (i + 1)); route(); }
 
   /* ลิงก์แชร์: ถ้ามีหน้าแชร์ของอัลบั้ม (share/<รหัส>.html สร้างโดย GitHub Actions) ใช้หน้านั้น
      Facebook/LINE จะขึ้นชื่อกิจกรรม + รูปปก ถ้ายังไม่มี ใช้ลิงก์อัลบั้มปกติ (ขึ้นโลโก้เว็บ) */
@@ -2224,6 +2434,357 @@
       e.preventDefault();
       f[(i + (e.shiftKey ? f.length - 1 : 1) + f.length) % f.length].focus();
     }
+  });
+
+  /* ==================== 5ส. แผนผัง 2 มิติ ผู้รับผิดชอบ ภาพกิจกรรม ภาพก่อน–หลัง ====================
+     แผนผัง (SVG) สร้างจากข้อมูลผังเดียวกับหน้า 5s-3d.html ตอนสร้างไฟล์
+     ชื่อโซน คำบรรยาย ผู้รับผิดชอบ และรูป มาจากแท็บ 5ส-โซน / 5ส-ผู้รับผิดชอบ / 5ส-กิจกรรม / 5ส-ก่อนหลัง */
+  var PLAN5S = {"W":51.0,"D":26.96,"pad":0.5,"zones":[{"id":"z1","name":"แนวห้องด้านบนซ้าย","hue":200,"box":[0,0,21.12,5.61]},{"id":"z2","name":"โซนห้องผ่าตัด 5","hue":30,"box":[0,5.61,9.67,18.42]},{"id":"z3","name":"โซนห้องพักฟื้น","hue":140,"box":[3.63,5.61,26.37,18.42]},{"id":"z4","name":"โซนโถงกลาง · ลิฟต์","hue":52,"box":[21.12,0,35.88,18.42]},{"id":"z5","name":"โซนจุดรับ · ห้องเตรียม","hue":290,"box":[35.88,3.96,41.89,18.42]},{"id":"z6","name":"แนวห้องด้านบนขวา","hue":95,"box":[35.88,0,51.0,5.36]},{"id":"z7","name":"ห้อง ODS","hue":330,"box":[41.89,5.36,51.0,14.81]},{"id":"z8","name":"โซนห้องประชุม","hue":175,"box":[39.14,14.81,51.0,26.96]},{"id":"z9","name":"โซนห้องผ่าตัด 3–4","hue":245,"box":[0,18.42,19.68,26.96]},{"id":"z10","name":"โซนห้องผ่าตัด 1–2","hue":8,"box":[19.68,18.42,39.14,26.96]}],"rooms":[{"id":"7HX517","code":"7HX517","k":"7HX517","name":"ห้องครัว","z":"z1","t":"room"},{"id":"7HX516","code":"7HX516","k":"7HX516","name":"","z":"z1","t":"room"},{"id":"2CX530","code":"2CX530","k":"2CX530","name":"ห้องน้ำ","z":"z1","t":"room"},{"id":"S-530","code":"","k":"2CX530","name":"ห้องเล็ก 2CX530","z":"z1","t":"room"},{"id":"2CX531","code":"2CX531","k":"2CX531","name":"ห้องน้ำ","z":"z1","t":"room"},{"id":"S-531","code":"","k":"2CX531","name":"ห้องเล็ก 2CX531","z":"z1","t":"room"},{"id":"2KX534","code":"2KX534","k":"2KX534","name":"ทางหนีไฟ","z":"z1","t":"room"},{"id":"2KX535","code":"2KX535","k":"2KX535","name":"","z":"z1","t":"room"},{"id":"7HX518","code":"7HX518","k":"7HX518","name":"ทางเดิน","z":"z1","t":"corridor"},{"id":"7HX515","code":"7HX515","k":"7HX515","name":"ห้องเก็บอุปกรณ์","z":"z2","t":"room"},{"id":"7HX514","code":"7HX514","k":"7HX514","name":"OR5","z":"z2","t":"or"},{"id":"7HX513","code":"7HX513","k":"7HX513","name":"ห้องชะล้าง","z":"z2","t":"room"},{"id":"C-V","code":"","k":"C-V","name":"ทางเดิน","z":"z2","t":"corridor"},{"id":"7HX506","code":"7HX506","k":"7HX506","name":"ห้องเปลี่ยนเสื้อผ้า","z":"z3","t":"room"},{"id":"7HX505","code":"7HX505","k":"7HX505","name":"ห้องเปลี่ยนเสื้อผ้า","z":"z3","t":"room"},{"id":"7HX504","code":"7HX504","k":"7HX504","name":"","z":"z3","t":"room"},{"id":"S-504R","code":"","k":"7HX504","name":"ห้องย่อย 7HX504 (ขวา)","z":"z3","t":"room"},{"id":"S-504L","code":"","k":"7HX504","name":"ห้องย่อย 7HX504 (ซ้าย)","z":"z3","t":"room"},{"id":"7HX503","code":"7HX503","k":"7HX503","name":"ห้องพักฟื้น","z":"z3","t":"recovery"},{"id":"7HX502","code":"7HX502","k":"7HX502","name":"จุดส่งผู้ป่วย","z":"z3","t":"room"},{"id":"7HX507","code":"7HX507","k":"7HX507","name":"ทางเดิน","z":"z3","t":"corridor"},{"id":"7HX501","code":"7HX501","k":"7HX501","name":"บริเวณโถงหน้าลิฟต์","z":"z4","t":"hall"},{"id":"2KX536","code":"2KX536","k":"2KX536","name":"ลิฟต์","z":"z4","t":"lift"},{"id":"7KX538","code":"7KX538","k":"7KX538","name":"","z":"z4","t":"room"},{"id":"2KX537","code":"2KX537","k":"2KX537","name":"ลิฟต์","z":"z4","t":"lift"},{"id":"2KX539","code":"2KX539","k":"2KX539","name":"บันได","z":"z4","t":"stair"},{"id":"C-MID","code":"","k":"C-MID","name":"ทางเดินหน้าลิฟต์","z":"z4","t":"corridor"},{"id":"7HX519","code":"7HX519","k":"7HX519","name":"","z":"z6","t":"room"},{"id":"7HX520","code":"7HX520","k":"7HX520","name":"","z":"z6","t":"room"},{"id":"C-R","code":"","k":"C-R","name":"ทางเดิน","z":"z6","t":"corridor"},{"id":"2CX532","code":"2CX532","k":"2CX532","name":"ห้องน้ำ","z":"z6","t":"room"},{"id":"2CX533","code":"2CX533","k":"2CX533","name":"ห้องน้ำ","z":"z6","t":"room"},{"id":"7HX521","code":"7HX521","k":"7HX521","name":"","z":"z6","t":"corridor"},{"id":"7HX522","code":"7HX522","k":"7HX522","name":"จุดรับผู้ป่วย","z":"z5","t":"room"},{"id":"7HX523","code":"7HX523","k":"7HX523","name":"ห้องเตรียมผ่าตัด","z":"z5","t":"room"},{"id":"7HX524","code":"7HX524","k":"7HX524","name":"ODS","z":"z7","t":"ods"},{"id":"7HX525","code":"7HX525","k":"7HX525","name":"ห้องประชุม","z":"z8","t":"room"},{"id":"C-P","code":"","k":"C-P","name":"ทางเดิน","z":"z8","t":"corridor"},{"id":"N-A","code":"","k":"N-A","name":"พื้นที่ใหม่","z":"z8","t":"new"},{"id":"7HX526","code":"7HX526","k":"7HX526","name":"","z":"z8","t":"room"},{"id":"N-X","code":"","k":"N-X","name":"ห้องที่กั้นใหม่","z":"z8","t":"new"},{"id":"7HX527","code":"7HX527","k":"7HX527","name":"","z":"z8","t":"room"},{"id":"7HX512","code":"7HX512","k":"7HX512","name":"ห้อง Sterile","z":"z9","t":"room"},{"id":"7HX511","code":"7HX511","k":"7HX511","name":"OR4","z":"z9","t":"or"},{"id":"7HX529","code":"7HX529","k":"7HX529","name":"ห้องชะล้าง","z":"z9","t":"room"},{"id":"S-529","code":"","k":"7HX529","name":"ห้องชะล้าง 7HX529 (ด้านหลัง)","z":"z9","t":"room"},{"id":"7HX510","code":"7HX510","k":"7HX510","name":"OR3","z":"z9","t":"or"},{"id":"C-S1","code":"","k":"C-S1","name":"ทางเดินด้านล่าง ฝั่งซ้าย","z":"z9","t":"corridor"},{"id":"7HX509","code":"7HX509","k":"7HX509","name":"OR2","z":"z10","t":"or"},{"id":"7HX528","code":"7HX528","k":"7HX528","name":"ห้องชะล้าง","z":"z10","t":"room"},{"id":"S-528","code":"","k":"7HX528","name":"ห้องชะล้าง 7HX528 (ด้านหลัง)","z":"z10","t":"room"},{"id":"7HX508","code":"7HX508","k":"7HX508","name":"OR1","z":"z10","t":"or"},{"id":"C-S2","code":"","k":"C-S2","name":"ทางเดินด้านล่าง ฝั่งขวา","z":"z10","t":"corridor"}]};
+  var fv = { zones: [], rows: [], albums: [], pairs: [], baAlbum: null, tab: 'plan', sel: -1, baAll: false,
+    vb: null, raf: 0, fitted: false, hlRow: null };
+  var FV_TH_DIGITS = '๐๑๒๓๔๕๖๗๘๙';
+  function fvNum(v) {
+    var s = String(v == null ? '' : v).replace(/[๐-๙]/g, function (d) { return FV_TH_DIGITS.indexOf(d); });
+    var m = s.match(/\d+/);
+    return m ? +m[0] : 0;
+  }
+  function fvNames(s) { return String(s || '').split(/\s*[,،、\n]\s*|\s+และ\s+/).map(function (x) { return x.trim(); }).filter(Boolean); }
+  function fvIsCode(s) { return /^[0-9][A-Z]{2}X?\d{3}$/i.test(String(s || '').trim()); }
+  function fvPlanZone(n) { return PLAN5S.zones[n - 1] || null; }
+
+  // แถวผู้รับผิดชอบ → ห้องในแผนผัง (รหัสห้อง หรือชื่อพื้นที่ในโซนเดียวกันสำหรับแถวที่ไม่มีรหัส)
+  function fvRoomsFor(row, zone) {
+    if (fvIsCode(row.code)) {
+      var c = row.code.toUpperCase();
+      return PLAN5S.rooms.filter(function (r) { return r.k === c; });
+    }
+    if (!zone.pid || !row.name) return [];
+    var best = null;
+    PLAN5S.rooms.forEach(function (r) {
+      if (r.z !== zone.pid || r.code || r.k !== r.id || !r.name) return;
+      var a = looseName(r.name), b = looseName(row.name);
+      if ((b.indexOf(a) >= 0 || a.indexOf(b) >= 0) && (!best || r.name.length > best.name.length)) best = r;
+    });
+    return best ? [best] : [];
+  }
+
+  function fvBuildAlbums(rows) {
+    var seen = {};
+    return visible(rows, 'หัวข้อ').map(function (r) {
+      var title = val(r, 'หัวข้อ'), date = val(r, 'วันที่');
+      var photos = val(r, 'รูปทั้งหมด').split(/[\r\n,]+/).map(photoFrom).filter(Boolean);
+      var cover = photoFrom(val(r, 'ลิงก์รูปปก') || val(r, 'ลิงก์รูป'));
+      if (!photos.length && cover) photos = [cover];
+      var a = { id: 's' + hashId(date + '|' + title), title: title, date: date, desc: val(r, 'รายละเอียด'), photos: photos, cover: cover || photos[0] || null };
+      while (seen[a.id]) a.id += 'b';
+      seen[a.id] = 1;
+      return a;
+    }).filter(function (a) { return a.photos.length || a.desc; });
+  }
+
+  function renderFives(T) {
+    var zrows = visible(T['5ส-โซน'], 'ชื่อโซน'), byNum = {}, zones = [];
+    zrows.forEach(function (r) { var n = fvNum(val(r, 'โซน')); if (n && !byNum[n]) byNum[n] = r; });
+    var prow = (T['5ส-ผู้รับผิดชอบ'] || []).filter(function (r) {
+      return isShown(r['แสดง']) && fvNum(val(r, 'โซน')) && (val(r, 'รหัสห้อง') || val(r, 'ชื่อห้อง / พื้นที่'));
+    });
+    var nums = [];
+    Object.keys(byNum).forEach(function (n) { nums.push(+n); });
+    prow.forEach(function (r) { var n = fvNum(val(r, 'โซน')); if (nums.indexOf(n) < 0) nums.push(n); });
+    nums.sort(function (a, b) { return a - b; });
+    nums.forEach(function (n) {
+      var r = byNum[n], pz = fvPlanZone(n);
+      zones.push({ n: n, pid: pz ? pz.id : '', hue: pz ? pz.hue : 210, box: pz ? pz.box : null,
+        name: r ? val(r, 'ชื่อโซน') : (pz ? pz.name : 'โซน ' + n), desc: r ? val(r, 'คำบรรยาย') : '', rows: [] });
+    });
+    var zByNum = {};
+    zones.forEach(function (z) { zByNum[z.n] = z; });
+    fv.rows = prow.map(function (r) {
+      var z = zByNum[fvNum(val(r, 'โซน'))];
+      var row = { zone: z, code: val(r, 'รหัสห้อง').replace(/^[-–—]+$/, ''), name: val(r, 'ชื่อห้อง / พื้นที่'),
+        main: fvNames(val(r, 'ผู้รับผิดชอบหลัก')), co: fvNames(val(r, 'ผู้รับผิดชอบร่วม')) };
+      row.rooms = fvRoomsFor(row, z).map(function (x) { return x.id; });
+      z.rows.push(row);
+      return row;
+    });
+    fv.zones = zones;
+    if (fv.sel >= zones.length) fv.sel = -1;
+
+    fv.albums = fvBuildAlbums(T['5ส-กิจกรรม']);
+    fv.albums.forEach(function (a) { a.list = fv.albums; });
+    fv.pairs = visible(T['5ส-ก่อนหลัง'], 'หัวข้อ').map(function (r) {
+      return { title: val(r, 'หัวข้อ'), date: val(r, 'วันที่'), before: photoFrom(val(r, 'รูปก่อน')), after: photoFrom(val(r, 'รูปหลัง')),
+        cb: val(r, 'คำบรรยายก่อน'), ca: val(r, 'คำบรรยายหลัง') };
+    }).filter(function (p) { return p.before && p.after; });
+    var baPhotos = [];
+    fv.pairs.forEach(function (p) {
+      baPhotos.push({ src: p.before.src, alt: p.before.alt, orig: p.before.orig, cap: 'ก่อน · ' + p.title + (p.cb ? ' — ' + p.cb : '') });
+      baPhotos.push({ src: p.after.src, alt: p.after.alt, orig: p.after.orig, cap: 'หลัง · ' + p.title + (p.ca ? ' — ' + p.ca : '') });
+    });
+    fv.baAlbum = baPhotos.length ? { id: 'sba', title: 'ภาพก่อน–หลัง 5ส. ห้องผ่าตัด ชั้น 5', date: '', desc: 'ภาพเปรียบเทียบก่อนและหลังทำกิจกรรม 5ส. ' + fv.pairs.length + ' จุด',
+      photos: baPhotos, cover: baPhotos[1] || null } : null;
+    if (fv.baAlbum) fv.baAlbum.list = [fv.baAlbum];
+
+    var has = { plan: zones.length > 0, act: fv.albums.length > 0, ba: fv.pairs.length > 0 };
+    showSection('fives', has.plan || has.act || has.ba);
+    var areas = fv.rows.length;
+    $('fv-facts').innerHTML = [[zones.length, 'โซน'], [areas, 'พื้นที่มีผู้ดูแล'], [fv.albums.length, 'กิจกรรม'], [fv.pairs.length, 'จุดก่อน–หลัง']]
+      .filter(function (x) { return x[0]; }).map(function (x) { return '<li><b>' + nfmt(x[0]) + '</b><small>' + x[1] + '</small></li>'; }).join('');
+    ['plan', 'act', 'ba'].forEach(function (k) { toggle($('fv-t-' + k), has[k]); });
+    setText($('fv-n-act'), String(fv.albums.length));
+    setText($('fv-n-ba'), String(fv.pairs.length));
+    toggle($('fv-tabs'), (has.plan ? 1 : 0) + (has.act ? 1 : 0) + (has.ba ? 1 : 0) > 1);
+    if (!has[fv.tab]) fv.tab = has.plan ? 'plan' : has.act ? 'act' : 'ba';
+
+    $('fv-chips').innerHTML = '<button type="button" class="fv-chip all" data-fv-zone="-1" aria-pressed="false">ทั้งชั้น</button>' +
+      zones.map(function (z, i) {
+        return '<button type="button" class="fv-chip" style="--h:' + z.hue + '" data-fv-zone="' + i + '" aria-pressed="false"><span class="fv-num">' + z.n + '</span>' + esc(z.name) + '</button>';
+      }).join('');
+    $('fv-act').innerHTML = fv.albums.map(cardHtml).join('');
+    fvRenderBA();
+    fvShowTab(fv.tab, false);
+    fvSelect(fv.sel, { instant: true });
+  }
+
+  function fvRenderBA() {
+    var LIMIT = 6, list = fv.baAll ? fv.pairs : fv.pairs.slice(0, LIMIT);
+    function ph(p, i, kind) {
+      var idx = fv.pairs.indexOf(p) * 2 + (kind === 'a' ? 1 : 0);
+      var src = p[kind === 'a' ? 'after' : 'before'].src(800);
+      return '<a class="fv-ba-ph" href="#album-sba/' + (idx + 1) + '" data-ba="' + idx + '" style="--bg:url(&quot;' + esc(src) + '&quot;)" aria-label="' + (kind === 'a' ? 'หลัง' : 'ก่อน') + ' ' + esc(p.title) + ' (ดูรูปใหญ่)">' +
+        '<span class="fv-tag ' + kind + '">' + (kind === 'a' ? 'หลัง' : 'ก่อน') + '</span>' + imgTag(p[kind === 'a' ? 'after' : 'before'], 800, (kind === 'a' ? 'หลัง: ' : 'ก่อน: ') + (kind === 'a' ? p.ca : p.cb)) + '</a>';
+    }
+    $('fv-ba').innerHTML = list.map(function (p, i) {
+      return '<article class="fv-ba"><div class="fv-ba-top"><h4>' + esc(p.title) + '</h4>' + (p.date ? '<span class="fv-ba-date">' + esc(p.date) + '</span>' : '') + '</div>' +
+        '<div class="fv-ba-pair">' + ph(p, i, 'b') + ph(p, i, 'a') + '</div>' +
+        (p.cb || p.ca ? '<div class="fv-ba-cap"><p>' + esc(p.cb) + '</p><p>' + esc(p.ca) + '</p></div>' : '') + '</article>';
+    }).join('');
+    toggle($('fv-ba-more'), fv.pairs.length > list.length);
+    setText($('fv-ba-total'), String(fv.pairs.length));
+  }
+
+  function fvShowTab(k, focus) {
+    fv.tab = k;
+    ['plan', 'act', 'ba'].forEach(function (x) {
+      var b = $('fv-t-' + x), on = x === k;
+      b.classList.toggle('active', on);
+      b.setAttribute('aria-selected', on);
+      b.tabIndex = on ? 0 : -1;
+      $('fv-p-' + x).hidden = !on;
+    });
+    if (focus) $('fv-t-' + k).focus();
+    if (k === 'plan') requestAnimationFrame(function () { fvFit(); fvApplyView(); });
+  }
+
+  /* ---- แผนผัง: เลือกโซน ซูม และป้ายชื่อห้อง ---- */
+  var fvSvg = $('fv-svg');
+  function fvFull() { var p = PLAN5S.pad; return [-p, -p, PLAN5S.W + 2 * p, PLAN5S.D + 2 * p]; }
+  function fvTarget() {
+    var full = fvFull(), z = fv.zones[fv.sel], rect = fvSvg.getBoundingClientRect();
+    var px = rect.width || 1000, ar = rect.width && rect.height ? rect.width / rect.height : full[2] / full[3];
+    var w, h, cx, cy;
+    if (z && z.box) {
+      var m = 1.3, b = z.box;
+      w = Math.max(b[2] - b[0] + 2 * m, (b[3] - b[1] + 2 * m) * ar, Math.min(full[2], px / 21)); // จอกว้างพออ่านป้ายได้ ไม่ต้องซูม
+      cx = (b[0] + b[2]) / 2; cy = (b[1] + b[3]) / 2;
+    } else {
+      w = Math.max(full[2], full[3] * ar);
+      cx = full[0] + full[2] / 2; cy = full[1] + full[3] / 2;
+    }
+    h = w / ar;
+    function place(c, size, lo, len) { return size >= len ? lo - (size - len) / 2 : Math.min(Math.max(c - size / 2, lo), lo + len - size); }
+    return [place(cx, w, full[0], full[2]), place(cy, h, full[1], full[3]), w, h];
+  }
+  function fvSetVB(v) { fv.vb = v; fvSvg.setAttribute('viewBox', v.map(function (n) { return +n.toFixed(3); }).join(' ')); fvLabels(); }
+  function fvLabels() {
+    var px = fvSvg.getBoundingClientRect().width;
+    if (!px || !fv.vb) return;
+    var ppm = px / fv.vb[2];
+    fvSvg.classList.toggle('lo-c', ppm < 13);
+    fvSvg.classList.toggle('lo-n', ppm < 10);
+  }
+  function fvApplyView(instant) {
+    var to = fvTarget(), from = fv.vb || fvFull();
+    cancelAnimationFrame(fv.raf);
+    var reduce = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (instant || reduce || !fvSvg.getBoundingClientRect().width) { fvSetVB(to); return; }
+    var t0 = 0, D = 420;
+    fv.raf = requestAnimationFrame(function step(ts) {
+      if (!t0) t0 = ts;
+      var k = Math.min(1, (ts - t0) / D), e = k < .5 ? 2 * k * k : 1 - Math.pow(-2 * k + 2, 2) / 2;
+      fvSetVB(from.map(function (v, i) { return v + (to[i] - v) * e; }));
+      if (k < 1) fv.raf = requestAnimationFrame(step);
+    });
+  }
+  // ย่อป้ายชื่อที่ยาวเกินห้อง (วัดจากฟอนต์จริงในเครื่องผู้ชม)
+  function fvFit() {
+    if (fv.fitted || !fvSvg.getBoundingClientRect().width) return;
+    var ok = true;
+    fvSvg.querySelectorAll('.fv-l').forEach(function (t) {
+      var w = +t.getAttribute('data-w'), L = 0;
+      t.style.fontSize = '';
+      try { L = t.getComputedTextLength(); } catch (e) { L = 0; }
+      if (!L) { ok = false; return; }
+      if (L > w) t.style.fontSize = (parseFloat(getComputedStyle(t).fontSize) * w / L).toFixed(3) + 'px';
+    });
+    fv.fitted = ok;
+  }
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(function () { fv.fitted = false; fvFit(); });
+  window.addEventListener('resize', function () {
+    clearTimeout(fv.rt);
+    fv.rt = setTimeout(function () {
+      if (fv.tab !== 'plan') return;
+      $('fv-plan').classList.toggle('zoom', !!fv.zones[fv.sel] && fvSvg.getBoundingClientRect().width < 640);
+      fvApplyView(true);
+    }, 150);
+  });
+
+  function fvSelect(i, opt) {
+    opt = opt || {};
+    fv.sel = i;
+    var z = fv.zones[i];
+    fvTip();
+    $('fv-chips').querySelectorAll('.fv-chip').forEach(function (c) { c.setAttribute('aria-pressed', +c.getAttribute('data-fv-zone') === i); });
+    fvSvg.classList.toggle('sel', !!z);
+    $('fv-plan').classList.toggle('zoom', !!z && fvSvg.getBoundingClientRect().width < 640); // มือถือ: ผังสูงขึ้นตอนดูทีละโซน
+    fvSvg.querySelectorAll('.fv-zone, .fv-l, .fv-badge').forEach(function (el) { el.classList.toggle('on', !!z && el.getAttribute('data-z') === z.pid); });
+    fvSvg.querySelectorAll('.fv-room.hl').forEach(function (el) { el.classList.remove('hl'); });
+    setText($('fv-plan-title'), z ? 'โซนที่ ' + z.n + ' · ' + z.name : 'แผนผัง 2 มิติ · ทั้งชั้น');
+    $('fv-all').hidden = !z;
+    fvRenderZone();
+    if (fv.tab === 'plan') fvApplyView(opt.instant);
+    if (opt.chip) { var c = $('fv-chips').querySelector('[data-fv-zone="' + i + '"]'); if (c && c.scrollIntoView) c.scrollIntoView({ block: 'nearest', inline: 'center' }); }
+  }
+
+  function fvPeople(z) {
+    var main = [], co = [], cnt = {};
+    z.rows.forEach(function (r) {
+      r.main.forEach(function (n) { if (main.indexOf(n) < 0) main.push(n); cnt[n] = (cnt[n] || 0) + 1; });
+      r.co.forEach(function (n) { if (co.indexOf(n) < 0 && main.indexOf(n) < 0) co.push(n); });
+    });
+    co = co.filter(function (n) { return main.indexOf(n) < 0; });
+    return { main: main, co: co, cnt: cnt };
+  }
+  function fvRenderZone() {
+    var box = $('fv-zone'), z = fv.zones[fv.sel];
+    if (!z) {
+      box.innerHTML = '<div class="fv-over">' + fv.zones.map(function (z, i) {
+        var p = fvPeople(z);
+        return '<button type="button" class="fv-ozone" style="--h:' + z.hue + '" data-fv-zone="' + i + '"><span class="t"><span class="fv-num">' + z.n + '</span>' + esc(z.name) + '</span>' +
+          '<small>' + (z.rows.length ? z.rows.length + ' พื้นที่' : '') + (p.main.length ? ' · ผู้รับผิดชอบหลัก ' + esc(p.main.join(', ')) : '') + '</small></button>';
+      }).join('') + '</div>';
+      return;
+    }
+    var p = fvPeople(z), lines = String(z.desc || '').split(/\r?\n/).map(function (s) { return s.trim(); }).filter(Boolean);
+    var desc = lines.map(function (l) {
+      var m = l.match(/^(จุดเน้น[^:：]*)[:：]\s*(.*)$/);
+      return m ? '<p class="focus"><b>' + esc(m[1]) + '</b>' + esc(m[2]) + '</p>' : '<p>' + esc(l) + '</p>';
+    }).join('');
+    var ppl = (p.main.length || p.co.length) ? '<div class="fv-ppl"><h4>ผู้รับผิดชอบในโซนนี้</h4><ul>' +
+      p.main.map(function (n) { return '<li class="main">' + esc(n) + ' <small>· ' + p.cnt[n] + ' พื้นที่</small></li>'; }).join('') +
+      p.co.map(function (n) { return '<li>' + esc(n) + ' <small>· ผู้รับผิดชอบร่วม</small></li>'; }).join('') + '</ul></div>' : '';
+    var rows = z.rows.map(function (r, i) {
+      return '<tr data-fv-row="' + i + '"><td><span class="fv-code">' + (r.code ? esc(r.code) : '<span class="fv-mut">–</span>') + '</span></td>' +
+        '<td>' + (r.name ? esc(r.name) : '<span class="fv-mut">' + (r.code ? 'ห้อง ' + esc(r.code) : '–') + '</span>') + '</td>' +
+        '<td class="fv-main" data-l="หลัก:">' + esc(r.main.join(', ') || '–') + '</td>' +
+        '<td data-l="ร่วม:">' + (r.co.length ? esc(r.co.join(', ')) : '<span class="fv-mut">–</span>') + '</td></tr>';
+    }).join('');
+    box.innerHTML = '<div class="fv-card fv-zd" style="--h:' + z.hue + '">' +
+      '<div class="fv-zd-head"><span class="fv-num">' + z.n + '</span><div><small>โซนที่ ' + z.n + ' จาก ' + fv.zones.length + '</small><h3>' + esc(z.name) + '</h3></div>' +
+      '<div class="fv-zd-nav"><button type="button" data-fv-step="-1" aria-label="โซนก่อนหน้า"' + (fv.sel ? '' : ' disabled') + '>‹</button>' +
+      '<button type="button" data-fv-step="1" aria-label="โซนถัดไป"' + (fv.sel < fv.zones.length - 1 ? '' : ' disabled') + '>›</button></div></div>' +
+      '<div class="fv-zd-grid"><div class="fv-desc">' + (desc || '<p class="fv-mut">ยังไม่มีคำบรรยายโซนนี้</p>') + ppl + '</div>' +
+      (rows ? '<table class="fv-table"><thead><tr><th>รหัสห้อง</th><th>ห้อง / พื้นที่</th><th>ผู้รับผิดชอบหลัก</th><th>ผู้รับผิดชอบร่วม</th></tr></thead><tbody>' + rows + '</tbody></table>' : '') +
+      '</div></div>';
+  }
+
+  function fvHighlight(ids, on) {
+    fvSvg.querySelectorAll('.fv-room.hl').forEach(function (el) { el.classList.remove('hl'); });
+    if (on) (ids || []).forEach(function (id) { var el = fvSvg.querySelector('.fv-room[data-id="' + id + '"]'); if (el) el.classList.add('hl'); });
+  }
+  function fvRowOfRoom(id) {
+    for (var i = 0; i < fv.rows.length; i++) if (fv.rows[i].rooms.indexOf(id) >= 0) return fv.rows[i];
+    return null;
+  }
+  function fvTip(html, x, y) {
+    var tip = $('fv-tip');
+    if (!html) { tip.hidden = true; return; }
+    tip.innerHTML = html;
+    tip.hidden = false;
+    var box = $('fv-plan').getBoundingClientRect(), w = tip.offsetWidth, h = tip.offsetHeight;
+    var left = Math.min(Math.max(x - w / 2, 8), box.width - w - 8), top = y - h - 14;
+    if (top < 8) top = Math.min(y + 16, box.height - h - 8);
+    tip.style.left = left + 'px';
+    tip.style.top = Math.max(8, top) + 'px';
+  }
+  function fvRoomInfo(id) {
+    var room = null;
+    PLAN5S.rooms.forEach(function (r) { if (r.id === id) room = r; });
+    if (!room) return '';
+    var row = fvRowOfRoom(id);
+    var title = row ? ((row.code ? row.code + ' · ' : '') + (row.name || (row.code ? '' : room.name))) : ((room.code ? room.code + ' · ' : '') + room.name);
+    title = String(title).replace(/\s·\s$/, '');
+    if (!row) return '<b>' + esc(title) + '</b><span>' + (room.t === 'lift' || room.t === 'stair' ? 'ลิฟต์และบันไดไม่รวมในบัญชีผู้รับผิดชอบ' : 'ยังไม่ระบุผู้รับผิดชอบ') + '</span>';
+    return '<b>' + esc(title) + '</b><span class="m">หลัก: ' + esc(row.main.join(', ') || '–') + '</span>' +
+      (row.co.length ? '<span>ร่วม: ' + esc(row.co.join(', ')) + '</span>' : '');
+  }
+
+  $('fives').addEventListener('click', function (e) {
+    var t = e.target;
+    var tab = t.closest('[data-fv-tab]');
+    if (tab) { fvShowTab(tab.getAttribute('data-fv-tab')); return; }
+    var link = t.closest('[data-album]');
+    if (link) { e.preventDefault(); openAlbum(link.getAttribute('data-album')); return; }
+    var ba = t.closest('[data-ba]');
+    if (ba) { e.preventDefault(); if (fv.baAlbum) openPhotoOf('sba', +ba.getAttribute('data-ba')); return; }
+    if (t.closest('#fv-ba-more')) { fv.baAll = true; fvRenderBA(); return; }
+    var zb = t.closest('[data-fv-zone]');
+    if (zb) { fvSelect(+zb.getAttribute('data-fv-zone'), { chip: true }); return; }
+    if (t.closest('#fv-all')) { fvSelect(-1, { chip: true }); return; }
+    var st = t.closest('[data-fv-step]');
+    if (st) { var j = fv.sel + +st.getAttribute('data-fv-step'); if (fv.zones[j]) fvSelect(j, { chip: true }); return; }
+    var tr = t.closest('[data-fv-row]');
+    if (tr && fv.zones[fv.sel]) {
+      var row = fv.zones[fv.sel].rows[+tr.getAttribute('data-fv-row')];
+      fvHighlight(row.rooms, true);
+      $('fv-zone').querySelectorAll('tr.hl').forEach(function (x) { x.classList.remove('hl'); });
+      tr.classList.add('hl');
+      return;
+    }
+    var badge = t.closest('.fv-badge'), room = t.closest('.fv-room');
+    if (badge || room) {
+      var pid = badge ? badge.getAttribute('data-z') : room.parentNode.getAttribute('data-z'), zi = -1;
+      fv.zones.forEach(function (z, i) { if (z.pid === pid) zi = i; });
+      if (zi < 0) return;
+      if (zi !== fv.sel) fvSelect(zi, { chip: true });
+      if (room) {
+        var id = room.getAttribute('data-id'), row = fvRowOfRoom(id);
+        fvHighlight(row ? row.rooms : [id], true);
+        $('fv-zone').querySelectorAll('tr.hl').forEach(function (x) { x.classList.remove('hl'); });
+        if (row) { var k = fv.zones[zi].rows.indexOf(row), r2 = $('fv-zone').querySelector('[data-fv-row="' + k + '"]'); if (r2) r2.classList.add('hl'); }
+        var pb = $('fv-plan').getBoundingClientRect();
+        fvTip(fvRoomInfo(id), e.clientX - pb.left, e.clientY - pb.top);
+      }
+      return;
+    }
+    if (t.closest('#fv-plan')) fvTip();
+  });
+  $('fv-tabs').addEventListener('keydown', function (e) {
+    if (e.key !== 'ArrowRight' && e.key !== 'ArrowLeft') return;
+    var tabs = [].slice.call(this.querySelectorAll('[data-fv-tab]')).filter(function (b) { return !b.classList.contains('is-hidden'); });
+    var i = tabs.indexOf(document.activeElement);
+    if (i < 0) return;
+    e.preventDefault();
+    var n = tabs[(i + (e.key === 'ArrowRight' ? 1 : tabs.length - 1)) % tabs.length];
+    fvShowTab(n.getAttribute('data-fv-tab'), true);
+  });
+  $('fv-zone').addEventListener('mouseover', function (e) {
+    var tr = e.target.closest('[data-fv-row]'), z = fv.zones[fv.sel];
+    if (tr && z) fvHighlight(z.rows[+tr.getAttribute('data-fv-row')].rooms, true);
+  });
+  $('fv-zone').addEventListener('mouseleave', function () {
+    var hl = $('fv-zone').querySelector('tr.hl'), z = fv.zones[fv.sel];
+    fvHighlight(hl && z ? z.rows[+hl.getAttribute('data-fv-row')].rooms : [], !!hl);
   });
 
   /* ==================== โหลดเนื้อหาจาก Google Sheet ==================== */
