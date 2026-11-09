@@ -1,0 +1,51 @@
+# สร้างหน้าแชร์อัลบั้มกิจกรรม (ให้ Facebook / LINE ขึ้นชื่อกิจกรรม + รูปปก)
+# ทำงานเองทุก 30 นาที หรือกดเองได้ที่แท็บ Actions → หน้าแชร์อัลบั้ม → Run workflow
+name: หน้าแชร์อัลบั้ม
+
+on:
+  schedule:
+    - cron: '*/30 * * * *'
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'tools/make-share-pages.mjs'
+      - '.github/workflows/share-pages.yml'
+
+permissions:
+  contents: write
+  pages: write
+
+concurrency:
+  group: share-pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: สร้างหน้าแชร์จากแท็บ ข่าวสาร
+        run: node tools/make-share-pages.mjs
+
+      - name: บันทึกเข้า repo (เฉพาะเมื่อมีอะไรเปลี่ยน)
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          if [ -z "$(git status --porcelain share)" ]; then
+            echo "ไม่มีอะไรเปลี่ยน"
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add share
+          git commit -m "อัปเดตหน้าแชร์อัลบั้ม"
+          git push
+          # สั่งให้ GitHub Pages อัปเดตเว็บ (บางครั้ง push จากระบบอัตโนมัติไม่สั่งให้เอง)
+          gh api --method POST "repos/${{ github.repository }}/pages/builds" >/dev/null || echo "ขอ build Pages ไม่สำเร็จ (ไม่เป็นไร Pages อาจ build เองแล้ว)"
