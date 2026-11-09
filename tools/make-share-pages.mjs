@@ -11,7 +11,7 @@ const SHEET_ID = '1BOz9uPOJTnbdfs0JJFXx5noSZBoh3pV5bBQ75nmyhow';
 const TAB = 'ข่าวสาร';
 const TAB_5S = '5ส-กิจกรรม';
 const OUT = 'share';
-const ORG = 'กลุ่มงานห้องผ่าตัด โรงพยาบาลยางตลาด';
+const ORG = 'งานห้องผ่าตัด โรงพยาบาลยางตลาด';
 const repo = process.env.GITHUB_REPOSITORY || 'OR-YTH/OR-Yangtalad';
 const [owner, name] = repo.split('/');
 const SITE = process.env.SITE_URL || `https://${owner.toLowerCase()}.github.io/${name}/`;
@@ -136,7 +136,7 @@ function albumPage(a) {
   return page({
     title: a.title + ' | ' + ORG,
     desc: descParts.join(' · ') || ORG,
-    image: a.cover || SITE + 'logo.png',
+    image: a.cover || SITE + 'og-cover.jpg',
     imageAlt: a.title,
     url,
     target: '../#album-' + a.id
@@ -149,7 +149,7 @@ function retiredPage(id) {
   return page({
     title: (fives ? 'กิจกรรม 5ส.' : 'กิจกรรม') + ' | ' + ORG,
     desc: (fives ? 'กิจกรรม 5ส. ห้องผ่าตัด ชั้น 5 ของ' : 'ข่าวสารและภาพกิจกรรมของ') + ORG,
-    image: SITE + 'logo.png',
+    image: SITE + 'og-cover.jpg',
     imageAlt: ORG,
     url: SITE + OUT + '/' + id + '.html',
     target: fives ? '../#fives' : '../#news'
@@ -185,7 +185,7 @@ for (const f of await readdir(OUT)) {
   if (await writeIfChanged(`${OUT}/${f}`, retiredPage(f.replace(/\.html$/, '')))) changed++;
 }
 await writeIfChanged(`${OUT}/index.html`, page({
-  title: 'กิจกรรม | ' + ORG, desc: 'ข่าวสารและภาพกิจกรรมของ' + ORG, image: SITE + 'logo.png',
+  title: 'กิจกรรม | ' + ORG, desc: 'ข่าวสารและภาพกิจกรรมของ' + ORG, image: SITE + 'og-cover.jpg',
   imageAlt: ORG, url: SITE + OUT + '/', target: '../#news'
 }));
 console.log(`อัลบั้มบนเว็บ ${albums.filter(a => !a.keep).length} อัลบั้ม · ไฟล์ที่เปลี่ยน ${changed} ไฟล์`);
