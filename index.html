@@ -311,7 +311,8 @@
   .team-group h3{display:flex; align-items:center; gap:12px; font-size:1.12rem; color:var(--navy); margin-bottom:22px;}
   .team-group h3::after{content:""; flex:1; height:1px; background:var(--line);}
   .team-group h3 small{font-family:'Noto Sans Thai'; font-weight:600; font-size:.76rem; color:var(--navy); background:var(--blue-pale); padding:2px 10px; border-radius:999px;}
-  .team-lead{display:flex; justify-content:center; gap:26px; flex-wrap:wrap;}
+  /* กลุ่มผู้บริหาร/หัวหน้า: เรียงบนลงล่างตามลำดับแถวในชีต (คนแรกอยู่บนสุด) มีเส้นเชื่อมระหว่างการ์ดแบบผังองค์กร */
+  .team-lead{display:flex; flex-direction:column; align-items:center; gap:34px; background:linear-gradient(rgba(10,61,98,.22),rgba(10,61,98,.22)) center / 2px 100% no-repeat;}
   .team-lead + .team-group-title{margin-top:0;}
   .lead-card{position:relative; width:280px; max-width:100%; text-align:center; background:#fff; border:1px solid var(--line); border-radius:24px; padding:30px 22px 24px; box-shadow:0 18px 40px rgba(10,61,98,.09); overflow:hidden;}
   .lead-card::before{content:""; position:absolute; left:0; right:0; top:0; height:6px; background:linear-gradient(90deg,var(--yellow),#FFE380);}
