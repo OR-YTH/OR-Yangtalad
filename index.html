@@ -488,6 +488,16 @@
   .mv-close:focus-visible, .mv-bar a:focus-visible{outline:2px solid var(--yellow); outline-offset:2px;}
   .mv-stage{position:relative; background:#000;}
   .mv-stage.video{aspect-ratio:16/9; max-height:calc(100vh - 120px);}
+  /* วิดีโอแนวตั้ง (TikTok/Shorts): ให้กรอบสูงเต็มจอแทน 16:9 ภาพจึงไม่เล็ก */
+  .mv-box.tall{width:min(600px,100%);}
+  .mv-stage.video.tall{aspect-ratio:auto; height:calc(100vh - 120px); height:calc(100dvh - 120px); max-height:1000px;}
+  .mv-full{flex-shrink:0; display:flex; align-items:center; justify-content:center; width:42px; height:42px; border:none; border-radius:50%; background:none; color:#fff; cursor:pointer;}
+  .mv-full[hidden]{display:none;}
+  .mv-full svg{width:20px; height:20px; fill:none; stroke:currentColor; stroke-width:2; stroke-linecap:round; stroke-linejoin:round;}
+  .mv-full:hover{background:rgba(255,255,255,.12);}
+  .mv-full:focus-visible{outline:2px solid var(--yellow); outline-offset:2px;}
+  .mv-box:fullscreen{width:100%; height:100%; max-height:none; border-radius:0;}
+  .mv-box:fullscreen .mv-stage.video, .mv-box:fullscreen .mv-stage.doc{flex:1; min-height:0; aspect-ratio:auto; height:auto; max-height:none;}
   .mv-stage.doc{height:min(80vh,900px); background:#F1F3F4;}
   .mv-stage iframe{position:absolute; inset:0; width:100%; height:100%; border:0;}
   .mv-stage.image{display:flex; align-items:center; justify-content:center;}
@@ -979,11 +989,6 @@
     .lb-prev, .lb-next{top:auto; bottom:20px; transform:none;}
     .lb-prev{left:calc(50% - 62px);} .lb-next{right:calc(50% - 62px);}
     .lb-top{padding:10px 10px 10px 16px; gap:10px;}
-    .media-view{padding:0;}
-    .mv-box{width:100%; height:100%; max-height:none; border-radius:0;}
-    .mv-stage.doc{flex:1; height:auto;}
-    .mv-stage.video, .mv-stage.image{margin:auto 0;}
-    .mv-stage.image img{max-height:calc(100vh - 70px);}
     .dz-media-grid{grid-template-columns:1fr 1fr; gap:10px;}
     .svc-top{padding:18px 14px 16px;}
     .stp-list{gap:14px;}
@@ -1004,6 +1009,16 @@
     .tval{font-size:.62rem;}
     .tcol{border-radius:5px;}
     .trend-foot{padding-left:6px;}
+  }
+  /* หน้าต่างดูสื่อบนมือถือ (ทั้งแนวตั้งและแนวนอน): เต็มจอ และวิดีโอใช้พื้นที่ทั้งหมดใต้แถบหัว */
+  @media (max-width:640px), (max-height:540px){
+    .media-view{padding:0;}
+    .mv-box, .mv-box.tall{width:100%; height:100%; max-height:none; border-radius:0;}
+    .mv-bar{padding:6px 4px 6px 14px; gap:6px;}
+    .mv-stage.doc{flex:1; height:auto;}
+    .mv-stage.video, .mv-stage.video.tall{flex:1; min-height:0; aspect-ratio:auto; height:auto; max-height:none; margin:0;}
+    .mv-stage.image{margin:auto 0;}
+    .mv-stage.image img{max-height:calc(100vh - 70px); max-height:calc(100dvh - 70px);}
   }
   @media (prefers-reduced-motion: reduce){
     html{scroll-behavior:auto;}
@@ -1419,7 +1434,7 @@
 
 <div class="media-view" id="media-view" role="dialog" aria-modal="true" aria-labelledby="mv-title" hidden>
   <div class="mv-box">
-    <div class="mv-bar"><b id="mv-title"></b><a id="mv-open" href="#" target="_blank" rel="noopener noreferrer">เปิดในแท็บใหม่ ↗</a><button type="button" class="mv-close" id="mv-close" aria-label="ปิด">×</button></div>
+    <div class="mv-bar"><b id="mv-title"></b><a id="mv-open" href="#" target="_blank" rel="noopener noreferrer">เปิดในแท็บใหม่ ↗</a><button type="button" class="mv-full" id="mv-full" aria-label="ขยายเต็มจอ" title="ขยายเต็มจอ" hidden><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg></button><button type="button" class="mv-close" id="mv-close" aria-label="ปิด">×</button></div>
     <div class="mv-stage" id="mv-stage"></div>
   </div>
 </div>
@@ -1787,6 +1802,7 @@
       var it = { url: url, label: label }, x;
       if ((x = url.match(/^https:\/\/(?:www\.|m\.)?(?:youtube\.com\/(?:watch\?(?:[^#]*&)?v=|shorts\/|embed\/|live\/)|youtu\.be\/)([\w-]{11})/i))) {
         it.type = 'youtube'; it.id = x[1];
+        if (/\/shorts\//i.test(url)) it.tall = true; // Shorts เป็นวิดีโอแนวตั้ง
         it.thumb = 'https://i.ytimg.com/vi/' + x[1] + '/hqdefault.jpg';
         it.src = 'https://www.youtube-nocookie.com/embed/' + x[1] + '?autoplay=1&rel=0';
         it.url = 'https://www.youtube.com/watch?v=' + x[1];
@@ -1820,13 +1836,60 @@
       : '<a class="mi" href="' + esc(it.url) + '" target="_blank" rel="noopener noreferrer">' + body + '</a>';
   }
 
-  var mvReturn = null;
+  var mvReturn = null, mvSeq = 0;
+  // ปุ่มขยายเต็มจอ: ใช้ได้บนคอม/แท็บเล็ต/Android  (iPhone ไม่รองรับ จึงซ่อนปุ่ม แต่หน้าต่างบนมือถือเต็มจออยู่แล้ว)
+  var FS_OK = !!(document.fullscreenEnabled || document.webkitFullscreenEnabled);
+  function fsElement() { return document.fullscreenElement || document.webkitFullscreenElement || null; }
+  function fsExit() {
+    try {
+      if (document.exitFullscreen) { var p = document.exitFullscreen(); if (p && p.catch) p.catch(function () {}); }
+      else if (document.webkitExitFullscreen) document.webkitExitFullscreen();
+    } catch (e) { /* ไม่เป็นไร */ }
+  }
+  function fsToggle() {
+    if (fsElement()) { fsExit(); return; }
+    var box = $('media-view').querySelector('.mv-box');
+    try {
+      if (box.requestFullscreen) { var p = box.requestFullscreen(); if (p && p.catch) p.catch(function () {}); }
+      else if (box.webkitRequestFullscreen) box.webkitRequestFullscreen();
+    } catch (e) { /* ไม่เป็นไร */ }
+  }
+  function fsSync() {
+    var on = !!fsElement(), b = $('mv-full');
+    b.setAttribute('aria-label', on ? 'ออกจากเต็มจอ' : 'ขยายเต็มจอ');
+    b.title = b.getAttribute('aria-label');
+    b.innerHTML = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="' + (on ? 'M9 4v5H4M15 4v5h5M9 20v-5H4M15 20v-5h5' : 'M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5') + '"/></svg>';
+  }
+  document.addEventListener('fullscreenchange', fsSync);
+  document.addEventListener('webkitfullscreenchange', fsSync);
+  // วิดีโอแนวตั้งหรือไม่: Shorts รู้จากลิงก์, ไฟล์ Drive ดูจากสัดส่วนภาพปก
+  function setTall(on) {
+    var stage = $('mv-stage');
+    stage.classList.toggle('tall', on);
+    stage.parentNode.classList.toggle('tall', on);
+  }
+  function checkTall(it, seq) {
+    if (it.box !== 'video' || it.tall != null || !it.thumb || it.type !== 'drive') return;
+    var im = new Image();
+    im.referrerPolicy = 'no-referrer';
+    im.onload = function () {
+      if (!im.naturalWidth) return;
+      it.tall = im.naturalHeight > im.naturalWidth * 1.1;
+      if (seq === mvSeq && it.tall) setTall(true);
+    };
+    im.onerror = function () { if (it.alt && im.src !== it.alt) im.src = it.alt; };
+    im.src = it.thumb;
+  }
   function openMedia(it) {
-    var view = $('media-view'), stage = $('mv-stage');
+    var view = $('media-view'), stage = $('mv-stage'), seq = ++mvSeq;
     mvReturn = document.activeElement;
     setText($('mv-title'), it.label);
     $('mv-open').href = it.url;
     stage.className = 'mv-stage ' + it.box;
+    setTall(it.box === 'video' && !!it.tall);
+    checkTall(it, seq);
+    $('mv-full').hidden = !FS_OK;
+    fsSync();
     if (it.box === 'image') {
       stage.innerHTML = '<img src="' + esc(it.thumb) + '" alt="' + esc(it.label) + '" referrerpolicy="no-referrer">';
     } else {
@@ -1840,8 +1903,11 @@
   function hideMedia() {
     var view = $('media-view');
     if (view.hidden) return;
+    mvSeq++;
+    if (fsElement()) fsExit();
     view.hidden = true;
     $('mv-stage').innerHTML = ''; // หยุดวิดีโอ
+    setTall(false);
     if ($('album-view').hidden && $('lightbox').hidden) document.documentElement.classList.remove('modal-open');
     var back = mvReturn;
     mvReturn = null;
@@ -1856,13 +1922,14 @@
     else hideMedia();
   }
   $('mv-close').addEventListener('click', closeMedia);
+  $('mv-full').addEventListener('click', fsToggle);
   $('media-view').addEventListener('click', function (e) { if (e.target === this) closeMedia(); });
   window.addEventListener('popstate', hideMedia);
   document.addEventListener('keydown', function (e) {
     if ($('media-view').hidden) return;
-    if (e.key === 'Escape') { e.preventDefault(); closeMedia(); return; }
+    if (e.key === 'Escape') { if (fsElement()) return; e.preventDefault(); closeMedia(); return; } // Esc ขณะเต็มจอ = ออกจากเต็มจอเท่านั้น
     if (e.key === 'Tab') { // วนโฟกัสอยู่ในหน้าต่าง
-      var f = [$('mv-open'), $('mv-close')], i = f.indexOf(document.activeElement);
+      var f = [$('mv-open'), $('mv-full'), $('mv-close')].filter(function (x) { return !x.hidden; }), i = f.indexOf(document.activeElement);
       e.preventDefault();
       f[(i + (e.shiftKey ? f.length - 1 : 1)) % f.length].focus();
     }
