@@ -459,6 +459,19 @@
   .dz-media-badge{display:inline-flex; align-items:center; gap:6px; margin-top:10px; font-size:.72rem; font-weight:600; color:var(--navy); background:#FFF3C4; border-radius:999px; padding:3px 10px 3px 8px;}
   .dz-media-badge svg{width:10px; height:10px; fill:currentColor;}
 
+  /* ผู้จัดทำผลงาน (คอลัมน์ "ผู้จัดทำ" ในแท็บ รายโรค / วิดีโอแนะนำ / คำถาม) */
+  .by{display:flex; flex-wrap:wrap; align-items:center; gap:6px 12px; font-size:.76rem; line-height:1.3; color:var(--ink-soft);}
+  .by-lbl{font-weight:600; color:var(--blue);}
+  .by-p{display:inline-flex; align-items:center; gap:6px; font-weight:600; color:var(--navy-deep);}
+  .by-av{position:relative; flex-shrink:0; width:24px; height:24px; border-radius:50%; overflow:hidden; display:inline-flex; align-items:center; justify-content:center; background:linear-gradient(150deg,var(--navy),var(--blue-bright)); color:#fff; font-family:'Kanit'; font-size:.68rem; font-weight:600; box-shadow:0 0 0 2px #fff, 0 0 0 3px var(--blue-pale);}
+  .by-av img{position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:center 22%;}
+  .by-av img.broken{display:none;}
+  .disease-card .by{margin-top:12px; padding-top:10px; border-top:1px dashed var(--line);}
+  .disease-detail .by{margin-top:18px; padding-top:14px; border-top:1px dashed #C9DCEB; font-size:.86rem;}
+  .disease-detail .by-av{width:34px; height:34px; font-size:.86rem;}
+  .vd-body .by{margin-top:4px;}
+  .faq-a .by{margin-top:12px;}
+
   /* สื่อความรู้ (วิดีโอ / PDF / รูป) ในกล่องรายละเอียดรายโรค */
   .dz-media{margin-top:20px; padding-top:18px; border-top:1px dashed #C4D9EA;}
   .dz-media h5{font-family:'Kanit'; font-weight:600; font-size:.95rem; color:var(--navy-deep); margin-bottom:12px;}
@@ -1650,6 +1663,7 @@
       it.desc = val(r, 'คำอธิบายสั้น');
       it.cat = val(r, 'หมวด');
       it.dur = val(r, 'ความยาว');
+      it.by = val(r, 'ผู้จัดทำ');
       it.vi = out.length;
       out.push(it);
     });
@@ -1663,13 +1677,14 @@
       '<span class="vd-thumb">' + img + '<span class="mi-play" aria-hidden="true">' + PLAY_SVG + '</span>' +
       (it.dur ? '<span class="vd-dur">' + esc(it.dur) + '</span>' : '') + '</span>' +
       '<span class="vd-body">' + cat + '<span class="vd-title">' + esc(it.label) + '</span>' +
-      (it.desc ? '<span class="vd-desc">' + esc(it.desc) + '</span>' : '') + '</span></button>';
+      (it.desc ? '<span class="vd-desc">' + esc(it.desc) + '</span>' : '') + byHtml(it.by) + '</span></button>';
   }
   function vdInline(list) {
     return list.length ? '<div class="vd-inline"><h4>' + PLAY_SVG + 'วิดีโอแนะนำ</h4><div class="vd-row">' + list.map(function (v) { return vdCard(v, true); }).join('') + '</div></div>' : '';
   }
 
   function renderGuide(T) {
+    indexStaff(T['ทีมงาน']);
     var faq = visible(T['คำถาม'], 'คำถาม');
     diseases = visible(T['รายโรค'], 'ชื่อเรื่อง');
     guideVideos = videoList(T['วิดีโอแนะนำ']);
@@ -1702,7 +1717,7 @@
       return '<div class="ptab-panel' + ('faq:' + c === state.faqTab ? ' active' : '') + '" role="tabpanel" data-panel="' + esc('faq:' + c) + '">' + vdInline(videosFor(c)) + '<div class="faq">' +
         byCat[c].map(function (r, i) {
           return '<div class="faq-item' + (i === 0 ? ' open' : '') + '"><button class="faq-q" type="button" aria-expanded="' + (i === 0) + '"><span>' + esc(val(r, 'คำถาม')) +
-            '</span><span class="plus" aria-hidden="true">+</span></button><div class="faq-a"><div><p>' + txt(val(r, 'คำตอบ')) + '</p></div></div></div>';
+            '</span><span class="plus" aria-hidden="true">+</span></button><div class="faq-a"><div><p>' + txt(val(r, 'คำตอบ')) + '</p>' + byHtml(val(r, 'ผู้จัดทำ')) + '</div></div></div>';
         }).join('') + '</div></div>';
     }).join('');
 
@@ -1722,7 +1737,7 @@
           var dept = val(d, 'แผนก'), nMedia = parseMedia(val(d, 'สื่อความรู้')).length + videosFor(val(d, 'ชื่อเรื่อง')).length;
           return '<button class="disease-card" type="button" data-i="' + i + '" aria-expanded="false">' + (dept ? '<span class="dept">' + esc(dept) + '</span>' : '') +
             '<span class="dz-title">' + esc(val(d, 'ชื่อเรื่อง')) + '</span><span class="dz-short">' + esc(val(d, 'คำอธิบายสั้น')) + '</span>' +
-            (nMedia ? '<span class="dz-media-badge"><svg viewBox="0 0 10 10" aria-hidden="true"><path d="M1 0l9 5-9 5z"/></svg>สื่อความรู้ ' + nMedia + ' รายการ</span>' : '') + '</button>';
+            (nMedia ? '<span class="dz-media-badge"><svg viewBox="0 0 10 10" aria-hidden="true"><path d="M1 0l9 5-9 5z"/></svg>สื่อความรู้ ' + nMedia + ' รายการ</span>' : '') + byHtml(val(d, 'ผู้จัดทำ')) + '</button>';
         }).join('') + '</div><p class="dz-empty is-hidden" id="dz-empty">ไม่พบคำแนะนำที่ค้นหา ลองพิมพ์คำอื่น หรือสอบถามเจ้าหน้าที่ห้องผ่าตัด</p></div>';
     }
     $('ptab-panels').innerHTML = html;
@@ -1736,7 +1751,7 @@
     var q = state.dzQuery.trim().toLowerCase(), n = 0;
     grid.querySelectorAll('.disease-card').forEach(function (card) {
       var d = diseases[+card.getAttribute('data-i')];
-      var hay = [val(d, 'ชื่อเรื่อง'), val(d, 'คำอธิบายสั้น'), val(d, 'แผนก'), val(d, 'ข้อปฏิบัติ')].join(' ').toLowerCase();
+      var hay = [val(d, 'ชื่อเรื่อง'), val(d, 'คำอธิบายสั้น'), val(d, 'แผนก'), val(d, 'ข้อปฏิบัติ'), val(d, 'ผู้จัดทำ')].join(' ').toLowerCase();
       var ok = (!q || hay.indexOf(q) >= 0) && (!state.dzDept || val(d, 'แผนก') === state.dzDept);
       card.classList.toggle('is-hidden', !ok);
       if (ok) n++;
@@ -1764,7 +1779,8 @@
     var media = videosFor(val(d, 'ชื่อเรื่อง')).concat(parseMedia(val(d, 'สื่อความรู้')));
     box.innerHTML = '<button class="close" type="button" aria-label="ปิด">×</button><h4>' + esc(val(d, 'ชื่อเรื่อง')) + '</h4>' +
       (points.length ? '<ul>' + points.map(function (p) { return '<li>' + esc(p) + '</li>'; }).join('') + '</ul>' : '<p>' + esc(val(d, 'คำอธิบายสั้น')) + '</p>') +
-      (media.length ? '<div class="dz-media"><h5>สื่อความรู้</h5><div class="dz-media-grid">' + media.map(mediaCard).join('') + '</div></div>' : '');
+      (media.length ? '<div class="dz-media"><h5>สื่อความรู้</h5><div class="dz-media-grid">' + media.map(mediaCard).join('') + '</div></div>' : '') +
+      byHtml(val(d, 'ผู้จัดทำ'));
     box.mediaList = media;
     // วางกล่องรายละเอียดต่อจากการ์ดใบสุดท้ายของแถวเดียวกัน
     var cards = [].filter.call(grid.querySelectorAll('.disease-card'), function (c) { return !c.classList.contains('is-hidden'); });
@@ -1967,6 +1983,42 @@
       return '<div class="team-group"><h3>' + esc(g) + (list.length > 1 ? ' <small>' + list.length + ' คน</small>' : '') + '</h3>' +
         (lead ? '<div class="team-lead">' + cards + '</div>' : '<div class="person-grid">' + cards + '</div>') + '</div>';
     }).join('');
+  }
+
+  /* ---- ผู้จัดทำผลงาน: คอลัมน์ "ผู้จัดทำ" (ไม่บังคับ) ในแท็บ รายโรค / วิดีโอแนะนำ / คำถาม
+     ใส่ได้หลายคน คั่นด้วย , หรือขึ้นบรรทัดใหม่ เช่น  พว.พัชรินทร์ เลิศวีรพล, พว.สุวิสาส์ ทองดอนง้าว
+     ชื่อแสดงตามที่พิมพ์ในชีต ถ้าตรงกับชื่อในแท็บทีมงาน (จะพิมพ์คำนำหน้าหรือไม่ก็ได้ หรือพิมพ์แค่ชื่อต้นถ้าไม่ซ้ำใคร)
+     จะมีรูปเล็กของคนนั้นขึ้นข้างชื่อ ---- */
+  var staffIdx = { full: {}, first: {} };
+  function bareName(name) {
+    var s = String(name || '').replace(/\s+/g, ' ').trim(), prev;
+    do { prev = s; s = s.replace(NAME_PREFIX, ''); } while (s !== prev);
+    return s;
+  }
+  function indexStaff(rows) {
+    staffIdx = { full: {}, first: {} };
+    visible(rows, 'ชื่อหรือตำแหน่ง').forEach(function (r) {
+      var b = bareName(val(r, 'ชื่อหรือตำแหน่ง')), k = b.replace(/ /g, ''), f = b.split(' ')[0];
+      if (!k) return;
+      if (!staffIdx.full[k]) staffIdx.full[k] = r;
+      staffIdx.first[f] = staffIdx.first[f] && staffIdx.first[f] !== r ? 'dup' : r;
+    });
+  }
+  function findStaff(name) {
+    var b = bareName(name), k = b.replace(/ /g, '');
+    if (!k) return null;
+    if (staffIdx.full[k]) return staffIdx.full[k];
+    var f = staffIdx.first[b.split(' ')[0]];
+    return b.indexOf(' ') < 0 && f && f !== 'dup' ? f : null;
+  }
+  function byHtml(text) {
+    var names = String(text || '').split(/\s*[,;\/\n\r]+\s*/).map(function (n) { return n.trim(); }).filter(Boolean);
+    if (!names.length) return '';
+    return '<span class="by"><span class="by-lbl">ผู้จัดทำ</span>' + names.map(function (n) {
+      var r = findStaff(n), p = r ? photoFrom(val(r, 'ลิงก์รูป')) : null, role = r ? val(r, 'หน้าที่') : '';
+      return '<span class="by-p"' + (role ? ' title="' + esc(role) + '"' : '') + '><span class="by-av" aria-hidden="true">' + esc(initialOf(n)) +
+        (p ? imgTag(p, 120, '') : '') + '</span>' + esc(n) + '</span>';
+    }).join('') + '</span>';
   }
 
   // ตัวเลขเด่นบนหน้าแรก (+ ความพึงพอใจจริงจากแบบประเมิน เมื่อมีผู้ประเมินครบ)
