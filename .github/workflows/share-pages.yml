@@ -1,6 +1,8 @@
-# สร้างหน้าแชร์อัลบั้มกิจกรรม (ให้ Facebook / LINE ขึ้นชื่อกิจกรรม + รูปปก)
-# ทำงานเองทุก 30 นาที หรือกดเองได้ที่แท็บ Actions → หน้าแชร์อัลบั้ม → Run workflow
-name: หน้าแชร์อัลบั้ม
+# สร้างหน้าแชร์สำหรับ Facebook / LINE
+#   - อัลบั้มกิจกรรม (ขึ้นชื่อกิจกรรม + รูปปก)
+#   - คำแนะนำรายโรค และวิดีโอแนะนำ (ขึ้นรูปกรอบงานห้องผ่าตัด)
+# ทำงานเองทุก 30 นาที หรือกดเองได้ที่แท็บ Actions → หน้าแชร์ → Run workflow
+name: หน้าแชร์
 
 on:
   schedule:
@@ -23,7 +25,7 @@ concurrency:
 jobs:
   build:
     runs-on: ubuntu-latest
-    timeout-minutes: 5
+    timeout-minutes: 10
     steps:
       - uses: actions/checkout@v4
 
@@ -31,7 +33,12 @@ jobs:
         with:
           node-version: 20
 
-      - name: สร้างหน้าแชร์จากแท็บ ข่าวสาร
+      # ตัววาดรูปกรอบ + ฟอนต์ Kanit (ถ้าติดตั้งไม่ได้ หน้าแชร์ยังสร้างได้ แต่ไม่มีรูปกรอบ)
+      - name: ติดตั้งตัวสร้างรูปแชร์
+        continue-on-error: true
+        run: npm install --no-save --no-package-lock --no-audit --no-fund @napi-rs/canvas@1 @expo-google-fonts/kanit@0
+
+      - name: สร้างหน้าแชร์จากชีตเนื้อหา
         run: node tools/make-share-pages.mjs
 
       - name: บันทึกเข้า repo (เฉพาะเมื่อมีอะไรเปลี่ยน)
@@ -45,7 +52,7 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add share
-          git commit -m "อัปเดตหน้าแชร์อัลบั้ม"
+          git commit -m "อัปเดตหน้าแชร์"
           git push
           # สั่งให้ GitHub Pages อัปเดตเว็บ (บางครั้ง push จากระบบอัตโนมัติไม่สั่งให้เอง)
           gh api --method POST "repos/${{ github.repository }}/pages/builds" >/dev/null || echo "ขอ build Pages ไม่สำเร็จ (ไม่เป็นไร Pages อาจ build เองแล้ว)"
